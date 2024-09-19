@@ -68,6 +68,12 @@ body {
 .content {
   height: 100vh;
 }
+
+/* ABOUT US */
+
+#about h4 {
+  color: var(--primary-color);
+}
 /* FOOTER */
 
 .footer {
