@@ -8,6 +8,11 @@
   top: 0;
   left: 0;
   z-index: 9999;
+  transition: padding 0.3s ease;
+}
+
+.navbar.scroll {
+  padding: 20px;
 }
 
 .navbar .logo {
