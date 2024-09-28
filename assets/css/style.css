@@ -73,6 +73,10 @@ body {
 
 /* ABOUT US */
 
+#about {
+  padding-top: 100px;
+}
+
 #about .container {
   display: flex;
   flex-wrap: wrap;
@@ -86,7 +90,6 @@ body {
 }
 
 #about h4 {
-  margin-bottom: 20px;
   font-weight: 300;
   font-size: 28px;
   color: var(--primary-color);
@@ -112,6 +115,22 @@ body {
 #about .container .visi-misi div p,
 #about .container .visi-misi div ul li {
   font-weight: 200;
+}
+
+/* Legality */
+#legality .legality * {
+  color: var(--primary-color);
+}
+#legality .legality h3 {
+  background-color: var(--primary-color);
+  display: inline-block;
+  color: var(--secondary-color);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+#legality .legality p {
+  font-weight: 200;
+  margin-bottom: 20px;
 }
 
 /* FOOTER */
@@ -217,3 +236,5 @@ body {
   color: var(--text-color);
   font-weight: 100;
 }
+
+/* LEGALITY */
