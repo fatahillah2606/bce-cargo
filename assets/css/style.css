@@ -67,15 +67,18 @@ body {
   margin-top: 20px;
 }
 .content {
-  height: 100vh;
+  min-height: 100vh;
   border-radius: 20px;
+  padding-top: 100px;
+}
+.content h4 {
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
 }
 
 /* ABOUT US */
-
-#about {
-  padding-top: 100px;
-}
 
 #about .container {
   display: flex;
@@ -87,12 +90,6 @@ body {
 #about .container > div {
   width: 95%;
   max-width: 600px;
-}
-
-#about h4 {
-  font-weight: 300;
-  font-size: 28px;
-  color: var(--primary-color);
 }
 
 #about .container .tentang p {
@@ -132,13 +129,40 @@ body {
   font-weight: 200;
   margin-bottom: 20px;
 }
+#legality .legalitas-all {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+}
 
+/* LOCATION */
+#location .lokasi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+#location .lokasi .map iframe {
+  border-radius: 20px;
+}
+#location .lokasi .map h2 {
+  color: var(--primary-color);
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+#location .lokasi .map p {
+  color: var(--primary-color);
+  font-weight: 200;
+}
 /* FOOTER */
 
 .footer {
   background-color: var(--card-background-color);
   border-radius: 20px;
   padding: 20px;
+  margin-top: 70px;
 }
 .footer h6 {
   color: var(--primary-color);
@@ -236,5 +260,3 @@ body {
   color: var(--text-color);
   font-weight: 100;
 }
-
-/* LEGALITY */
