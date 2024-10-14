@@ -40,11 +40,12 @@ body {
 }
 .header {
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background: url(../images/background.jpg);
   background-size: cover;
   position: relative;
   border-radius: 20px;
+  margin-bottom: 30px;
 }
 
 .header .heading {
@@ -66,7 +67,94 @@ body {
   margin-top: 20px;
 }
 .content {
-  height: 100vh;
+  min-height: 100vh;
+  border-radius: 20px;
+  padding-top: 100px;
+}
+.content h4 {
+  font-weight: 300;
+  font-size: 28px;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+/* ABOUT US */
+
+#about .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
+  justify-content: space-around;
+  gap: 20px;
+}
+#about .container > div {
+  width: 95%;
+  max-width: 600px;
+}
+
+#about .container .tentang p {
+  margin-bottom: 10px;
+  font-weight: 200;
+  color: var(--primary-color);
+}
+
+#about .container .visi-misi * {
+  color: var(--primary-color);
+}
+
+#about .container .visi-misi div h3 {
+  background-color: var(--primary-color);
+  display: inline-block;
+  color: var(--secondary-color);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+#about .container .visi-misi div p,
+#about .container .visi-misi div ul li {
+  font-weight: 200;
+}
+
+/* Legality */
+#legality .legality * {
+  color: var(--primary-color);
+}
+#legality .legality h3 {
+  background-color: var(--primary-color);
+  display: inline-block;
+  color: var(--secondary-color);
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+#legality .legality p {
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+#legality .legalitas-all {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* LOCATION */
+#location .lokasi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+#location .lokasi .map iframe {
+  border-radius: 20px;
+}
+#location .lokasi .map h2 {
+  color: var(--primary-color);
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+#location .lokasi .map p {
+  color: var(--primary-color);
+  font-weight: 200;
 }
 /* FOOTER */
 
@@ -74,6 +162,7 @@ body {
   background-color: var(--card-background-color);
   border-radius: 20px;
   padding: 20px;
+  margin-top: 70px;
 }
 .footer h6 {
   color: var(--primary-color);
