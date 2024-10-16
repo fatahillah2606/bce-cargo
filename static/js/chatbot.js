@@ -29,6 +29,18 @@ const processCompanyInfo = (text) => {
     // console.log("Processing line:", line); // Log setiap baris untuk memeriksa formatnya
     if (line.startsWith("CV. BAHTERA CAHAYA EXPRESS")) {
       info.overview = line.replace("CV. BAHTERA CAHAYA EXPRESS", "").trim();
+    } else if (line.startsWith("Halo :")) {
+      info.halo = line.replace("Halo :", "").trim();
+    } else if (line.startsWith("Hi :")) {
+      info.hi = line.replace("Hi :", "").trim();
+    } else if (line.startsWith("Pagi :")) {
+      info.pagi = line.replace("Pagi :", "").trim();
+    } else if (line.startsWith("Siang :")) {
+      info.siang = line.replace("Siang :", "").trim();
+    } else if (line.startsWith("Sore :")) {
+      info.sore = line.replace("Sore :", "").trim();
+    } else if (line.startsWith("Malam :")) {
+      info.malam = line.replace("Malam :", "").trim();
     } else if (line.startsWith("Head Office :")) {
       info.headOffice = line.replace("Head Office :", "").trim();
     } else if (line.startsWith("Field Office :")) {
@@ -126,7 +138,25 @@ const generateResponse = async (incomingChatLi) => {
   if (userMessage.toLowerCase().includes("overview")) {
     messageElement.textContent =
       companyInfo.overview || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("head office")) {
+  } else if (userMessage.toLowerCase().includes("halo")) {
+    messageElement.textContent =
+      companyInfo.halo || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("hi")) {
+    messageElement.textContent =
+      companyInfo.hi || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("pagi") || userMessage.toLowerCase().includes("selamat pagi")) {
+    messageElement.textContent =
+      companyInfo.pagi || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("siang") || userMessage.toLowerCase().includes("selamat siang")) {
+    messageElement.textContent =
+      companyInfo.siang || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("sore") || userMessage.toLowerCase().includes("selamat sore")) {
+    messageElement.textContent =
+      companyInfo.sore || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("malam") || userMessage.toLowerCase().includes("selamat malam") ) {
+    messageElement.textContent =
+      companyInfo.malam || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("head office") || userMessage.toLowerCase().includes("kantor pusat")) {
     messageElement.textContent =
       companyInfo.headOffice || "Maaf, aku tidak punya informasi tentang itu.";
   } else if (userMessage.toLowerCase().includes("field office") || userMessage.toLowerCase().includes("lapangan")) {
