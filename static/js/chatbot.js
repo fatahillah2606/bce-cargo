@@ -61,7 +61,6 @@ const processCompanyInfo = (text) => {
       info.services = line.replace("LAYANAN :", "").trim();
     }
   });
-
   // console.log("Processed info:", info); // Log info yang sudah diproses
   return info;
 };
@@ -70,8 +69,7 @@ const processCompanyInfo = (text) => {
 fetchCompanyInfo();
 
 let userMessage;
-// const API_KEY = "AIzaSyAs5OqFmU5rH0MsXOwmlEv61MS5bfX1XS8";
-// const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+
 const inputInitHeight = chatInput.scrollHeight;
 
 const createChatLi = (message, className) => {
@@ -86,40 +84,6 @@ const createChatLi = (message, className) => {
   chatLi.querySelector("p").textContent = message;
   return chatLi;
 };
-
-// const generateApiResponse = async (incomingChatLi) => {
-//   const messageElement = incomingChatLi.querySelector("p");
-  
-//   // Siapkan payload untuk dikirim ke API
-//   const requestBody = {
-//     prompt: {
-//       text: userMessage
-//     }
-//   };
-
-//   try {
-//     const response = await fetch(API_URL, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(requestBody),
-//     });
-
-//     const data = await response.json();
-    
-//     if (data && data.candidates && data.candidates.length > 0) {
-//       messageElement.textContent = data.candidates[0].output || "Maaf, aku tidak paham.";
-//     } else {
-//       messageElement.textContent = "Maaf, tidak ada respons dari API.";
-//     }
-//   } catch (error) {
-//     console.error("Error fetching from Gemini API:", error);
-//     messageElement.textContent = "Maaf, terjadi kesalahan saat menghubungi API.";
-//   }
-
-//   chatbox.scrollTo(0, chatbox.scrollHeight);
-// };
 
 const generateResponse = async (incomingChatLi) => {
   const messageElement = incomingChatLi.querySelector("p");
@@ -184,9 +148,6 @@ const generateResponse = async (incomingChatLi) => {
     messageElement.textContent =
       companyInfo.services || "Maaf, aku tidak punya informasi tentang itu.";
   } else {
-    // Jika tidak ada informasi yang cocok di info.txt, gunakan API Gemini
-    // await generateApiResponse(incomingChatLi);
-    // return;
   }
 
   // Scroll chatbox ke bawah setelah menampilkan pesan
