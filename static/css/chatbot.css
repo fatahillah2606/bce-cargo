@@ -1,5 +1,12 @@
 /* Import Google Font - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  text-decoration: none;
+}
 .chatbot-toggler {
   position: fixed;
   right: 25px;
@@ -122,6 +129,7 @@
   width: 100%;
   border: none;
   outline: none;
+  background: none;
   max-height: 180px;
   font-size: 0.95rem;
   resize: none;

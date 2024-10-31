@@ -79,7 +79,7 @@ const createChatLi = (message, className) => {
   let chatContent =
     className === "outgoing"
       ? `<p></p>`
-      : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+      : `<span class="material-symbols-rounded">smart_toy</span><p></p>`;
   chatLi.innerHTML = chatContent;
   chatLi.querySelector("p").textContent = message;
   return chatLi;
@@ -108,22 +108,40 @@ const generateResponse = async (incomingChatLi) => {
   } else if (userMessage.toLowerCase().includes("hi")) {
     messageElement.textContent =
       companyInfo.hi || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("pagi") || userMessage.toLowerCase().includes("selamat pagi")) {
+  } else if (
+    userMessage.toLowerCase().includes("pagi") ||
+    userMessage.toLowerCase().includes("selamat pagi")
+  ) {
     messageElement.textContent =
       companyInfo.pagi || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("siang") || userMessage.toLowerCase().includes("selamat siang")) {
+  } else if (
+    userMessage.toLowerCase().includes("siang") ||
+    userMessage.toLowerCase().includes("selamat siang")
+  ) {
     messageElement.textContent =
       companyInfo.siang || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("sore") || userMessage.toLowerCase().includes("selamat sore")) {
+  } else if (
+    userMessage.toLowerCase().includes("sore") ||
+    userMessage.toLowerCase().includes("selamat sore")
+  ) {
     messageElement.textContent =
       companyInfo.sore || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("malam") || userMessage.toLowerCase().includes("selamat malam") ) {
+  } else if (
+    userMessage.toLowerCase().includes("malam") ||
+    userMessage.toLowerCase().includes("selamat malam")
+  ) {
     messageElement.textContent =
       companyInfo.malam || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("head office") || userMessage.toLowerCase().includes("kantor pusat")) {
+  } else if (
+    userMessage.toLowerCase().includes("head office") ||
+    userMessage.toLowerCase().includes("kantor pusat")
+  ) {
     messageElement.textContent =
       companyInfo.headOffice || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("field office") || userMessage.toLowerCase().includes("lapangan")) {
+  } else if (
+    userMessage.toLowerCase().includes("field office") ||
+    userMessage.toLowerCase().includes("lapangan")
+  ) {
     messageElement.textContent =
       companyInfo.fieldOffice || "Maaf, aku tidak punya informasi tentang itu.";
   } else if (userMessage.toLowerCase().includes("contact")) {
@@ -166,7 +184,10 @@ const handleChat = async () => {
 
   setTimeout(async () => {
     // Menampilkan delay bot untuk merespon pengguna
-    const incomingChatLi = createChatLi("Maaf saya tidak mengerti :)", "incoming");
+    const incomingChatLi = createChatLi(
+      "Maaf saya tidak mengerti :)",
+      "incoming"
+    );
     chatbox.scrollTo(0, chatbox.scrollHeight);
     chatbox.appendChild(incomingChatLi); // Menambahkan elemen <li> ke chatbox
     await generateResponse(incomingChatLi);

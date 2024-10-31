@@ -260,3 +260,29 @@ body {
   color: var(--text-color);
   font-weight: 100;
 }
+
+/* Chatbot */
+.chatbot-toggler,
+.chatbot .chat span,
+.chatbot .chat p {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+.chatbot {
+  background-color: var(--background-color);
+}
+.chatbot header {
+  background-color: var(--card-background-color);
+}
+.chatbox .incoming p {
+  background-color: var(--card-background-color);
+  color: var(--text-color);
+}
+.chatbot .chat-input {
+  background-color: var(--background-color);
+  border-color: var(--border-color);
+}
+.chatbot .chat-input textarea,
+.chatbot .chat-input span {
+  color: var(--text-color);
+}
