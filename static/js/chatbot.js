@@ -26,9 +26,21 @@ const processCompanyInfo = (text) => {
   const info = {};
 
   lines.forEach((line) => {
-    console.log("Processing line:", line); // Log setiap baris untuk memeriksa formatnya
+    // console.log("Processing line:", line); // Log setiap baris untuk memeriksa formatnya
     if (line.startsWith("CV. BAHTERA CAHAYA EXPRESS")) {
       info.overview = line.replace("CV. BAHTERA CAHAYA EXPRESS", "").trim();
+    } else if (line.startsWith("Halo :")) {
+      info.halo = line.replace("Halo :", "").trim();
+    } else if (line.startsWith("Hi :")) {
+      info.hi = line.replace("Hi :", "").trim();
+    } else if (line.startsWith("Pagi :")) {
+      info.pagi = line.replace("Pagi :", "").trim();
+    } else if (line.startsWith("Siang :")) {
+      info.siang = line.replace("Siang :", "").trim();
+    } else if (line.startsWith("Sore :")) {
+      info.sore = line.replace("Sore :", "").trim();
+    } else if (line.startsWith("Malam :")) {
+      info.malam = line.replace("Malam :", "").trim();
     } else if (line.startsWith("Head Office :")) {
       info.headOffice = line.replace("Head Office :", "").trim();
     } else if (line.startsWith("Field Office :")) {
@@ -49,8 +61,7 @@ const processCompanyInfo = (text) => {
       info.services = line.replace("LAYANAN :", "").trim();
     }
   });
-
-  console.log("Processed info:", info); // Log info yang sudah diproses
+  // console.log("Processed info:", info); // Log info yang sudah diproses
   return info;
 };
 
@@ -58,8 +69,7 @@ const processCompanyInfo = (text) => {
 fetchCompanyInfo();
 
 let userMessage;
-const API_KEY = "AIzaSyAs5OqFmU5rH0MsXOwmlEv61MS5bfX1XS8";
-const API_URL = `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`;
+
 const inputInitHeight = chatInput.scrollHeight;
 
 const createChatLi = (message, className) => {
@@ -69,44 +79,10 @@ const createChatLi = (message, className) => {
   let chatContent =
     className === "outgoing"
       ? `<p></p>`
-      : `<span class="material-symbols-outlined">smart_toy</span><p></p>`;
+      : `<span class="material-symbols-rounded">smart_toy</span><p></p>`;
   chatLi.innerHTML = chatContent;
   chatLi.querySelector("p").textContent = message;
   return chatLi;
-};
-
-const generateApiResponse = async (incomingChatLi) => {
-  const messageElement = incomingChatLi.querySelector("p");
-  
-  // Siapkan payload untuk dikirim ke API
-  const requestBody = {
-    prompt: {
-      text: userMessage
-    }
-  };
-
-  try {
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    });
-
-    const data = await response.json();
-    
-    if (data && data.candidates && data.candidates.length > 0) {
-      messageElement.textContent = data.candidates[0].output || "Maaf, aku tidak paham.";
-    } else {
-      messageElement.textContent = "Maaf, tidak ada respons dari API.";
-    }
-  } catch (error) {
-    console.error("Error fetching from Gemini API:", error);
-    messageElement.textContent = "Maaf, terjadi kesalahan saat menghubungi API.";
-  }
-
-  chatbox.scrollTo(0, chatbox.scrollHeight);
 };
 
 const generateResponse = async (incomingChatLi) => {
@@ -126,10 +102,46 @@ const generateResponse = async (incomingChatLi) => {
   if (userMessage.toLowerCase().includes("overview")) {
     messageElement.textContent =
       companyInfo.overview || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("head office")) {
+  } else if (userMessage.toLowerCase().includes("halo")) {
+    messageElement.textContent =
+      companyInfo.halo || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("hi")) {
+    messageElement.textContent =
+      companyInfo.hi || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (
+    userMessage.toLowerCase().includes("pagi") ||
+    userMessage.toLowerCase().includes("selamat pagi")
+  ) {
+    messageElement.textContent =
+      companyInfo.pagi || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (
+    userMessage.toLowerCase().includes("siang") ||
+    userMessage.toLowerCase().includes("selamat siang")
+  ) {
+    messageElement.textContent =
+      companyInfo.siang || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (
+    userMessage.toLowerCase().includes("sore") ||
+    userMessage.toLowerCase().includes("selamat sore")
+  ) {
+    messageElement.textContent =
+      companyInfo.sore || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (
+    userMessage.toLowerCase().includes("malam") ||
+    userMessage.toLowerCase().includes("selamat malam")
+  ) {
+    messageElement.textContent =
+      companyInfo.malam || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (
+    userMessage.toLowerCase().includes("head office") ||
+    userMessage.toLowerCase().includes("kantor pusat")
+  ) {
     messageElement.textContent =
       companyInfo.headOffice || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("field office") || userMessage.toLowerCase().includes("lapangan")) {
+  } else if (
+    userMessage.toLowerCase().includes("field office") ||
+    userMessage.toLowerCase().includes("lapangan")
+  ) {
     messageElement.textContent =
       companyInfo.fieldOffice || "Maaf, aku tidak punya informasi tentang itu.";
   } else if (userMessage.toLowerCase().includes("contact")) {
@@ -154,9 +166,6 @@ const generateResponse = async (incomingChatLi) => {
     messageElement.textContent =
       companyInfo.services || "Maaf, aku tidak punya informasi tentang itu.";
   } else {
-    // Jika tidak ada informasi yang cocok di info.txt, gunakan API Gemini
-    await generateApiResponse(incomingChatLi);
-    return;
   }
 
   // Scroll chatbox ke bawah setelah menampilkan pesan
@@ -175,11 +184,14 @@ const handleChat = async () => {
 
   setTimeout(async () => {
     // Menampilkan delay bot untuk merespon pengguna
-    const incomingChatLi = createChatLi("Berpikir keras...", "incoming");
+    const incomingChatLi = createChatLi(
+      "Maaf saya tidak mengerti :)",
+      "incoming"
+    );
     chatbox.scrollTo(0, chatbox.scrollHeight);
     chatbox.appendChild(incomingChatLi); // Menambahkan elemen <li> ke chatbox
     await generateResponse(incomingChatLi);
-  }, 1000);
+  }, 10);
 };
 
 chatInput.addEventListener("input", () => {

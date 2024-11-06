@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bahtera Cahaya Express</title>
     <link rel="stylesheet" href="/static/css/navbar.css" />
+    <link rel="stylesheet" href="/static/css/chatbot.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
     <link
       rel="stylesheet"
@@ -15,7 +16,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
   </head>
-  <body>
+  <body data-theme="light">
     <!-- NAVBAR START -->
     <div class="navbar">
       <div class="logo">
@@ -249,6 +250,28 @@
         <p>&copy;BCE 2024. All Rights Reserved</p>
       </div>
     </div>
+    <!-- CHATBOT -->
+    <button class="chatbot-toggler">
+      <span class="material-symbols-rounded">mode_comment</span>
+      <span class="material-symbols-rounded">close</span>
+    </button>
+    <div class="chatbot">
+      <header>
+        <h2>BOT TEST</h2>
+        <span class="close-btn material-symbols-rounded">close</span>
+      </header>
+      <ul class="chatbox">
+        <li class="chat incoming">
+          <span class="material-symbols-rounded">smart_toy</span>
+          <p>Halo, selamat datang!<br />Ada yang bisa saya bantu?</p>
+        </li>
+      </ul>
+      <div class="chat-input">
+        <textarea placeholder="Ketik pesan..." required></textarea>
+        <span id="send-btn" class="material-symbols-rounded">send</span>
+      </div>
+    </div>
     <script src="/static/js/script.js"></script>
+    <script src="/static/js/chatbot.js"></script>
   </body>
 </html>
