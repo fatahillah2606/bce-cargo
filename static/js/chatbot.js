@@ -4,7 +4,7 @@ const chatbox = document.querySelector(".chatbox");
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const chatbotCloseBtn = document.querySelector(".close-btn");
 
-const FILE_URL = "http://127.0.0.1:5000/botinfo"; // URL file info.txt
+const FILE_URL = "https://fatahillah2606.github.io/bce-cargo/app/botinfo.txt"; // URL file info.txt
 
 let companyInfo = {}; // Untuk menyimpan informasi perusahaan
 
