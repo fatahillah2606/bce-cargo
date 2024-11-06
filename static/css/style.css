@@ -7,7 +7,7 @@
   font-family: "Inter", sans-serif;
   text-decoration: none;
 }
-:root {
+:root [data-theme="dark"] {
   /* Warna Dasar */
   --primary-color: #ffffff; /* Putih */
   --secondary-color: #000000; /* Hitam */
@@ -28,6 +28,28 @@
   /* Warna Interaksi */
   --link-color: #ffffff; /* Warna link */
   --link-hover-color: #cccccc; /* Warna hover untuk link */
+}
+:root [data-theme="light"] {
+  /* Warna Dasar */
+  --primary-color: #6ab04c; /* Hijau sebagai warna utama */
+  --secondary-color: #ffffff; /* Putih sebagai warna sekunder */
+
+  /* Latar Belakang */
+  --background-color: #f9f9f9; /* Putih pudar untuk latar belakang */
+  --card-background-color: #ffffff; /* Warna latar belakang elemen seperti card */
+
+  /* Warna Teks */
+  --text-color: #333333; /* Warna teks utama yang gelap */
+  --muted-text-color: #666666; /* Warna teks yang lebih redup */
+
+  /* Warna Batasan dan Elemen */
+  --border-color: #dddddd; /* Warna batas untuk elemen */
+  --button-background-color: #6ab04c; /* Warna latar belakang tombol utama */
+  --button-hover-color: #57a041; /* Warna hover untuk tombol */
+
+  /* Warna Interaksi */
+  --link-color: #6ab04c; /* Warna link */
+  --link-hover-color: #57a041; /* Warna hover untuk link */
 }
 
 html,
