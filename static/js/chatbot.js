@@ -144,7 +144,10 @@ const generateResponse = async (incomingChatLi) => {
   ) {
     messageElement.textContent =
       companyInfo.fieldOffice || "Maaf, aku tidak punya informasi tentang itu.";
-  } else if (userMessage.toLowerCase().includes("contact")) {
+  } else if (
+    userMessage.toLowerCase().includes("contact") ||
+    userMessage.toLowerCase().includes("kontak")
+  ) {
     messageElement.textContent =
       companyInfo.contact || "Maaf, aku tidak punya informasi tentang itu.";
   } else if (userMessage.toLowerCase().includes("email")) {
