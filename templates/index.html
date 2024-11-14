@@ -1,9 +1,19 @@
-<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bahtera Cahaya Express</title>
+    <!-- CAROUSEL -->
+    <link
+      rel="stylesheet"
+      href="/static/OwlCarousel2-2.3.4/assets/owl.carousel.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="/static/OwlCarousel2-2.3.4/assets/owl.theme.default.min.css"
+    />
+
+    <!-- styles -->
     <link rel="stylesheet" href="/static/css/navbar.css" />
     <link rel="stylesheet" href="/static/css/chatbot.css" />
     <link rel="stylesheet" href="/static/css/style.css" />
@@ -16,7 +26,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     />
   </head>
-  <body data-theme="light">
+  <body data-theme="dark">
     <!-- NAVBAR START -->
     <div class="navbar">
       <div class="logo">
@@ -158,7 +168,48 @@
 
     <!-- CLIENT -->
     <section class="content" id="clients">
-      <h4>Clients</h4>
+      <div class="pelanggan">
+        <h4>Clients</h4>
+        <div class="owl-carousel owl-theme owl-drag slide-client">
+          <div><img src="/static/images/client_bce/slank.jpg" alt="" /></div>
+          <div>
+            <img src="/static/images/client_bce/indomarco.jpg" alt="" />
+          </div>
+          <div><img src="/static/images/client_bce/onecare.jpg" alt="" /></div>
+          <div><img src="/static/images/client_bce/pbd.jpg" alt="" /></div>
+          <div><img src="/static/images/client_bce/access.svg" alt="" /></div>
+          <div>
+            <img src="/static/images/client_bce/binakarir.jpg" alt="" />
+          </div>
+          <div><img src="/static/images/client_bce/ganex.jpg" alt="" /></div>
+        </div>
+      </div>
+      <div class="pelanggan">
+        <h4>Keunggulan</h4>
+        <div class="list">
+          <span class="material-symbols-rounded">check_circle</span>
+          <div class="isikeunggulan">
+            <h5>Layanan Door To Door</h5>
+            <p>
+              Kami memberikan layanan Door to Door Service yang efisien untuk
+              distribusi cargo atau kontainer. Dari bandara atau pelabuhan ke
+              gudang, atau dari gudang ke gudang dengan penanganan profesional.
+            </p>
+          </div>
+        </div>
+        <div class="list">
+          <span class="material-symbols-rounded">check_circle</span>
+          <div class="isikeunggulan">
+            <h5>Layanan Terintegrasi</h5>
+            <p>
+              Semua fasilitas yang kami tawarkan memiliki kemampuan dari
+              konsolidasi atau dekonsolidasi, pergudangan,serta penanganan
+              khusus, layanan berikut, pengepakan dan crating dengan nilai
+              barang bernilai tinggi.
+            </p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- GALLERY -->
@@ -271,6 +322,15 @@
         <span id="send-btn" class="material-symbols-rounded">send</span>
       </div>
     </div>
+    <!-- Owl Carousel -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="/static/OwlCarousel2-2.3.4/owl.carousel.min.js"></script>
+
     <script src="/static/js/script.js"></script>
     <script src="/static/js/chatbot.js"></script>
   </body>
