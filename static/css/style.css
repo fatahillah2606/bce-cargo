@@ -159,8 +159,46 @@ body {
 }
 
 /* CLIENTS */
+#clients {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+#clients .pelanggan {
+  width: 95%;
+  max-width: 800px;
+}
 
+#clients .pelanggan h4 {
+  text-align: center;
+  font-size: 40px;
+}
 
+#clients .pelanggan .list {
+  color: var(--primary-color);
+  display: flex;
+  margin-bottom: 20px;
+  gap: 10px;
+  align-items: start;
+}
+#clients .pelanggan .list .material-symbols-rounded {
+  font-size: 30px;
+  font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+#clients .pelanggan .list .isikeunggulan h5 {
+font-size: 27px;
+font-weight: 400;
+margin-bottom: 20px;
+}
+#clients .pelanggan .slide-client div img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  object-position: center;
+  background-color: var(--link-color);
+  border-radius: 10px;
+}
 /* LOCATION */
 #location .lokasi {
   display: flex;
