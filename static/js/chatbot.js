@@ -41,6 +41,8 @@ const processCompanyInfo = (text) => {
       info.sore = line.replace("Sore :", "").trim();
     } else if (line.startsWith("Malam :")) {
       info.malam = line.replace("Malam :", "").trim();
+    } else if (line.startsWith("Alamat :")) {
+      info.alamat = line.replace("Alamat :", "").trim();
     } else if (line.startsWith("Head Office :")) {
       info.headOffice = line.replace("Head Office :", "").trim();
     } else if (line.startsWith("Field Office :")) {
@@ -132,6 +134,9 @@ const generateResponse = async (incomingChatLi) => {
   ) {
     messageElement.textContent =
       companyInfo.malam || "Maaf, aku tidak punya informasi tentang itu.";
+  } else if (userMessage.toLowerCase().includes("alamat")) {
+    messageElement.textContent =
+      companyInfo.alamat || "Maaf, aku tidak punya informasi tentang itu.";
   } else if (
     userMessage.toLowerCase().includes("head office") ||
     userMessage.toLowerCase().includes("kantor pusat")
@@ -140,7 +145,7 @@ const generateResponse = async (incomingChatLi) => {
       companyInfo.headOffice || "Maaf, aku tidak punya informasi tentang itu.";
   } else if (
     userMessage.toLowerCase().includes("field office") ||
-    userMessage.toLowerCase().includes("lapangan")
+    userMessage.toLowerCase().includes("kantor lapangan")
   ) {
     messageElement.textContent =
       companyInfo.fieldOffice || "Maaf, aku tidak punya informasi tentang itu.";
