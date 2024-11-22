@@ -137,6 +137,12 @@ body {
 }
 
 /* Legality */
+#legality {
+  background-color: var(--border-color);
+}
+#legality .legality {
+  text-align: center;
+}
 #legality .legality * {
   color: var(--primary-color);
 }
@@ -155,7 +161,13 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: start;
   gap: 50px;
+  background-color: var(--background-color);
+  width: 90%;
+  margin: auto;
+  padding: 50px 0;
+  border-radius: 20px;
 }
 
 /* CLIENTS */
@@ -187,9 +199,9 @@ body {
   font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 #clients .pelanggan .list .isikeunggulan h5 {
-font-size: 27px;
-font-weight: 400;
-margin-bottom: 20px;
+  font-size: 27px;
+  font-weight: 400;
+  margin-bottom: 20px;
 }
 #clients .pelanggan .slide-client div img {
   width: 150px;
