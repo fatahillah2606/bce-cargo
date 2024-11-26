@@ -32,3 +32,17 @@ window.onscroll = function () {
     navigasi.classList.remove("scroll");
   }
 };
+
+// Tes ajax
+let xhr = new XMLHttpRequest();
+
+xhr.open("GET", "/commands", true);
+
+xhr.onload = function () {
+    if (xhr.status === 200) {
+        let respon = JSON.parse(xhr.response);
+        console.log(respon);
+    }
+}
+
+xhr.send();

@@ -1,6 +1,26 @@
-from flask import Flask, render_template, send_file
+from http import client
+import json
+from flask import Flask, render_template, send_file, jsonify
+from pymongo import MongoClient
+
+"""
+try:
+    client.admin.command("ping")
+    print("Connected successfully")
+
+    client.close()
+
+except Exception as e:
+    raise Exception("The following error occured: ", e)
+"""
 
 app = Flask(__name__)
+
+# Test koneksi ke database
+uri = "mongodb://localhost:27017/"
+client = MongoClient(uri)
+db = client["bce-cargo"]
+collection = db["chatbot"]
 
 # Home pages
 @app.route('/')
@@ -11,6 +31,12 @@ def home():
 @app.route('/chatbot')
 def chatbot():
   return render_template('Test Chatbot (Alpha Test 1.0)/chatbot.html')
+
+# Perintah untuk chatbot
+@app.route('/commands')
+def get_commands():
+    commands = list(collection.find({}, {"_id": 0}))
+    return jsonify(commands)
 
 # Info perusahaan untuk chatbot
 @app.route('/botinfo')
