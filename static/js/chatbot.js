@@ -67,23 +67,23 @@ const generateResponse = async (incomingChatLi) => {
         } else if (pertanyaan.toLowerCase() == userMessage.toLowerCase()) {
             prosesJawaban(array.indexOf(jawaban));
         }
-
-        function prosesJawaban(index) {
-            let responJawaban = companyInfo[index]['response'];
-            // Jika jawaban berupa array
-            if (Array.isArray(responJawaban)) {
-                messageElement.textContent = responJawaban.map((item, index) => `${index + 1}. ${item}`).join("\n");
-
-                // Jika jawaban berupa Object
-            } else if (typeof responJawaban === "object" && responJawaban !== null) {
-                messageElement.innerHTML = Object.entries(responJawaban).map(([key, value]) => `<b>${key}</b>: ${value}`).join("\n");
-
-                // Jika jawaban berupa String atau sejenisnya
-            } else {
-                messageElement.textContent = jawaban['response'] || "Maaf, aku tidak punya informasi tentang itu.";
-            }
-        }
     });
+
+    function prosesJawaban(index) {
+        let responJawaban = companyInfo[index]['response'];
+        // Jika jawaban berupa array
+        if (Array.isArray(responJawaban)) {
+            messageElement.textContent = responJawaban.map((item, index) => `${index + 1}. ${item}`).join("\n");
+
+            // Jika jawaban berupa Object
+        } else if (typeof responJawaban === "object" && responJawaban !== null) {
+            messageElement.innerHTML = Object.entries(responJawaban).map(([key, value]) => `<b>${key}</b>: ${value}`).join("\n");
+
+            // Jika jawaban berupa String atau sejenisnya
+        } else {
+            messageElement.textContent = responJawaban || "Maaf, aku tidak punya informasi tentang itu.";
+        }
+    }
   // Scroll chatbox ke bawah setelah menampilkan pesan
   chatbox.scrollTo(0, chatbox.scrollHeight);
 };
