@@ -3,17 +3,6 @@ import json
 from flask import Flask, render_template, send_file, jsonify
 from pymongo import MongoClient
 
-"""
-try:
-    client.admin.command("ping")
-    print("Connected successfully")
-
-    client.close()
-
-except Exception as e:
-    raise Exception("The following error occured: ", e)
-"""
-
 app = Flask(__name__)
 
 # Test koneksi ke database
