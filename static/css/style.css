@@ -299,6 +299,55 @@ body {
   background-color: var(--link-color);
   border-radius: 10px;
 }
+
+/* GALLERY */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+.galeri {
+  display: flex;
+  gap: 20px;
+  margin: 50px;
+  overflow-x: auto;
+}
+.galeri .foto {
+  width: 350px;
+  height: 550px;
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  transition: 0.5s ease;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.galeri .foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.galeri .foto p {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+  color: #fff;
+  border: 1px solid #fff;
+  width: calc(100% - 30px);
+  padding: 10px 20px;
+  border-radius: 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: 0.3s ease;
+}
+.galeri .foto:hover {
+  width: 550px;
+}
+.galeri .foto:hover p {
+  background-color: rgba(255, 255, 255, 0.5);
+}
 /* LOCATION */
 #location .lokasi {
   display: flex;
