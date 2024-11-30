@@ -60,11 +60,11 @@ const generateResponse = async (incomingChatLi) => {
         // Tangani jika pertanyaan dalam bentuk Array pada database
         if (Array.isArray(jawaban['command'])) {
             pertanyaan.forEach((kataKunci) => {
-                if (kataKunci.toLowerCase() == userMessage.toLowerCase()) {
+                if (userMessage.toLowerCase().includes(kataKunci.toLowerCase())) {
                     prosesJawaban(array.indexOf(jawaban));
                 }
             });
-        } else if (pertanyaan.toLowerCase() == userMessage.toLowerCase()) {
+        } else if (userMessage.toLowerCase().includes(pertanyaan.toLowerCase())) {
             prosesJawaban(array.indexOf(jawaban));
         }
     });
