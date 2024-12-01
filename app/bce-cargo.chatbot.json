@@ -1,0 +1,148 @@
+[{
+  "_id": {
+    "$oid": "6745ecf42cedde414f182ef2"
+  },
+  "command": "halo",
+  "response": "Hi! Ada yang dapat saya bantu? ^^"
+},
+{
+  "_id": {
+    "$oid": "6745f04c2cedde414f182ef3"
+  },
+  "command": "hi",
+  "response": "Halo! Bagaimana kabarnya? Ada yang dapat saya bantu?"
+},
+{
+  "_id": {
+    "$oid": "6745f0672cedde414f182ef4"
+  },
+  "command": "pagi",
+  "response": "Selamat pagi! Bagaimana cuaca hari ini? Ada yang bisa saya bantu?"
+},
+{
+  "_id": {
+    "$oid": "6745f0792cedde414f182ef5"
+  },
+  "command": "siang",
+  "response": "Selamat siang! Sudah makan belum? Ada yang dapat saya bantu? ^^"
+},
+{
+  "_id": {
+    "$oid": "6745f0862cedde414f182ef6"
+  },
+  "command": "Sore",
+  "response": "Selamat sore! Ada yang bisa saya bantu?"
+},
+{
+  "_id": {
+    "$oid": "6745f0922cedde414f182ef7"
+  },
+  "command": "Malam",
+  "response": "Selamat malam! Belum tidur nih? Ada yang bisa dibantu?"
+},
+{
+  "_id": {
+    "$oid": "6745f0982cedde414f182ef8"
+  },
+  "command": "Alamat",
+  "response": "Untuk alamat kantor kita ada 2, yaitu kantor pusat dan kantor lapangan. Kakak mau cari kantor apa ya? ^^"
+},
+{
+  "_id": {
+    "$oid": "6745f3842cedde414f182ef9"
+  },
+  "command": [
+    "head office",
+    "kantor pusat"
+  ],
+  "response": "Perum Permata Sepatan Blok B9 No. 23, Kec. Sepatan, Kab. Tangerang, Banten"
+},
+{
+  "_id": {
+    "$oid": "6745f3a22cedde414f182efa"
+  },
+  "command": [
+    "field office",
+    "kantor lapangan"
+  ],
+  "response": "WARE HOUSE AREA REGULATED AGENT PT GATRANS SOEKARNO HATTA AIR PORT"
+},
+{
+  "_id": {
+    "$oid": "6745f3ac2cedde414f182efb"
+  },
+  "command": [
+    "Contact",
+    "kontak"
+  ],
+  "response": {
+    "Phone/WhatsApp": [
+      "0812-9124-4237",
+      "0878-0006-6977"
+    ],
+    "Email": "atep1.btl@gmail.com"
+  }
+},
+{
+  "_id": {
+    "$oid": "6745f3ff2cedde414f182efc"
+  },
+  "command": [
+    "Tentang Kami",
+    "Tentang perusahaan",
+    "tentang",
+    "about",
+    "perusahaan"
+  ],
+  "response": "CV. Bahtera Cahaya Express sebagai agen SMU (surat muatan udara) di beberapa airline di antaranya Lion air grup Garuda Indonesia rimbun air Sriwijaya air asia Tri-mg, Citilink. Perusahaan Jasa Pengiriman Barang (cargo), yakni layanan pengiriman barang yang terintegrasi dengan menggunakan kombinasi moda angkutan baik darat, laut maupun udara secara door to door, door to port, port to port dan port to door dimana pelayanan dapat kami layani dari penjemputan hingga kiriman sampai ke tujuan. Hal ini untuk membantu kelancaran usaha para pelaku bisnis baik perusahaan maupun perseorangan secara efektif dan efisien. Jasa yang disediakan CV. Bahtera Cahaya Express dikemas secara utuh dalam satu konsep pusat layanan sehingga tidak hanya memberikan kemudahan tetapi juga mampu memberikan pelayanan yang didukung dengan segenap mitra kerja dan sumber daya manusia yang terlatih dan teruji menempatkan CV. Bahtera Cahaya Express sebagai perusahaan penyedia layanan jasa transportasi yang lengkap, profesional dan terpercaya."
+},
+{
+  "_id": {
+    "$oid": "6745f4192cedde414f182efd"
+  },
+  "command": "VISI",
+  "response": "Menjadi perusahaan jasa pengiriman cargo yang profesional & terpercaya dalam melayani klien maupun mitra bisnis."
+},
+{
+  "_id": {
+    "$oid": "6745f42c2cedde414f182efe"
+  },
+  "command": "MISI",
+  "response": [
+    "Melaksanakan system kerja yang profesional.",
+    "Selalu memonitor pengiriman barang / cargo ke seluruh wilayah Indonesia kapanpun dan dimanapun.",
+    "Membangun, menjaga dan meningkatkan kepercayaan klien dengan pelayanan terbaik dan profesional.",
+    "Terus melakukan evaluasi dan inovasi dalam rangka meningkatkan kapasitas dan kualitas internal.",
+    "Memberikan keuntungan maksimal bagi perusahaan dan seluruh Stake holder."
+  ]
+},
+{
+  "_id": {
+    "$oid": "6745f45a2cedde414f182eff"
+  },
+  "command": "LEGALITAS",
+  "response": {
+    "Deed of Establishment": "No. 18, Tanggal 14 Februari 2022 || Notaris Silviyanti, S.H., M.Kn",
+    "KEMENHUMHAM Decision": "No. AHU - 0014736 - AH.01.14 Tahun 2022",
+    "Tax Identification Number (NPWP)": "No. 63.410.875.7 - 402.000",
+    "Business Permit (SIUP)": "NIB. 2102220068549"
+  }
+},
+{
+  "_id": {
+    "$oid": "6745f4732cedde414f182f00"
+  },
+  "command": "LAYANAN",
+  "response": [
+    "Cargo darat",
+    "Cargo laut",
+    "Cargo udara"
+  ]
+},
+{
+  "_id": {
+    "$oid": "6746b9bec61d51130bbae3db"
+  },
+  "command": "Asep",
+  "response": "Asep kontol"
+}]

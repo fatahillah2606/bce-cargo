@@ -1,3 +1,16 @@
+// jQuery
+$(document).ready(function () {
+  $(".owl-carousel").owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    autoplay: true,
+    autoplayTimeout: 5000,
+    autoplayHoverPause: true,
+    autoWidth: true,
+  });
+});
+
 const dropdown = document.querySelector(".dropdown");
 const dropdownmenu = document.querySelector(".dropdown-menu");
 
