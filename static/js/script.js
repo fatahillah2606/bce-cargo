@@ -75,3 +75,38 @@ closeMenuBtn.addEventListener("click", closeMenu);
 menuCont.forEach((menu) => {
     menu.addEventListener("click", closeMenu);
 });
+
+// Galeri
+let foto = [
+    "fadel.jpeg",
+    "fatah.jpeg",
+    "fieldoffice.jpeg",
+    "galang.jpeg",
+    "headoffice.jpeg",
+    "foto_1.jpg",
+    "foto_2.jpg",
+    "foto_3.jpg",
+    "foto_4.jpg",
+    "foto_5.jpg",
+    "foto_6.jpg",
+    "foto_7.jpg",
+    "foto_8.jpg",
+    "foto_9.jpg",
+    "foto_10.jpg",
+    "foto_11.jpg",
+];
+
+let folder = "static/images/gallery_bce/";
+let imgContainer = document.getElementById("galeri");
+
+let tagImg = "";
+foto.forEach((element) => {
+    tagImg += `
+    <div class="foto">
+      <img src="${folder}${element}"/>
+      <p>Lihat foto</p>
+    </div>
+    `;
+});
+
+imgContainer.innerHTML = tagImg;
