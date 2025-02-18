@@ -4,7 +4,7 @@ const chatbox = document.querySelector(".chatbox");
 const chatbotToggler = document.querySelector(".chatbot-toggler");
 const chatbotCloseBtn = document.querySelector(".close-btn");
 
-const API_URL = "https://fatahillah2606.github.io/bce-cargo/app/bce-cargo.chatbot.json"; // api data perusahaan
+const API_URL = "/app/bce-cargo.chatbot.json"; // api data perusahaan
 
 let companyInfo; // Untuk menyimpan informasi perusahaan
 
