@@ -21,16 +21,16 @@ Untuk Windows, disarankan untuk menjalankan perintah di Command Prompt (CMD) dar
 2. Buat dan aktifkan virtual environment:
 
    ```bash
-   python -m venv venv
+   python -m venv .venv
    ```
 
    Untuk Windows:
 
-       venv\Scripts\activate
+       .venv\Scripts\activate
 
    Untuk Linux/MacOS:
 
-       source venv/bin/activate
+       source .venv/bin/activate
 
    Install dependencies:
 
@@ -39,7 +39,7 @@ Untuk Windows, disarankan untuk menjalankan perintah di Command Prompt (CMD) dar
 3. Cara menjalankan
 
    ```bash
-   python manage.py
+   flask run --debug
    ```
 Setelan program dijalankan, buka browser dan kunjungi: http://127.0.0.1:5000/
 
