@@ -120,3 +120,18 @@ function toggleDarkMode() {
     document.body.setAttribute("data-theme", "light");
   }
 }
+
+// wa.me
+function sendChat() {
+  const nama = document.getElementById("nama");
+  const pesan = document.getElementById("pesan");
+
+  if (nama.value === "" && pesan.value === "") {
+    window.open("https://wa.me/6281291244237", "_blank");
+  } else {
+    let message = `Hi, saya ${nama.value}. ${pesan.value}`;
+    let walink = `https://wa.me/6281291244237?text=${message}`;
+
+    window.open(walink, "_blank");
+  }
+}
