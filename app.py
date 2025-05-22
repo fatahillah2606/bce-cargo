@@ -1,7 +1,12 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect, url_for, session, send_from_directory
 from connection import db_bce
 
 app = Flask(__name__)
+
+# Import node modules
+@app.route("/node_modules/<path:filename>")
+def serve_node_modules(filename):
+    return send_from_directory("node_modules", filename)
 
 # Collection
 collection = db_bce.use_db()
