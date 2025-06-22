@@ -1,6 +1,16 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, send_from_directory
 from connection import db_bce
 
+# Import blueprint
+# Admin (Fatah)
+from myapp.admin.route import admin_route
+
+# Customer (Galang)
+from myapp.customer.route import customer_route
+
+# Chatbot (Fadel)
+from myapp.chatbot.route import chatbot_route
+
 app = Flask(__name__)
 
 # Import node modules
@@ -12,33 +22,20 @@ def serve_node_modules(filename):
 collection = db_bce.use_db()
 data_chatbot = collection["chatbot"]
 
+# Blueprint
+# Admin (Fatah)
+app.register_blueprint(admin_route, url_prefix="/admin/")
 
 # Customer Pages (Galang)
+app.register_blueprint(customer_route, url_prefix="/customer/")
+
+# Chatbot (Fadel)
+app.register_blueprint(chatbot_route, url_prefix="/chatbot/")
+
 # Home pages
 @app.route('/')
 def home():
   return render_template('index.html')
-
-# Home pages
-@app.route('/login')
-def login():
-  return render_template('customer/index.html')
-
-# Admin Pagses (Fatah)
-@app.route("/admin")
-def admin():
-   return render_template('admin/index.html')
-
-# Chatbot (Fadel)
-@app.route('/chatbot')
-def chatbot():
-  return render_template('chatbot/chatbot.html')
-
-# Perintah untuk chatbot
-@app.route('/commands')
-def get_commands():
-    commands = list(data_chatbot.find({}, {"_id": 0}))
-    return jsonify(commands)
 
 # if __name__ == '__main__':
 #   app.run(debug=True)

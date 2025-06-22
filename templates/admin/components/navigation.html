@@ -1,0 +1,92 @@
+<!-- sidebar -->
+<nav class="bg-white dark:bg-gray-800 shadow">
+    <!-- Logo -->
+    <div
+        class="sticky top-0 w-full h-24 flex items-center gap-2.5 pl-2.5 border-b-2 border-gray-100 bg-white dark:bg-gray-800"
+    >
+        <img
+            src="{{url_for('static', filename='images/logo.jpg')}}"
+            alt="Logo BCE"
+            class="w-12 h-12"
+        />
+        <h1 class="font-bold text-2xl dark:text-white">BCE Cargo</h1>
+    </div>
+    <!-- Menu -->
+    <div class="side-menu">
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> dashboard </span>
+            <span>Dashboard</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> local_shipping </span>
+            <span>Pesanan</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> receipt_long </span>
+            <span>Invoice</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> bar_chart </span>
+            <span>Laporan</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> supervisor_account </span>
+            <span>Manajemen Pengguna</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> notifications_active </span>
+            <span>Notifikasi</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> location_on </span>
+            <span>Status Paket</span>
+        </a>
+        <a
+            href="#"
+            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+        >
+            <span class="material-symbols-rounded"> rate_review </span>
+            <span>Ulasan</span>
+        </a>
+    </div>
+    <!-- User profile -->
+    <div
+        class="user-profile border-t-2 border-gray-100 bg-white dark:bg-gray-800"
+    >
+        <div class="flex justify-center items-center gap-2.5">
+            <img
+                src="{{url_for('static', filename='images/logo.jpg')}}"
+                alt="Logo BCE"
+                class="w-10 h-10 rounded-full"
+            />
+            <div class="flex flex-col">
+                <span class="font-bold text-xl dark:text-white"
+                    >Fatahillah
+                </span>
+                <span class="text-gray-500 dark:text-gray-400"> Admin </span>
+            </div>
+        </div>
+        <span class="material-symbols-rounded">arrow_drop_down</span>
+    </div>
+</nav>

@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Login Admin</title>
-        <script src="https://cdn.tailwindcss.com"></script>
         <!-- Favicon -->
         <link
             rel="icon"
@@ -16,65 +15,89 @@
             rel="stylesheet"
             href="{{url_for('static',filename='dist/output.css')}}"
         />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/admin/login.css')}}"
+        />
     </head>
-    <body class="bg-gray-100 flex justify-center min-h-screen">
-        <div class="w-full max-w-md px-6">
-            <img
-                src="{{ url_for('static', filename='images/logo.jpg') }}"
-                alt="Logo BCE"
-                class="w-12 h-12 block mx-auto mt-8 mb-6"
-            />
-            <h2 class="text-2xl font-bold text-gray-800 text-center mb-6">
-                Login Admin
-            </h2>
+    <body
+        class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-800"
+    >
+        <div class="konten">
+            <!-- Logo -->
+            <div class="flex justify-center items-center gap-2.5 mb-12">
+                <img
+                    src="{{url_for('static', filename='images/logo.jpg')}}"
+                    alt="Logo BCE"
+                    class="w-12 h-12"
+                />
+                <h1 class="font-bold text-4xl dark:text-white">BCE Cargo</h1>
+            </div>
 
-            <form action="#" method="POST" class="space-y-5">
-                <!-- Email -->
-                <div>
-                    <label
-                        for="email"
-                        class="block mb-2 text-sm font-medium text-gray-700"
-                        >Email</label
-                    >
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                        placeholder="admin@email.com"
-                    />
-                </div>
-
-                <!-- Password -->
-                <div>
-                    <label
-                        for="password"
-                        class="block mb-2 text-sm font-medium text-gray-700"
-                        >Password</label
-                    >
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        required
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
-                        placeholder="••••••••"
-                    />
-                </div>
-
-                <!-- Submit -->
-                <div>
+            <!-- Login card -->
+            <div
+                class="w-full bg-white dark:bg-gray-700 rounded-2xl p-5 shadow-2xl"
+            >
+                <h1
+                    class="text-center font-bold text-2xl mb-4 mt-2 dark:text-white"
+                >
+                    Login
+                </h1>
+                <form action="" method="post">
+                    <div class="mb-5">
+                        <label
+                            for="email"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >Your email</label
+                        >
+                        <input
+                            type="email"
+                            id="email"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="name@gmail.com"
+                            required
+                        />
+                    </div>
+                    <div class="mb-5">
+                        <label
+                            for="password"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >Your password</label
+                        >
+                        <input
+                            type="password"
+                            id="password"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            required
+                            placeholder="********"
+                        />
+                    </div>
+                    <div class="flex items-start mb-5">
+                        <div class="flex items-center h-5">
+                            <input
+                                id="remember"
+                                type="checkbox"
+                                value=""
+                                class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                                required
+                            />
+                        </div>
+                        <label
+                            for="remember"
+                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                            >Remember me</label
+                        >
+                    </div>
                     <button
                         type="submit"
-                        class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                        Masuk
+                        Login
                     </button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
-
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
     </body>

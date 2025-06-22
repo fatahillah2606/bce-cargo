@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}{% endblock %} - BCE Cargo</title>
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ url_for('static', filename='images/favicon.ico') }}"
+        />
+        <!-- Flowbite -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+        <!-- Google Icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/admin/style.css')}}"
+        />
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/admin/navigation.css')}}"
+        />
+        {% block style %}{% endblock %}
+    </head>
+    <body class="bg-gray-100 dark:bg-gray-800">
+        <div class="flex gap-0.5">
+            <!-- Navigasi -->
+            {% include 'admin/components/navigation.html' %}
+
+            <section class="w-full">
+                <header class="px-10 h-24 bg-white shadow">
+                    <h1 class="text-2xl font-bold leading-24">
+                        {% block judul %}{% endblock %}
+                    </h1>
+                </header>
+                <!-- Konten -->
+                {% block konten %}{% endblock %}
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+    </body>
+</html>
