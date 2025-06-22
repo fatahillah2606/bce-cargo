@@ -39,6 +39,12 @@ source .venv/bin/activate  # untuk Linux/macOS
 pip install -r requirements.txt
 ```
 
+Jika terjadi kesalahan dalam menginstall dependencies, jalankan perintah ini
+
+```bash
+pip install flask bcrypt "pymongo[srv]" flask-session dotenv
+```
+
 ### 4. Install Node.js Dependencies
 
 ```bash

@@ -19,6 +19,11 @@ data_chatbot = collection["chatbot"]
 def home():
   return render_template('index.html')
 
+# Home pages
+@app.route('/login')
+def login():
+  return render_template('customer/index.html')
+
 # Admin Pagses (Fatah)
 @app.route("/admin")
 def admin():
