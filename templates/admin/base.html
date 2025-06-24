@@ -31,16 +31,18 @@
         />
         {% block style %}{% endblock %}
     </head>
-    <body class="bg-gray-100 dark:bg-gray-800">
+    <body class="bg-gray-100 dark:bg-gray-900">
         <div class="flex gap-0.5">
             <!-- Navigasi -->
             {% include 'admin/components/navigation.html' %}
 
             <section class="w-full">
-                <header class="px-10 h-24 bg-white shadow">
-                    <h1 class="text-2xl font-bold leading-24">
+                <header class="px-10 h-24 bg-white dark:bg-gray-800 shadow">
+                    <h2
+                        class="leading-24 text-4xl font-extrabold dark:text-white"
+                    >
                         {% block judul %}{% endblock %}
-                    </h1>
+                    </h2>
                 </header>
                 <!-- Konten -->
                 {% block konten %}{% endblock %}

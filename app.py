@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, send_from_directory
-from connection import db_bce
 
 # Import blueprint
 # Admin (Fatah)
@@ -17,10 +16,6 @@ app = Flask(__name__)
 @app.route("/node_modules/<path:filename>")
 def serve_node_modules(filename):
     return send_from_directory("node_modules", filename)
-
-# Collection
-collection = db_bce.use_db()
-data_chatbot = collection["chatbot"]
 
 # Blueprint
 # Admin (Fatah)
