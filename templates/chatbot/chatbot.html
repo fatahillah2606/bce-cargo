@@ -1,29 +1,50 @@
-<!-- Tailwind css -->
-<!-- <link
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Bahtera C(hatbot) Express</title>
+        <link
             rel="stylesheet"
-            href="{{url_for('static',filename='dist/output.css')}}"
-        /> -->
+            href="{{ url_for('static', filename='css/chatbot/chatbot.css') }}"
+        />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded"
+        />
+    </head>
+    <body>
+        <button class="chatbot-toggler">
+            <span class="material-symbols-rounded">mode_comment</span>
+            <span class="material-symbols-rounded">close</span>
+        </button>
 
-<!-- Chatbot -->
-<button class="chatbot-toggler">
-    <span class="material-symbols-rounded">mode_comment</span>
-    <span class="material-symbols-rounded">close</span>
-</button>
-<div class="chatbot">
-    <header>
-        <h2>BOT TEST</h2>
-        <span class="close-btn material-symbols-rounded">close</span>
-    </header>
-    <ul class="chatbox">
-        <li class="chat incoming">
-            <span class="material-symbols-rounded">smart_toy</span>
-            <p>Halo, selamat datang!<br />Ada yang bisa saya bantu?</p>
-        </li>
-    </ul>
-    <div class="chat-input">
-        <textarea placeholder="Ketik pesan..." required></textarea>
-        <span id="send-btn" class="material-symbols-rounded">send</span>
-    </div>
-</div>
-<!-- Script -->
-<!-- <script src="/node_modules/flowbite/dist/flowbite.min.js"></script> -->
+        <div class="chatbot">
+            <header>
+                <h2>Chatbot</h2>
+                <span class="close-btn material-symbols-rounded">close</span>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming">
+                    <span class="material-symbols-rounded">smart_toy</span>
+                    <p>
+                        Halo, selamat datang di website BCE Cargo!👋<br />Jika
+                        butuh bantuan bisa langsung tanyakan di sini ya! Atau
+                        kalau mau buat orderan tinggal ketik "tiket" dan kalau
+                        ada keluhan tinggal ketik "nama : " dan "keterangan : "
+                        ya! ^^
+                    </p>
+                </li>
+            </ul>
+            <div class="chat-input">
+                <textarea
+                    placeholder="Enter a message..."
+                    spellcheck="false"
+                    required
+                ></textarea>
+                <span id="send-btn" class="material-symbols-rounded">send</span>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/chatbot/chatbot.js') }}"></script>
+    </body>
+</html>
