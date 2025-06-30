@@ -31,15 +31,24 @@
         />
         {% block style %}{% endblock %}
     </head>
-    <body class="bg-gray-100 dark:bg-gray-900">
-        <div class="flex gap-0.5">
+    <body class="w-full h-screen overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+        <div class="konten">
             <!-- Navigasi -->
             {% include 'admin/components/navigation.html' %}
 
-            <section class="w-full">
-                <header class="px-10 h-24 bg-white dark:bg-gray-800 shadow">
+            <section class="w-full h-screen overflow-auto relative">
+                <header
+                    class="flex items-center gap-2.5 px-4 sm:px-7 sm:gap-5 h-24 bg-white dark:bg-zinc-800 shadow sticky top-0"
+                >
+                    <span
+                        class="material-symbols-rounded dark:text-white"
+                        id="side-menu-btn"
+                        onclick="openNavigation()"
+                    >
+                        dehaze
+                    </span>
                     <h2
-                        class="leading-24 text-4xl font-extrabold dark:text-white"
+                        class="text-3xl sm:text-4xl font-extrabold dark:text-white"
                     >
                         {% block judul %}{% endblock %}
                     </h2>
@@ -52,5 +61,8 @@
         <!-- Footer -->
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <!-- Local js -->
+        <script src="{{url_for('static', filename='js/admin/theme.js')}}"></script>
+        <script src="{{url_for('static', filename='js/admin/navigation.js')}}"></script>
     </body>
 </html>

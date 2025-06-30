@@ -87,7 +87,7 @@
                 if (filledForm) {
                     const xhr = new XMLHttpRequest();
 
-                    xhr.open("POST", "/admin/api/", true);
+                    xhr.open("POST", "/admin/api/auth", true);
 
                     xhr.onload = () => {
                         if (xhr.status === 200) {

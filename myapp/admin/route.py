@@ -43,14 +43,11 @@ def login():
 def dashboard():
     return render_template("admin/pages/dashboard.html")
 
-# Experiment
-@admin_route.route("/register", methods=["GET", "POST"])
-def register():
-    return render_template("admin/auth/regist.html")
-
-@admin_route.route("/api/", methods=["GET", "POST"])
-def testApi():
+# Sistem autentikasi
+@admin_route.route("/api/auth", methods=["GET", "POST"])
+def autentikasi():
     try:
+        # Register Admin (eksperimen)
         if request.method == "POST":
             if "sendUser" in request.form:
                 name = str(request.form["name"])
@@ -85,8 +82,31 @@ def testApi():
                 else:
                     return respon_api("error", 500, "Failed to sent", [])
 
-                # print(DataUser)
+            # Sistem login
+            if "login" in request.form:
+                email = str(request.form["email"])
+                password = request.form["password"]
+
+                # cek akun admin
+                akun = userData.find_one({"email": email, "role": "admin"})
+                if akun:
+                    dbpw = akun["password"]
+                    encodepw = password.encode("utf-8")
+
+                    # validasi password
+                    valid = bcrypt.checkpw(encodepw, dbpw)
+                    if valid:
+                        return respon_api("success", 200, "Verifikasi berhasil", [])
+                    else:
+                        return respon_api("error", 401, "Verifikasi gagal", [])
+                else:
+                    return respon_api("error", 401, "Verifikasi gagal", [])
 
     except Exception as error:
-        return respon_api("error", 500, error, [])
+        return respon_api("error", 500, str(error), [])
         
+
+# Experiment
+@admin_route.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("admin/auth/regist.html")

@@ -1,16 +1,19 @@
 nav {
-    width: 280px;
-    height: 100vh;
     z-index: 999;
-    flex-shrink: 0;
     display: flex;
     flex-direction: column;
     gap: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+nav > * {
+    width: 280px;
 }
 .side-menu {
     height: 100%;
     overflow-y: auto;
-    padding: 0 20px;
+    padding: 20px;
 }
 .side-menu a {
     display: flex;
@@ -23,7 +26,6 @@ nav {
     font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 .user-profile {
-    width: 100%;
     height: auto;
     display: flex;
     align-items: center;
@@ -32,4 +34,32 @@ nav {
     margin-top: auto;
     cursor: pointer;
     flex-shrink: 0;
+}
+
+#side-menu-btn,
+#side-menu-btn-close {
+    display: none;
+    font-size: 32px;
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+#side-menu-btn-close {
+    margin-left: 10px;
+}
+
+@media screen and (max-width: 1000px) {
+    nav {
+        width: 280px;
+        transform: translateX(-100%);
+    }
+
+    nav.active {
+        transform: translateX(0);
+    }
+
+    #side-menu-btn,
+    #side-menu-btn-close {
+        display: block;
+    }
 }
