@@ -27,13 +27,17 @@
             <ul class="chatbox">
                 <li class="chat incoming">
                     <span class="material-symbols-rounded">smart_toy</span>
-                    <p>
-                        Halo, selamat datang di website BCE Cargo!👋<br />Jika
-                        butuh bantuan bisa langsung tanyakan di sini ya! Atau
-                        kalau mau buat orderan tinggal ketik "tiket" dan kalau
-                        ada keluhan tinggal ketik "nama : " dan "keterangan : "
-                        ya! ^^
-                    </p>
+                    <div class="bubble">
+                        <p>Halo, selamat datang di website BCE Cargo!👋<br/>Jika butuh bantuan bisa langsung tanyakan di sini ya!</p>
+                        <div class="chat-options">
+                            <button onclick="fillTemplate('keluhan')">
+                                Keluhan
+                            </button>
+                            <button onclick="fillTemplate('cek_pemesanan')">
+                                Cek Pemesanan
+                            </button>
+                        </div>
+                    </div>
                 </li>
             </ul>
             <div class="chat-input">
