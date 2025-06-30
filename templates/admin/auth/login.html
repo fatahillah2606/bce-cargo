@@ -22,13 +22,13 @@
         />
     </head>
     <body
-        class="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900"
+        class="flex items-center justify-center min-h-screen bg-zinc-100 dark:bg-zinc-900"
     >
         <div class="konten">
             <!-- Logo -->
-            <div class="flex justify-center items-center gap-2.5 mb-12">
+            <div class="flex justify-center items-center gap-2.5 mb-10">
                 <img
-                    src="{{url_for('static', filename='images/logo.jpg')}}"
+                    src="{{url_for('static', filename='images/logo.png')}}"
                     alt="Logo BCE"
                     class="w-12 h-12"
                 />
@@ -37,26 +37,35 @@
                 </h1>
             </div>
 
+            <!-- Error banner -->
+            <div
+                class="hidden w-full h-auto py-2.5 mb-5 bg-red-500 dark:bg-red-900 rounded shadow-2xl"
+                id="error-banner"
+            >
+                <p class="text-center text-white">Email atau password salah</p>
+            </div>
+
             <!-- Login card -->
             <div
-                class="w-full bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-2xl"
+                class="w-full bg-white dark:bg-zinc-800 rounded-2xl p-5 shadow-2xl"
             >
                 <h1
                     class="text-center font-bold text-2xl mb-4 mt-2 dark:text-white"
                 >
                     Login
                 </h1>
-                <form action="" method="post">
+                <form action="" method="post" name="login" id="login">
                     <div class="mb-5">
                         <label
                             for="email"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
                             >Email</label
                         >
                         <input
                             type="email"
                             id="email"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                            name="email"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                             placeholder="nama@gmail.com"
                             required
                         />
@@ -65,7 +74,7 @@
                         <div class="flex justify-between items-center mb-2">
                             <label
                                 for="password"
-                                class="block text-sm font-medium text-gray-900 dark:text-white"
+                                class="block text-sm font-medium text-zinc-900 dark:text-white"
                                 >Kata sandi</label
                             >
                             <a
@@ -77,30 +86,31 @@
                         <input
                             type="password"
                             id="password"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                            required
+                            name="password"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                             placeholder="********"
+                            required
                         />
                     </div>
                     <div class="flex items-start mb-5">
                         <div class="flex items-center h-5">
                             <input
-                                id="remember"
+                                id="show-pw"
                                 type="checkbox"
                                 value=""
-                                class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                                required
+                                class="w-4 h-4 border border-zinc-300 rounded-sm bg-zinc-50 focus:ring-3 focus:ring-green-300 dark:bg-zinc-700 dark:border-zinc-600 dark:focus:ring-green-600 dark:ring-offset-zinc-800 dark:focus:ring-offset-zinc-800"
                             />
                         </div>
                         <label
-                            for="remember"
-                            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                            >Simpan sesi</label
+                            for="show-pw"
+                            class="ms-2 text-sm font-medium text-zinc-900 dark:text-zinc-300"
+                            >Tampilkan sandi</label
                         >
                     </div>
                     <button
                         type="submit"
                         class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        onclick="loginAdmin(event)"
                     >
                         Login
                     </button>
@@ -109,5 +119,7 @@
         </div>
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script src="{{url_for('static', filename='js/admin/theme.js')}}"></script>
+        <script src="{{url_for('static', filename='js/admin/auth.js')}}"></script>
     </body>
 </html>

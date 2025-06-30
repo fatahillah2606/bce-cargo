@@ -1,80 +1,87 @@
 <!-- sidebar -->
-<nav class="bg-gray-100 dark:bg-gray-900 shadow">
+<nav class="bg-zinc-100 dark:bg-zinc-900 shadow">
     <!-- Logo -->
     <div
-        class="sticky top-0 w-full h-24 flex items-center shrink-0 gap-2.5 px-5 bg-white dark:bg-gray-800"
+        class="sticky top-0 w-full h-24 flex items-center shrink-0 gap-1 px-5 bg-white dark:bg-zinc-800"
     >
         <img
-            src="{{url_for('static', filename='images/logo.jpg')}}"
+            src="{{url_for('static', filename='images/logo_transparant.png')}}"
             alt="Logo BCE"
-            class="w-12 h-12"
+            class="w-12 h-12 invert dark:invert-0"
         />
-        <h1 class="font-bold text-2xl dark:text-white">BCE Cargo</h1>
+        <h1 class="font-bold text-2xl dark:text-white">Cargo</h1>
+        <span
+            class="material-symbols-rounded dark:text-white"
+            id="side-menu-btn-close"
+            onclick="closeNavigation()"
+        >
+            close
+        </span>
     </div>
     <!-- Menu -->
-    <div class="side-menu bg-white dark:bg-gray-800">
+    <div class="side-menu bg-white dark:bg-zinc-800">
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> dashboard </span>
             <span>Dashboard</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> local_shipping </span>
             <span>Pesanan</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> receipt_long </span>
             <span>Invoice</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> bar_chart </span>
             <span>Laporan</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> supervisor_account </span>
             <span>Manajemen Pengguna</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> notifications_active </span>
             <span>Notifikasi</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> location_on </span>
             <span>Status Paket</span>
         </a>
         <a
             href="#"
-            class="text-gray-500 dark:text-gray-400 hover:bg-green-500 hover:text-white"
+            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
         >
             <span class="material-symbols-rounded"> rate_review </span>
             <span>Ulasan</span>
         </a>
     </div>
     <!-- User profile -->
-    <div class="user-profile bg-white dark:bg-gray-800">
+    <div class="user-profile bg-white dark:bg-zinc-800">
         <div class="flex justify-center items-center gap-2.5">
             <img
-                src="{{url_for('static', filename='images/logo.jpg')}}"
+                src="{{url_for('static', filename='images/logo.png')}}"
                 alt="Logo BCE"
                 class="w-10 h-10 rounded-full"
             />
@@ -82,10 +89,10 @@
                 <span class="font-bold text-xl dark:text-white"
                     >Fatahillah
                 </span>
-                <span class="text-gray-500 dark:text-gray-400"> Admin </span>
+                <span class="text-zinc-500 dark:text-zinc-400"> Admin </span>
             </div>
         </div>
-        <span class="material-symbols-rounded text-gray-500 dark:text-gray-400"
+        <span class="material-symbols-rounded text-zinc-500 dark:text-zinc-400"
             >arrow_drop_down</span
         >
     </div>

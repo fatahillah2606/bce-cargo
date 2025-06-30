@@ -1,0 +1,13 @@
+.konten {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    transition: all 0.3s ease;
+    height: 100vh;
+    gap: 2px;
+}
+
+@media screen and (max-width: 1000px) {
+    .konten {
+        grid-template-columns: 0px 1fr;
+    }
+}
