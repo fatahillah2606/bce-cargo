@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request, render_template
+from flask import Blueprint, jsonify, request, render_template, session, flash, redirect, url_for
+from functools import wraps
 from connection import db_bce
 from bson.objectid import ObjectId
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import bcrypt
 
 # Collection
@@ -31,18 +32,37 @@ def checkEntries(kunci, isi):
     else:
         return False
 
+# Untuk proteksi halaman admin
+def khusus_admin(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session or session.get('role') != 'admin':
+            return redirect(url_for('admin.login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
 # Atur route
 admin_route = Blueprint("admin", __name__)
 
 # Route
-@admin_route.route("/", methods=["GET", "POST"])
+@admin_route.route("/")
 def login():
-    return render_template("admin/auth/login.html")
+    if 'user_id' in session or session.get('role') == 'admin':
+        return redirect(url_for("admin.dashboard"))
+    else:
+        return render_template("admin/auth/login.html")
 
-@admin_route.route("/dashboard", methods=["GET", "POST"])
+@admin_route.route("/dashboard")
+@khusus_admin
 def dashboard():
     return render_template("admin/pages/dashboard.html")
 
+@admin_route.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("admin.login"))
+
+# API Route
 # Sistem autentikasi
 @admin_route.route("/api/auth", methods=["GET", "POST"])
 def autentikasi():
@@ -96,6 +116,15 @@ def autentikasi():
                     # validasi password
                     valid = bcrypt.checkpw(encodepw, dbpw)
                     if valid:
+
+                        # Buat sesi
+                        session.permanent = True
+                        session['kedaluwarsa'] = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat()
+                        session["user_id"] = str(akun["_id"])
+                        session["name"] = akun["name"]
+                        session["email"] = akun["email"]
+                        session["role"] = akun["role"]
+
                         return respon_api("success", 200, "Verifikasi berhasil", [])
                     else:
                         return respon_api("error", 401, "Verifikasi gagal", [])

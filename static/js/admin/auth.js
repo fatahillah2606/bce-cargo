@@ -55,7 +55,8 @@ function loginAdmin(event) {
             })
             .then((data) => {
                 if (data.code === 200) {
-                    tampilkanError();
+                    tampilkanError(); // Hapus banner error
+                    location.href = "/admin/dashboard";
                 } else {
                     tampilkanError("Email atau Sandi salah");
                 }
