@@ -27,11 +27,25 @@ fetch("/chatbot/agent", {
 
 // Convert Markdown
 function convertMarkdownLinksToHTML(text) {
-    const markdownLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g;
-    return text.replace(
-        markdownLinkRegex,
+    // Link
+    text = text.replace(
+        /\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,
         '<a href="$2" target="_blank">$1</a>'
     );
+
+    // Bold (**text**)
+    text = text.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+    // Italic (*text* or _text_)
+    text = text.replace(/(?<!\*)\*(?!\*)(.*?)\*(?!\*)/g, "<em>$1</em>");
+    text = text.replace(/_(.*?)_/g, "<em>$1</em>");
+
+    // Underline (__text__)
+    text = text.replace(/__(.*?)__/g, "<u>$1</u>");
+
+    // Code block ```text```
+    text = text.replace(/```([\s\S]*?)```/g, "<pre><code>$1</code></pre>");
+    return text;
 }
 
 function fillTemplate(type) {
