@@ -9,6 +9,11 @@ customer_route = Blueprint("customer", __name__)
 def login():
     return render_template("customer/login.html")
 
+@customer_route.route("/register", methods=["GET", "POST"])
+def register():
+    return render_template("customer/register.html")
+
+
 # Uji coba hal baru
 @customer_route.route("/cv_baru", methods=["GET", "POST"])
 def cv_baru():

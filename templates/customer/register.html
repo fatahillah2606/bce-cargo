@@ -124,7 +124,7 @@
       </div>
 
       <div class="w-full h-full p-5">
-        <h2 class="text-center">Login</h2>
+        <h2 class="text-center">Create an account</h2>
         <div class="w-40 h-px bg-black mx-auto mt-2.5 mb-5"></div>
         <form class="max-w-full mx-auto">
           <div class="grid gap-4 mb-4 grid-cols-2">
@@ -132,7 +132,7 @@
               <label
                 for="email"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Your email</label
+                >Full Name</label
               >
               <input
                 type="email"
@@ -142,13 +142,25 @@
                 required
               />
             </div>
-
+            <div class="col-span-2">
+              <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Email</label
+              >
+              <input
+                type="password"
+                id="password"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                required
+              />
+            </div>
             <!-- pw -->
             <div class="col-span-2 sm:col-span-1">
               <label
                 for="password"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Your password</label
+                >Password</label
               >
               <input
                 type="password"
@@ -176,22 +188,7 @@
               Min 8 characters, including letters, numbers and special
               characters
             </p>
-            <div class="flex items-start col-span-2">
-              <div class="flex items-center h-5">
-                <input
-                  id="remember"
-                  type="checkbox"
-                  value=""
-                  class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-green-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                  required
-                />
-              </div>
-              <label
-                for="remember"
-                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >Remember me</label
-              >
-            </div>
+
             <button
               type="submit"
               class="col-span-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
