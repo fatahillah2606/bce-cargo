@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Informasi Barang | BCE</title>
+    <link
+      href="{{url_for('static',filename='dist/output.css')}}"
+      rel="stylesheet"
+    />
+    <!-- Local CSS -->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/customer/style.css')}}"
+    />
+    <!-- Google icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body class="bg-zinc-900 font-sans pb-20">
+    <!-- Navbar -->
+    {% include 'customer/components/navbar.html' %}
+
+    <!-- floating -->
+    {% include 'customer/components/floating-sidebar.html' %}
+
+    <!-- Header -->
+    <section class="relative">
+      <img
+        src="{{ url_for('static',filename='images/delivery.jpg') }}"
+        alt="Header"
+        class="w-full h-[650px] object-cover brightness-75"
+      />
+      <div
+        class="absolute inset-0 flex flex-col justify-center items-start px-10 text-white"
+      >
+        <h1 class="text-4xl font-bold mb-2">Informasi Barang</h1>
+        <p class="text-xl">Cek ongkir & Status pengiriman</p>
+      </div>
+    </section>
+
+    <!-- Informasi Paket / Cek Ongkir Tabs -->
+    <div
+      class="max-w-4xl mx-auto -mt-65 p-6 bg-white shadow-lg rounded-lg relative z-10"
+    >
+      <ul class="flex border-b mb-4">
+        <li>
+          <a
+            href="#"
+            class="inline-block py-2 px-4 text-gray-600 hover:text-green-500"
+            >Cek Ongkir</a
+          >
+        </li>
+      </ul>
+      <form class="flex items-center gap-4">
+        <label class="flex items-center gap-2">
+          <input
+            type="radio"
+            name="track"
+            value="waybill"
+            checked
+            class="text-green-500"
+          />
+          Nomor waybill
+        </label>
+        <label class="flex items-center gap-2">
+          <input
+            type="radio"
+            name="track"
+            value="order"
+            class="text-green-500"
+          />
+          Nomor order pelanggan
+        </label>
+      </form>
+      <div class="mt-4 flex">
+        <input
+          type="text"
+          placeholder="Masukkan nomor"
+          class="w-full border border-gray-300 rounded-l px-4 py-2"
+        />
+        <button
+          type="submit"
+          class="bg-green-500 text-white px-4 py-2 rounded-r hover:bg-green-400"
+        >
+          🔍
+        </button>
+      </div>
+    </div>
+    <!-- footer -->
+    {% include 'customer/components/footer.html' %}
+    <!-- Flowbite JS -->
+    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+  </body>
+</html>

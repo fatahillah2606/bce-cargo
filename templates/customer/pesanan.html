@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ongkir | BCE</title>
+    <link
+      href="{{url_for('static',filename='dist/output.css')}}"
+      rel="stylesheet"
+    />
+    <!-- Local CSS -->
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='css/customer/style.css')}}"
+    />
+    <!-- Google icon -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body class="font-sans">
+    <!-- Navbar -->
+    {% include 'customer/components/navbar.html' %}
+
+    <!-- floating -->
+    {% include 'customer/components/floating-sidebar.html' %}
+
+    <!-- Header -->
+    <section class="bg-zinc-100 py-12">
+      <div class="max-w-5xl mx-auto px-6">
+        <div class="bg-white p-8 rounded-lg shadow-lg">
+          <h2 class="text-3xl font-bold text-green-800 mb-6">Buat Pesanan</h2>
+
+          <!-- ALERT -->
+          <div
+            class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6"
+            role="alert"
+          >
+            <p class="font-bold">Perhatian</p>
+            <p>Pastikan semua form yang Anda isi sudah sesuai</p>
+          </div>
+
+          <!-- FORM -->
+          <form action="#" method="POST" class="space-y-10">
+            <!-- INFORMASI PENGIRIM -->
+            <div>
+              <h3 class="text-xl font-semibold text-green-800 mb-4">
+                Informasi Pengirim
+              </h3>
+              <div class="grid md:grid-cols-3 gap-4">
+                <input type="text" placeholder="Nama" class="input-field" />
+                <input
+                  type="text"
+                  placeholder="Nomor WhatsApp"
+                  class="input-field"
+                />
+                <input type="text" placeholder="Kode Pos" class="input-field" />
+                <select class="input-field">
+                  <option>Kota/Kabupaten</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Alamat Lengkap"
+                  class="input-field col-span-2"
+                />
+              </div>
+            </div>
+
+            <!-- INFORMASI PENERIMA -->
+            <div>
+              <h3 class="text-xl font-semibold text-green-800 mb-4">
+                Informasi Penerima
+              </h3>
+              <div class="grid md:grid-cols-3 gap-4">
+                <input type="text" placeholder="Nama" class="input-field" />
+                <input
+                  type="text"
+                  placeholder="Nomor WhatsApp"
+                  class="input-field"
+                />
+                <input type="text" placeholder="Kode Pos" class="input-field" />
+                <select class="input-field">
+                  <option>Kota/Kabupaten</option>
+                </select>
+                <input
+                  type="text"
+                  placeholder="Alamat Lengkap"
+                  class="input-field col-span-2"
+                />
+              </div>
+            </div>
+
+            <!-- INFORMASI BARANG -->
+            <div>
+              <h3 class="text-xl font-semibold text-green-800 mb-4">
+                Informasi Barang
+              </h3>
+              <div class="grid md:grid-cols-3 gap-4">
+                <input
+                  type="text"
+                  placeholder="Jenis Barang"
+                  class="input-field"
+                />
+                <input
+                  type="text"
+                  placeholder="Nama Barang"
+                  class="input-field"
+                />
+                <select class="input-field">
+                  <option>Jenis Pengiriman</option>
+                </select>
+                <input
+                  type="number"
+                  placeholder="Jumlah Barang"
+                  class="input-field"
+                />
+                <input
+                  type="number"
+                  placeholder="Berat (Kg)"
+                  class="input-field"
+                />
+                <select class="input-field">
+                  <option>Jenis Produk</option>
+                </select>
+                <textarea
+                  placeholder="Catatan"
+                  class="input-field col-span-3"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- TOMBOL -->
+            <div class="flex justify-between items-center mt-8">
+              <p class="text-sm text-gray-500"></p>
+              <button
+                type="submit"
+                class="bg-green-500 hover:bg-green-700 text-white px-6 py-2 rounded-md font-semibold"
+              >
+                PESAN
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tambahan style utilitas -->
+    <!-- <style>
+      .input-field {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600;
+      }
+    </style> -->
+
+    <!-- footer -->
+    {% include 'customer/components/footer.html' %}
+    <!-- Flowbite JS -->
+    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+  </body>
+</html>

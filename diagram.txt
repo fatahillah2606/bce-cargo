@@ -1,0 +1,1 @@
+Saya mau lanjut untuk bagian pembuatan usecase, tapi sebelum itu saya mau kasih tau kalo customer di sistem saya bisa melakukan login sistem, manajemen pesanan, .Kira-kira seperti apa use case untuk sistem saya?
