@@ -1,24 +1,7 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-    <head>
-        <meta charset="utf-8" />
-        <title>Bahtera C(hatbot) Express</title>
-        <link
-            rel="stylesheet"
-            href="{{ url_for('static', filename='css/chatbot/chatbot.css') }}"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/icon?family=Material+Symbols+Rounded"
-        />
-    </head>
-    <body>
-        <button class="chatbot-toggler">
+    <button class="chatbot-toggler">
             <span class="material-symbols-rounded">mode_comment</span>
             <span class="material-symbols-rounded">close</span>
-        </button>
-
+    </button>
         <div class="chatbot">
             <header>
                 <h2>Chatbot</h2>
@@ -26,7 +9,7 @@
             </header>
             <ul class="chatbox">
                 <li class="chat incoming">
-                    <span class="material-symbols-rounded">smart_toy</span>
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
                     <div class="bubble">
                         <p>Halo, selamat datang di website BCE Cargo!👋<br/>Jika butuh bantuan bisa langsung tanyakan di sini ya!</p>
                         <div class="chat-options">
@@ -49,6 +32,3 @@
                 <span id="send-btn" class="material-symbols-rounded">send</span>
             </div>
         </div>
-        <script src="{{ url_for('static', filename='js/chatbot/chatbot.js') }}"></script>
-    </body>
-</html>

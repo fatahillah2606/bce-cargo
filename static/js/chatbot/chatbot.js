@@ -69,7 +69,7 @@ const createChatLi = (message, className) => {
     let chatContent =
         className === "outgoing"
             ? `<p>${message}</p>`
-            : `<span class="material-symbols-outlined">smart_toy</span><p>${message}</p>`;
+            : `<img src='/static/images/logo.png' alt='Logo'><p>${message}</p>`;
     chatLi.innerHTML = chatContent;
     if (className === "incoming") {
         let chatmsg = convertMarkdownLinksToHTML(message);
@@ -148,6 +148,7 @@ sendChatBtn.addEventListener("click", handleChat);
 chatCloseBtn.addEventListener("click", () =>
     document.body.classList.remove("show-chatbot")
 );
-chatToggler.addEventListener("click", () =>
-    document.body.classList.toggle("show-chatbot")
-);
+function showchatbot() {
+    document.body.classList.toggle("show-chatbot");
+}
+chatToggler.addEventListener("click", showchatbot);

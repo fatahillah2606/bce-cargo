@@ -29,7 +29,7 @@ def respon_api(status, code, message, data):
 # Route
 @chatbot_route.route("/", methods=["GET", "POST"])
 def chatbot():
-    return render_template('chatbot/chatbot.html')
+    return render_template('chatbot/base.html')
 
 @chatbot_route.route("/commands", methods=["GET", "POST"])
 def commands():
