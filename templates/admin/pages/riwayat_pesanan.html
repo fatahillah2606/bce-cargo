@@ -1,0 +1,184 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}Riwayat pesanan{% endblock %}
+
+<!-- Style -->
+{% block style %}
+<link
+    rel="stylesheet"
+    href="{{url_for('static',filename='css/admin/dashboard.css')}}"
+/>
+{% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Riwayat pesanan{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="p-5">
+    <!-- Container utama -->
+    <div class="bg-white rounded-xl shadow p-6 mb-6">
+        <!-- Navigasi Tab -->
+        <div class="mb-6 border-b border-gray-200">
+            <div class="flex gap-2 text-sm font-medium text-gray-500">
+                <button class="px-4 py-2 hover:text-green-600 transition">
+                    Pesanan Masuk
+                </button>
+                <button
+                    class="relative px-4 py-2 text-green-600 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500"
+                >
+                    Riwayat Pesanan
+                </button>
+                <button class="px-4 py-2 hover:text-green-600 transition">
+                    Status Pengiriman
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow p-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">
+                Riwayat Pesanan
+            </h2>
+
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-500 uppercase bg-gray-100">
+                        <tr>
+                            <th class="px-4 py-3">Kode</th>
+                            <th class="px-4 py-3">Pelanggan</th>
+                            <th class="px-4 py-3">Layanan</th>
+                            <th class="px-4 py-3">Status</th>
+                            <th class="px-4 py-3">Tanggal</th>
+                            <th class="px-4 py-3">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <!-- Baris dummy (ulang 10x) -->
+                        <tr>
+                            <td class="px-4 py-3 font-medium text-gray-800">
+                                BCE-D-160725-001
+                            </td>
+                            <td class="px-4 py-3">Fajar Prasetyo</td>
+                            <td class="px-4 py-3">Kargo Darat</td>
+                            <td class="px-4 py-3">
+                                <span
+                                    class="inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-full"
+                                >
+                                    Terkirim
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">16 Jul 2025</td>
+                            <td class="px-4 py-3">
+                                <a
+                                    href="#"
+                                    class="text-green-600 hover:underline text-sm font-medium"
+                                    >Lihat</a
+                                >
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="px-4 py-3 font-medium text-gray-800">
+                                BCE-L-150725-002
+                            </td>
+                            <td class="px-4 py-3">Dina Rahayu</td>
+                            <td class="px-4 py-3">Kargo Laut</td>
+                            <td class="px-4 py-3">
+                                <span
+                                    class="inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-full"
+                                >
+                                    Terkirim
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">15 Jul 2025</td>
+                            <td class="px-4 py-3">
+                                <a
+                                    href="#"
+                                    class="text-green-600 hover:underline text-sm font-medium"
+                                    >Lihat</a
+                                >
+                            </td>
+                        </tr>
+
+                        <!-- Tambahan 8 baris dummy lainnya -->
+                        {% for i in range(3, 11) %}
+                        <tr>
+                            <td class="px-4 py-3 font-medium text-gray-800">
+                                BCE-U-140725-{{ "%03d"|format(i) }}
+                            </td>
+                            <td class="px-4 py-3">Pelanggan {{ i }}</td>
+                            <td class="px-4 py-3">Kargo Udara</td>
+                            <td class="px-4 py-3">
+                                <span
+                                    class="inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-full"
+                                >
+                                    Terkirim
+                                </span>
+                            </td>
+                            <td class="px-4 py-3">14 Jul 2025</td>
+                            <td class="px-4 py-3">
+                                <a
+                                    href="#"
+                                    class="text-green-600 hover:underline text-sm font-medium"
+                                    >Lihat</a
+                                >
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+                class="flex items-center justify-between mt-6 text-sm text-gray-600"
+            >
+                <p>Menampilkan 1 - 10 dari 50 data</p>
+                <div class="flex gap-1">
+                    <button
+                        class="px-3 py-1 rounded-lg border text-gray-500 hover:bg-gray-100"
+                    >
+                        «
+                    </button>
+                    <button
+                        class="px-3 py-1 rounded-lg bg-green-500 text-white font-semibold"
+                    >
+                        1
+                    </button>
+                    <button
+                        class="px-3 py-1 rounded-lg border text-gray-500 hover:bg-gray-100"
+                    >
+                        2
+                    </button>
+                    <button
+                        class="px-3 py-1 rounded-lg border text-gray-500 hover:bg-gray-100"
+                    >
+                        3
+                    </button>
+                    <button
+                        class="px-3 py-1 rounded-lg border text-gray-500 hover:bg-gray-100"
+                    >
+                        »
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Wrapper (pojok kanan atas) -->
+    <div id="toastNotif" class="fixed bottom-5 right-5 z-50">
+        <div
+            class="flex items-start gap-3 bg-green-500 text-white px-4 py-3 rounded-xl shadow-lg animate-slide-in"
+        >
+            <span class="material-symbols-rounded text-2xl">check_circle</span>
+            <div>
+                <p class="text-sm font-medium">Pesanan Ditolak</p>
+                <p id="toastMsg" class="text-xs">
+                    Pesanan telah ditolak dan pelanggan telah diberi tahu.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

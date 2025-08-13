@@ -19,63 +19,36 @@
         </span>
     </div>
     <!-- Menu -->
+    {% from "admin/components/_macros.html" import sidebar_item %}
     <div class="side-menu bg-white dark:bg-zinc-800">
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> dashboard </span>
-            <span>Dashboard</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> local_shipping </span>
-            <span>Pesanan</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> receipt_long </span>
-            <span>Invoice</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> bar_chart </span>
-            <span>Laporan</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> supervisor_account </span>
-            <span>Manajemen Pengguna</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> notifications_active </span>
-            <span>Notifikasi</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> location_on </span>
-            <span>Status Paket</span>
-        </a>
-        <a
-            href="#"
-            class="text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white"
-        >
-            <span class="material-symbols-rounded"> rate_review </span>
-            <span>Ulasan</span>
-        </a>
+        <!-- Dashboard -->
+        {{ sidebar_item('Dashboard', 'dashboard', url_for('admin.dashboard'),
+        active_page, 'dashboard') }}
+
+        <!-- Pesanan -->
+        {{ sidebar_item('Kelola Pesanan', 'local_shipping',
+        url_for('admin.pesanan_masuk'), active_page, 'pesanan_masuk') }}
+
+        <!-- Invoice -->
+        {{ sidebar_item('Invoice', 'receipt_long', url_for('admin.invoice'),
+        active_page, 'invoice') }}
+
+        <!-- Laporan -->
+        {{ sidebar_item('Laporan', 'bar_chart', url_for('admin.laporan'),
+        active_page, 'laporan') }}
+
+        <!-- Manajemen Pengguna -->
+        {{ sidebar_item('Manajemen Pengguna', 'supervisor_account',
+        url_for('admin.manajemen_pengguna'), active_page, 'manajemen_pengguna')
+        }}
+
+        <!-- Kategori Barang Kargo -->
+        {{ sidebar_item('Kategori Barang Kargo', 'category',
+        url_for('admin.kategori'), active_page, 'kategori') }}
+
+        <!-- Keluhan -->
+        {{ sidebar_item('Keluhan', 'feedback', url_for('admin.keluhan'),
+        active_page, 'keluhan') }}
     </div>
     <!-- User profile -->
     <div class="user-profile bg-white dark:bg-zinc-800">
@@ -87,9 +60,11 @@
             />
             <div class="flex flex-col">
                 <span class="font-bold text-xl dark:text-white"
-                    >Fatahillah
+                    >{{ nama_pengguna }}
                 </span>
-                <span class="text-zinc-500 dark:text-zinc-400"> Admin </span>
+                <span class="text-zinc-500 dark:text-zinc-400">
+                    {{ role_pengguna }}
+                </span>
             </div>
         </div>
         <span class="material-symbols-rounded text-zinc-500 dark:text-zinc-400"
