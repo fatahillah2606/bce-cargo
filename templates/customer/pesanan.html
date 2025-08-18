@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ongkir | BCE</title>
+    <title>Pesanan | BCE</title>
     <link
       href="{{url_for('static',filename='dist/output.css')}}"
       rel="stylesheet"
@@ -13,6 +13,12 @@
       rel="stylesheet"
       href="{{url_for('static',filename='css/customer/style.css')}}"
     />
+      <!-- Tambahan style utilitas -->
+    <style>
+      .input-field {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600;
+      }
+    </style>
     <!-- Google icon -->
     <link
       rel="stylesheet"
@@ -26,11 +32,13 @@
     <!-- floating -->
     {% include 'customer/components/floating-sidebar.html' %}
 
-    <!-- Header -->
     <section class="bg-zinc-100 py-12">
       <div class="max-w-5xl mx-auto px-6">
         <div class="bg-white p-8 rounded-lg shadow-lg">
           <h2 class="text-3xl font-bold text-green-800 mb-6">Buat Pesanan</h2>
+          <p class="text-sm text-gray-600 mb-8">
+            Kami akan menjemput paket ke tempat Anda
+          </p>
 
           <!-- ALERT -->
           <div
@@ -38,7 +46,10 @@
             role="alert"
           >
             <p class="font-bold">Perhatian</p>
-            <p>Pastikan semua form yang Anda isi sudah sesuai</p>
+            <p>
+              Untuk pemesanan sebelumnya, kami akan memberikan layanan terbaik
+              untuk Anda.
+            </p>
           </div>
 
           <!-- FORM -->
@@ -132,10 +143,12 @@
 
             <!-- TOMBOL -->
             <div class="flex justify-between items-center mt-8">
-              <p class="text-sm text-gray-500"></p>
+              <p class="text-sm text-gray-500">
+                Silakan pastikan informasi sudah benar.
+              </p>
               <button
                 type="submit"
-                class="bg-green-500 hover:bg-green-700 text-white px-6 py-2 rounded-md font-semibold"
+                class="bg-green-800 hover:bg-green-700 text-white px-6 py-2 rounded-md font-semibold"
               >
                 PESAN
               </button>
@@ -145,12 +158,9 @@
       </div>
     </section>
 
-    <!-- Tambahan style utilitas -->
-    <!-- <style>
-      .input-field {
-        @apply w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-green-600;
-      }
-    </style> -->
+  
+
+   
 
     <!-- footer -->
     {% include 'customer/components/footer.html' %}

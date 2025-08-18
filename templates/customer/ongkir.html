@@ -1,113 +1,178 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ongkir | BCE</title>
-    <link
-      href="{{url_for('static',filename='dist/output.css')}}"
-      rel="stylesheet"
-    />
-    <!-- Local CSS -->
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/customer/style.css')}}"
-    />
-    <!-- Google icon -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-  </head>
-  <body class="bg-zinc-900 font-sans">
-    <!-- Navbar -->
-    {% include 'customer/components/navbar.html' %}
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ongkir | BCE</title>
+        <link
+            href="{{url_for('static',filename='dist/output.css')}}"
+            rel="stylesheet"
+        />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/customer/style.css')}}"
+        />
+        <!-- Google icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+    </head>
+    <body class="bg-white font-sans">
+        <!-- Navbar -->
+        {% include 'customer/components/navbar.html' %}
 
-    <!-- floating -->
-    {% include 'customer/components/floating-sidebar.html' %}
+        <!-- floating -->
+        {% include 'customer/components/floating-sidebar.html' %}
 
-    <!-- Header -->
-    <section class="relative">
-      <img
-        src="{{ url_for('static',filename='images/delivery.jpg') }}"
-        alt="Header"
-        class="w-full h-[650px] object-cover brightness-75"
-      />
-      <div
-        class="absolute inset-0 flex flex-col justify-center items-start px-10 text-white"
-      >
-        <h1 class="text-4xl font-bold mb-2">Informasi Barang</h1>
-        <p class="text-xl">Cek ongkir & Status pengiriman</p>
-      </div>
-    </section>
-
-    <!-- Cek Ongkir Tabs -->
-    <div
-      class="max-w-4xl mx-auto -mt-70 p-6 bg-white shadow-lg rounded-lg relative z-10"
-    >
-      <!-- Tabs header -->
-      <ul
-        class="flex border-b mb-6 text-sm font-medium text-center text-gray-500"
-        id="ongkirTab"
-        data-tabs-toggle="#ongkirTabContent"
-        role="tablist"
-      >
-        <li role="presentation">
-          <button
-            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-green-800"
-            id="ongkir-tab"
-            data-tabs-target="#ongkir"
-            type="button"
-            role="tab"
-            aria-controls="ongkir"
-            aria-selected="false"
-          >
-            Cek Ongkir
-          </button>
-        </li>
-      </ul>
-
-      <!-- Tabs content -->
-      <div id="ongkirTabContent">
-        <!-- Cek Ongkir -->
-        <div
-          class="hidden"
-          id="ongkir"
-          role="tabpanel"
-          aria-labelledby="ongkir-tab"
-        >
-          <form
-            class="flex flex-wrap md:flex-nowrap gap-4 justify-between mt-4"
-          >
-            <input
-              type="text"
-              placeholder="Kota Asal"
-              class="w-full md:w-1/3 bg-white text-black placeholder-gray-500 px-4 py-2 rounded"
-            />
-            <input
-              type="text"
-              placeholder="Kota Tujuan"
-              class="w-full md:w-1/3 bg-ehite text-black placeholder-gray-500 px-4 py-2 rounded"
-            />
-            <input
-              type="number"
-              placeholder="Kg"
-              class="w-full md:w-1/6 bg-white text-black placeholder-gray-500 px-4 py-2 rounded"
-            />
-            <button
-              type="submit"
-              class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded"
+        <!-- Header -->
+        <section class="relative heading-ongkir">
+            <div
+                class="absolute inset-0 flex flex-col justify-center items-start px-10 text-white"
             >
-              <span class="material-symbols-rounded"> search </span>
-            </button>
-          </form>
-        </div>
-      </div>
-    </div>
+                <h1 class="text-4xl font-bold mb-2">Informasi Barang</h1>
+                <p class="text-xl">Cek ongkir & Status pengiriman</p>
+            </div>
+        </section>
 
-    <!-- footer -->
-    {% include 'customer/components/footer.html' %}
-    <!-- Flowbite JS -->
-    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
-  </body>
+        <section id="tabel-ongkir" class="w-full h-auto p-5">
+            <!-- Table Ongkir -->
+
+            <h1
+                class="mb-12 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl text-center dark:text-white"
+            >
+                Tarif Ongkos Kirim
+            </h1>
+
+            <!-- Cek Ongkir Tabs -->
+            <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+                <!-- Tabs header -->
+                <ul
+                    class="flex border-b mb-6 text-sm font-medium text-center text-gray-500"
+                    id="ongkirTab"
+                    data-tabs-toggle="#ongkirTabContent"
+                    role="tablist"
+                >
+                    <li role="presentation">
+                        <button
+                            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-green-800"
+                            id="ongkir-tab"
+                            data-tabs-target="#ongkir"
+                            type="button"
+                            role="tab"
+                            aria-controls="ongkir"
+                            aria-selected="false"
+                        >
+                            Cek Ongkir
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- Tabs content -->
+                <div id="ongkirTabContent">
+                    <!-- Cek Ongkir -->
+                    <div
+                        class="hidden"
+                        id="ongkir"
+                        role="tabpanel"
+                        aria-labelledby="ongkir-tab"
+                    >
+                        <form
+                            class="flex flex-wrap md:flex-nowrap gap-4 justify-between mt-4"
+                        >
+                            <input
+                                type="text"
+                                placeholder="Kota Asal"
+                                class="w-full md:w-1/3 bg-white text-black placeholder-gray-500 px-4 py-2 rounded"
+                            />
+                            <input
+                                type="text"
+                                placeholder="Kota Tujuan"
+                                class="w-full md:w-1/3 bg-ehite text-black placeholder-gray-500 px-4 py-2 rounded"
+                            />
+                            <input
+                                type="number"
+                                placeholder="Kg"
+                                class="w-full md:w-1/6 bg-white text-black placeholder-gray-500 px-4 py-2 rounded"
+                            />
+                            <button
+                                type="submit"
+                                class="bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded"
+                            >
+                                <span class="material-symbols-rounded">
+                                    search
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <p class="mb-7 font-bold text-green-800 text-black-500 lg:text-2xl">
+                VIA UDARA :
+            </p>
+
+            <div class="relative overflow-x-auto">
+                <table
+                    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                >
+                    <thead
+                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                    >
+                        <tr>
+                            <th scope="col" class="px-6 py-3">Asal</th>
+                            <th scope="col" class="px-6 py-3">Tujuan</th>
+                            <th scope="col" class="px-6 py-3">Kg</th>
+                            <th scope="col" class="px-6 py-3">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                        >
+                            <th
+                                scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                                Apple MacBook Pro 17"
+                            </th>
+                            <td class="px-6 py-4">Silver</td>
+                            <td class="px-6 py-4">Laptop</td>
+                            <td class="px-6 py-4">$2999</td>
+                        </tr>
+                        <tr
+                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
+                        >
+                            <th
+                                scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                                Microsoft Surface Pro
+                            </th>
+                            <td class="px-6 py-4">White</td>
+                            <td class="px-6 py-4">Laptop PC</td>
+                            <td class="px-6 py-4">$1999</td>
+                        </tr>
+                        <tr class="bg-white dark:bg-gray-800">
+                            <th
+                                scope="row"
+                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                            >
+                                Magic Mouse 2
+                            </th>
+                            <td class="px-6 py-4">Black</td>
+                            <td class="px-6 py-4">Accessories</td>
+                            <td class="px-6 py-4">$99</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- footer -->
+        {% include 'customer/components/footer.html' %}
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+    </body>
 </html>
