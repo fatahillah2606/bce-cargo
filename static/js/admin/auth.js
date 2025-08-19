@@ -10,6 +10,19 @@ showpwcheckbox.addEventListener("change", () => {
     }
 });
 
+// banner error
+function tampilkanError(pesan) {
+    let errorBanner = document.getElementById("error-banner");
+    let errorText = errorBanner.querySelector("p");
+
+    if (pesan) {
+        errorText.textContent = pesan;
+        errorBanner.classList.remove("hidden");
+    } else {
+        errorBanner.classList.add("hidden");
+    }
+}
+
 function loginAdmin(event) {
     event.preventDefault();
 
@@ -28,30 +41,19 @@ function loginAdmin(event) {
         }
     });
 
-    // banner error
-    function tampilkanError(pesan) {
-        let errorBanner = document.getElementById("error-banner");
-        let errorText = errorBanner.querySelector("p");
-
-        if (pesan) {
-            errorText.textContent = pesan;
-            errorBanner.classList.remove("hidden");
-        } else {
-            errorBanner.classList.add("hidden");
-        }
-    }
-
     // Proses form jika validasi "true"
     if (validasi) {
         fetch("/admin/api/auth", {
             method: "POST",
             body: formulir,
         })
-            .then((response) => {
+            .then(async (response) => {
+                const data = await response.json();
                 if (!response.ok) {
-                    throw new Error("Gagal terhubung ke server");
+                    tampilkanError(data.message);
+                    throw new Error(data.message || "Terjadi kesalahan");
                 }
-                return response.json();
+                return data;
             })
             .then((data) => {
                 if (data.code === 200) {

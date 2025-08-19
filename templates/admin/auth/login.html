@@ -15,6 +15,11 @@
             rel="stylesheet"
             href="{{url_for('static',filename='dist/output.css')}}"
         />
+        <!-- Google Icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
         <!-- Local CSS -->
         <link
             rel="stylesheet"
@@ -39,10 +44,18 @@
 
             <!-- Error banner -->
             <div
-                class="hidden w-full h-auto py-2.5 mb-5 bg-red-500 dark:bg-red-900 rounded shadow-2xl"
+                class="hidden w-full h-auto py-2.5 mb-5 bg-red-500 dark:bg-red-900 rounded shadow-2xl relative"
                 id="error-banner"
             >
-                <p class="text-center text-white">Email atau password salah</p>
+                <p class="text-left ml-2 text-white">
+                    Email atau password salah
+                </p>
+                <span
+                    class="material-symbols-rounded absolute right-2 top-1/2 -translate-y-1/2 text-white cursor-pointer"
+                    onclick="tampilkanError()"
+                >
+                    close
+                </span>
             </div>
 
             <!-- Login card -->

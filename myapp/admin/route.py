@@ -13,9 +13,14 @@ userData = collection["users"]
 # API
 # Convert _id
 def convert_objectid_to_str(doc):
-    if '_id' in doc:
-        doc['_id'] = str(doc['_id'])
-    return doc
+    if isinstance(doc, ObjectId):
+        return str(doc)
+    elif isinstance(doc, dict):
+        return {k: convert_objectid_to_str(v) for k, v in doc.items()}
+    elif isinstance(doc, list):
+        return [convert_objectid_to_str(i) for i in doc]
+    else:
+        return doc
 
 # Respon API
 def respon_api(status, code, message, data, pagination):
@@ -50,7 +55,7 @@ def tampilkanSemuaData(koleksi, page, limit):
 
         return respon_api("success", 200, str("Data tersedia"), data, pageTest)
     else:
-        return respon_api("error", 404, str("Data tidak tersedia"), [], {})
+        return respon_api("error", 404, str("Data tidak tersedia"), [], {}), 404
 
 # Check duplicate entries
 def checkEntries(kunci, isi):
@@ -65,7 +70,11 @@ def khusus_admin(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
         if 'user_id' not in session or session.get('role') != 'admin':
-            return redirect(url_for('admin.login'))
+            if request.path.startswith("/admin/api/"):
+                return respon_api("error", 403, str("Anda tidak memiliki akses"), [], {}), 403
+            else:
+                return redirect(url_for('admin.login'))
+
         return f(*args, **kwargs)
     return decorated_function
 
@@ -158,7 +167,7 @@ def autentikasi():
                 # Cek entri duplikat
                 emailExist = checkEntries("email", email)
                 if emailExist:
-                    return respon_api("error", 409, "Email sudah ada", [], {})
+                    return respon_api("error", 409, "Email sudah ada", [], {}), 409
                 
                 # Enkripsi sandi
                 hashedPass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
@@ -180,7 +189,7 @@ def autentikasi():
                 if userData.insert_one(DataUser):
                     return respon_api("success", 200, "Data sent", [], {})
                 else:
-                    return respon_api("error", 500, "Failed to sent", [], {})
+                    return respon_api("error", 500, "Failed to sent", [], {}), 500
 
             # Sistem login
             if "login" in request.form:
@@ -208,9 +217,9 @@ def autentikasi():
 
                         return respon_api("success", 200, "Verifikasi berhasil", [], {})
                     else:
-                        return respon_api("error", 401, "Verifikasi gagal", [], {})
+                        return respon_api("error", 401, "Email atau Sandi salah", [], {}), 401
                 else:
-                    return respon_api("error", 401, "Verifikasi gagal", [], {})
+                    return respon_api("error", 401, "Email atau Sandi salah", [], {}), 401
 
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
@@ -225,7 +234,7 @@ def dataPesanan():
             return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10))
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
     
 # Tarif
 @admin_route.route("/api/data/tarif", methods=["GET", "POST"])
@@ -237,7 +246,7 @@ def dataTarif():
             return tampilkanSemuaData(tarif, request.args.get("page", 1), request.args.get("limit", 10))
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
 
 # Kategori Barang Kargo
 @admin_route.route("/api/data/kategori", methods=["GET", "POST"])

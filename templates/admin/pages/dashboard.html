@@ -30,8 +30,11 @@
                 <p class="text-sm text-gray-500 dark:text-gray-400">
                     Total Pesanan
                 </p>
-                <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">
-                    128
+                <p
+                    class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    id="total-pesanan"
+                >
+                    0
                 </p>
             </div>
         </div>
@@ -48,53 +51,74 @@
                 <p class="text-sm text-gray-500 dark:text-gray-400">
                     Sedang Dikirim
                 </p>
-                <p class="text-2xl font-bold text-gray-800 dark:text-gray-200">
-                    42
+                <p
+                    class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    id="dikirm"
+                >
+                    0
                 </p>
             </div>
         </div>
 
         <!-- Selesai Terkirim -->
-        <div class="bg-white shadow rounded-xl p-4 flex items-center gap-4">
-            <span class="material-symbols-rounded text-4xl text-green-500"
+        <div
+            class="bg-white dark:bg-zinc-800 shadow rounded-xl p-4 flex items-center gap-4"
+        >
+            <span
+                class="material-symbols-rounded text-4xl text-green-500 dark:text-green-400"
                 >check_circle</span
             >
             <div>
-                <p class="text-sm text-gray-500">Terkirim</p>
-                <p class="text-2xl font-bold text-gray-800">74</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Terkirim</p>
+                <p
+                    class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    id="sampai"
+                >
+                    0
+                </p>
             </div>
         </div>
 
-        <!-- Tagihan Belum Dibayar -->
-        <div class="bg-white shadow rounded-xl p-4 flex items-center gap-4">
-            <span class="material-symbols-rounded text-4xl text-red-500"
+        <!-- Pending -->
+        <div
+            class="bg-white dark:bg-zinc-800 shadow rounded-xl p-4 flex items-center gap-4"
+        >
+            <span
+                class="material-symbols-rounded text-4xl text-red-500 dark:text-red-400"
                 >receipt_long</span
             >
             <div>
-                <p class="text-sm text-gray-500">Tagihan Belum Dibayar</p>
-                <p class="text-2xl font-bold text-gray-800">12</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Pending</p>
+                <p
+                    class="text-2xl font-bold text-gray-800 dark:text-gray-200"
+                    id="pending"
+                >
+                    0
+                </p>
             </div>
         </div>
     </div>
 
     <!-- Statistik -->
     <div class="bg-white dark:bg-zinc-800 shadow rounded-xl p-6 mb-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">
-            Total pesanan per bulan
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
+            Total pesanan per bulan pada tahun <span id="tahun-ini"></span>
         </h2>
-        <canvas id="pengirimanChart" height="60"></canvas>
+        <div class="w-full h-32 sm:h-56 lg:h-96">
+            <canvas id="pengirimanChart"></canvas>
+        </div>
     </div>
 
     <!-- Tabel pesanan -->
     <div class="bg-white dark:bg-zinc-800 shadow rounded-xl p-6">
-        <h2 class="text-lg font-semibold text-gray-800 mb-4">
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4">
             Pesanan Terbaru
         </h2>
 
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-left text-gray-600">
                 <thead
-                    class="text-xs text-gray-500 uppercase bg-gray-100 dark:bg-zinc-700"
+                    class="text-xs text-gray-500 dark:text-gray-300 uppercase bg-gray-100 dark:bg-zinc-700"
                 >
                     <tr>
                         <th scope="col" class="px-4 py-3">Kode</th>
@@ -107,73 +131,13 @@
                 </thead>
                 <tbody
                     class="bg-white dark:bg-zinc-800 divide-y divide-gray-200 dark:divide-gray-800"
+                    id="pesanan-terbaru"
                 >
                     <tr>
-                        <td class="px-4 py-3 font-medium text-gray-800">
-                            BCE-U-240626-001
-                        </td>
-                        <td class="px-4 py-3">Fajar Prasetyo</td>
-                        <td class="px-4 py-3">Kargo Darat</td>
-                        <td class="px-4 py-3">
-                            <span
-                                class="inline-block px-2 py-1 text-xs font-semibold text-white bg-yellow-500 rounded-full"
-                            >
-                                Dikirim
-                            </span>
-                        </td>
-                        <td class="px-4 py-3">22 Jul 2025</td>
-                        <td class="px-4 py-3">
-                            <a
-                                href="#"
-                                class="text-green-600 hover:underline text-sm font-medium"
-                                >Lihat</a
-                            >
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="px-4 py-3 font-medium text-gray-800">
-                            BCE-D-240626-002
-                        </td>
-                        <td class="px-4 py-3">Dina Rahayu</td>
-                        <td class="px-4 py-3">Kargo Laut</td>
-                        <td class="px-4 py-3">
-                            <span
-                                class="inline-block px-2 py-1 text-xs font-semibold text-white bg-green-500 rounded-full"
-                            >
-                                Terkirim
-                            </span>
-                        </td>
-                        <td class="px-4 py-3">21 Jul 2025</td>
-                        <td class="px-4 py-3">
-                            <a
-                                href="#"
-                                class="text-green-600 hover:underline text-sm font-medium"
-                                >Lihat</a
-                            >
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td class="px-4 py-3 font-medium text-gray-800">
-                            BCE-D-160725-001
-                        </td>
-                        <td class="px-4 py-3">Andi Saputra</td>
-                        <td class="px-4 py-3">Kargo Udara</td>
-                        <td class="px-4 py-3">
-                            <span
-                                class="inline-block px-2 py-1 text-xs font-semibold text-white bg-red-500 rounded-full"
-                            >
-                                Gagal
-                            </span>
-                        </td>
-                        <td class="px-4 py-3">21 Jul 2025</td>
-                        <td class="px-4 py-3">
-                            <a
-                                href="#"
-                                class="text-green-600 hover:underline text-sm font-medium"
-                                >Lihat</a
-                            >
+                        <td colspan="6">
+                            <p class="text-center font-bold py-5">
+                                Data tidak tersedia
+                            </p>
                         </td>
                     </tr>
                 </tbody>
@@ -185,45 +149,223 @@
 <!-- Js per halaman -->
 {% block kontenjs %}
 <script>
-    const ctx = document.getElementById("pengirimanChart").getContext("2d");
+    // variable
+    const totalPesanan = document.getElementById("total-pesanan");
+    const sedangDikirim = document.getElementById("total-pesanan");
+    const sampaiTujuan = document.getElementById("total-pesanan");
+    const statusPending = document.getElementById("total-pesanan");
 
-    const pengirimanChart = new Chart(ctx, {
-        type: "line", // Bisa ganti ke 'line'
-        data: {
-            labels: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul"],
-            datasets: [
-                {
-                    label: "Jumlah Pesanan",
-                    data: [20, 35, 28, 40, 32, 25, 45],
-                    backgroundColor: "rgba(34, 197, 94, 0.6)", // bg-green-500 semi
-                    borderColor: "rgba(22, 163, 74, 1)", // green-600
-                    borderWidth: 1,
-                    borderRadius: 6,
+    let responData = null;
+
+    // Minta data
+    function mintaData() {
+        // fetch API
+        fetch("/admin/api/data/pesanan", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message || "Terjadi kesalahan");
+                }
+                return data;
+            })
+            .then((data) => {
+                if (data.status === "success") {
+                    responData = data;
+                    prosesData();
+                } else {
+                    console.log("Respon gagal:", data);
+                }
+            })
+            .catch((error) => {
+                console.error("Fetch error:", error);
+            });
+    }
+
+    // Proses data
+    function prosesData() {
+        // Cek respon data
+        if (!responData || !responData.data) {
+            console.warn("Belum ada respon dari server");
+            return;
+        }
+
+        // Proses datanya
+        totalPesanan.textContent = responData.pagination.total_items;
+        sedangDikirim.textContent = responData.data.filter(
+            (item) => item.status === "Dalam pengiriman"
+        ).length;
+        sampaiTujuan.textContent = responData.data.filter(
+            (item) => item.status === "Sampai tujuan"
+        ).length;
+        statusPending.textContent = responData.data.filter(
+            (item) => item.status === "Pending"
+        ).length;
+
+        // Proses chart
+        chartPesanan(hitungPesananPerBulanGMT7(responData.data));
+
+        // Proses data terbaru
+        pesananTerbaru(responData.data);
+    }
+
+    // Hitung pesanan perbulan
+    function hitungPesananPerBulanGMT7(responData) {
+        const hasil = new Array(12).fill(0); // Januari–Desember = 12 elemen
+
+        responData.forEach((item) => {
+            const dateUTC = new Date(item.tanggal_pemesanan);
+
+            // Konversi ke GMT+7
+            const dateGMT7 = new Date(dateUTC.getTime() + 7 * 60 * 60 * 1000);
+
+            // Ambil bulan sesuai GMT+7
+            const bulan = dateGMT7.getMonth(); // 0 = Januari, 11 = Desember
+
+            hasil[bulan]++;
+        });
+
+        return hasil;
+    }
+
+    // chart.js
+    function chartPesanan(dataPerbulan) {
+        const ctx = document.getElementById("pengirimanChart").getContext("2d");
+
+        const pengirimanChart = new Chart(ctx, {
+            type: "line", // Bisa ganti ke 'line'
+            data: {
+                labels: [
+                    "Jan",
+                    "Feb",
+                    "Mar",
+                    "Apr",
+                    "Mei",
+                    "Jun",
+                    "Jul",
+                    "Agu",
+                    "Sep",
+                    "Okt",
+                    "Nov",
+                    "Des",
+                ],
+                datasets: [
+                    {
+                        label: "Jumlah Pemesanan",
+                        data: dataPerbulan,
+                        backgroundColor: "rgba(34, 197, 94, 0.6)", // bg-green-500 semi
+                        borderColor: "rgba(22, 163, 74, 1)", // green-600
+                        borderWidth: 1,
+                        borderRadius: 6,
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0,
+                        },
+                    },
                 },
-            ],
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0,
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        backgroundColor: "#1e293b",
+                        titleColor: "#fff",
+                        bodyColor: "#fff",
                     },
                 },
             },
-            plugins: {
-                legend: {
-                    display: false,
-                },
-                tooltip: {
-                    backgroundColor: "#1e293b",
-                    titleColor: "#fff",
-                    bodyColor: "#fff",
-                },
-            },
-        },
-    });
+        });
+    }
+
+    // Label warna untuk status pesanan
+    function labelWarna(statusPesanan) {
+        switch (statusPesanan) {
+            case "Pending":
+                return "bg-yellow-500";
+            case "Diproses":
+                return "bg-blue-500";
+            case "Ditolak":
+                return "bg-red-500";
+            case "Menunggu pick-up":
+                return "bg-orange-500";
+            case "Dalam pengiriman":
+                return "bg-indigo-500";
+            case "Sampai tujuan":
+                return "bg-teal-500";
+            case "Selesai":
+                return "bg-green-500";
+            case "Gagal dikirim":
+                return "bg-rose-500";
+            default:
+                return "bg-gray-500"; // fallback warna default
+        }
+    }
+
+    // Tabel pesanan terbaru
+    function pesananTerbaru(datanya) {
+        let elmTabelPesanan = document.getElementById("pesanan-terbaru");
+        let tabelPesanan = "";
+
+        datanya.forEach((tiapData) => {
+            let tanggalPemesanan = formatTanggalGMT7(
+                tiapData.tanggal_pemesanan
+            );
+            tabelPesanan += `
+                <tr>
+                    <td
+                        class="px-4 py-3 font-medium text-gray-800 dark:text-gray-200"
+                    >
+                        ${tiapData.kode_pemesanan}
+                    </td>
+                    <td class="px-4 py-3 dark:text-gray-400">
+                        ${tiapData.nama_pengirim}
+                    </td>
+                    <td class="px-4 py-3 dark:text-gray-400">
+                        ${tiapData.jenis_kargo}
+                    </td>
+                    <td class="px-4 py-3 dark:text-gray-400">
+                        <span
+                            class="inline-block px-2 py-1 text-xs font-semibold text-white ${labelWarna(
+                                tiapData.status
+                            )} rounded-full"
+                        >
+                            ${tiapData.status}
+                        </span>
+                    </td>
+                    <td class="px-4 py-3 dark:text-gray-400">
+                        ${tanggalPemesanan.tanggal}
+                    </td>
+                    <td class="px-4 py-3">
+                        <a
+                            href="#"
+                            class="text-green-600 dark:text-green-400 hover:underline text-sm font-medium"
+                            >Lihat</a
+                        >
+                    </td>
+                </tr>
+            `;
+        });
+
+        elmTabelPesanan.innerHTML = tabelPesanan;
+    }
+
+    // etc
+    document.getElementById("tahun-ini").textContent = new Date().getFullYear();
+
+    // Muat semua data
+    mintaData();
 </script>
 
 {% endblock %}
