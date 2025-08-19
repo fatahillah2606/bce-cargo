@@ -1,180 +1,263 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile | BCE</title>
-    <link
-      href="{{url_for('static',filename='dist/output.css')}}"
-      rel="stylesheet"
-    />
-    <!-- Local CSS -->
-    <link
-      rel="stylesheet"
-      href="{{url_for('static',filename='css/customer/style.css')}}"
-    />
-    <!-- Google icon -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
-    <style>
-      section {
-        min-height: auto;
-      }
-    </style>
-  </head>
-  <body class="bg-white font-sans">
-    <!-- Navbar -->
-    {% include 'customer/components/navbar.html' %}
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Profile | BCE</title>
+        <link
+            href="{{url_for('static',filename='dist/output.css')}}"
+            rel="stylesheet"
+        />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/customer/style.css')}}"
+        />
+        <!-- Google icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <style>
+            section {
+                min-height: auto;
+            }
+        </style>
+    </head>
+    <body class="bg-white font-sans">
+        <!-- Navbar -->
+        {% include 'customer/components/navbar.html' %}
 
-    <!-- floating -->
-    {% include 'customer/components/floating-sidebar.html' %}
+        <!-- floating -->
+        {% include 'customer/components/floating-sidebar.html' %}
 
-    <!-- Informasi Pribadi -->
-    <section class="max-w-5xl mx-auto py-12 px-6" id="informasi-pribadi">
-      <form action="" method="post" name="informasi-pribadi" id="informasi-pribadi">
-      <h2 class="text-2xl font-bold text-green-800 mb-6">Informasi Pribadi</h2>
-
-      <!-- Informasi Alamat -->
-      <div class="bg-white shadow rounded-lg p-6 mb-8">
-        <h3 class="text-lg font-semibold text-gray-700 mb-4">
-          Informasi Alamat
-        </h3>
-        <div class="grid gap-6 md:grid-cols-2">
-          <div>
-            <label class="block text-sm font-medium text-gray-700"
-              >Nama Lengkap</label
+        <!-- Informasi Pribadi -->
+        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-informasi-pribadi">
+            <form
+                action=""
+                method="post"
+                name="informasi-pribadi"
+                id="informasi-pribadi"
             >
-            <input
-              type="text"
-              placeholder="Masukkan nama lengkap"
-              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700"
-              >Nomor Ponsel</label
+                <h2 class="text-2xl font-bold text-green-800 mb-6">
+                    Informasi Pribadi
+                </h2>
+
+                <!-- Informasi Alamat -->
+                <div class="bg-white shadow rounded-lg p-6 mb-8">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                        Informasi Alamat
+                    </h3>
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Nama Lengkap</label
+                            >
+                            <input
+                                type="text"
+                                placeholder="Masukkan nama lengkap"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Nomor Ponsel</label
+                            >
+                            <input
+                                type="text"
+                                placeholder="Masukkan nomor ponsel"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Alamat</label
+                            >
+                            <input
+                                type="text"
+                                placeholder="Masukkan alamat"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Kode Pos</label
+                            >
+                            <input
+                                type="text"
+                                name="kode-pos"
+                                placeholder="Masukkan kode pos"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6 text-right">
+                    <button
+                        type="submit"
+                        id="simpan-biodata"
+                        class="bg-green-800 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
+                    >
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Informasi Akun -->
+        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-informasi-akun">
+            <form
+                action=""
+                method="post"
+                name="informasi-akun"
+                id="informasi-akun"
             >
-            <input
-              type="text"
-              placeholder="Masukkan nomor ponsel"
-              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-            />
-          </div>
-          <div class="md:col-span-2">
-            <label class="block text-sm font-medium text-gray-700"
-              >Alamat</label
-            >
-            <input
-              type="text"
-              placeholder="Masukkan alamat"
-              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-            />
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700"
-              >Kode Pos</label
-            >
-            <input
-              type="text"
-              name="kode-pos"
-              placeholder="Masukkan kode pos"
-              class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="mt-6 text-right">
-          <button
-            type="submit"
-            id="simpan-biodata"
-            class="bg-green-800 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
-          >
-            Simpan Perubahan
-          </button>
-        </div>
-      </form>
-    </section>
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                        Informasi Akun
+                    </h3>
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Nama Pengguna</label
+                            >
+                            <input
+                                type="text"
+                                name="nama-customer"
+                                placeholder="Masukkan nama pengguna"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Email</label
+                            >
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Masukkan email"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div class="md:col-span-2">
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Password</label
+                            >
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Masukkan password"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Informasi Akun -->
-    <section class="max-w-5xl mx-auto py-12 px-6" id="informasi-akun">
-      <form action="" method="post" name="informasi-akun" id="informasi-akun">
-        <div class="bg-white shadow rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-700 mb-4">
-            Informasi Akun
-          </h3>
-          <div class="grid gap-6 md:grid-cols-2">
-            <div>
-              <label class="block text-sm font-medium text-gray-700"
-                >Nama Pengguna</label
-              >
-              <input
-                type="text"
-                name="nama-customer"
-                placeholder="Masukkan nama pengguna"
-                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700"
-                >Email</label
-              >
-              <input
-                type="email"
-                name="email"
-                placeholder="Masukkan email"
-                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-              />
-            </div>
-            <div class="md:col-span-2">
-              <label class="block text-sm font-medium text-gray-700"
-                >Password</label
-              >
-              <input
-                type="password"
-                name="password"
-                placeholder="Masukkan password"
-                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
-              />
-            </div>
-          </div>
-        </div>
+                <div class="mt-6 text-right">
+                    <button
+                        type="submit"
+                        id="simpan-akun"
+                        class="bg-green-800 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
+                    >
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </section>
 
-        <div class="mt-6 text-right">
-          <button
-            type="submit"
-            id="simpan-akun"
-            class="bg-green-800 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
-          >
-            Simpan Perubahan
-          </button>
-        </div>
-      </form>
-    </section>
+        <!-- Buku Alamat -->
+        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-buku-alamat">
+            <form action="" method="post" name="buku-alamat" id="buku-alamat">
+                <div class="bg-white shadow rounded-lg p-6">
+                    <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                        Buku Alamat
+                    </h3>
+                    <div class="grid gap-6 md:grid-cols-2">
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Nama</label
+                            >
+                            <input
+                                type="text"
+                                name="nama-customer"
+                                placeholder="Masukkan Nama"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Nomor HP</label
+                            >
+                            <input
+                                type="text"
+                                name="nomor-hp"
+                                placeholder="Masukkan No HP"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Kota</label
+                            >
+                            <input
+                                type="text"
+                                name="kota"
+                                placeholder="Masukkan Kota"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Alamat Lengkap</label
+                            >
+                            <input
+                                type="text"
+                                name="alamat-lengkap"
+                                placeholder="Masukkan Alamat Lengkap"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Kode Pos</label
+                            >
+                            <input
+                                type="number"
+                                name="Number"
+                                placeholder="Masukkan Kota"
+                                class="mt-1 w-full px-4 py-2 border border-gray-300 rounded bg-gray-100"
+                            />
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Buku Alamat -->
-    <section class="max-w-5xl mx-auto py-12 px-6" id="buku-alamat">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-bold text-green-800">Buku Alamat</h2>
-        <button
-          class="bg-green-800 hover:bg-green-700 text-white font-medium px-4 py-2 rounded"
-        >
-          + Tambah Kontak
-        </button>
-      </div>
-      <div class="bg-white shadow rounded-lg p-6 text-center text-gray-500">
-        <p>Belum ada alamat yang ditambahkan.</p>
-        <p class="text-sm mt-2">
-          Gunakan tombol "Tambah Kontak" untuk menyimpan alamat pengiriman atau
-          penerima.
-        </p>
-      </div>
-    </section>
+                <div class="mt-6 text-right">
+                    <button
+                        type="submit"
+                        id="simpan-akun"
+                        class="bg-green-800 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
+                    >
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </section>
 
-    <!-- footer -->
-    {% include 'customer/components/footer.html' %}
-    <!-- Flowbite JS -->
-    <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
-  </body>
+        <!-- footer -->
+        {% include 'customer/components/footer.html' %}
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+    </body>
 </html>
