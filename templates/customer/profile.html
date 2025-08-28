@@ -32,7 +32,10 @@
         {% include 'customer/components/floating-sidebar.html' %}
 
         <!-- Informasi Pribadi -->
-        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-informasi-pribadi">
+        <section
+            class="max-w-5xl mx-auto py-12 px-6"
+            id="bagian-informasi-pribadi"
+        >
             <form
                 action=""
                 method="post"
@@ -96,20 +99,36 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-6 text-right">
+                <div class="mt-6 flex justify-end gap-2.5">
                     <button
                         type="submit"
                         id="simpan-biodata"
-                        class="bg-green-800 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded"
+                        class="bg-green-800 hover:bg-green-700 text-white font-semibold px-3 py-2 rounded flex items-center"
                     >
-                        Simpan Perubahan
+                        <span class="material-symbols-rounded text-white mr-2">
+                            save
+                        </span>
+                        <span> Simpan </span>
+                    </button>
+                    <button
+                        type="edit"
+                        id="edit"
+                        class="bg-green-800 hover:bg-green-700 text-white font-semibold py-2 px-3 rounded flex items-center"
+                    >
+                        <span class="material-symbols-rounded text-white mr-2">
+                            edit
+                        </span>
+                        <span> Edit </span>
                     </button>
                 </div>
             </form>
         </section>
 
         <!-- Informasi Akun -->
-        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-informasi-akun">
+        <section
+            class="max-w-5xl mx-auto py-12 px-6"
+            id="bagian-informasi-akun"
+        >
             <form
                 action=""
                 method="post"

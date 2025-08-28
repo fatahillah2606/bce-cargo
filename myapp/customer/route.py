@@ -80,6 +80,18 @@ def pesanan():
 def profile():
     return render_template("customer/profile.html")
 
+# RIWAYAT PESANAN
+@customer_route.route("/riwayat", methods=["GET", "POST"])
+@khusus_customer
+def riwayat():
+    return render_template("customer/riwayat.html")
+
+# Eksperimen
+@customer_route.route("/tes", methods=["GET", "POST"])
+@khusus_customer
+def tes():
+    return render_template("customer/tes.html")
+
 # Logout
 @customer_route.route("/logout")
 def logout():

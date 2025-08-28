@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Pesanan | BCE</title>
+        <title>Buat Pesanan | BCE</title>
         <link
             href="{{url_for('static',filename='dist/output.css')}}"
             rel="stylesheet"
@@ -138,6 +138,9 @@
                                 />
                                 <select class="input-field">
                                     <option>Jenis Pengiriman</option>
+                                    <option>Darat</option>
+                                    <option>Laut</option>
+                                    <option>Udara</option>
                                 </select>
                                 <input
                                     type="number"
@@ -151,7 +154,31 @@
                                 />
                                 <select class="input-field">
                                     <option>Jenis Produk</option>
+                                    <option>Lainnya</option>
                                 </select>
+
+                                <input
+                                    type="number"
+                                    placeholder="Panjang (cm)"
+                                    class="input-field"
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Lebar (cm)"
+                                    class="input-field"
+                                />
+                                <input
+                                    type="number"
+                                    placeholder="Tinggi (cm)"
+                                    class="input-field"
+                                />
+                                <select class="input-field">
+                                    <option>Kategori</option>
+                                </select>
+                                <select class="input-field">
+                                    <option>Asuransi</option>
+                                </select>
+
                                 <textarea
                                     placeholder="Catatan"
                                     class="input-field col-span-3"
