@@ -365,12 +365,38 @@ def dataKategori():
         return respon_api("error", 500, str(error), [], {})
     
 # Keluhan pelanggan
-@admin_route.route("/api/data/feedback", methods=["GET", "POST"])
+@admin_route.route("/api/data/feedback", methods=["GET", "POST", "DELETE"])
 @khusus_admin
 def dataFeedback():
     try:
-        if request.method == "GET":
-            feedback = collection["feedback"]
+        feedback = collection["feedback"]
+        
+        if request.method == "POST":
+            data_json = request.get_json()
+
+            if data_json and data_json.get("markRead"):
+                markRead = str(data_json.get("markRead"))
+
+                if feedback.update_one({"_id": ObjectId(markRead)}, {"$set": {"dibaca": True}}):
+                    return respon_api("success", 200, "Keluhan dibaca", [], {})
+                else:
+                    return respon_api("error", 500, "Terjadi kesalahan", [], {}), 500
+
+            else:
+                if feedback.update_many({}, {"$set": {"dibaca": True}}):
+                    return respon_api("success", 200, "Semua keluhan dibaca", [], {})
+                else:
+                    return respon_api("error", 500, "Terjadi kesalahan", [], {}), 500
+
+        elif request.method == "DELETE":
+            data_json = request.get_json()
+
+            if feedback.delete_one({"_id": ObjectId(data_json.get("delete"))}):
+                return respon_api("success", 200, "Keluhan berhasil dihapus", [], {})
+            else:
+                return respon_api("error", 500, "Gagal menghapus keluhan", [], {}), 500
+
+        else:
             return tampilkanSemuaData(feedback, request.args.get("page", 1), request.args.get("limit", 10), {})
 
     except Exception as error:
