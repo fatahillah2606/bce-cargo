@@ -34,7 +34,7 @@ def respon_api(status, code, message, data, pagination):
     return jsonify(respon)
 
 # Tampilkan Semua Data
-def tampilkanSemuaData(koleksi, page, limit):
+def tampilkanSemuaData(koleksi, page, limit, query):
     halaman = int(page if page else 1)
     batas = int(limit if limit else 10)
     lewati = (halaman - 1) * batas
@@ -42,7 +42,7 @@ def tampilkanSemuaData(koleksi, page, limit):
     total_items = koleksi.count_documents({})
     total_halaman = math.ceil(total_items / batas)
 
-    cursor = koleksi.find({}).skip(lewati).limit(batas)
+    cursor = koleksi.find(query).sort("_id", -1).skip(lewati).limit(batas)
     data = [convert_objectid_to_str(doc) for doc in cursor]
 
     if data:
@@ -57,6 +57,15 @@ def tampilkanSemuaData(koleksi, page, limit):
     else:
         return respon_api("error", 404, str("Data tidak tersedia"), [], {}), 404
 
+# Tampilkan data spesifik
+def tampilkanDataSpesifik(koleksi, oid):
+    data = koleksi.find_one({"_id": ObjectId(oid)})
+    if data:
+        return respon_api("success", 200, str("Data tersedia"), convert_objectid_to_str(data), {})
+    else:
+        return respon_api("error", 404, str("Data tidak tersedia"), [], {}), 404
+
+
 # Check duplicate entries
 def checkEntries(kunci, isi):
     data = userData.find_one({kunci: isi})
@@ -69,11 +78,11 @@ def checkEntries(kunci, isi):
 def khusus_admin(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if 'user_id' not in session or session.get('role') != 'admin':
+        if "user_id" not in session or session.get("role") != "admin":
             if request.path.startswith("/admin/api/"):
                 return respon_api("error", 403, str("Anda tidak memiliki akses"), [], {}), 403
             else:
-                return redirect(url_for('admin.login'))
+                return redirect(url_for("admin.login"))
 
         return f(*args, **kwargs)
     return decorated_function
@@ -94,7 +103,7 @@ def inject_globals():
 # Route
 @admin_route.route("/")
 def login():
-    if 'user_id' in session or session.get('role') == 'admin':
+    if "user_id" in session or session.get("role") == "admin":
         return redirect(url_for("admin.dashboard"))
     else:
         return render_template("admin/auth/login.html")
@@ -128,17 +137,22 @@ def manajemen_pengguna():
 @admin_route.route("/riwayat_pesanan")
 @khusus_admin
 def riwayat_pesanan():
-    return render_template("admin/pages/riwayat_pesanan.html", active_page="riwayat_pesanan")
+    return render_template("admin/pages/riwayat_pesanan.html", active_page="pesanan_masuk")
 
 @admin_route.route("/status")
 @khusus_admin
 def status():
-    return render_template("admin/pages/status.html", active_page="status")
+    return render_template("admin/pages/status.html", active_page="pesanan_masuk")
 
 @admin_route.route("/kategori")
 @khusus_admin
 def kategori():
     return render_template("admin/pages/kategori.html", active_page="kategori")
+
+@admin_route.route("/tarif")
+@khusus_admin
+def tarif():
+    return render_template("admin/pages/tarif.html", active_page="tarif")
 
 @admin_route.route("/keluhan")
 @khusus_admin
@@ -209,7 +223,7 @@ def autentikasi():
 
                         # Buat sesi
                         session.permanent = True
-                        session['kedaluwarsa'] = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat()
+                        session["kedaluwarsa"] = (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat()
                         session["user_id"] = str(akun["_id"])
                         session["name"] = akun["name"]
                         session["email"] = akun["email"]
@@ -230,20 +244,110 @@ def autentikasi():
 def dataPesanan():
     try:
         if request.method == "GET":
-            pemesanan = collection["pemesanan_kargo"]
-            return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10))
+            statusPesanan = request.args.getlist("status")
+            excludeStatus = request.args.getlist("exclude_status")
+            
+            if statusPesanan:
+                # Ambil query apa saja yang di filter berdasarkan status
+                queryPencarian = {"$or": [{"status": status} for status in statusPesanan]}
+
+                # Cari berdasarkan status lalu tampilkan
+                pemesanan = collection["pemesanan_kargo"]
+                return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), queryPencarian)
+            
+            elif excludeStatus:
+                # Ambil query apa saja yang di kecualikan berdasarkan status
+                queryPencarian = {"status": {"$nin": [pengecualian for pengecualian in excludeStatus]}}
+
+                # Tampilkan data dengan pengecualian status
+                pemesanan = collection["pemesanan_kargo"]
+                return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), queryPencarian)
+
+            else:
+                # Tampilkan semua data tanpa filtrasi
+                pemesanan = collection["pemesanan_kargo"]
+                return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), {})
 
     except Exception as error:
         return respon_api("error", 500, str(error), [], {}), 500
     
 # Tarif
-@admin_route.route("/api/data/tarif", methods=["GET", "POST"])
+@admin_route.route("/api/data/tarif", methods=["GET", "POST", "DELETE"])
 @khusus_admin
 def dataTarif():
     try:
-        if request.method == "GET":
-            tarif = collection["tarif"]
-            return tampilkanSemuaData(tarif, request.args.get("page", 1), request.args.get("limit", 10))
+        tarif = collection["tarif"]
+
+        # Method POST
+        if request.method == "POST":
+
+            # Tambah tarif
+            if "tambahTarif" in request.form:
+                rute = str(request.form["rute"])
+                destinasi = str(request.form["destinasi"])
+                origin = str(request.form["origin"])
+                jenis = str(request.form["jenis"])
+                moda = str(request.form["moda"])
+                harga = int(request.form["harga"])
+
+                DataTarif = {
+                    "_id": ObjectId(),
+                    "rute": rute,
+                    "destinasi": destinasi,
+                    "origin": origin,
+                    "jenis": jenis,
+                    "moda": moda,
+                    "harga": harga
+                }
+
+                if tarif.insert_one(DataTarif):
+                    return respon_api("success", 200, "Tarif baru berhasil ditambahkan", [], {})
+                else:
+                    return respon_api("error", 500, "Gagal menambahkan data tarif", [], {}), 500
+
+            # Edit tarif
+            if "editTarif" in request.form:
+                objekId = str(request.form["objekId"])
+                rute = str(request.form["rute"])
+                destinasi = str(request.form["destinasi"])
+                origin = str(request.form["origin"])
+                jenis = str(request.form["jenis"])
+                moda = str(request.form["moda"])
+                harga = int(request.form["harga"])
+
+                DataTarif = {
+                    "rute": rute,
+                    "destinasi": destinasi,
+                    "origin": origin,
+                    "jenis": jenis,
+                    "moda": moda,
+                    "harga": harga
+                }
+
+                if tarif.update_one({"_id": ObjectId(objekId)}, {"$set": DataTarif}):
+                    return respon_api("success", 200, "Tarif berhasil diubah", [], {})
+                else:
+                    return respon_api("error", 500, "Gagal mengubah data tarif", [], {}), 500
+
+            else:
+                return respon_api("error", 400, "Bad request", [], {}), 400
+        
+        # Method DELETE
+        elif request.method == "DELETE":
+            data_json = request.get_json()
+
+            if tarif.delete_one({"_id": ObjectId(data_json.get("ObjekId"))}):
+                return respon_api("success", 200, "Tarif berhasil dihapus", [], {})
+            else:
+                return respon_api("error", 500, "Gagal menghapus data tarif", [], {}), 500
+
+        # Method GET (default)
+        else:
+            oid = request.args.get("oid")
+            if oid:
+                return tampilkanDataSpesifik(tarif, oid)
+            else:
+                return tampilkanSemuaData(tarif, request.args.get("page", 1), request.args.get("limit", 10), {})
 
     except Exception as error:
         return respon_api("error", 500, str(error), [], {}), 500
@@ -255,7 +359,19 @@ def dataKategori():
     try:
         if request.method == "GET":
             kategori_barang = collection["kategori_barang_kargo"]
-            return tampilkanSemuaData(kategori_barang, request.args.get("page", 1), request.args.get("limit", 10))
+            return tampilkanSemuaData(kategori_barang, request.args.get("page", 1), request.args.get("limit", 10), {})
+
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})
+    
+# Keluhan pelanggan
+@admin_route.route("/api/data/feedback", methods=["GET", "POST"])
+@khusus_admin
+def dataFeedback():
+    try:
+        if request.method == "GET":
+            feedback = collection["feedback"]
+            return tampilkanSemuaData(feedback, request.args.get("page", 1), request.args.get("limit", 10), {})
 
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})

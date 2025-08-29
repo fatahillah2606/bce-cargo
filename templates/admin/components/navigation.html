@@ -46,12 +46,20 @@
         {{ sidebar_item('Kategori Barang Kargo', 'category',
         url_for('admin.kategori'), active_page, 'kategori') }}
 
+        <!-- Tarif Pengiriman -->
+        {{ sidebar_item('Tarif pengiriman', 'payments', url_for('admin.tarif'),
+        active_page, 'tarif') }}
+
         <!-- Keluhan -->
         {{ sidebar_item('Keluhan', 'feedback', url_for('admin.keluhan'),
         active_page, 'keluhan') }}
     </div>
     <!-- User profile -->
-    <div class="user-profile bg-white dark:bg-zinc-800">
+    <div
+        class="user-profile bg-white dark:bg-zinc-800"
+        data-popover-target="popover-profile"
+        data-popover-trigger="click"
+    >
         <div class="flex justify-center items-center gap-2.5">
             <img
                 src="{{url_for('static', filename='images/logo.png')}}"
@@ -68,7 +76,22 @@
             </div>
         </div>
         <span class="material-symbols-rounded text-zinc-500 dark:text-zinc-400"
-            >arrow_drop_down</span
+            >more_horiz</span
         >
+    </div>
+    <div
+        data-popover
+        id="popover-profile"
+        role="tooltip"
+        class="absolute z-10 invisible inline-block w-60 text-sm text-zinc-500 dark:text-zinc-400 transition-opacity duration-300 bg-white border border-zinc-200 rounded-lg shadow-xs opacity-0 dark:border-zinc-600 dark:bg-zinc-800 py-2.5 px-1.5"
+    >
+        <a
+            href="/admin/logout"
+            class="px-3 py-2 flex items-center gap-2 hover:bg-red-500 hover:text-white rounded-lg"
+        >
+            <span class="material-symbols-rounded"> logout </span>
+            <p>Logout</p>
+        </a>
+        <div data-popper-arrow></div>
     </div>
 </nav>

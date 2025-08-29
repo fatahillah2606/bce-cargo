@@ -55,10 +55,19 @@
                 </header>
                 <!-- Konten -->
                 {% block konten %}{% endblock %}
+
+                <!-- alerts -->
+                <div
+                    class="fixed bottom-0 right-0 z-50 w-full max-w-96 p-5"
+                    id="alert-toaster"
+                ></div>
             </section>
         </div>
 
         <!-- Footer -->
+
+        <!-- Modals -->
+        {% block modals %}{% endblock %}
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
 

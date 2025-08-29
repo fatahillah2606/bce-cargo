@@ -21,17 +21,24 @@
         <!-- Navigasi Tab -->
         <div class="mb-6 border-b border-gray-200">
             <div class="flex gap-2 text-sm font-medium text-gray-500">
-                <button class="px-4 py-2 hover:text-green-600 transition">
+                <a
+                    href="/admin/pesanan_masuk"
+                    class="px-4 py-2 hover:text-green-600 transition"
+                >
                     Pesanan Masuk
-                </button>
-                <button class="px-4 py-2 hover:text-green-600 transition">
+                </a>
+                <a
+                    href="/admin/riwayat_pesanan"
+                    class="px-4 py-2 hover:text-green-600 transition"
+                >
                     Riwayat Pesanan
-                </button>
-                <button
+                </a>
+                <a
+                    href="/admin/status"
                     class="relative px-4 py-2 text-green-600 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500"
                 >
                     Status Pengiriman
-                </button>
+                </a>
             </div>
         </div>
 
@@ -49,71 +56,26 @@
                             <th class="px-4 py-3">Pelanggan</th>
                             <th class="px-4 py-3">Moda</th>
                             <th class="px-4 py-3">Status Saat Ini</th>
-                            <th class="px-4 py-3">Tanggal Update</th>
+                            <th class="px-4 py-3">Tanggal Pemesanan</th>
                             <th class="px-4 py-3">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        <!-- Dummy row -->
+                    <tbody
+                        class="bg-white divide-y divide-gray-200"
+                        id="status-pengiriman"
+                    >
                         <tr>
-                            <td class="px-4 py-3 font-medium text-gray-800">
-                                BCE-D-220725-001
-                            </td>
-                            <td class="px-4 py-3">Fajar Prasetyo</td>
-                            <td class="px-4 py-3">Darat</td>
-                            <td class="px-4 py-3 text-sm text-yellow-600">
-                                Dalam Perjalanan
-                            </td>
-                            <td class="px-4 py-3">22 Jul 2025</td>
-                            <td class="px-4 py-3">
-                                <button
-                                    onclick="openStatusModal('BCE-D-220725-001')"
-                                    class="text-sm px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                            <td colspan="6">
+                                <p
+                                    class="text-center font-bold text-gray-600 mt-5"
+                                    id="info-status-pengiriman"
                                 >
-                                    Perbarui
-                                </button>
+                                    Memuat data pengiriman...
+                                </p>
                             </td>
                         </tr>
-
-                        <tr>
-                            <td class="px-4 py-3 font-medium text-gray-800">
-                                BCE-U-210725-002
-                            </td>
-                            <td class="px-4 py-3">Dina Rahayu</td>
-                            <td class="px-4 py-3">Udara</td>
-                            <td class="px-4 py-3 text-sm text-green-600">
-                                Terkirim
-                            </td>
-                            <td class="px-4 py-3">21 Jul 2025</td>
-                            <td class="px-4 py-3">
-                                <button
-                                    class="text-sm px-3 py-1 bg-gray-400 text-white rounded-lg cursor-not-allowed"
-                                    disabled
-                                >
-                                    Selesai
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Tambahan baris lainnya tinggal ulang -->
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Wrapper (pojok kanan atas) -->
-    <div id="toastNotif" class="fixed bottom-5 right-5 z-50">
-        <div
-            class="flex items-start gap-3 bg-green-500 text-white px-4 py-3 rounded-xl shadow-lg animate-slide-in"
-        >
-            <span class="material-symbols-rounded text-2xl">check_circle</span>
-            <div>
-                <p class="text-sm font-medium">Status diperbarui</p>
-                <p id="toastMsg" class="text-xs">
-                    Status pesanan berhasil diperbarui dan diteruskan ke
-                    pelanggan.
-                </p>
             </div>
         </div>
     </div>
@@ -175,4 +137,77 @@
     </div>
 </div>
 
+{% endblock %}
+<!-- Js per halaman -->
+{% block kontenjs %}
+<script>
+    // Variabel
+    const statusPengirimanContainer =
+        document.getElementById("status-pengiriman");
+    let listStatusPengiriman = "";
+
+    // Request seluruh status pesanan
+    function muatStatusPesanan() {
+        fetch("/admin/api/data/pesanan", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message || "Terjadi Kesalahan");
+                }
+                return data;
+            })
+            .then((data) => {
+                data.data.forEach((statusPengiriman) => {
+                    const tanggalPemesanan = formatTanggalGMT7(
+                        statusPengiriman.tanggal_pemesanan
+                    );
+
+                    listStatusPengiriman += `
+                        <tr>
+                            <td class="px-4 py-3 font-medium text-gray-800">
+                                ${statusPengiriman.kode_pemesanan}
+                            </td>
+                            <td class="px-4 py-3">${
+                                statusPengiriman.nama_pengirim
+                            }</td>
+                            <td class="px-4 py-3">${
+                                statusPengiriman.jenis_kargo
+                            }</td>
+                            <td class="px-4 py-3 text-sm ${labelText(
+                                statusPengiriman.status
+                            )}">
+                                ${statusPengiriman.status}
+                            </td>
+                            <td class="px-4 py-3">${
+                                tanggalPemesanan.tanggal
+                            }</td>
+                            <td class="px-4 py-3">
+                                <button
+                                    onclick="openStatusModal('${
+                                        statusPengiriman.kode_pemesanan
+                                    }')"
+                                    class="text-sm px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                                >
+                                    Perbarui
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                statusPengirimanContainer.innerHTML = listStatusPengiriman;
+            })
+            .catch((error) => {
+                console.error("Fetch error:", error);
+            });
+    }
+
+    // Muat datanya
+    muatStatusPesanan();
+</script>
 {% endblock %}

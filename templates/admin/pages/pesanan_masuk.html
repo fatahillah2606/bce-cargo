@@ -21,96 +21,35 @@
         <!-- Navigasi Tab -->
         <div class="mb-6 border-b border-gray-200">
             <div class="flex gap-2 text-sm font-medium text-gray-500">
-                <button
+                <a
+                    href="/admin/pesanan_masuk"
                     class="relative px-4 py-2 text-green-600 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500"
                 >
                     Pesanan Masuk
-                </button>
-                <button class="px-4 py-2 hover:text-green-600 transition">
+                </a>
+                <a
+                    href="/admin/riwayat_pesanan"
+                    class="px-4 py-2 hover:text-green-600 transition"
+                >
                     Riwayat Pesanan
-                </button>
-                <button class="px-4 py-2 hover:text-green-600 transition">
+                </a>
+                <a
+                    href="/admin/status"
+                    class="px-4 py-2 hover:text-green-600 transition"
+                >
                     Status Pengiriman
-                </button>
+                </a>
             </div>
         </div>
 
         <!-- List Pesanan Masuk -->
-        <div class="space-y-4">
-            <!-- Item 1 -->
-            <div
-                class="flex items-start gap-4 bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4"
+        <div class="space-y-4" id="pesanan-masuk">
+            <p
+                class="text-center font-bold text-gray-600"
+                id="info-pesanan-masuk"
             >
-                <span class="material-symbols-rounded text-green-600 text-3xl"
-                    >local_shipping</span
-                >
-                <div class="flex-1">
-                    <p class="text-sm text-gray-700 mb-1">
-                        <span class="font-semibold text-gray-900"
-                            >BCE-U-240626-001</span
-                        >
-                        dari
-                        <span class="font-medium">Fajar Prasetyo</span> meminta
-                        pengiriman <span class="italic">Kargo Darat</span>.
-                    </p>
-                    <p class="text-xs text-gray-500">
-                        Jakarta → Surabaya · 22 Juli 2025
-                    </p>
-                </div>
-                <div>
-                    <button
-                        class="text-sm px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-                        onclick="openModal('BCE-U-240626-001')"
-                    >
-                        Lihat
-                    </button>
-                </div>
-            </div>
-
-            <!-- Item 2 -->
-            <div
-                class="flex items-start gap-4 bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4"
-            >
-                <span class="material-symbols-rounded text-green-600 text-3xl"
-                    >local_shipping</span
-                >
-                <div class="flex-1">
-                    <p class="text-sm text-gray-700 mb-1">
-                        <span class="font-semibold text-gray-900"
-                            >BCE-D-160725-001</span
-                        >
-                        dari
-                        <span class="font-medium">Dina Rahayu</span> meminta
-                        pengiriman <span class="italic">Kargo Laut</span>.
-                    </p>
-                    <p class="text-xs text-gray-500">
-                        Makassar → Balikpapan · 23 Juli 2025
-                    </p>
-                </div>
-                <div>
-                    <button
-                        class="text-sm px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-                        onclick="openModal('BCE-D-160725-001')"
-                    >
-                        Lihat
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Toast Wrapper (pojok kanan atas) -->
-    <div id="toastNotif" class="fixed bottom-5 right-5 z-50">
-        <div
-            class="flex items-start gap-3 bg-green-500 text-white px-4 py-3 rounded-xl shadow-lg animate-slide-in"
-        >
-            <span class="material-symbols-rounded text-2xl">check_circle</span>
-            <div>
-                <p class="text-sm font-medium">Pesanan Ditolak</p>
-                <p id="toastMsg" class="text-xs">
-                    Pesanan telah ditolak dan pelanggan telah diberi tahu.
-                </p>
-            </div>
+                Memuat pesanan terbaru...
+            </p>
         </div>
     </div>
 </div>
@@ -188,4 +127,86 @@
     </div>
 </div>
 
+{% endblock %}
+<!-- Js per halaman -->
+{% block kontenjs %}
+<script>
+    // Variabel
+    const pesananMasukContainer = document.getElementById("pesanan-masuk");
+    let listPesanan = "";
+
+    // Request data pesanan masuk
+    function muatDataPesananMasuk() {
+        // Fetch
+        fetch("/admin/api/data/pesanan?status=Pending", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    if (data.code === 404) {
+                        // Jika tidak ada pesanan masuk
+                        const infoPesananMasuk =
+                            document.getElementById("info-pesanan-masuk");
+                        infoPesananMasuk.textContent =
+                            "Tidak ada pesanan masuk";
+
+                        // Lempar error agar tidak di proses datanya
+                        throw new Error(data.message || "Terjadi kesalahan");
+                    } else {
+                        throw new Error(data.message || "Terjadi kesalahan");
+                    }
+                }
+                return data;
+            })
+            .then((data) => {
+                data.data.forEach((pesananMasuk) => {
+                    let tanggalPemesanan = formatTanggalGMT7(
+                        pesananMasuk.tanggal_pemesanan
+                    );
+                    listPesanan += `
+                        <div
+                            class="flex items-start gap-4 bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4"
+                        >
+                            <span class="material-symbols-rounded text-green-600 text-3xl"
+                                >local_shipping</span
+                            >
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-700 mb-1">
+                                    <span class="font-semibold text-gray-900"
+                                        >${pesananMasuk.kode_pemesanan}</span
+                                    >
+                                    dari
+                                    <span class="font-medium">${pesananMasuk.nama_pengirim}</span> meminta
+                                    pengiriman <span class="italic">Kargo ${pesananMasuk.jenis_kargo}</span>.
+                                </p>
+                                <p class="text-xs text-gray-500">
+                                    ${pesananMasuk.alamat_pengirim} → ${pesananMasuk.alamat_penerima} · ${tanggalPemesanan.tanggal}
+                                </p>
+                            </div>
+                            <div>
+                                <button
+                                    class="text-sm px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                                    onclick="openModal('${pesananMasuk.kode_pemesanan}')"
+                                >
+                                    Lihat
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                pesananMasukContainer.innerHTML = listPesanan;
+            })
+            .catch((error) => {
+                console.error("Fetch error:", error);
+            });
+    }
+
+    // Muat data pesanan masuk
+    muatDataPesananMasuk();
+</script>
 {% endblock %}

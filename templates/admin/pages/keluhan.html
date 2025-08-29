@@ -14,4 +14,281 @@
 <!-- Judul header -->
 {% block judul %}Keluhan{% endblock %}
 <!-- Konten -->
-{% block konten %} {% endblock %}
+{% block konten %}
+<div class="p-6">
+    <div
+        class="mb-4 flex justify-between items-center flex-col gap-2.5 sm:flex-row"
+    >
+        <h2 class="text-2xl font-bold">Keluhan Pelanggan</h2>
+        <button
+            type="button"
+            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 flex gap-2.5 justify-center items-center"
+        >
+            <span class="material-symbols-rounded"> check </span>
+            <span> Tandai semua sudah dibaca </span>
+        </button>
+    </div>
+
+    <div class="space-y-4" id="list-keluhan">
+        <p class="text-center font-bold text-gray-600 mt-5" id="info-keluhan">
+            Memuat daftar keluhan...
+        </p>
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex flex-col items-center my-5">
+        <!-- Help text -->
+        <span class="text-sm text-gray-700 dark:text-gray-400">
+            Menampilkan
+            <span
+                class="font-semibold text-gray-900 dark:text-white"
+                id="start-items"
+                >0</span
+            >
+            sampai
+            <span
+                class="font-semibold text-gray-900 dark:text-white"
+                id="end-items"
+                >0</span
+            >
+            dari
+            <span
+                class="font-semibold text-gray-900 dark:text-white"
+                id="max-items"
+                >0</span
+            >
+            Entri
+        </span>
+        <div class="inline-flex mt-2 xs:mt-0">
+            <!-- Buttons -->
+            <button
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                id="prev-btn"
+            >
+                <svg
+                    class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 5H1m0 0 4 4M1 5l4-4"
+                    />
+                </svg>
+                Prev
+            </button>
+            <button
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                id="next-btn"
+            >
+                Next
+                <svg
+                    class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+<!-- Js per halaman -->
+{% block kontenjs %}
+<script>
+    const listKeluhanContainer = document.getElementById("list-keluhan");
+    const infoKeluhan = document.getElementById("info-keluhan");
+
+    const startItems = document.getElementById("start-items");
+    const endItems = document.getElementById("end-items");
+    const maxItems = document.getElementById("max-items");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    function muatKeluhan(halaman) {
+        let listKeluhan = "";
+
+        // Cek apakah "halaman" kosong?
+        halaman == undefined ? (halaman = "") : (halaman = halaman);
+
+        fetch("/admin/api/data/feedback?page=" + halaman, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    if (data.code === 404) {
+                        infoKeluhan.textContent =
+                            "Tidak ada keluhan dari pelanggan";
+
+                        throw new Error(data.message || "Terjadi Kesalahan");
+                    } else {
+                        throw new Error(data.message || "Terjadi Kesalahan");
+                    }
+                }
+
+                return data;
+            })
+            .then((data) => {
+                data.data.forEach((keluhan) => {
+                    // Jika keluhan belum dibaca
+                    if (
+                        keluhan.dibaca == undefined ||
+                        keluhan.dibaca == false ||
+                        keluhan.dibaca == ""
+                    ) {
+                        listKeluhan += `
+                            <div class="bg-green-50 p-4 rounded-xl shadow flex space-x-3 keluhan">
+                                <!-- Foto Profil -->
+                                <div class="flex-shrink-0">
+                                    <div
+                                        class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center"
+                                    >
+                                        <span class="material-symbols-rounded text-gray-600"
+                                            >person</span
+                                        >
+                                    </div>
+                                </div>
+                                <!-- Isi Keluhan -->
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-semibold">${keluhan.nama}</p>
+                                        <span
+                                            class="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full"
+                                            >Baru</span
+                                        >
+                                    </div>
+                                    <p class="text-gray-700 mt-1">
+                                        ${keluhan.keterangan}
+                                    </p>
+
+                                    <!-- Tombol aksi -->
+                                    <div class="mt-2 gap-2 tombol-aksi flex">
+                                        <button
+                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100"
+                                            onclick="markAsRead('keluhan_id_123')"
+                                        >
+                                            <span class="material-symbols-rounded">
+                                                check_small
+                                            </span>
+                                            <span> Tandai sudah dibaca </span>
+                                        </button>
+                                        <button
+                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                                            onclick="deleteKeluhan('keluhan_id_123')"
+                                        >
+                                            <span class="material-symbols-rounded"> delete </span>
+                                            <span> Hapus </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Jika keluhan sudah dibaca
+                        listKeluhan += `
+                            <div class="bg-white p-4 rounded-xl shadow flex space-x-3 keluhan">
+                                <!-- Foto Profil -->
+                                <div class="flex-shrink-0">
+                                    <div
+                                        class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center"
+                                    >
+                                        <span class="material-symbols-rounded text-gray-600"
+                                            >person</span
+                                        >
+                                    </div>
+                                </div>
+                                <!-- Isi Keluhan -->
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between">
+                                        <p class="font-semibold">${keluhan.nama}</p>
+                                        <span class="text-xs text-gray-400">Dibaca</span>
+                                    </div>
+                                    <p class="text-gray-700 mt-1">
+                                        ${keluhan.keterangan}
+                                    </p>
+
+                                    <!-- Tombol aksi -->
+                                    <div class="mt-2 gap-2 tombol-aksi flex items-center flex-col sm:flex-row">
+                                        <button
+                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100"
+                                            onclick="markAsRead('keluhan_id_123')"
+                                        >
+                                            <span class="material-symbols-rounded">
+                                                check_small
+                                            </span>
+                                            <span> Tandai sudah dibaca </span>
+                                        </button>
+                                        <button
+                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                                            onclick="deleteKeluhan('keluhan_id_123')"
+                                        >
+                                            <span class="material-symbols-rounded"> delete </span>
+                                            <span> Hapus </span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                });
+
+                listKeluhanContainer.innerHTML = listKeluhan;
+
+                // Pagination
+                let totalPages = data.pagination.total_pages;
+                let currentPage = data.pagination.current_page;
+                let totalItems = data.pagination.total_items;
+
+                let mulai = (currentPage - 1) * 10 + 1;
+                let akhir = Math.min(currentPage * 10, totalItems);
+
+                startItems.textContent = mulai;
+                endItems.textContent = akhir;
+                maxItems.textContent = totalItems;
+
+                // Atur tombol pagination
+                if (currentPage - 1 != 0) {
+                    prevBtn.setAttribute(
+                        "onclick",
+                        `muatKeluhan(${currentPage - 1})`
+                    );
+                } else {
+                    prevBtn.removeAttribute("onclick");
+                }
+
+                if (currentPage != totalPages) {
+                    nextBtn.setAttribute(
+                        "onclick",
+                        `muatKeluhan(${currentPage + 1})`
+                    );
+                } else {
+                    nextBtn.removeAttribute("onclick");
+                }
+            })
+            .catch((error) => {
+                console.error("Fetch error: ", error);
+            });
+    }
+
+    muatKeluhan();
+</script>
+{% endblock %}
