@@ -1,8 +1,8 @@
-from flask import Blueprint, jsonify, request, render_template, session, redirect, url_for
+from flask import Blueprint, jsonify, request,render_template, session, redirect, url_for
 from connection import db_bce
 from functools import wraps
 from datetime import datetime, timedelta, timezone
-import bcrypt, math
+import bcrypt, math, requests
 
 # Collection
 collection = db_bce.use_db()
@@ -136,3 +136,23 @@ def authetikasi():
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
     
+# Provinsi
+@customer_route.route("/api/data/provinsi")
+def get_provinces():
+    try:
+        url = "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+        response = requests.get(url)
+        return respon_api("success", 200, "Fetch berhasil", response.json(), {})
+    
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})
+
+@customer_route.route("/api/data/kabupaten/<prov_id>")
+def get_regencies(prov_id):
+    try:
+        url = f"https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{prov_id}.json"
+        response = requests.get(url)
+        return respon_api("success", 200, "Fetch berhasil", response.json(), {})
+    
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})

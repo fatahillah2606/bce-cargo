@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Buat Pesanan | BCE</title>
+        <title>Pesanan | BCE</title>
         <link
             href="{{url_for('static',filename='dist/output.css')}}"
             rel="stylesheet"
@@ -57,30 +57,257 @@
                             >
                                 Informasi Pengirim
                             </h3>
-                            <div class="grid md:grid-cols-3 gap-4">
+                            <!-- Nama -->
+                            <div>
+                                <label
+                                    for="nama-pengirim"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Nama</label
+                                >
                                 <input
                                     type="text"
-                                    placeholder="Nama"
-                                    class="input-field"
+                                    id="nama-pengirim"
+                                    name="nama-pengirim"
+                                    maxlength="100"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                    placeholder="Masukkan nama Anda"
                                 />
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Nama wajib diisi, maksimal 100 karakter.
+                                </p>
+                            </div>
+
+                            <!-- Nomor WhatsApp & Kode Pos -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="whatsapp-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Nomor WhatsApp</label
+                                    >
+                                    <input
+                                        type="tel"
+                                        id="whatsapp-pengirim"
+                                        name="whatsapp-pengirim"
+                                        minlength="10"
+                                        maxlength="13"
+                                        required
+                                        pattern="[0-9]+"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="08XXXXXXXXXX"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Nomor WA harus angka 10-13 digit.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kodepos-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kode Pos</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="kodepos-pengirim"
+                                        name="kodepos-pengirim"
+                                        minlength="5"
+                                        maxlength="5"
+                                        required
+                                        pattern="[0-9]{5}"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="12345"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kode pos harus 5 digit angka.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Jalan -->
+                            <div>
+                                <label
+                                    for="jalan-pengirim"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Jalan</label
+                                >
                                 <input
                                     type="text"
-                                    placeholder="Nomor WhatsApp"
-                                    class="input-field"
+                                    id="jalan-pengirim"
+                                    name="jalan-pengirim"
+                                    maxlength="100"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                    placeholder="Nama jalan"
                                 />
-                                <input
-                                    type="text"
-                                    placeholder="Kode Pos"
-                                    class="input-field"
-                                />
-                                <select class="input-field">
-                                    <option>Kota/Kabupaten</option>
-                                </select>
-                                <input
-                                    type="text"
-                                    placeholder="Alamat Lengkap"
-                                    class="input-field col-span-2"
-                                />
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Jalan wajib diisi, maksimal 100 karakter.
+                                </p>
+                            </div>
+
+                            <!-- RT & RW -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="rt-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >RT</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="rt-pengirim"
+                                        name="rt-pengirim"
+                                        minlength="4"
+                                        maxlength="4"
+                                        required
+                                        pattern="[0-9]{4}"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="0001"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        RT harus 4 digit angka.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="rw-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >RW</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="rw-pengirim"
+                                        name="rw-pengirim"
+                                        minlength="4"
+                                        maxlength="4"
+                                        required
+                                        pattern="[0-9]{4}"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="0001"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        RW harus 4 digit angka.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Lokasi (Provinsi, Kabupaten, Kecamatan, Kelurahan) -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="provinsi-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Provinsi</label
+                                    >
+                                    <select
+                                        id="provinsi-pengirim"
+                                        name="provinsi-pengirim"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">Pilih provinsi</option>
+                                        <option value="jakarta">
+                                            DKI Jakarta
+                                        </option>
+                                        <option value="jabar">
+                                            Jawa Barat
+                                        </option>
+                                        <option value="jateng">
+                                            Jawa Tengah
+                                        </option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Provinsi wajib dipilih.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kabupaten-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kabupaten</label
+                                    >
+                                    <select
+                                        id="kabupaten-pengirim"
+                                        name="kabupaten-pengirim"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">
+                                            Pilih kabupaten
+                                        </option>
+                                        <option value="depok">Depok</option>
+                                        <option value="bandung">Bandung</option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kabupaten wajib dipilih.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kecamatan-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kecamatan</label
+                                    >
+                                    <select
+                                        id="kecamatan-pengirim"
+                                        name="kecamatan-pengirim"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">
+                                            Pilih kecamatan
+                                        </option>
+                                        <option value="beji">Beji</option>
+                                        <option value="cimanggis">
+                                            Cimanggis
+                                        </option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kecamatan wajib dipilih.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kelurahan-pengirim"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kelurahan</label
+                                    >
+                                    <select
+                                        id="kelurahan-pengirim"
+                                        name="kelurahan-pengirim"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">
+                                            Pilih kelurahan
+                                        </option>
+                                        <option value="kemiri">Kemiri</option>
+                                        <option value="kukusan">Kukusan</option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kelurahan wajib dipilih.
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -91,30 +318,257 @@
                             >
                                 Informasi Penerima
                             </h3>
-                            <div class="grid md:grid-cols-3 gap-4">
+                            <!-- Nama -->
+                            <div>
+                                <label
+                                    for="nama-penerima"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Nama</label
+                                >
                                 <input
                                     type="text"
-                                    placeholder="Nama"
-                                    class="input-field"
+                                    id="nama-penerima"
+                                    name="nama-penerima"
+                                    maxlength="100"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                    placeholder="Masukkan nama Anda"
                                 />
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Nama wajib diisi, maksimal 100 karakter.
+                                </p>
+                            </div>
+
+                            <!-- Nomor WhatsApp & Kode Pos -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="whatsapp-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Nomor WhatsApp</label
+                                    >
+                                    <input
+                                        type="tel"
+                                        id="whatsapp-penerima"
+                                        name="whatsapp-penerima"
+                                        minlength="10"
+                                        maxlength="13"
+                                        required
+                                        pattern="[0-9]+"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="08XXXXXXXXXX"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Nomor WA harus angka 10-13 digit.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kodepos-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kode Pos</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="kodepos-penerima"
+                                        name="kodepos-penerima"
+                                        minlength="5"
+                                        maxlength="5"
+                                        required
+                                        pattern="[0-9]{5}"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="12345"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kode pos harus 5 digit angka.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Jalan -->
+                            <div>
+                                <label
+                                    for="jalan-penerima"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Jalan</label
+                                >
                                 <input
                                     type="text"
-                                    placeholder="Nomor WhatsApp"
-                                    class="input-field"
+                                    id="jalan-penerima"
+                                    name="jalan-penerima"
+                                    maxlength="100"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                    placeholder="Nama jalan"
                                 />
-                                <input
-                                    type="text"
-                                    placeholder="Kode Pos"
-                                    class="input-field"
-                                />
-                                <select class="input-field">
-                                    <option>Kota/Kabupaten</option>
-                                </select>
-                                <input
-                                    type="text"
-                                    placeholder="Alamat Lengkap"
-                                    class="input-field col-span-2"
-                                />
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Jalan wajib diisi, maksimal 100 karakter.
+                                </p>
+                            </div>
+
+                            <!-- RT & RW -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="rt-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >RT</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="rt-penerima"
+                                        name="rt-penerima"
+                                        minlength="4"
+                                        maxlength="4"
+                                        required
+                                        pattern="[0-9]{4}"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="0001"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        RT harus 4 digit angka.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="rw-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >RW</label
+                                    >
+                                    <input
+                                        type="text"
+                                        id="rw-penerima"
+                                        name="rw-penerima"
+                                        minlength="4"
+                                        maxlength="4"
+                                        required
+                                        pattern="[0-9]{4}"
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
+                                        placeholder="0001"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        RW harus 4 digit angka.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Lokasi (Provinsi, Kabupaten, Kecamatan, Kelurahan) -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="provinsi-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Provinsi</label
+                                    >
+                                    <select
+                                        id="provinsi-penerima"
+                                        name="provinsi-penerima"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">Pilih provinsi</option>
+                                        <option value="jakarta">
+                                            DKI Jakarta
+                                        </option>
+                                        <option value="jabar">
+                                            Jawa Barat
+                                        </option>
+                                        <option value="jateng">
+                                            Jawa Tengah
+                                        </option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Provinsi wajib dipilih.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kabupaten-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kabupaten</label
+                                    >
+                                    <select
+                                        id="kabupaten-penerima"
+                                        name="kabupaten-penerima"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">
+                                            Pilih kabupaten
+                                        </option>
+                                        <option value="depok">Depok</option>
+                                        <option value="bandung">Bandung</option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kabupaten wajib dipilih.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kecamatan-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kecamatan</label
+                                    >
+                                    <select
+                                        id="kecamatan-penerima"
+                                        name="kecamatan-penerima"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">
+                                            Pilih kecamatan
+                                        </option>
+                                        <option value="beji">Beji</option>
+                                        <option value="cimanggis">
+                                            Cimanggis
+                                        </option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kecamatan wajib dipilih.
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="kelurahan-penerima"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Kelurahan</label
+                                    >
+                                    <select
+                                        id="kelurahan-penerima"
+                                        name="kelurahan-penerima"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    >
+                                        <option value="">
+                                            Pilih kelurahan
+                                        </option>
+                                        <option value="kemiri">Kemiri</option>
+                                        <option value="kukusan">Kukusan</option>
+                                    </select>
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Kelurahan wajib dipilih.
+                                    </p>
+                                </div>
                             </div>
                         </div>
 
@@ -125,84 +579,351 @@
                             >
                                 Informasi Barang
                             </h3>
-                            <div class="grid md:grid-cols-3 gap-4">
+                            <!-- Nama Barang -->
+                            <div>
+                                <label
+                                    for="nama-barang"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Nama Barang</label
+                                >
                                 <input
                                     type="text"
-                                    placeholder="Jenis Barang"
-                                    class="input-field"
+                                    id="nama-barang"
+                                    name="nama-barang"
+                                    maxlength="100"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    placeholder="Masukkan nama barang"
                                 />
-                                <input
-                                    type="text"
-                                    placeholder="Nama Barang"
-                                    class="input-field"
-                                />
-                                <select class="input-field">
-                                    <option>Jenis Pengiriman</option>
-                                    <option>Darat</option>
-                                    <option>Laut</option>
-                                    <option>Udara</option>
-                                </select>
-                                <input
-                                    type="number"
-                                    placeholder="Jumlah Barang"
-                                    class="input-field"
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Berat (Kg)"
-                                    class="input-field"
-                                />
-                                <select class="input-field">
-                                    <option>Jenis Produk</option>
-                                    <option>Lainnya</option>
-                                </select>
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Nama barang wajib diisi (maksimal 100
+                                    karakter).
+                                </p>
+                            </div>
 
-                                <input
-                                    type="number"
-                                    placeholder="Panjang (cm)"
-                                    class="input-field"
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Lebar (cm)"
-                                    class="input-field"
-                                />
-                                <input
-                                    type="number"
-                                    placeholder="Tinggi (cm)"
-                                    class="input-field"
-                                />
-                                <select class="input-field">
-                                    <option>Kategori</option>
-                                </select>
-                                <select class="input-field">
-                                    <option>Asuransi</option>
-                                </select>
+                            <!-- Jumlah & Berat -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label
+                                        for="jumlah"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Jumlah</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="jumlah"
+                                        name="jumlah"
+                                        min="1"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                        placeholder="1"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Jumlah wajib diisi (minimal 1).
+                                    </p>
+                                </div>
+                                <div>
+                                    <label
+                                        for="berat"
+                                        class="block mb-2 text-sm font-medium text-gray-900"
+                                        >Berat (kg)</label
+                                    >
+                                    <input
+                                        type="number"
+                                        id="berat"
+                                        name="berat"
+                                        min="0.1"
+                                        step="0.01"
+                                        required
+                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                        placeholder="0.00"
+                                    />
+                                    <p
+                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                    >
+                                        Berat wajib diisi dan lebih dari 0.
+                                    </p>
+                                </div>
+                            </div>
 
+                            <!-- Dimensi -->
+                            <div>
+                                <label
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Dimensi (cm)</label
+                                >
+                                <div
+                                    class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                                >
+                                    <div>
+                                        <input
+                                            type="number"
+                                            id="panjang"
+                                            name="panjang"
+                                            min="0"
+                                            required
+                                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                            placeholder="Panjang"
+                                        />
+                                        <p
+                                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                        >
+                                            Panjang wajib ≥ 0.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            id="lebar"
+                                            name="lebar"
+                                            min="0"
+                                            required
+                                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                            placeholder="Lebar"
+                                        />
+                                        <p
+                                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                        >
+                                            Lebar wajib ≥ 0.
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <input
+                                            type="number"
+                                            id="tinggi"
+                                            name="tinggi"
+                                            min="0"
+                                            required
+                                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                            placeholder="Tinggi"
+                                        />
+                                        <p
+                                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                        >
+                                            Tinggi wajib ≥ 0.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kategori -->
+                            <div>
+                                <label
+                                    for="kategori"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Kategori</label
+                                >
+                                <select
+                                    id="kategori"
+                                    name="kategori"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                >
+                                    <option value="">Pilih kategori</option>
+                                    <option value="elektronik">
+                                        Elektronik
+                                    </option>
+                                    <option value="pakaian">Pakaian</option>
+                                    <option value="dokumen">Dokumen</option>
+                                    <option value="lainnya">Lainnya</option>
+                                </select>
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Kategori wajib dipilih.
+                                </p>
+                            </div>
+
+                            <!-- Asuransi -->
+                            <div>
+                                <label
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Butuh Asuransi?</label
+                                >
+                                <div class="flex items-center gap-6">
+                                    <div class="flex items-center">
+                                        <input
+                                            id="asuransi-ya"
+                                            type="radio"
+                                            name="asuransi"
+                                            value="true"
+                                            required
+                                            class="peer/asuransi block w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <label
+                                            for="asuransi-ya"
+                                            class="ml-2 text-sm text-gray-900"
+                                            >Ya</label
+                                        >
+                                    </div>
+                                    <div class="flex items-center">
+                                        <input
+                                            id="asuransi-tidak"
+                                            type="radio"
+                                            name="asuransi"
+                                            value="false"
+                                            required
+                                            class="peer/asuransi block w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                        />
+                                        <label
+                                            for="asuransi-tidak"
+                                            class="ml-2 text-sm text-gray-900"
+                                            >Tidak</label
+                                        >
+                                    </div>
+                                </div>
+                                <p
+                                    class="mt-1 text-sm text-red-600 hidden peer-invalid/asuransi:block"
+                                >
+                                    Silakan pilih opsi asuransi.
+                                </p>
+                            </div>
+
+                            <!-- Metode Pengiriman -->
+                            <div>
+                                <label
+                                    for="pengiriman"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Metode Pengiriman</label
+                                >
+                                <select
+                                    id="pengiriman"
+                                    name="pengiriman"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                >
+                                    <option value="">Pilih metode</option>
+                                    <option value="darat">Darat</option>
+                                    <option value="laut">Laut</option>
+                                    <option value="udara">Udara</option>
+                                </select>
+                                <p
+                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Metode pengiriman wajib dipilih.
+                                </p>
+                            </div>
+
+                            <!-- Catatan -->
+                            <div>
+                                <label
+                                    for="catatan"
+                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    >Catatan Tambahan</label
+                                >
                                 <textarea
-                                    placeholder="Catatan"
-                                    class="input-field col-span-3"
+                                    id="catatan"
+                                    name="catatan"
+                                    rows="4"
+                                    class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500"
+                                    placeholder="Tulis catatan tambahan (opsional)"
                                 ></textarea>
                             </div>
+
+                            <!-- Submit -->
                         </div>
 
                         <!-- TOMBOL -->
                         <div class="flex justify-between items-center mt-8">
                             <button
                                 type="submit"
-                                class="bg-green-800 hover:bg-green-700 text-white px-6 py-2 rounded-md font-semibold"
+                                class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300"
                             >
-                                PESAN
+                                Pesan
                             </button>
                         </div>
                     </form>
                 </div>
             </div>
         </section>
+        <div
+            id="page-transition"
+            class="fixed inset-0 z-[9999] flex items-center justify-center bg-green-600 transform translate-x-full transition-transform duration-700 ease-in-out"
+        >
+            <!-- Logo BCE di tengah -->
+            <div class="flex flex-col items-center">
+                <img
+                    src="/static/images/logo_transparant.png"
+                    alt="BCE Logo"
+                    class="w-16 h-16 animate-bounce mb-4"
+                />
+                <div
+                    class="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"
+                ></div>
+            </div>
+        </div>
 
         <!-- footer -->
         {% include 'customer/components/footer.html' %}
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script>
+            // Animasi Slide
+            const transitionEl = document.getElementById("page-transition");
+            const links = document.querySelectorAll(".page-link");
+
+            links.forEach((link) => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault(); // cegah pindah langsung
+                    const target = this.getAttribute("href");
+
+                    // Jalankan animasi
+                    transitionEl.classList.remove("translate-x-full");
+                    transitionEl.classList.add("translate-x-0");
+
+                    // Setelah animasi selesai, redirect
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 1000); // durasi sesuai transition (700ms) + sedikit delay
+                });
+            });
+
+            // Optional: animasi keluar saat pertama kali load halaman
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    transitionEl.classList.add("translate-x-full");
+                    transitionEl.classList.remove("translate-x-0");
+                }, 500);
+            });
+            
+            const selectProvinsi = document.getElementById("provinsi");
+            const selectKabupaten = document.getElementById("kota");
+            // Muat data provinsi
+            fetch("/customer/api/data/provinsi", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            })
+                .then(async (respon) => {
+                    const data = await respon.json();
+                    if (!respon.ok) {
+                        throw new Error("Terjadi kesalahan");
+                    }
+                    return data;
+                })
+                .then((data) => {
+                    const dataProvinsi = data.data;
+                    dataProvinsi.forEach((provinsi) => {
+                        const opsiProvinsi = new Option(
+                            provinsi.name,
+                            provinsi.id
+                        );
+                        selectProvinsi.add(opsiProvinsi);
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
+            // Cek provinsi apa yang dipilih
+            selectProvinsi.addEventListener("change", () => {
+                let idProvinsi = selectProvinsi.value;
+
+                fetch("");
+            });
+        </script>
     </body>
 </html>

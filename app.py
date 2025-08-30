@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, send_from_directory
 from datetime import timedelta, datetime, timezone
 from dotenv import load_dotenv
-import os
+import os, requests
 
 # Load .env
 load_dotenv()
@@ -51,6 +51,17 @@ def cek_masa_sesi():
 def serve_node_modules(filename):
   return send_from_directory("node_modules", filename)
 
+# Respon API
+def respon_api(status, code, message, data, pagination):
+    respon = {
+        "status": status,
+        "code": code,
+        "message": message,
+        "data": data if data else [],
+        "pagination": pagination if pagination else {}
+    }
+    return jsonify(respon)
+
 # Blueprint
 # Admin (Fatah)
 app.register_blueprint(admin_route, url_prefix="/admin/")
@@ -65,6 +76,27 @@ app.register_blueprint(chatbot_route, url_prefix="/chatbot/")
 @app.route('/')
 def home():
   return render_template('index.html')
+
+# Provinsi
+@app.route("/api/data/provinsi")
+def get_provinces():
+    try:
+        url = "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+        response = requests.get(url)
+        return respon_api("success", 200, "Fetch berhasil", response.json(), {})
+    
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})
+
+@app.route("/api/data/kabupaten/<prov_id>")
+def get_regencies(prov_id):
+    try:
+        url = f"https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{prov_id}.json"
+        response = requests.get(url)
+        return respon_api("success", 200, "Fetch berhasil", response.json(), {})
+    
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})
 
 # if __name__ == '__main__':
 #   app.run(debug=True)

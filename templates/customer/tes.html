@@ -1,78 +1,172 @@
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <!-- Jenis Barang -->
-    <input
-        type="text"
-        placeholder="Jenis Barang"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Bahtera Cahaya Express</title>
+        <!-- Chatbot CSS -->
+        <link
+            rel="stylesheet"
+            href="{{ url_for('static', filename='css/chatbot/chatbot.css') }}"
+        />
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ url_for('static', filename='images/favicon.ico') }}"
+        />
+        <!-- Flowbite -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/customer/style.css')}}"
+        />
+        <!-- Google icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+    </head>
+    <body class="bg-white dark:bg-gray-900">
+        <form
+            class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md space-y-6"
+        >
+            <!-- Nama Lengkap -->
+            <div>
+                <label
+                    for="nama"
+                    class="block mb-2 text-sm font-medium text-gray-900"
+                    >Nama Lengkap</label
+                >
+                <input
+                    type="text"
+                    id="nama"
+                    name="nama"
+                    maxlength="100"
+                    required
+                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
+                    placeholder="Masukkan nama lengkap"
+                />
+                <p
+                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                >
+                    Nama lengkap wajib diisi (maksimal 100 karakter).
+                </p>
+            </div>
 
-    <!-- Nama Barang -->
-    <input
-        type="text"
-        placeholder="Nama Barang"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
+            <!-- Nomor Ponsel -->
+            <div>
+                <label
+                    for="ponsel"
+                    class="block mb-2 text-sm font-medium text-gray-900"
+                    >Nomor Ponsel</label
+                >
+                <input
+                    type="tel"
+                    id="ponsel"
+                    name="ponsel"
+                    minlength="10"
+                    maxlength="13"
+                    required
+                    pattern="[0-9]+"
+                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
+                    placeholder="08XXXXXXXXXX"
+                />
+                <p
+                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                >
+                    Nomor ponsel wajib angka 10–13 digit.
+                </p>
+            </div>
 
-    <!-- Jenis Pengiriman -->
-    <select
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    >
-        <option selected disabled>Jenis Pengiriman</option>
-        <option value="udara">Udara</option>
-        <option value="laut">Laut</option>
-        <option value="darat">Darat</option>
-    </select>
+            <!-- Jenis Pelanggan & Nama Perusahaan -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label
+                        for="jenis"
+                        class="block mb-2 text-sm font-medium text-gray-900"
+                        >Jenis Pelanggan</label
+                    >
+                    <select
+                        id="jenis"
+                        name="jenis"
+                        required
+                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
+                    >
+                        <option value="">Pilih jenis</option>
+                        <option value="perorangan">Perorangan</option>
+                        <option value="perusahaan">Perusahaan</option>
+                    </select>
+                    <p
+                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                    >
+                        Jenis pelanggan wajib dipilih.
+                    </p>
+                </div>
 
-    <!-- Jumlah Barang -->
-    <input
-        type="number"
-        placeholder="Jumlah Barang"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
+                <!-- Nama Perusahaan (dinamis) -->
+                <div id="field-perusahaan" class="hidden">
+                    <label
+                        for="perusahaan"
+                        class="block mb-2 text-sm font-medium text-gray-900"
+                        >Nama Perusahaan</label
+                    >
+                    <input
+                        type="text"
+                        id="perusahaan"
+                        name="perusahaan"
+                        maxlength="100"
+                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
+                        placeholder="Masukkan nama perusahaan"
+                    />
+                    <p
+                        class="mt-1 text-sm text-red-600 hidden"
+                        id="error-perusahaan"
+                    >
+                        Nama perusahaan wajib diisi (maksimal 100 karakter).
+                    </p>
+                </div>
+            </div>
 
-    <!-- Berat -->
-    <input
-        type="number"
-        placeholder="Berat (Kg)"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
+            <!-- Submit -->
+            <button
+                type="submit"
+                class="w-full rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+            >
+                Simpan Biodata
+            </button>
+        </form>
 
-    <!-- Jenis Produk -->
-    <select
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    >
-        <option selected disabled>Jenis Produk</option>
-        <option value="dokumen">Dokumen</option>
-        <option value="elektronik">Elektronik</option>
-        <option value="lainnya">Lainnya</option>
-    </select>
+        <!-- Chatbot JS -->
+        <script src="{{ url_for('static', filename='js/chatbot/chatbot.js') }}"></script>
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script>
+            const jenisSelect = document.getElementById("jenis");
+            const perusahaanField = document.getElementById("field-perusahaan");
+            const perusahaanInput = document.getElementById("perusahaan");
+            const perusahaanError = document.getElementById("error-perusahaan");
 
-    <!-- Panjang -->
-    <input
-        type="number"
-        placeholder="Panjang (cm)"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
+            jenisSelect.addEventListener("change", () => {
+                if (jenisSelect.value === "perusahaan") {
+                    perusahaanField.classList.remove("hidden");
+                    perusahaanInput.setAttribute("required", "true");
+                } else {
+                    perusahaanField.classList.add("hidden");
+                    perusahaanInput.removeAttribute("required");
+                    perusahaanInput.value = "";
+                    perusahaanError.classList.add("hidden");
+                }
+            });
 
-    <!-- Lebar -->
-    <input
-        type="number"
-        placeholder="Lebar (cm)"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
-
-    <!-- Tinggi -->
-    <input
-        type="number"
-        placeholder="Tinggi (cm)"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    />
-</div>
-
-<!-- Catatan -->
-<div class="mt-4">
-    <textarea
-        placeholder="Catatan"
-        class="w-full rounded border border-gray-300 p-2.5 text-sm focus:ring-green-500 focus:border-green-500"
-    ></textarea>
-</div>
+            // Extra validation pesan custom
+            perusahaanInput?.addEventListener("invalid", () => {
+                perusahaanError.classList.remove("hidden");
+            });
+        </script>
+    </body>
+</html>

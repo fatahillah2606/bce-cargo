@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Profile | BCE</title>
+        <title>Histori Pesanan | BCE</title>
         <link
             href="{{url_for('static',filename='dist/output.css')}}"
             rel="stylesheet"
@@ -190,11 +190,55 @@
                 </div>
             </div>
         </div>
+        <div
+            id="page-transition"
+            class="fixed inset-0 z-[9999] flex items-center justify-center bg-green-600 transform translate-x-full transition-transform duration-700 ease-in-out"
+        >
+            <!-- Logo BCE di tengah -->
+            <div class="flex flex-col items-center">
+                <img
+                    src="/static/images/logo_transparant.png"
+                    alt="BCE Logo"
+                    class="w-16 h-16 animate-bounce mb-4"
+                />
+                <div
+                    class="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"
+                ></div>
+            </div>
+        </div>
+
         <!-- footer -->
         {% include 'customer/components/footer.html' %}
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
         <script>
+            // Animasi Slide
+            const transitionEl = document.getElementById("page-transition");
+            const links = document.querySelectorAll(".page-link");
+
+            links.forEach((link) => {
+                link.addEventListener("click", function (e) {
+                    e.preventDefault(); // cegah pindah langsung
+                    const target = this.getAttribute("href");
+
+                    // Jalankan animasi
+                    transitionEl.classList.remove("translate-x-full");
+                    transitionEl.classList.add("translate-x-0");
+
+                    // Setelah animasi selesai, redirect
+                    setTimeout(() => {
+                        window.location.href = target;
+                    }, 1000); // durasi sesuai transition (700ms) + sedikit delay
+                });
+            });
+
+            // Optional: animasi keluar saat pertama kali load halaman
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    transitionEl.classList.add("translate-x-full");
+                    transitionEl.classList.remove("translate-x-0");
+                }, 500);
+            });
             function openModal(id) {
                 document.getElementById(id).classList.remove("hidden");
             }

@@ -9,7 +9,10 @@
         ><span class="material-symbols-rounded text-white"> payments </span></a
     >
     <!-- wajib login -->
-    <div id="wajib-login" class="flex flex-col">
+    <div
+        id="wajib-login"
+        class="{% if 'user_id' not in session or session.get('role') != 'customer' %}hidden{% endif %} flex flex-col"
+    >
         <a href="/customer/pesanan" title="Pesanan"
             ><span class="material-symbols-rounded text-white">
                 add_shopping_cart

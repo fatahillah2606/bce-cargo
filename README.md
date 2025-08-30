@@ -42,7 +42,7 @@ pip install -r requirements.txt
 Jika terjadi kesalahan dalam menginstall dependencies, jalankan perintah ini
 
 ```bash
-pip install flask bcrypt "pymongo[srv]" flask-session dotenv
+pip install flask bcrypt "pymongo[srv]" flask-session dotenv requests
 ```
 
 ### 4. Install Node.js Dependencies
