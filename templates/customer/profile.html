@@ -22,6 +22,43 @@
             section {
                 min-height: auto;
             }
+            /* Zoom in & out sedang */
+            @keyframes zoomPulse {
+                0%,
+                100% {
+                    transform: scale(0.95);
+                    opacity: 0.95;
+                }
+                50% {
+                    transform: scale(1.05);
+                    opacity: 1;
+                }
+            }
+            .animate-zoom-pulse {
+                animation: zoomPulse 2.5s ease-in-out infinite;
+            }
+
+            /* Glow neon menyatu logo */
+            .logo-glow {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+                    drop-shadow(0 0 40px rgba(144, 238, 144, 0.6));
+                animation: glowPulse 1s ease-in-out infinite;
+            }
+
+            @keyframes glowPulse {
+                0%,
+                100% {
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))
+                        drop-shadow(0 0 16px rgba(255, 255, 255, 0.5))
+                        drop-shadow(0 0 32px rgba(144, 238, 144, 0.5));
+                }
+                50% {
+                    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9))
+                        drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
+                        drop-shadow(0 0 60px rgba(144, 238, 144, 0.7));
+                }
+            }
         </style>
     </head>
     <body class="bg-white font-sans">
@@ -45,7 +82,7 @@
                     <button
                         id="btn-edit"
                         type="button"
-                        class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                        class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-blue-300"
                     >
                         Edit
                     </button>
@@ -190,7 +227,7 @@
                     <button
                         id="btn-edit-alamat"
                         type="button"
-                        class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                        class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-blue-300"
                     >
                         Edit
                     </button>
@@ -516,7 +553,7 @@
                         <button
                             id="btn-edit-password"
                             type="button"
-                            class="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:ring-4 focus:ring-blue-300"
+                            class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-blue-300"
                         >
                             Edit Password
                         </button>
@@ -585,20 +622,20 @@
                 -
             </div>
         </section>
+        <!-- Overlay Transition -->
         <div
             id="page-transition"
             class="fixed inset-0 z-[9999] flex items-center justify-center bg-green-600 transform translate-x-full transition-transform duration-700 ease-in-out"
         >
-            <!-- Logo BCE di tengah -->
-            <div class="flex flex-col items-center">
+            <!-- Logo BCE -->
+            <div class="relative flex items-center justify-center">
+                <!-- Logo + efek glow -->
                 <img
                     src="/static/images/logo_transparant.png"
                     alt="BCE Logo"
-                    class="w-16 h-16 animate-bounce mb-4"
+                    class="relative w-24 h-24 animate-zoom-pulse logo-glow"
+                    id="bce-logo"
                 />
-                <div
-                    class="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"
-                ></div>
             </div>
         </div>
 
@@ -607,34 +644,33 @@
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
         <script>
-            // Animasi Slide
             const transitionEl = document.getElementById("page-transition");
             const links = document.querySelectorAll(".page-link");
 
             links.forEach((link) => {
                 link.addEventListener("click", function (e) {
-                    e.preventDefault(); // cegah pindah langsung
+                    e.preventDefault();
                     const target = this.getAttribute("href");
 
-                    // Jalankan animasi
+                    // Tirai menutup
                     transitionEl.classList.remove("translate-x-full");
                     transitionEl.classList.add("translate-x-0");
 
-                    // Setelah animasi selesai, redirect
+                    // Redirect setelah animasi selesai
                     setTimeout(() => {
                         window.location.href = target;
-                    }, 1000); // durasi sesuai transition (700ms) + sedikit delay
+                    }, 1200);
                 });
             });
 
-            // Optional: animasi keluar saat pertama kali load halaman
+            // Tirai terbuka saat pertama load halaman
             window.addEventListener("load", () => {
                 setTimeout(() => {
                     transitionEl.classList.add("translate-x-full");
                     transitionEl.classList.remove("translate-x-0");
                 }, 500);
             });
-            
+
             // Biodata
             const btnEdit = document.getElementById("btn-edit");
             const btnCancel = document.getElementById("btn-cancel");

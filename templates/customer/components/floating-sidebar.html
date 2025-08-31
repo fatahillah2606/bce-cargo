@@ -1,37 +1,37 @@
 <!-- Floating Sidebar -->
-
 <div class="floating-sidebar bg-green-500 dark:bg-green-900">
-    <a href="/customer/profile" title="Profile"
-        ><span class="material-symbols-rounded text-white"> person </span></a
-    >
+    <a href="/customer/profile" class="page-link" title="Profile">
+        <span class="material-symbols-rounded text-white">person</span>
+    </a>
 
-    <a href="/customer/ongkir" title="Cek Ongkir"
-        ><span class="material-symbols-rounded text-white"> payments </span></a
-    >
+    <a href="/customer/ongkir" class="page-link" title="Cek Ongkir">
+        <span class="material-symbols-rounded text-white">payments</span>
+    </a>
+
     <!-- wajib login -->
     <div
         id="wajib-login"
         class="{% if 'user_id' not in session or session.get('role') != 'customer' %}hidden{% endif %} flex flex-col"
     >
-        <a href="/customer/pesanan" title="Pesanan"
-            ><span class="material-symbols-rounded text-white">
-                add_shopping_cart
-            </span></a
+        <a href="/customer/pesanan" class="page-link" title="Pesanan">
+            <span class="material-symbols-rounded text-white"
+                >add_shopping_cart</span
+            >
+        </a>
+        <a
+            href="/customer/profile#bagian-buku-alamat"
+            class="page-link"
+            title="Buku Alamat"
         >
-        <a href="/customer/profile#bagian-buku-alamat" title="Buku Alamat"
-            ><span class="material-symbols-rounded text-white">
-                location_on
-            </span></a
-        >
-        <a href="/customer/riwayat" title="Riwayat Pesanan"
-            ><span class="material-symbols-rounded text-white">
-                receipt_long
-            </span></a
-        >
-        <a href="/customer/logout" title="Logout"
-            ><span class="material-symbols-rounded text-white">
-                logout
-            </span></a
-        >
+            <span class="material-symbols-rounded text-white">location_on</span>
+        </a>
+        <a href="/customer/riwayat" class="page-link" title="Riwayat Pesanan">
+            <span class="material-symbols-rounded text-white"
+                >receipt_long</span
+            >
+        </a>
+        <a href="/customer/logout" class="page-link" title="Logout">
+            <span class="material-symbols-rounded text-white">logout</span>
+        </a>
     </div>
 </div>

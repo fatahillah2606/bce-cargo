@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Registration Page - Flowbite Inspired Design</title>
+        <title>Login Page</title>
         <!-- Flowbite -->
         <link
             rel="stylesheet"
@@ -139,7 +139,7 @@
             </div>
 
             <div class="w-full h-full p-5">
-                <h2 class="text-center">Login</h2>
+                <h2 class="text-center text-2xl font-bold">Login</h2>
                 <div class="w-40 h-px mx-auto mt-2.5 mb-5"></div>
                 <form class="max-w-full mx-auto" id="login">
                     <div class="grid gap-4 mb-4 grid-cols-2">
@@ -193,7 +193,7 @@
                             >
                         </div>
                         <div class="text-right">
-                            <a href="/customer/forgotpw" class="text-green-700"
+                            <a href="/customer/forgotpw" class=" text-green-700"
                                 >Lupa sandi</a
                             >
                         </div>
@@ -203,13 +203,16 @@
                         >
                             Pesan error.
                         </p>
-                        <button
-                            type="submit"
-                            class="col-span-2 text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                            onclick="loginCustomer(event)"
-                        >
-                            Submit
-                        </button>
+                        <!-- Tombol -->
+                        <div class="col-span-2 flex justify-end">
+                            <button
+                                type="submit"
+                                class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500"
+                                onclick="loginCustomer(event)"
+                            >
+                                Login
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
