@@ -30,7 +30,36 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
+        <!-- SwiperJS CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <!-- CSS Animation (Client) -->
+        <style>
+            @keyframes marquee {
+                0% {
+                    transform: translateX(0%);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+            .animate-marquee {
+                display: flex;
+                width: max-content;
+                animation: marquee 25s linear infinite;
+            }
+        </style>
     </head>
+
     <body class="bg-white dark:bg-gray-900">
         <!-- Navbar -->
         {% include 'customer/components/navbar.html' %}
@@ -251,544 +280,674 @@
         </section>
 
         <!-- Services -->
-        <section id="services" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
+        <section
+            id="services"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <div class="text-center mb-16">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Layanan
+                </h1>
+                <p
+                    class="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Kami menyediakan layanan pengiriman cepat, aman, dan
+                    terpercaya melalui jalur udara, darat, dan laut untuk
+                    mendukung kebutuhan logistik Anda.
+                </p>
+            </div>
+
+            <div
+                class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto px-5"
             >
-                Services
-            </h1>
-            <div class="flex gap-5 justify-center flex-wrap">
+                <!-- Service Card -->
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
                 >
-                    <a href="#">
-                        <img
-                            class="rounded-t-lg"
-                            src="{{ url_for('static',filename='images/udara.jpg') }}"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Layanan Udara
-                            </h5>
-                        </a>
-                        <p
-                            class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    <img
+                        src="{{ url_for('static',filename='images/udara.jpg') }}"
+                        alt="Layanan Udara"
+                        class="w-full h-64 object-cover"
+                    />
+
+                    <!-- Overlay -->
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+                    ></div>
+
+                    <!-- Content (hover) -->
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
+                    >
+                        <span
+                            class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
+                            >flight_takeoff</span
                         >
-                            Layanan pengiriman udara kami menawarkan kecepatan
-                            dan keamanan maksimal untuk memastikan barang Anda
-                            tiba tepat waktu. Cocok untuk pengiriman yang
-                            mendesak dan bernilai tinggi, kami bekerja sama
-                            dengan maskapai terkemuka untuk menjangkau berbagai
-                            tujuan dengan cepat dan efisien.
+                        <h3 class="text-2xl font-bold text-white">
+                            Layanan Udara
+                        </h3>
+                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
+                            Kecepatan dan keamanan maksimal untuk barang
+                            mendesak dan bernilai tinggi. Didukung maskapai
+                            terpercaya.
                         </p>
+                        <a
+                            href="#"
+                            class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                            >Selengkapnya</a
+                        >
+                    </div>
+
+                    <!-- Title visible on mobile/desktop without hover -->
+                    <div class="bg-white dark:bg-gray-800 text-center py-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-3xl mb-1 block"
+                            >flight_takeoff</span
+                        >
+                        <h3
+                            class="text-lg font-bold text-gray-800 dark:text-white"
+                        >
+                            Layanan Udara
+                        </h3>
                     </div>
                 </div>
 
+                <!-- Service Card -->
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
                 >
-                    <a href="#">
-                        <img
-                            class="rounded-t-lg"
-                            src="{{ url_for('static',filename='images/darat.jpg') }}"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Layanan Darat
-                            </h5>
-                        </a>
-                        <p
-                            class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    <img
+                        src="{{ url_for('static',filename='images/darat.jpg') }}"
+                        alt="Layanan Darat"
+                        class="w-full h-64 object-cover"
+                    />
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+                    ></div>
+
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
+                    >
+                        <span
+                            class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
+                            >local_shipping</span
                         >
-                            Kami menyediakan layanan pengiriman darat yang andal
-                            dan cepat, memastikan setiap barang tiba dengan
-                            selamat dan tepat waktu. Dengan armada yang terawat
-                            dan rute yang strategis, kami melayani berbagai
-                            kebutuhan logistik antar kota dan provinsi.
+                        <h3 class="text-2xl font-bold text-white">
+                            Layanan Darat
+                        </h3>
+                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
+                            Layanan pengiriman darat cepat & aman dengan armada
+                            handal dan rute strategis antar kota dan provinsi.
                         </p>
+                        <a
+                            href="#"
+                            class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                            >Selengkapnya</a
+                        >
+                    </div>
+
+                    <!-- Title visible on mobile/desktop -->
+                    <div class="bg-white dark:bg-gray-800 text-center py-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-3xl mb-1 block"
+                            >local_shipping</span
+                        >
+                        <h3
+                            class="text-lg font-bold text-gray-800 dark:text-white"
+                        >
+                            Layanan Darat
+                        </h3>
                     </div>
                 </div>
 
+                <!-- Service Card -->
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
                 >
-                    <a href="#">
-                        <img
-                            class="rounded-t-lg"
-                            src="{{ url_for('static',filename='images/laut.jpg') }}"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Layanan Laut
-                            </h5>
-                        </a>
-                        <p
-                            class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    <img
+                        src="{{ url_for('static',filename='images/laut.jpg') }}"
+                        alt="Layanan Laut"
+                        class="w-full h-64 object-cover"
+                    />
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+                    ></div>
+
+                    <div
+                        class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
+                    >
+                        <span
+                            class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
+                            >directions_boat</span
                         >
-                            Nikmati layanan pengiriman laut kami yang aman dan
-                            efisien untuk distribusi dalam jumlah besar. Dengan
-                            jaringan pelabuhan yang luas, kami menjamin
-                            pengiriman kargo hingga ke pelosok, menjadikan
-                            bisnis Anda lebih kompetitif di pasar global.
+                        <h3 class="text-2xl font-bold text-white">
+                            Layanan Laut
+                        </h3>
+                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
+                            Aman & efisien untuk pengiriman besar dengan
+                            jaringan pelabuhan luas. Kompetitif hingga ke
+                            pelosok nusantara.
                         </p>
+                        <a
+                            href="#"
+                            class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                            >Selengkapnya</a
+                        >
+                    </div>
+
+                    <!-- Title visible on mobile/desktop -->
+                    <div class="bg-white dark:bg-gray-800 text-center py-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-3xl mb-1 block"
+                            >directions_boat</span
+                        >
+                        <h3
+                            class="text-lg font-bold text-gray-800 dark:text-white"
+                        >
+                            Layanan Laut
+                        </h3>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact -->
-        <section id="contact" class="main-section relative bg-white">
-            <div class="absolute inset-0">
-                <img
-                    src="{{ url_for('static',filename='images/contact.jpg') }}"
-                    alt="Contact Background"
-                    class="w-full h-full object-cover opacity-40"
-                />
-            </div>
-            <div class="relative max-w-4xl mx-auto px-4 py-20">
-                <h2
-                    class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-                >
-                    Contact Us
-                </h2>
-                <p class="mt-3.5 text-gray-700 max-w-2x text-center">
-                    Hubungi kami untuk pertanyaan, kerja sama, atau informasi
-                    lebih lanjut mengenai layanan kami.
-                </p>
+        <!-- Contact Section -->
+        <section
+            id="contact"
+            class="relative py-20 bg-gradient-to-br from-green-100 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+        >
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Title -->
+                <div class="text-center mb-14">
+                    <h2
+                        class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white"
+                    >
+                        Hubungi Kami
+                    </h2>
+                    <p
+                        class="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                    >
+                        Ada pertanyaan atau butuh informasi lebih lanjut? Tim
+                        kami siap membantu Anda.
+                    </p>
+                </div>
 
-                <!-- Contact Form -->
-                <div
-                    class="mt-10 bg-white p-8 rounded-lg shadow-lg max-w-3xl mx-auto"
-                >
-                    <form action="#" method="POST" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Contact Content -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Contact Form -->
+                    <div
+                        class="backdrop-blur-md bg-white/80 dark:bg-gray-800/80 shadow-xl rounded-2xl p-8 border border-gray-200 dark:border-gray-700"
+                    >
+                        <form class="space-y-6">
+                            <!-- Name -->
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
-                                    >First Name</label
+                                    for="name"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                    >Your Name *</label
                                 >
                                 <input
                                     type="text"
-                                    class="mt-1 w-full px-4 py-2 border border-gray-400 rounded bg-white text-black placeholder-black"
+                                    id="name"
+                                    maxlength="100"
+                                    required
+                                    class="mt-2 w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
                                 />
                             </div>
+
+                            <!-- Message -->
                             <div>
                                 <label
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Last Name</label
+                                    for="message"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                    >Your Message *</label
                                 >
-                                <input
-                                    type="text"
-                                    class="mt-1 w-full px-4 py-2 border border-gray-400 rounded bg-white text-black placeholder-black"
-                                />
+                                <textarea
+                                    id="message"
+                                    rows="5"
+                                    required
+                                    class="mt-2 w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
+                                ></textarea>
                             </div>
-                            <div>
-                                <label
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Your Email</label
+
+                            <!-- Buttons -->
+                            <div class="flex space-x-4">
+                                <!-- WhatsApp -->
+                                <a
+                                    href="https://wa.me/6281234567890"
+                                    target="_blank"
+                                    class="flex items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition space-x-2"
                                 >
-                                <input
-                                    type="email"
-                                    class="mt-1 w-full px-4 py-2 border border-gray-400 rounded bg-white text-black placeholder-black"
-                                />
+                                    <i
+                                        class="fa-brands fa-whatsapp text-xl"
+                                    ></i>
+                                    <span>Chat</span>
+                                </a>
                             </div>
-                            <div>
-                                <label
-                                    class="block text-sm font-medium text-gray-700"
-                                    >Phone Number</label
-                                >
-                                <input
-                                    type="tel"
-                                    class="mt-1 w-full px-4 py-2 border border-gray-400 rounded bg-white text-black placeholder-black"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <label
-                                class="block text-sm font-medium text-gray-700"
-                                >Your Message</label
-                            >
-                            <textarea
-                                rows="4"
-                                class="mt-1 w-full px-4 py-2 border border-gray-400 rounded bg-white text-black placeholder-black"
-                            ></textarea>
-                        </div>
-                        <p class="text-xs text-gray-500">
-                            Informasi yang Anda isi akan digunakan untuk
-                            memproses pesanan dan menghubungi Anda terkait
-                            pengiriman.
-                        </p>
-                        <button
-                            type="submit"
-                            class="bg-green-500 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded"
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-6">
+                        <!-- Info Cards -->
+                        <div
+                            class="p-6 rounded-xl shadow bg-white dark:bg-gray-800 hover:shadow-lg transition"
                         >
-                            Send Message
-                        </button>
-                    </form>
-                </div>
-            </div>
+                            <span
+                                class="material-symbols-rounded text-green-600 text-3xl"
+                                >mail</span
+                            >
+                            <h4
+                                class="font-semibold text-lg text-gray-800 dark:text-white mt-2"
+                            >
+                                Email
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                atepbcecargo@gmail.com
+                            </p>
+                        </div>
 
-            <!-- Informasi kontak -->
-            <div
-                class="bg-zinc-200 py-10 mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-center text-gray-700"
-            >
-                <div>
-                    <span class="material-symbols-rounded text-3xl mb-2"
-                        >mail</span
-                    >
-                    <h4 class="font-semibold">Email us:</h4>
-                    <p>saktiawangalang01@gmail.com</p>
-                </div>
-                <div>
-                    <span class="material-symbols-rounded text-3xl mb-2"
-                        >call</span
-                    >
-                    <h4 class="font-semibold">Call us:</h4>
-                    <p>0855-1855-1223</p>
-                </div>
-                <div>
-                    <span class="material-symbols-rounded text-3xl mb-2"
-                        >support_agent</span
-                    >
-                    <h4 class="font-semibold">Support</h4>
-                    <p>Email us for general queries</p>
+                        <div
+                            class="p-6 rounded-xl shadow bg-white dark:bg-gray-800 hover:shadow-lg transition"
+                        >
+                            <span
+                                class="material-symbols-rounded text-green-600 text-3xl"
+                                >call</span
+                            >
+                            <h4
+                                class="font-semibold text-lg text-gray-800 dark:text-white mt-2"
+                            >
+                                Phone
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                0812-3456-7890
+                            </p>
+                        </div>
+
+                        <div
+                            class="p-6 rounded-xl shadow bg-white dark:bg-gray-800 hover:shadow-lg transition"
+                        >
+                            <span
+                                class="material-symbols-rounded text-green-600 text-3xl"
+                                >support_agent</span
+                            >
+                            <h4
+                                class="font-semibold text-lg text-gray-800 dark:text-white mt-2"
+                            >
+                                Support
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Layanan bantuan 24/7 untuk pertanyaan dan
+                                keluhan pelanggan.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Legality -->
-        <section id="legality" class="main-section px-4">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Legality
-            </h1>
-            <div class="block m-auto" style="max-width: 672px; margin: auto">
-                <div
-                    id="accordion-color"
-                    data-accordion="collapse"
-                    data-active-classes="bg-green-100 dark:bg-gray-800 text-green-600 dark:text-white"
+        <section
+            id="legality"
+            class="py-20 bg-gradient-to-b from-white to-green-50 dark:from-gray-900 dark:to-gray-800 px-6"
+        >
+            <div class="text-center mb-12">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
                 >
-                    <h2 id="accordion-color-heading-1">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-1"
-                            aria-expanded="true"
-                            aria-controls="accordion-color-body-1"
+                    Legalitas
+                </h1>
+                <p
+                    class="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Perjalanan legalitas kami yang menjamin operasional CV
+                    Bahtera Cahaya Express berjalan sah dan terpercaya.
+                </p>
+            </div>
+
+            <!-- Grid Cards -->
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+            >
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >gavel</span
                         >
-                            <span>Keputusan KEMENHUMHAM R.I </span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-1"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-1"
-                    >
-                        <div
-                            class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                No. AHU - 0014736 - AH.01.14. Tahun 2022
-                            </p>
-                        </div>
+                            Keputusan KEMENHUMHAM R.I
+                        </h3>
                     </div>
-                    <h2 id="accordion-color-heading-2">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-2"
-                            aria-expanded="false"
-                            aria-controls="accordion-color-body-2"
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        No. AHU - 0014736 - AH.01.14. Tahun 2022
+                    </p>
+                </div>
+
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >description</span
                         >
-                            <span>Akta Pendirian</span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-2"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-2"
-                    >
-                        <div
-                            class="p-5 border border-b-0 border-gray-200 dark:border-gray-700"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                No.18, Tanggal 14 Februari 2022 Notaris
-                                Silviyanti, S.H., M.Kn
-                            </p>
-                        </div>
+                            Akta Pendirian
+                        </h3>
                     </div>
-                    <h2 id="accordion-color-heading-3">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-3"
-                            aria-expanded="false"
-                            aria-controls="accordion-color-body-3"
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        No.18, Tanggal 14 Februari 2022 <br />
+                        Notaris Silviyanti, S.H., M.Kn
+                    </p>
+                </div>
+
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >payments</span
                         >
-                            <span>Nomor Pokok Wajib Pajak (NPWP)</span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-3"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-3"
-                    >
-                        <div
-                            class="p-5 border border-t-0 border-gray-200 dark:border-gray-700"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                No. 63.410.875.7 - 402.000
-                            </p>
-                        </div>
+                            Nomor Pokok Wajib Pajak (NPWP)
+                        </h3>
                     </div>
-                    <h2 id="accordion-color-heading-4">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-4"
-                            aria-expanded="false"
-                            aria-controls="accordion-color-body-4"
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        No. 63.410.875.7 - 402.000
+                    </p>
+                </div>
+
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >business</span
                         >
-                            <span>SIUP</span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-4"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-4"
-                    >
-                        <div
-                            class="p-5 border border-t-0 border-gray-200 dark:border-gray-700"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                NIB. 2102220068549
-                            </p>
-                        </div>
+                            SIUP
+                        </h3>
                     </div>
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        NIB. 2102220068549
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- Clients -->
-        <section id="clients" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Clients
-            </h1>
+        <section
+            id="clients"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <!-- Title -->
+            <div class="text-center mb-14">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Klien
+                </h1>
+                <p
+                    class="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Kami bangga telah dipercaya oleh perusahaan ternama dalam
+                    distribusi kargo.
+                </p>
+            </div>
 
-            <div class="client-list w-full flex items-center justify-center">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 px-8">
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/ganex.jpg') }}"
-                            alt=""
-                        />
+            <!-- Marquee Clients -->
+            <div class="relative overflow-hidden py-6">
+                <div class="flex animate-marquee space-x-16">
+                    <!-- Client Logo -->
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/ganex.jpg') }}"
+                        alt="Ganex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/gledex.jpg') }}"
+                        alt="Gledex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/access.svg') }}"
+                        alt="Access"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/akr.webp') }}"
+                        alt="AKR"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/binakarir.jpg') }}"
+                        alt="Binakarir"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/indomarco.jpg') }}"
+                        alt="Indomarco"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/iskent.png') }}"
+                        alt="Iskent"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/kenko.jpg') }}"
+                        alt="Kenko"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/kerry.png') }}"
+                        alt="Kerry"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/onecare.jpg') }}"
+                        alt="Onecare"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <!-- Looping 2-->
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/ganex.jpg') }}"
+                        alt="Ganex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/gledex.jpg') }}"
+                        alt="Gledex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/access.svg') }}"
+                        alt="Access"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/akr.webp') }}"
+                        alt="AKR"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/binakarir.jpg') }}"
+                        alt="Binakarir"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/indomarco.jpg') }}"
+                        alt="Indomarco"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/iskent.png') }}"
+                        alt="Iskent"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/kenko.jpg') }}"
+                        alt="Kenko"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/kerry.png') }}"
+                        alt="Kerry"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/onecare.jpg') }}"
+                        alt="Onecare"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <!-- Looping 3 -->
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/ganex.jpg') }}"
+                        alt="Ganex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/gledex.jpg') }}"
+                        alt="Gledex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/access.svg') }}"
+                        alt="Access"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/akr.webp') }}"
+                        alt="AKR"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/binakarir.jpg') }}"
+                        alt="Binakarir"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/indomarco.jpg') }}"
+                        alt="Indomarco"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/iskent.png') }}"
+                        alt="Iskent"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/kenko.jpg') }}"
+                        alt="Kenko"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/kerry.png') }}"
+                        alt="Kerry"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="{{ url_for('static',filename='images/client_bce/onecare.jpg') }}"
+                        alt="Onecare"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                </div>
+            </div>
+
+            <!-- Keunggulan -->
+            <div class="max-w-5xl mx-auto text-center mt-20">
+                <h2
+                    class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-10"
+                >
+                    Why Choose Us?
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div
+                        class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-2"
+                    >
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-500 text-3xl">🚚</span>
+                            <div class="text-left">
+                                <h3
+                                    class="font-semibold text-gray-800 dark:text-white"
+                                >
+                                    Layanan Door To Door
+                                </h3>
+                                <p
+                                    class="text-gray-600 dark:text-gray-400 text-sm mt-1"
+                                >
+                                    Pengiriman efisien dari bandara/pelabuhan ke
+                                    gudang atau gudang ke gudang dengan
+                                    penanganan profesional.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/gledex.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/access.svg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/akr.webp') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/binakarir.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/indomarco.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/iskent.png') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/kenko.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/kerry.png') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/onecare.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/pbd.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/sinar.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/slank.jpg') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/spt.webp') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/tgs.png') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/ua.png') }}"
-                            alt=""
-                        />
-                    </div>
-                    <div>
-                        <img
-                            class="h-auto max-w-full rounded-lg"
-                            src="{{ url_for('static',filename='images/client_bce/unilab.jpg') }}"
-                            alt=""
-                        />
+                    <!-- Card 2 -->
+                    <div
+                        class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-2"
+                    >
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-500 text-3xl">📦</span>
+                            <div class="text-left">
+                                <h3
+                                    class="font-semibold text-gray-800 dark:text-white"
+                                >
+                                    Layanan Terintegrasi
+                                </h3>
+                                <p
+                                    class="text-gray-600 dark:text-gray-400 text-sm mt-1"
+                                >
+                                    Konsolidasi/dekonsolidasi, pergudangan,
+                                    pengepakan, hingga crating barang bernilai
+                                    tinggi.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Gallery -->
-        <section id="gallery" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Gallery
-            </h1>
+        <section
+            id="gallery"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <div class="text-center mb-14">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Dokumentasi
+                </h1>
+                <p
+                    class="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Koleksi momen terbaik & dokumentasi aktivitas BCE Cargo.
+                </p>
+            </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-8">
                 <div class="grid gap-4">
@@ -887,74 +1046,104 @@
         </section>
 
         <!-- Location -->
-        <section class="w-full px-5 overflow-hidden" id="location">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Location
-            </h1>
-            <div class="flex flex-wrap items-start justify-center gap-5">
-                <div class="w-full max-w-xl overflow-hidden">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.94474834672914!2d106.5667849010239!3d-6.115086330255197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1727926797082!5m2!1sen!2sid"
-                        width="600"
-                        height="400"
-                        style="border: 0"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        class="rounded-3xl w-full"
-                    ></iframe>
-                    <div class="flex justify-between items-center my-5">
-                        <div class="block dark:text-white">
-                            <h2 class="text-xl font-bold mb-2.5">
-                                Head Office
-                            </h2>
-                            <p>
-                                Perum Permata Sepatan Blok B9 No.23,
-                                Kec.Sepatan, Kab.Tangerang, Banten.
-                            </p>
-                        </div>
-                        <span
-                            class="material-symbols-rounded dark:text-white"
-                            id="maps-symbol"
+        <section
+            id="location"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <div class="text-center mb-14">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Lokasi
+                </h1>
+                <p
+                    class="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Kunjungi kantor pusat & field office kami untuk pelayanan
+                    langsung dan konsultasi.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-6">
+                <!-- Head Office -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="relative">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.94474834672914!2d106.5667849010239!3d-6.115086330255197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1727926797082!5m2!1sen!2sid"
+                            class="w-full h-72"
+                            style="border: 0"
+                            allowfullscreen=""
+                            loading="lazy"
                         >
-                            arrow_top_right
-                        </span>
+                        </iframe>
+                        <span
+                            class="absolute top-4 left-4 bg-green-600 text-white text-xs px-3 py-1 rounded-full shadow"
+                            >Head Office</span
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h2
+                            class="text-xl font-bold text-gray-800 dark:text-white mb-2"
+                        >
+                            Head Office
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Perum Permata Sepatan Blok B9 No.23, Kec. Sepatan,
+                            Kab. Tangerang, Banten.
+                        </p>
+                        <a
+                            href="https://maps.google.com/?q=Perum+Permata+Sepatan+B9+No.23"
+                            target="_blank"
+                            class="inline-flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                        >
+                            <span class="material-symbols-rounded">map</span>
+                            <span>Lihat di Maps</span>
+                        </a>
                     </div>
                 </div>
-                <div class="w-full max-w-xl overflow-hidden">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d495.88583438036136!2d106.5678793855572!3d-6.119034721449311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1727928158824!5m2!1sen!2sid"
-                        width="600"
-                        height="400"
-                        style="border: 0"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                        class="rounded-3xl w-full"
-                    ></iframe>
-                    <div class="flex justify-between items-center my-5">
-                        <div class="block dark:text-white">
-                            <h2 class="text-xl font-bold mb-2.5">
-                                Field Office
-                            </h2>
-                            <p>
-                                Ware House Area Regulated Agent PT. Gatrans
-                                Soekarno Hatta Air Port.
-                            </p>
-                        </div>
-                        <span
-                            class="material-symbols-rounded dark:text-white"
-                            id="maps-symbol"
+
+                <!-- Field Office -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="relative">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.93993616881028!2d106.66512066223552!3d-6.125457060059776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a03007b29faa5%3A0xbdbb6901074f6a7f!2sCV.%20BAHTERA%20CAHAYA%20EXPRESS%20(Field%20Office)!5e0!3m2!1sid!2sid!4v1746444162134!5m2!1sid!2sid"
+                            class="w-full h-72"
+                            style="border: 0"
+                            allowfullscreen=""
+                            loading="lazy"
                         >
-                            arrow_top_right
-                        </span>
+                        </iframe>
+                        <span
+                            class="absolute top-4 left-4 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow"
+                            >Field Office</span
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h2
+                            class="text-xl font-bold text-gray-800 dark:text-white mb-2"
+                        >
+                            Field Office
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Ware House Area Regulated Agent PT. Gatrans Soekarno
+                            Hatta Air Port.
+                        </p>
+                        <a
+                            href="https://maps.google.com/?q=CV+Bahtera+Cahaya+Express+Field+Office"
+                            target="_blank"
+                            class="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                        >
+                            <span class="material-symbols-rounded">map</span>
+                            <span>Lihat di Maps</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
-        
 
         <!-- Chatbot -->
         {% include 'chatbot/chatbot.html' %}
@@ -964,5 +1153,63 @@
         <script src="{{ url_for('static', filename='js/chatbot/chatbot.js') }}"></script>
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <!-- SwiperJS Script -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            // CLIENT
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 5,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                breakpoints: {
+                    320: { slidesPerView: 2 },
+                    640: { slidesPerView: 3 },
+                    1024: { slidesPerView: 5 },
+                },
+            });
+
+            // CONTACT US
+            const contactForm = document.getElementById("contact-form");
+
+            contactForm.addEventListener("submit", function (e) {
+                let isValid = true;
+
+                // Name validation
+                const name = document.getElementById("name");
+                const errorName = document.getElementById("error-name");
+                if (name.value.trim() === "" || name.value.length > 100) {
+                    errorName.classList.remove("hidden");
+                    isValid = false;
+                } else {
+                    errorName.classList.add("hidden");
+                }
+
+                // Message validation
+                const message = document.getElementById("message");
+                const errorMessage = document.getElementById("error-message");
+                if (message.value.trim() === "") {
+                    errorMessage.classList.remove("hidden");
+                    isValid = false;
+                } else {
+                    errorMessage.classList.add("hidden");
+                }
+
+                if (!isValid) {
+                    e.preventDefault(); // cegah submit kalau invalid
+                }
+            });
+        </script>
     </body>
 </html>

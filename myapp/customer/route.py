@@ -46,12 +46,12 @@ def login():
     if 'user_id' in session or session.get('role') == 'customer':
         return redirect(url_for("home"))
     else: 
-        return render_template("customer/login.html")
+        return render_template("customer/auth/login.html")
 
 #FORGOT PASSWORD
 @customer_route.route("/forgotpw", methods=["GET", "POST"])
 def forgotpw():
-    return render_template("customer/forgotpw.html")
+    return render_template("customer/auth/forgotpw.html")
 
 # REGISTER
 @customer_route.route("/register", methods=["GET", "POST"])
@@ -59,38 +59,38 @@ def register():
     if 'user_id' in session or session.get('role') == 'customer':
         return redirect(url_for("home"))
     else: 
-        return render_template("customer/register.html")
+        return render_template("customer/auth/register.html")
 
 
 # ONGKIR
 @customer_route.route("/ongkir", methods=["GET", "POST"])
 @khusus_customer
 def ongkir():
-    return render_template("customer/ongkir.html")
+    return render_template("customer/pages/ongkir.html")
 
 # PESANAN
 @customer_route.route("/pesanan", methods=["GET", "POST"])
 @khusus_customer
 def pesanan():
-    return render_template("customer/pesanan.html")
+    return render_template("customer/pages/pesanan.html")
 
 #PROFILE
 @customer_route.route("/profile", methods=["GET", "POST"])
 @khusus_customer
 def profile():
-    return render_template("customer/profile.html")
+    return render_template("customer/pages/profile.html")
 
 # RIWAYAT PESANAN
 @customer_route.route("/riwayat", methods=["GET", "POST"])
 @khusus_customer
 def riwayat():
-    return render_template("customer/riwayat.html")
+    return render_template("customer/pages/riwayat.html")
 
 # Eksperimen
 @customer_route.route("/tes", methods=["GET", "POST"])
 @khusus_customer
 def tes():
-    return render_template("customer/tes.html")
+    return render_template("customer/pages/tes.html")
 
 # Logout
 @customer_route.route("/logout")
