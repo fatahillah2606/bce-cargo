@@ -18,6 +18,14 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
         <style>
             /* Zoom in & out sedang */
             @keyframes zoomPulse {
@@ -65,73 +73,67 @@
         <!-- floating -->
         {% include 'customer/components/floating-sidebar.html' %}
 
-        <!-- Header -->
-        <section class="relative heading-ongkir">
-            <div
-                class="absolute inset-0 flex flex-col justify-center items-start px-10 text-white"
-            >
-                <h1 class="text-4xl font-bold mb-2">Informasi Barang</h1>
-                <p class="text-xl">Cek Ongkos Kirim</p>
-            </div>
-        </section>
-
-        <section id="tabel-ongkir" class="w-full h-auto p-5">
+        <!-- Main Content -->
+        <section id="tabel-ongkir" class="max-w-6xl mx-auto px-4 py-12">
             <!-- Title -->
-            <h1
-                class="mb-12 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-3xl text-center dark:text-white"
-            >
-                Tarif Ongkos Kirim
-            </h1>
+            <div class="text-center mb-12">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-green-700 mb-3"
+                >
+                    Cek Ongkos Kirim
+                </h1>
+                <p class="text-gray-500">
+                    Cari tarif kiriman Anda dengan cepat & mudah
+                </p>
+            </div>
 
-            <!-- Cek Ongkir Tabs -->
-            <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-                <!-- Tabs header -->
+            <!-- Tabs -->
+            <div class="bg-white shadow-lg rounded-2xl p-6 mb-10">
                 <ul
-                    class="flex border-b mb-6 text-sm font-medium text-center text-gray-500"
+                    class="flex border-b"
                     id="ongkirTab"
                     data-tabs-toggle="#ongkirTabContent"
                     role="tablist"
                 >
-                    <li role="presentation">
+                    <li class="mr-6">
                         <button
-                            class="inline-block p-4 border-b-2 rounded-t-lg hover:text-green-800"
+                            class="inline-block py-2 px-4 text-green-600 font-semibold border-b-2 border-green-600 focus:outline-none transition"
                             id="ongkir-tab"
                             data-tabs-target="#ongkir"
                             type="button"
                             role="tab"
                             aria-controls="ongkir"
-                            aria-selected="false"
+                            aria-selected="true"
                         >
-                            Cek Ongkir
+                            Form Ongkir
                         </button>
                     </li>
                 </ul>
 
-                <!-- Tabs content -->
-                <div id="ongkirTabContent">
-                    <!-- Cek Ongkir -->
+                <!-- Tabs Content -->
+                <div id="ongkirTabContent" class="mt-6">
+                    <!-- Form Ongkir -->
                     <div
-                        class="hidden"
                         id="ongkir"
                         role="tabpanel"
                         aria-labelledby="ongkir-tab"
                     >
                         <form
                             id="form-tarif"
-                            class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md"
+                            class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-gray-50 rounded-xl border border-gray-200"
                         >
                             <!-- Moda -->
                             <div class="flex flex-col">
                                 <label
                                     for="moda"
-                                    class="mb-2 font-bold text-green-800 text-sm dark:text-green-200"
-                                    >Moda
-                                </label>
+                                    class="mb-2 font-medium text-sm text-gray-700"
+                                    >Moda</label
+                                >
                                 <select
                                     id="moda"
                                     name="moda"
                                     required
-                                    class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
+                                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                 >
                                     <option value="">-- Pilih Moda --</option>
                                     <option value="udara">Udara</option>
@@ -139,8 +141,8 @@
                                     <option value="laut">Laut</option>
                                 </select>
                                 <p
-                                    class="hidden text-xs text-red-500 mt-1"
                                     id="error-moda"
+                                    class="hidden text-xs text-red-500 mt-1"
                                 >
                                     Moda wajib dipilih.
                                 </p>
@@ -150,14 +152,14 @@
                             <div class="flex flex-col">
                                 <label
                                     for="jenis"
-                                    class="mb-2 font-bold text-green-800 text-sm dark:text-green-200"
-                                    >Jenis
-                                </label>
+                                    class="mb-2 font-medium text-sm text-gray-700"
+                                    >Jenis</label
+                                >
                                 <select
                                     id="jenis"
                                     name="jenis"
                                     required
-                                    class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
+                                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                 >
                                     <option value="">-- Pilih Jenis --</option>
                                     <option value="door-to-door">
@@ -174,8 +176,8 @@
                                     </option>
                                 </select>
                                 <p
-                                    class="hidden text-xs text-red-500 mt-1"
                                     id="error-jenis"
+                                    class="hidden text-xs text-red-500 mt-1"
                                 >
                                     Jenis wajib dipilih.
                                 </p>
@@ -185,9 +187,9 @@
                             <div class="flex flex-col">
                                 <label
                                     for="kg"
-                                    class="mb-2 font-bold text-green-800 text-sm dark:text-green-200"
-                                    >Berat (Kg)
-                                </label>
+                                    class="mb-2 font-medium text-sm text-gray-700"
+                                    >Berat (Kg)</label
+                                >
                                 <input
                                     type="number"
                                     id="kg"
@@ -195,11 +197,11 @@
                                     min="1"
                                     required
                                     placeholder="Masukkan berat (Kg)"
-                                    class="border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
+                                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none"
                                 />
                                 <p
-                                    class="hidden text-xs text-red-500 mt-1"
                                     id="error-kg"
+                                    class="hidden text-xs text-red-500 mt-1"
                                 >
                                     Berat minimal 1 Kg.
                                 </p>
@@ -209,9 +211,9 @@
                             <div class="md:col-span-3 flex justify-end">
                                 <button
                                     type="submit"
-                                    class="px-5 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500"
+                                    class="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold shadow hover:bg-green-700 focus:ring-4 focus:ring-green-300 transition"
                                 >
-                                    Simpan Tarif
+                                    Cek Tarif
                                 </button>
                             </div>
                         </form>
@@ -220,171 +222,123 @@
             </div>
 
             <!-- List Tarif -->
-            <p class="mb-7 font-bold text-green-800 text-black-500 lg:text-2xl">
-                LIST TARIF :
-            </p>
-
-            <div class="relative overflow-x-auto">
-                <table
-                    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
-                >
-                    <thead
-                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
-                    >
+            <h2 class="text-2xl font-bold text-green-700 mb-4">List Tarif</h2>
+            <div class="overflow-x-auto bg-white shadow rounded-2xl">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="bg-green-600 text-white uppercase text-xs">
                         <tr>
-                            <th scope="col" class="px-6 py-3">Destinasi</th>
-                            <th scope="col" class="px-6 py-3">Harga</th>
-                            <th scope="col" class="px-6 py-3">Jenis</th>
-                            <th scope="col" class="px-6 py-3">Moda</th>
-                            <th scope="col" class="px-6 py-3">Origin</th>
-                            <th scope="col" class="px-6 py-3">Rute</th>
+                            <th class="px-6 py-3">Destinasi</th>
+                            <th class="px-6 py-3">Harga</th>
+                            <th class="px-6 py-3">Jenis</th>
+                            <th class="px-6 py-3">Moda</th>
+                            <th class="px-6 py-3">Origin</th>
+                            <th class="px-6 py-3">Rute</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 AMQ
-                            </th>
+                            </td>
                             <td class="px-6 py-4">Rp. 55.000,-</td>
-                            <td class="px-6 py-4">port to port</td>
-                            <td class="px-6 py-4">udara</td>
+                            <td class="px-6 py-4">Port to Port</td>
+                            <td class="px-6 py-4">Udara</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">AMBON</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <!-- ... isi data tarif lain tetap sama -->
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 BDJ
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 33.500,-</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">udara</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">BANJARMASIN</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 BEJ
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 69.500,-</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">udara</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">BERAU</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 BIK
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 83.500,-</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">udara</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">BIAK</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 PKN
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 35.770,-</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">darat</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">PANGKALAMBUN</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 SOQ
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 73.990,-</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">darat</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">SORONG</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 TIQ
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 25.970,-</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">darat</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">TANJUNG PANDAN</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 TNJ
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 40.950,-</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">laut</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">TANJUNG PINANG</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 LBJ
-                            </th>
+                            </td>
+
                             <td class="px-6 py-4">Rp. 59.940,-</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">laut</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">LABUANBAJO</td>
                         </tr>
-                        <tr
-                            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
-                        >
-                            <th
-                                scope="row"
-                                class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                            >
+                        <tr class="border-b hover:bg-green-50 transition">
+                            <td class="px-6 py-4 font-medium text-gray-900">
                                 PLW
-                            </th>
+                            </td>
                             <td class="px-6 py-4">Rp. 68.670,-</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">laut</td>

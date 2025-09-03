@@ -18,6 +18,14 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
         <style>
             section {
                 min-height: auto;
@@ -68,21 +76,28 @@
         <!-- floating -->
         {% include 'customer/components/floating-sidebar.html' %}
 
-        <!-- Informasi Pribadi -->
+        <!-- BIODATA DIRI -->
         <section
             class="max-w-5xl mx-auto py-12 px-6"
             id="bagian-informasi-pribadi"
         >
-            <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+            <div
+                class="max-w-2xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
                 <!-- Header -->
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-green-800 mb-6">
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >badge</span
+                        >
                         Biodata Diri
                     </h2>
                     <button
                         id="btn-edit"
                         type="button"
-                        class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-blue-300"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow transition cursor-pointer"
                     >
                         Edit
                     </button>
@@ -91,101 +106,125 @@
                 <!-- Form -->
                 <form id="form-biodata" class="space-y-6">
                     <!-- Nama Lengkap -->
-                    <div>
+                    <div class="relative">
                         <label
                             for="nama"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            class="block text-sm font-medium text-gray-700"
                             >Nama Lengkap</label
                         >
-                        <input
-                            type="text"
-                            id="nama"
-                            name="nama"
-                            value="John Doe"
-                            maxlength="100"
-                            required
-                            readonly
-                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                        />
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="nama"
+                                name="nama"
+                                maxlength="100"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >person</span
+                            >
+                        </div>
                         <p
-                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                         >
                             Nama lengkap wajib diisi (maksimal 100 karakter).
                         </p>
                     </div>
 
                     <!-- Nomor Ponsel -->
-                    <div>
+                    <div class="relative">
                         <label
                             for="ponsel"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            class="block text-sm font-medium text-gray-700"
                             >Nomor Ponsel</label
                         >
-                        <input
-                            type="tel"
-                            id="ponsel"
-                            name="ponsel"
-                            value="08123456789"
-                            minlength="10"
-                            maxlength="13"
-                            required
-                            pattern="[0-9]+"
-                            readonly
-                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                        />
+                        <div class="mt-1 relative">
+                            <input
+                                type="tel"
+                                id="ponsel"
+                                name="ponsel"
+                                minlength="10"
+                                maxlength="13"
+                                required
+                                pattern="[0-9]+"
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >phone</span
+                            >
+                        </div>
                         <p
-                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                         >
                             Nomor ponsel wajib angka 10–13 digit.
                         </p>
                     </div>
 
-                    <!-- Jenis Pelanggan & Nama Perusahaan -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                    <!-- Jenis Pelanggan + Nama Perusahaan -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
                             <label
                                 for="jenis"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Jenis Pelanggan</label
                             >
-                            <select
-                                id="jenis"
-                                name="jenis"
-                                required
-                                disabled
-                                class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 p-2.5 text-sm text-gray-500 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            >
-                                <option value="">Pilih jenis</option>
-                                <option value="perorangan" selected>
-                                    Perorangan
-                                </option>
-                                <option value="perusahaan">Perusahaan</option>
-                            </select>
+                            <div class="mt-1 relative">
+                                <select
+                                    id="jenis"
+                                    name="jenis"
+                                    required
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih jenis</option>
+                                    <option value="perorangan" selected>
+                                        Perorangan
+                                    </option>
+                                    <option value="perusahaan">
+                                        Perusahaan
+                                    </option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >group</span
+                                >
+                            </div>
                             <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                             >
                                 Jenis pelanggan wajib dipilih.
                             </p>
                         </div>
 
                         <!-- Nama Perusahaan -->
-                        <div id="field-perusahaan" class="hidden">
+                        <div id="field-perusahaan" class="hidden relative">
                             <label
                                 for="perusahaan"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Nama Perusahaan</label
                             >
-                            <input
-                                type="text"
-                                id="perusahaan"
-                                name="perusahaan"
-                                maxlength="100"
-                                readonly
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                                placeholder="Masukkan nama perusahaan"
-                            />
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="perusahaan"
+                                    name="perusahaan"
+                                    maxlength="100"
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                    placeholder="Masukkan nama perusahaan"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >business</span
+                                >
+                            </div>
                             <p
-                                class="mt-1 text-sm text-red-600 hidden"
+                                class="mt-1 text-xs text-red-600 hidden"
                                 id="error-perusahaan"
                             >
                                 Nama perusahaan wajib diisi.
@@ -193,21 +232,21 @@
                         </div>
                     </div>
 
-                    <!-- Tombol Aksi (muncul saat edit mode) -->
+                    <!-- Tombol Aksi -->
                     <div
                         id="action-buttons"
-                        class="hidden flex justify-end gap-3"
+                        class="hidden flex justify-end gap-3 pt-4"
                     >
                         <button
                             type="button"
                             id="btn-cancel"
-                            class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
-                            class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow"
                         >
                             Simpan
                         </button>
@@ -216,95 +255,112 @@
             </div>
         </section>
 
-        <!-- Alamat -->
+        <!-- ALAMAT -->
         <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-buku-alamat">
-            <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+            <div
+                class="max-w-3xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
                 <!-- Header -->
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-green-800 mb-6">
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >home_pin</span
+                        >
                         Alamat
                     </h2>
                     <button
                         id="btn-edit-alamat"
                         type="button"
-                        class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-blue-300"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow transition cursor-pointer"
                     >
                         Edit
                     </button>
                 </div>
 
-                <!-- Form Alamat -->
+                <!-- Form -->
                 <form id="form-alamat" class="space-y-6">
-                    <!-- Nama Jalan -->
-                    <div>
+                    <div class="relative">
                         <label
                             for="jalan"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            class="block text-sm font-medium text-gray-700"
                             >Jalan</label
                         >
-                        <input
-                            type="text"
-                            id="jalan"
-                            name="jalan"
-                            value="Jl. Melati No. 10"
-                            maxlength="100"
-                            required
-                            readonly
-                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                        />
-                        <p
-                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                        >
-                            Nama jalan wajib diisi (maksimal 100 karakter).
-                        </p>
-                    </div>
-
-                    <!-- Kode Pos + Nomor WhatsApp -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label
-                                for="kodepos"
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                                >Kode Pos</label
+                        <div class="mt-1 relative">
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                             >
+                                location_on
+                            </span>
                             <input
                                 type="text"
-                                id="kodepos"
-                                name="kodepos"
-                                value="12345"
-                                minlength="5"
-                                maxlength="5"
-                                pattern="[0-9]{5}"
+                                id="jalan"
+                                name="jalan"
+                                maxlength="100"
                                 required
                                 readonly
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2.5 text-sm text-gray-600 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                             />
+                        </div>
+                    </div>
+
+                    <!-- Kode Pos + WhatsApp -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="kodepos"
+                                class="block text-sm font-medium text-gray-700"
+                                >Kode Pos</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="kodepos"
+                                    name="kodepos"
+                                    minlength="5"
+                                    maxlength="5"
+                                    pattern="[0-9]{5}"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >markunread_mailbox</span
+                                >
+                            </div>
                             <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                             >
                                 Kode pos wajib 5 digit angka.
                             </p>
                         </div>
-                        <div>
+                        <div class="relative">
                             <label
                                 for="whatsapp"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Nomor WhatsApp</label
                             >
-                            <input
-                                type="tel"
-                                id="whatsapp"
-                                name="whatsapp"
-                                value="08123456789"
-                                minlength="10"
-                                maxlength="13"
-                                required
-                                pattern="[0-9]+"
-                                readonly
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            />
+                            <div class="mt-1 relative">
+                                <input
+                                    type="tel"
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    minlength="10"
+                                    maxlength="13"
+                                    pattern="[0-9]+"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >phone_iphone</span
+                                >
+                            </div>
                             <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                             >
                                 Nomor WA wajib angka 10–13 digit.
                             </p>
@@ -312,171 +368,187 @@
                     </div>
 
                     <!-- RT + RW -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
                             <label
                                 for="rt"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >RT</label
                             >
-                            <input
-                                type="text"
-                                id="rt"
-                                name="rt"
-                                value="0001"
-                                minlength="4"
-                                maxlength="4"
-                                pattern="[0-9]{4}"
-                                required
-                                readonly
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            />
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="rt"
+                                    name="rt"
+                                    minlength="4"
+                                    maxlength="4"
+                                    pattern="[0-9]{4}"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >tag</span
+                                >
+                            </div>
                             <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                             >
                                 RT wajib 4 digit angka.
                             </p>
                         </div>
-                        <div>
+                        <div class="relative">
                             <label
                                 for="rw"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >RW</label
                             >
-                            <input
-                                type="text"
-                                id="rw"
-                                name="rw"
-                                value="0002"
-                                minlength="4"
-                                maxlength="4"
-                                pattern="[0-9]{4}"
-                                required
-                                readonly
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            />
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="rw"
+                                    name="rw"
+                                    minlength="4"
+                                    maxlength="4"
+                                    pattern="[0-9]{4}"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >tag</span
+                                >
+                            </div>
                             <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                             >
                                 RW wajib 4 digit angka.
                             </p>
                         </div>
                     </div>
 
-                    <!-- Lokasi -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
+                    <!-- Provinsi, Kabupaten, Kecamatan, Kelurahan -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
                             <label
                                 for="provinsi"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Provinsi</label
                             >
-                            <select
-                                id="provinsi"
-                                name="provinsi"
-                                required
-                                disabled
-                                class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            >
-                                <option value="">Pilih provinsi</option>
-                                <option value="jakarta" selected>
-                                    DKI Jakarta
-                                </option>
-                                <option value="jabar">Jawa Barat</option>
-                            </select>
-                            <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                            >
-                                Provinsi wajib dipilih.
-                            </p>
+                            <div class="relative">
+                                <select
+                                    id="provinsi"
+                                    name="provinsi"
+                                    required
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih provinsi</option>
+                                    <option value="jakarta" selected>
+                                        DKI Jakarta
+                                    </option>
+                                    <option value="jabar">Jawa Barat</option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >map</span
+                                >
+                            </div>
                         </div>
-                        <div>
+                        <div class="relative">
                             <label
                                 for="kabupaten"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Kabupaten</label
                             >
-                            <select
-                                id="kabupaten"
-                                name="kabupaten"
-                                required
-                                disabled
-                                class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            >
-                                <option value="">Pilih kabupaten</option>
-                                <option value="jaksel" selected>
-                                    Jakarta Selatan
-                                </option>
-                            </select>
-                            <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                            >
-                                Kabupaten wajib dipilih.
-                            </p>
+                            <div class="relative">
+                                <select
+                                    id="kabupaten"
+                                    name="kabupaten"
+                                    required
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih kabupaten</option>
+                                    <option value="jaksel" selected>
+                                        Jakarta Selatan
+                                    </option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >domain</span
+                                >
+                            </div>
                         </div>
-                        <div>
+                        <div class="relative">
                             <label
                                 for="kecamatan"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Kecamatan</label
                             >
-                            <select
-                                id="kecamatan"
-                                name="kecamatan"
-                                required
-                                disabled
-                                class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            >
-                                <option value="">Pilih kecamatan</option>
-                                <option value="tebet" selected>Tebet</option>
-                            </select>
-                            <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                            >
-                                Kecamatan wajib dipilih.
-                            </p>
+                            <div class="relative">
+                                <select
+                                    id="kecamatan"
+                                    name="kecamatan"
+                                    required
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih kecamatan</option>
+                                    <option value="tebet" selected>
+                                        Tebet
+                                    </option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >map</span
+                                >
+                            </div>
                         </div>
-                        <div>
+                        <div class="relative">
                             <label
                                 for="kelurahan"
-                                class="block mb-2 text-sm font-medium text-gray-900"
+                                class="block text-sm font-medium text-gray-700"
                                 >Kelurahan</label
                             >
-                            <select
-                                id="kelurahan"
-                                name="kelurahan"
-                                required
-                                disabled
-                                class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 p-2.5 text-sm focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                            >
-                                <option value="">Pilih kelurahan</option>
-                                <option value="menteng" selected>
-                                    Menteng Dalam
-                                </option>
-                            </select>
-                            <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                            >
-                                Kelurahan wajib dipilih.
-                            </p>
+                            <div class="relative">
+                                <select
+                                    id="kelurahan"
+                                    name="kelurahan"
+                                    required
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih kelurahan</option>
+                                    <option value="menteng" selected>
+                                        Menteng Dalam
+                                    </option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >location_city</span
+                                >
+                            </div>
                         </div>
                     </div>
 
                     <!-- Tombol Aksi -->
                     <div
                         id="alamat-actions"
-                        class="hidden flex justify-end gap-3"
+                        class="hidden flex justify-end gap-3 pt-4"
                     >
                         <button
                             type="button"
                             id="btn-cancel-alamat"
-                            class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 cursor-pointer"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
-                            class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
                         >
                             Simpan
                         </button>
@@ -485,141 +557,171 @@
             </div>
         </section>
 
-        <!-- Informasi Akun -->
         <section
             class="max-w-5xl mx-auto py-12 px-6"
             id="bagian-informasi-akun"
         >
-            <div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-md">
+            <div
+                class="max-w-2xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
                 <!-- Header -->
-                <div class="flex items-center justify-between mb-6">
-                    <h2 class="text-2xl font-bold text-green-800 mb-6">
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >manage_accounts</span
+                        >
                         Informasi Akun
                     </h2>
+                    <button
+                        id="btn-edit-akun"
+                        type="button"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow transition cursor-pointer"
+                    >
+                        Edit
+                    </button>
                 </div>
 
                 <!-- Form -->
                 <form id="form-akun" class="space-y-6">
                     <!-- Nama -->
-                    <div>
+                    <div class="relative">
                         <label
                             for="nama-akun"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            class="block text-sm font-medium text-gray-700"
                             >Nama</label
                         >
-                        <input
-                            type="text"
-                            id="nama-akun"
-                            name="nama-akun"
-                            value="John Doe"
-                            maxlength="50"
-                            required
-                            readonly
-                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                        />
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="nama-akun"
+                                name="nama-akun"
+                                maxlength="50"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >person</span
+                            >
+                        </div>
                         <p
-                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                         >
                             Nama wajib diisi (maksimal 50 karakter).
                         </p>
                     </div>
 
                     <!-- Email -->
-                    <div>
+                    <div class="relative">
                         <label
-                            for="email-akun"
-                            class="block mb-2 text-sm font-medium text-gray-900"
+                            for="email"
+                            class="block text-sm font-medium text-gray-700"
                             >Email</label
                         >
-                        <input
-                            type="email"
-                            id="email-akun"
-                            name="email-akun"
-                            value="johndoe@example.com"
-                            maxlength="100"
-                            required
-                            readonly
-                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-500 bg-gray-100 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                        />
+                        <div class="mt-1 relative">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                maxlength="100"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >mail</span
+                            >
+                        </div>
                         <p
-                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
                         >
                             Email wajib diisi (maksimal 100 karakter).
                         </p>
                     </div>
 
-                    <!-- Edit Password Trigger -->
-                    <div>
-                        <button
-                            id="btn-edit-password"
-                            type="button"
-                            class="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-blue-300"
-                        >
-                            Edit Password
-                        </button>
+                    <!-- Edit Password -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Password</label
+                            >
+                            <button
+                                type="button"
+                                id="btn-edit-password"
+                                class="text-sm text-green-600 font-medium flex items-center gap-1 cursor-pointer"
+                            >
+                                <span class="material-symbols-rounded text-base"
+                                    >lock_reset</span
+                                >
+                                Ubah Password
+                            </button>
+                        </div>
+
+                        <!-- Kolom Password Baru (Hidden awalnya) -->
+                        <div id="password-fields" class="hidden space-y-4">
+                            <div class="relative">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password baru"
+                                    minlength="6"
+                                    maxlength="50"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >lock</span
+                                >
+                                <p
+                                    class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Password minimal 6 karakter.
+                                </p>
+                            </div>
+                            <div class="relative">
+                                <input
+                                    type="password"
+                                    id="konfirmasi-password"
+                                    name="konfirmasi-password"
+                                    placeholder="Konfirmasi password baru"
+                                    minlength="6"
+                                    maxlength="50"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >verified_user</span
+                                >
+                            </div>
+                        </div>
                     </div>
 
-                    <!-- Password Fields (Hidden by default) -->
+                    <!-- Tombol Aksi -->
                     <div
-                        id="password-fields"
-                        class="hidden grid grid-cols-1 md:grid-cols-2 gap-4"
+                        id="action-buttons-akun"
+                        class="hidden flex justify-end gap-3 pt-4"
                     >
-                        <div>
-                            <label
-                                for="password-baru"
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                                >Password Baru</label
-                            >
-                            <input
-                                type="password"
-                                id="password-baru"
-                                name="password-baru"
-                                minlength="6"
-                                maxlength="100"
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                                placeholder="••••••"
-                            />
-                            <p
-                                class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                            >
-                                Password minimal 6 karakter.
-                            </p>
-                        </div>
-                        <div>
-                            <label
-                                for="password-konfirmasi"
-                                class="block mb-2 text-sm font-medium text-gray-900"
-                                >Konfirmasi Password</label
-                            >
-                            <input
-                                type="password"
-                                id="password-konfirmasi"
-                                name="password-konfirmasi"
-                                minlength="6"
-                                maxlength="100"
-                                class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 invalid:border-red-500"
-                                placeholder="••••••"
-                            />
-                            <p
-                                id="error-konfirmasi"
-                                class="mt-1 text-sm text-red-600 hidden"
-                            >
-                                Konfirmasi password tidak cocok.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Tombol Simpan -->
-                    <div class="flex justify-end">
+                        <button
+                            type="button"
+                            id="btn-cancel-akun"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        >
+                            Batal
+                        </button>
                         <button
                             type="submit"
-                            class="rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
                         >
                             Simpan
                         </button>
                     </div>
                 </form>
-                -
             </div>
         </section>
         <!-- Overlay Transition -->
@@ -671,7 +773,7 @@
                 }, 500);
             });
 
-            // Biodata
+            // Biodata Diri
             const btnEdit = document.getElementById("btn-edit");
             const btnCancel = document.getElementById("btn-cancel");
             const actionButtons = document.getElementById("action-buttons");
@@ -750,17 +852,25 @@
                 toggleAlamatEdit(false)
             );
 
-            // Informasi Akun
+            // Tombol edit informasi akun
+            // Ambil elemen
+            const formAkun = document.getElementById("form-akun");
+            const btnEditAkun = document.getElementById("btn-edit-akun");
+            const btnCancelAkun = document.getElementById("btn-cancel-akun");
+            const actionButtonsAkun = document.getElementById(
+                "action-buttons-akun"
+            );
+
             const btnEditPassword =
                 document.getElementById("btn-edit-password");
             const passwordFields = document.getElementById("password-fields");
-            const formAkun = document.getElementById("form-akun");
             const passBaru = document.getElementById("password-baru");
             const passKonfirmasi = document.getElementById(
                 "password-konfirmasi"
             );
             const errorKonfirmasi = document.getElementById("error-konfirmasi");
 
+            // === Password Section ===
             btnEditPassword.addEventListener("click", () => {
                 passwordFields.classList.toggle("hidden");
                 // reset field kalau disembunyikan
@@ -771,8 +881,8 @@
                 }
             });
 
+            // Validasi submit form
             formAkun.addEventListener("submit", (e) => {
-                // Validasi password kalau section ditampilkan
                 if (!passwordFields.classList.contains("hidden")) {
                     if (passBaru.value !== passKonfirmasi.value) {
                         e.preventDefault();
@@ -782,9 +892,39 @@
                     }
                 }
             });
-            
 
-            
+            // === Edit Akun Section ===
+            btnEditAkun.addEventListener("click", () => {
+                // aktifkan semua input
+                formAkun.querySelectorAll("input, select").forEach((el) => {
+                    el.removeAttribute("readonly");
+                    el.removeAttribute("disabled");
+                    el.classList.remove("bg-gray-100", "text-gray-500");
+                    el.classList.add("text-gray-700");
+                });
+
+                actionButtonsAkun.classList.remove("hidden");
+                btnEditAkun.classList.add("hidden");
+            });
+
+            // tombol batal
+            btnCancelAkun.addEventListener("click", () => {
+                // reset kembali readonly/disabled
+                formAkun.querySelectorAll("input, select").forEach((el) => {
+                    el.setAttribute("readonly", true);
+                    el.setAttribute("disabled", true);
+                    el.classList.add("bg-gray-100", "text-gray-500");
+                });
+
+                actionButtonsAkun.classList.add("hidden");
+                btnEditAkun.classList.remove("hidden");
+
+                // sembunyikan password section
+                passwordFields.classList.add("hidden");
+                passBaru.value = "";
+                passKonfirmasi.value = "";
+                errorKonfirmasi.classList.add("hidden");
+            });
         </script>
     </body>
 </html>

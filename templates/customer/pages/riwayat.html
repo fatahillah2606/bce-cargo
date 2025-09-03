@@ -18,6 +18,14 @@
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
         <style>
             section {
                 min-height: auto;
@@ -68,114 +76,133 @@
         <!-- floating -->
         {% include 'customer/components/floating-sidebar.html' %}
 
-        <!-- Informasi Pribadi -->
-        <div class="max-w-4xl mx-auto">
-            <h1 class="text-2xl font-bold mb-6 text-gray-800">
-                Histori Pesanan
-            </h1>
-
-            <!-- Card Pesanan -->
-            <div
-                class="bg-white rounded-xl shadow-md p-5 mb-4 hover:shadow-lg transition"
-            >
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-semibold text-green-700">
-                        BCE-U-240626-001
-                    </h2>
-                    <span
-                        class="px-3 py-1 text-sm rounded-full bg-yellow-100 text-yellow-700"
-                        >Pending</span
-                    >
-                </div>
-                <p class="text-sm text-gray-600">Tanggal: 26 Juni 2024</p>
-
-                <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-                    <div>
-                        <p class="font-medium text-gray-700">Penerima</p>
-                        <p class="text-gray-600">Rina Marlina</p>
-                    </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Jenis Kargo</p>
-                        <p class="text-gray-600">Udara</p>
-                    </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Berat</p>
-                        <p class="text-gray-600">5 Kg</p>
-                    </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Harga</p>
-                        <p class="text-green-600 font-semibold">Rp 250.000</p>
-                    </div>
-                </div>
-
-                <!-- Tombol Detail -->
-                <div class="mt-4 flex justify-end">
-                    <button
-                        onclick="openModal('modal1')"
-                        class="px-4 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition"
-                    >
-                        Lihat Detail
-                    </button>
-                </div>
+        <!-- Histori Pesanan -->
+        <div class="max-w-5xl mx-auto px-4 py-12">
+            <!-- Title -->
+            <div class="text-center mb-10">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-green-700 mb-3"
+                >
+                    Histori Pesanan
+                </h1>
+                <p class="text-gray-500">
+                    Lihat riwayat transaksi Anda dengan mudah
+                </p>
             </div>
 
-            <!-- Card Pesanan Lain -->
-            <div
-                class="bg-white rounded-xl shadow-md p-5 mb-4 hover:shadow-lg transition"
-            >
-                <div class="flex justify-between items-center mb-2">
-                    <h2 class="text-lg font-semibold text-green-700">
-                        BCE-U-240701-002
-                    </h2>
-                    <span
-                        class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-700"
-                        >Selesai</span
-                    >
-                </div>
-                <p class="text-sm text-gray-600">Tanggal: 01 Juli 2024</p>
+            <!-- List Pesanan -->
+            <div class="space-y-6">
+                <!-- Card Pesanan -->
+                <div
+                    class="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border border-gray-100"
+                >
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold text-green-700">
+                            BCE-U-240626-001
+                        </h2>
+                        <span
+                            class="px-3 py-1 text-sm rounded-full bg-yellow-100 text-yellow-700 font-medium"
+                        >
+                            Pending
+                        </span>
+                    </div>
+                    <p class="text-sm text-gray-500">Tanggal: 26 Juni 2024</p>
 
-                <div class="grid grid-cols-2 gap-4 mt-4 text-sm">
-                    <div>
-                        <p class="font-medium text-gray-700">Penerima</p>
-                        <p class="text-gray-600">Andi Pratama</p>
+                    <div
+                        class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm"
+                    >
+                        <div>
+                            <p class="font-medium text-gray-700">Penerima</p>
+                            <p class="text-gray-600">Rina Marlina</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Jenis Kargo</p>
+                            <p class="text-gray-600">Udara</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Berat</p>
+                            <p class="text-gray-600">5 Kg</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Harga</p>
+                            <p class="text-green-600 font-bold">Rp 250.000</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Alamat</p>
-                        <p class="text-gray-600">Jl. Melati No. 1, Jakarta</p>
+
+                    <!-- Tombol Detail -->
+                    <div class="mt-5 flex justify-end">
+                        <button
+                            onclick="openModal('modal1')"
+                            class="px-5 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 shadow transition"
+                        >
+                            Lihat Detail
+                        </button>
                     </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Jenis Kargo</p>
-                        <p class="text-gray-600">Laut</p>
+                </div>
+
+                <!-- Card Pesanan 2 -->
+                <div
+                    class="bg-white rounded-xl shadow hover:shadow-lg transition p-6 border border-gray-100"
+                >
+                    <div class="flex justify-between items-center mb-3">
+                        <h2 class="text-lg font-semibold text-green-700">
+                            BCE-U-240701-002
+                        </h2>
+                        <span
+                            class="px-3 py-1 text-sm rounded-full bg-green-100 text-green-700 font-medium"
+                        >
+                            Selesai
+                        </span>
                     </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Berat</p>
-                        <p class="text-gray-600">10 Kg</p>
-                    </div>
-                    <div>
-                        <p class="font-medium text-gray-700">Harga</p>
-                        <p class="text-green-600 font-semibold">Rp 500.000</p>
+                    <p class="text-sm text-gray-500">Tanggal: 01 Juli 2024</p>
+
+                    <div
+                        class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm"
+                    >
+                        <div>
+                            <p class="font-medium text-gray-700">Penerima</p>
+                            <p class="text-gray-600">Andi Pratama</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Alamat</p>
+                            <p class="text-gray-600">
+                                Jl. Melati No. 1, Jakarta
+                            </p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Jenis Kargo</p>
+                            <p class="text-gray-600">Laut</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Berat</p>
+                            <p class="text-gray-600">10 Kg</p>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-700">Harga</p>
+                            <p class="text-green-600 font-bold">Rp 500.000</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
         <!-- Modal -->
         <div
             id="modal1"
             class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-50"
         >
             <div
-                class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative"
+                class="bg-white rounded-xl shadow-lg w-full max-w-lg p-6 relative animate-fade-in"
             >
                 <button
                     onclick="closeModal('modal1')"
-                    class="absolute top-3 right-3 text-gray-500 hover:text-red-600"
+                    class="absolute top-3 right-3 text-gray-500 hover:text-red-600 text-lg"
                 >
                     ✕
                 </button>
                 <h2 class="text-xl font-bold mb-4 text-green-700">
                     Detail Pesanan
                 </h2>
-
                 <div class="space-y-2 text-sm text-gray-700">
                     <p>
                         <span class="font-semibold">Kode Pesanan:</span>
@@ -216,11 +243,10 @@
                     </p>
                     <p><span class="font-semibold">Status:</span> Pending</p>
                 </div>
-
                 <div class="mt-6 flex justify-end">
                     <button
                         onclick="closeModal('modal1')"
-                        class="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
+                        class="px-5 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 transition"
                     >
                         Tutup
                     </button>
@@ -280,7 +306,6 @@
             function openModal(id) {
                 document.getElementById(id).classList.remove("hidden");
             }
-
             function closeModal(id) {
                 document.getElementById(id).classList.add("hidden");
             }

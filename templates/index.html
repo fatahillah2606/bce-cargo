@@ -35,6 +35,7 @@
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
         />
+        <!-- Font Awesome -->
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
@@ -280,6 +281,7 @@
         </section>
 
         <!-- Services -->
+        <!-- Services -->
         <section
             id="services"
             class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
@@ -302,46 +304,52 @@
             <div
                 class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-6xl mx-auto px-5"
             >
-                <!-- Service Card -->
-                <div
-                    class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
-                >
-                    <img
-                        src="{{ url_for('static',filename='images/udara.jpg') }}"
-                        alt="Layanan Udara"
-                        class="w-full h-64 object-cover"
-                    />
-
-                    <!-- Overlay -->
+                <!-- Layanan Udara -->
+                <div>
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
-                    ></div>
-
-                    <!-- Content (hover) -->
-                    <div
-                        class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
+                        class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
                     >
-                        <span
-                            class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
-                            >flight_takeoff</span
+                        <img
+                            src="{{ url_for('static',filename='images/udara.jpg') }}"
+                            alt="Layanan Udara"
+                            class="w-full h-64 object-cover"
+                        />
+
+                        <!-- Overlay -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+                        ></div>
+
+                        <!-- Content (hover) -->
+                        <div
+                            class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
                         >
-                        <h3 class="text-2xl font-bold text-white">
-                            Layanan Udara
-                        </h3>
-                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
-                            Kecepatan dan keamanan maksimal untuk barang
-                            mendesak dan bernilai tinggi. Didukung maskapai
-                            terpercaya.
-                        </p>
-                        <a
-                            href="#"
-                            class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
-                            >Selengkapnya</a
-                        >
+                            <span
+                                class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
+                                >flight_takeoff</span
+                            >
+                            <h3 class="text-2xl font-bold text-white">
+                                Layanan Udara
+                            </h3>
+                            <p
+                                class="mt-3 text-sm text-gray-200 leading-relaxed"
+                            >
+                                Kecepatan dan keamanan maksimal untuk barang
+                                mendesak dan bernilai tinggi. Didukung maskapai
+                                terpercaya.
+                            </p>
+                            <a
+                                href="#"
+                                class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                                >Selengkapnya</a
+                            >
+                        </div>
                     </div>
 
-                    <!-- Title visible on mobile/desktop without hover -->
-                    <div class="bg-white dark:bg-gray-800 text-center py-4">
+                    <!-- Title (selalu terlihat) -->
+                    <div
+                        class="bg-white dark:bg-gray-800 text-center py-4 mt-3 rounded-xl shadow"
+                    >
                         <span
                             class="material-symbols-rounded text-green-600 text-3xl mb-1 block"
                             >flight_takeoff</span
@@ -354,43 +362,50 @@
                     </div>
                 </div>
 
-                <!-- Service Card -->
-                <div
-                    class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
-                >
-                    <img
-                        src="{{ url_for('static',filename='images/darat.jpg') }}"
-                        alt="Layanan Darat"
-                        class="w-full h-64 object-cover"
-                    />
-
+                <!-- Layanan Darat -->
+                <div>
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
-                    ></div>
-
-                    <div
-                        class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
+                        class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
                     >
-                        <span
-                            class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
-                            >local_shipping</span
+                        <img
+                            src="{{ url_for('static',filename='images/darat.jpg') }}"
+                            alt="Layanan Darat"
+                            class="w-full h-64 object-cover"
+                        />
+
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+                        ></div>
+
+                        <div
+                            class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
                         >
-                        <h3 class="text-2xl font-bold text-white">
-                            Layanan Darat
-                        </h3>
-                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
-                            Layanan pengiriman darat cepat & aman dengan armada
-                            handal dan rute strategis antar kota dan provinsi.
-                        </p>
-                        <a
-                            href="#"
-                            class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
-                            >Selengkapnya</a
-                        >
+                            <span
+                                class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
+                                >local_shipping</span
+                            >
+                            <h3 class="text-2xl font-bold text-white">
+                                Layanan Darat
+                            </h3>
+                            <p
+                                class="mt-3 text-sm text-gray-200 leading-relaxed"
+                            >
+                                Layanan pengiriman darat cepat & aman dengan
+                                armada handal dan rute strategis antar kota dan
+                                provinsi.
+                            </p>
+                            <a
+                                href="#"
+                                class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                                >Selengkapnya</a
+                            >
+                        </div>
                     </div>
 
-                    <!-- Title visible on mobile/desktop -->
-                    <div class="bg-white dark:bg-gray-800 text-center py-4">
+                    <!-- Title -->
+                    <div
+                        class="bg-white dark:bg-gray-800 text-center py-4 mt-3 rounded-xl shadow"
+                    >
                         <span
                             class="material-symbols-rounded text-green-600 text-3xl mb-1 block"
                             >local_shipping</span
@@ -403,44 +418,50 @@
                     </div>
                 </div>
 
-                <!-- Service Card -->
-                <div
-                    class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
-                >
-                    <img
-                        src="{{ url_for('static',filename='images/laut.jpg') }}"
-                        alt="Layanan Laut"
-                        class="w-full h-64 object-cover"
-                    />
-
+                <!-- Layanan Laut -->
+                <div>
                     <div
-                        class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
-                    ></div>
-
-                    <div
-                        class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
+                        class="relative group rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500"
                     >
-                        <span
-                            class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
-                            >directions_boat</span
+                        <img
+                            src="{{ url_for('static',filename='images/laut.jpg') }}"
+                            alt="Layanan Laut"
+                            class="w-full h-64 object-cover"
+                        />
+
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-500"
+                        ></div>
+
+                        <div
+                            class="absolute inset-0 flex flex-col items-center justify-center text-center px-5 opacity-0 group-hover:opacity-100 transition duration-500"
                         >
-                        <h3 class="text-2xl font-bold text-white">
-                            Layanan Laut
-                        </h3>
-                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
-                            Aman & efisien untuk pengiriman besar dengan
-                            jaringan pelabuhan luas. Kompetitif hingga ke
-                            pelosok nusantara.
-                        </p>
-                        <a
-                            href="#"
-                            class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
-                            >Selengkapnya</a
-                        >
+                            <span
+                                class="material-symbols-rounded text-white text-6xl mb-3 animate-bounce"
+                                >directions_boat</span
+                            >
+                            <h3 class="text-2xl font-bold text-white">
+                                Layanan Laut
+                            </h3>
+                            <p
+                                class="mt-3 text-sm text-gray-200 leading-relaxed"
+                            >
+                                Aman & efisien untuk pengiriman besar dengan
+                                jaringan pelabuhan luas. Kompetitif hingga ke
+                                pelosok nusantara.
+                            </p>
+                            <a
+                                href="#"
+                                class="mt-4 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                                >Selengkapnya</a
+                            >
+                        </div>
                     </div>
 
-                    <!-- Title visible on mobile/desktop -->
-                    <div class="bg-white dark:bg-gray-800 text-center py-4">
+                    <!-- Title -->
+                    <div
+                        class="bg-white dark:bg-gray-800 text-center py-4 mt-3 rounded-xl shadow"
+                    >
                         <span
                             class="material-symbols-rounded text-green-600 text-3xl mb-1 block"
                             >directions_boat</span
@@ -880,7 +901,7 @@
                 <h2
                     class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-10"
                 >
-                    Why Choose Us?
+                    Keuntungan memilih jasa kami:
                 </h2>
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Card 1 -->
@@ -893,14 +914,17 @@
                                 <h3
                                     class="font-semibold text-gray-800 dark:text-white"
                                 >
-                                    Layanan Door To Door
+                                    4 Layanan Pengiriman BCE
                                 </h3>
                                 <p
                                     class="text-gray-600 dark:text-gray-400 text-sm mt-1"
                                 >
-                                    Pengiriman efisien dari bandara/pelabuhan ke
-                                    gudang atau gudang ke gudang dengan
-                                    penanganan profesional.
+                                    Nikmati kemudahan dengan pilihan layanan
+                                    lengkap: Door to Door, Door to Port, Port to
+                                    Door, dan Port to Port. Semua dirancang
+                                    fleksibel sesuai kebutuhan Anda, dengan
+                                    pengiriman cepat, aman, dan penanganan
+                                    profesional.
                                 </p>
                             </div>
                         </div>
