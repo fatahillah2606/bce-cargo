@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Lupa Sandi</title>
+        <!-- Flowbite -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Material Icons -->
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <section
+            class="min-h-screen flex items-center justify-center bg-green-100 dark:bg-green-900 px-4"
+        >
+            <div
+                class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 max-w-md w-full text-center"
+            >
+                <!-- Logo -->
+                <div class="flex justify-start mb-4">
+                    <img
+                        src="{{ url_for('static',filename='images/logo_transparant.png') }}"
+                        alt="Logo BCE"
+                        class="w-14"
+                    />
+                </div>
+
+                <!-- Judul -->
+                <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
+                    Verifikasi
+                </h2>
+                <p class="mt-2 text-gray-600 dark:text-gray-300 text-sm">
+                    Terima kasih telah mendaftar! <br />
+                    Kami telah mengirimkan email verifikasi ke:
+                </p>
+
+                <!-- Email -->
+                <div class="flex flex-col items-center mt-4">
+                    <span class="material-icons text-green-600 text-5xl"
+                        >mail</span
+                    >
+                    <p
+                        class="mt-2 text-gray-800 dark:text-gray-200 font-medium"
+                        id="email-pelanggan"
+                    >
+                        galang.ananda@raharja.info
+                    </p>
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                        Silahkan cek kotak masuk atau folder spam, lalu masukkan
+                        kode OTP ke kolom dibawah ini
+                    </p>
+                </div>
+
+                <!-- OTP Inputs -->
+
+                <form class="max-w-sm mx-auto">
+                    <div class="flex justify-center mb-2 space-x-3">
+                        <div>
+                            <label for="code-1" class="sr-only"
+                                >First code</label
+                            >
+                            <input
+                                type="text"
+                                maxlength="1"
+                                data-focus-input-init
+                                data-focus-input-next="code-2"
+                                id="code-1"
+                                class="w-12 h-12 text-lg font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="code-2" class="sr-only"
+                                >Second code</label
+                            >
+                            <input
+                                type="text"
+                                maxlength="1"
+                                data-focus-input-init
+                                data-focus-input-prev="code-1"
+                                data-focus-input-next="code-3"
+                                id="code-2"
+                                class="w-12 h-12 text-lg font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="code-3" class="sr-only"
+                                >Third code</label
+                            >
+                            <input
+                                type="text"
+                                maxlength="1"
+                                data-focus-input-init
+                                data-focus-input-prev="code-2"
+                                data-focus-input-next="code-4"
+                                id="code-3"
+                                class="w-12 h-12 text-lg font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="code-4" class="sr-only"
+                                >Fourth code</label
+                            >
+                            <input
+                                type="text"
+                                maxlength="1"
+                                data-focus-input-init
+                                data-focus-input-prev="code-3"
+                                data-focus-input-next="code-5"
+                                id="code-4"
+                                class="w-12 h-12 text-lg font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="code-5" class="sr-only"
+                                >Fifth code</label
+                            >
+                            <input
+                                type="text"
+                                maxlength="1"
+                                data-focus-input-init
+                                data-focus-input-prev="code-4"
+                                data-focus-input-next="code-6"
+                                id="code-5"
+                                class="w-12 h-12 text-lg font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label for="code-6" class="sr-only"
+                                >Sixth code</label
+                            >
+                            <input
+                                type="text"
+                                maxlength="1"
+                                data-focus-input-init
+                                data-focus-input-prev="code-5"
+                                id="code-6"
+                                class="w-12 h-12 text-lg font-extrabold text-center text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-green-500 focus:border-green-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                                required
+                            />
+                        </div>
+                    </div>
+                    <p
+                        id="helper-text-explanation"
+                        class="mt-2 text-sm text-gray-500 dark:text-gray-400"
+                    >
+                        Please introduce the 6 digit code we sent via email.
+                    </p>
+                </form>
+
+                <!-- Actions -->
+                <div class="mt-6 flex flex-col items-center space-y-3">
+                    <button class="text-sm text-green-700 hover:underline">
+                        Kirim ulang kode OTP
+                    </button>
+                    <button
+                        class="px-6 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                        onclick="verifKode(event)"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </section>
+        <script>
+            // use this simple function to automatically focus on the next input
+            function focusNextInput(el, prevId, nextId) {
+                if (el.value.length === 0) {
+                    if (prevId) {
+                        document.getElementById(prevId).focus();
+                    }
+                } else {
+                    if (nextId) {
+                        document.getElementById(nextId).focus();
+                    }
+                }
+            }
+
+            document
+                .querySelectorAll("[data-focus-input-init]")
+                .forEach(function (element) {
+                    element.addEventListener("keyup", function () {
+                        const prevId = this.getAttribute(
+                            "data-focus-input-prev"
+                        );
+                        const nextId = this.getAttribute(
+                            "data-focus-input-next"
+                        );
+                        focusNextInput(this, prevId, nextId);
+                    });
+
+                    // Handle paste event to split the pasted code into each input
+                    element.addEventListener("paste", function (event) {
+                        event.preventDefault();
+                        const pasteData = (
+                            event.clipboardData || window.clipboardData
+                        ).getData("text");
+                        const digits = pasteData.replace(/\D/g, ""); // Only take numbers from the pasted data
+
+                        // Get all input fields
+                        const inputs = document.querySelectorAll(
+                            "[data-focus-input-init]"
+                        );
+
+                        // Iterate over the inputs and assign values from the pasted string
+                        inputs.forEach((input, index) => {
+                            if (digits[index]) {
+                                input.value = digits[index];
+                                // Focus the next input after filling the current one
+                                const nextId = input.getAttribute(
+                                    "data-focus-input-next"
+                                );
+                                if (nextId) {
+                                    document.getElementById(nextId).focus();
+                                }
+                            }
+                        });
+                    });
+                });
+
+            // Verifikasi
+            function getOtpValue() {
+                let otp = "";
+                document
+                    .querySelectorAll("[data-focus-input-init]")
+                    .forEach((el) => {
+                        otp += el.value;
+                    });
+                return otp;
+            }
+
+            function verifKode(event) {
+                event.preventDefault();
+
+                const kodeVerif = new FormData();
+                kodeVerif.append("kode", getOtpValue());
+                console.log(kodeVerif);
+
+                fetch("/customer/api/data/verifikasi", {
+                    method: "POST",
+                    body: kodeVerif,
+                })
+                    .then(async (respon) => {
+                        const data = await respon.json();
+                        if (!respon.ok) {
+                            throw new Error(
+                                data.message || "terjadi kesalahan"
+                            );
+                        }
+                        return data;
+                    })
+                    .then((data) => {
+                        // Bagian ini jika verifikasi berhasil
+                        location.href = "/customer/profile";
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+        </script>
+    </body>
+</html>

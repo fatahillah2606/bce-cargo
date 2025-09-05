@@ -26,7 +26,7 @@
         <body
             class="bg-green-100 dark:bg-green-900 flex items-center justify-center min-h-screen px-4"
         >
-            <!-- Section -->
+            <!-- Login Section -->
             <section
                 class="flex flex-col md:flex-row items-center w-full max-w-2xl rounded-3xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg"
             >
@@ -36,7 +36,6 @@
                     class="relative hidden md:block w-64 h-full overflow-hidden rounded-2xl shrink-0"
                     data-carousel="slide"
                 >
-                    <!-- Carousel wrapper -->
                     <div
                         class="relative h-full overflow-hidden rounded-lg md:h-96"
                     >
@@ -54,14 +53,35 @@
                             <img
                                 src="{{ url_for('static',filename='images/udara.jpg') }}"
                                 class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                                alt="Layanan Udara"
+                                alt="Udara"
                             />
                         </div>
-                        <!-- Tambahan item lain tetap sama -->
+                        <!-- Item 2 -->
+                        <div
+                            class="hidden duration-700 ease-in-out"
+                            data-carousel-item
+                        >
+                            <img
+                                src="{{ url_for('static',filename='images/laut.jpg') }}"
+                                class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="Laut"
+                            />
+                        </div>
+                        <!-- Item 3 -->
+                        <div
+                            class="hidden duration-700 ease-in-out"
+                            data-carousel-item
+                        >
+                            <img
+                                src="{{ url_for('static',filename='images/darat.jpg') }}"
+                                class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="Darat"
+                            />
+                        </div>
                     </div>
                     <!-- Indicators -->
                     <div
-                        class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3"
+                        class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2"
                     >
                         <button
                             type="button"
@@ -191,13 +211,36 @@
                             </div>
 
                             <!-- Tombol -->
-                            <div class="flex justify-center">
+                            <div class="flex flex-col justify-center">
+                                <label
+                                    class="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                                >
+                                    <input
+                                        id="lihat-pw"
+                                        type="checkbox"
+                                        class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+                                    />
+                                    Tampilkan Sandi
+                                </label>
                                 <button
                                     type="submit"
-                                    class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500"
+                                    class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 cursor-pointer"
+                                    onclick="daftar(event)"
                                 >
                                     Registrasi
                                 </button>
+                                <!-- Tambahan -->
+                                <p
+                                    class="text-sm text-gray-600 dark:text-gray-300"
+                                >
+                                    Sudah punya akun?
+                                    <a
+                                        href="/customer/login"
+                                        class="text-green-700 font-medium hover:underline"
+                                    >
+                                        Silahkan login
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </form>
@@ -273,7 +316,37 @@
                     e.preventDefault(); // cegah submit kalau invalid
                 }
             });
-            s;
+
+            // Daftar
+            function daftar(event) {
+                event.preventDefault();
+
+                const formpendaftaran = new FormData(
+                    document.getElementById("register")
+                );
+                formpendaftaran.append("register", true);
+              
+                fetch("/customer/api/auth", {
+                    method: "POST",
+                    body: formpendaftaran,
+                })
+                    .then(async (respon) => {
+                        const data = await respon.json();
+                        if (!respon.ok) {
+                            throw new Error(
+                                data.message || "terjadi kesalahan"
+                            );
+                        }
+                        return data;
+                    })
+                    .then((data) => {
+                        // Bagian ini jika verifikasi berhasil
+                        location.href = "/customer/verif";
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
         </script>
     </body>
 </html>

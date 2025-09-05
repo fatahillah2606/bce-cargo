@@ -63,6 +63,29 @@
                         drop-shadow(0 0 60px rgba(144, 238, 144, 0.7));
                 }
             }
+
+            .stepper-line {
+                flex: 1;
+                height: 4px;
+                background-color: #e5e7eb; /* default abu-abu */
+                transition: background-color 0.3s ease-in-out;
+            }
+            .stepper-line.active {
+                background-color: #16a34a; /* hijau */
+            }
+            .step-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 9999px;
+                background-color: #f3f4f6; /* abu default */
+                transition: all 0.3s ease-in-out;
+            }
+            .step-btn.active {
+                background-color: #bbf7d0; /* hijau muda */
+            }
         </style>
         <!-- Google icon -->
         <link
@@ -80,84 +103,43 @@
         <section class="bg-zinc-100 py-12">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="bg-white p-8 rounded-lg shadow-lg">
-                    <h2 class="text-3xl font-bold text-green-800 mb-6">
+                    <h2 class="text-3xl font-bold text-green-800 mb-6 text-center">
                         Buat Pesanan
                     </h2>
-
                     <!-- Stepper -->
-                    <ol
-                        class="flex items-center w-full mb-4 sm:mb-5"
-                        data-tabs-toggle="#form-pemesanan"
-                        role="tablist"
-                    >
-                        <li
-                            class="flex w-full items-center text-green-600 dark:text-green-500 after:content-[''] after:w-full after:h-1 after:border-b after:border-green-100 after:border-4 after:inline-block dark:after:border-green-800"
-                        >
-                            <button
-                                class="flex items-center justify-center w-10 h-10 bg-green-100 rounded-full lg:h-12 lg:w-12 dark:bg-green-800 shrink-0"
-                                data-tabs-target="#info-pengirim"
-                                role="tab"
-                                type="button"
-                            >
-                                <svg
-                                    class="w-4 h-4 text-green-600 lg:w-6 lg:h-6 dark:text-green-300"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 16"
+                    <div class="flex items-center w-full mb-8">
+                        <!-- Step 1 -->
+                        <div class="flex items-center">
+                            <button id="step-0" class="step-btn active">
+                                <span
+                                    class="material-symbols-rounded text-green-600"
+                                    >local_shipping</span
                                 >
-                                    <path
-                                        d="M18 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM6.5 3a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3.014 13.021l.157-.625A3.427 3.427 0 0 1 6.5 9.571a3.426 3.426 0 0 1 3.322 2.805l.159.622-6.967.023ZM16 12h-3a1 1 0 0 1 0-2h3a1 1 0 0 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Zm0-3h-3a1 1 0 1 1 0-2h3a1 1 0 1 1 0 2Z"
-                                    />
-                                </svg>
                             </button>
-                        </li>
-                        <li
-                            class="flex w-full items-center after:content-[''] after:w-full after:h-1 after:border-b after:border-gray-100 after:border-4 after:inline-block dark:after:border-gray-700"
-                        >
-                            <button
-                                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
-                                data-tabs-target="#info-penerima"
-                                role="tab"
-                                type="button"
-                            >
-                                <svg
-                                    class="w-4 h-4 text-green-600 lg:w-6 lg:h-6 dark:text-green-300"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    viewBox="0 0 20 14"
+                        </div>
+                        <div id="line-0" class="stepper-line"></div>
+
+                        <!-- Step 2 -->
+                        <div class="flex items-center">
+                            <button id="step-1" class="step-btn">
+                                <span
+                                    class="material-symbols-rounded text-green-600"
+                                    >move_to_inbox</span
                                 >
-                                    <path
-                                        d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2ZM2 12V6h16v6H2Z"
-                                    />
-                                    <path
-                                        d="M6 8H4a1 1 0 0 0 0 2h2a1 1 0 0 0 0-2Zm8 0H9a1 1 0 0 0 0 2h5a1 1 0 1 0 0-2Z"
-                                    />
-                                </svg>
                             </button>
-                        </li>
-                        <li class="flex items-center w-full">
-                            <button
-                                class="flex items-center justify-center w-10 h-10 bg-gray-100 rounded-full lg:h-12 lg:w-12 dark:bg-gray-700 shrink-0"
-                                data-tabs-target="#info-barang"
-                                role="tab"
-                                type="button"
-                            >
-                                <svg
-                                    class="w-4 h-4 text-green-600 lg:w-6 lg:h-6 dark:text-green-300"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor"
-                                    viewBox="0 0 18 20"
+                        </div>
+                        <div id="line-1" class="stepper-line"></div>
+
+                        <!-- Step 3 -->
+                        <div class="flex items-center">
+                            <button id="step-2" class="step-btn">
+                                <span
+                                    class="material-symbols-rounded text-green-600"
+                                    >inventory_2</span
                                 >
-                                    <path
-                                        d="M16 1h-3.278A1.992 1.992 0 0 0 11 0H7a1.993 1.993 0 0 0-1.722 1H2a2 2 0 0 0-2 2v15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2ZM7 2h4v3H7V2Zm5.7 8.289-3.975 3.857a1 1 0 0 1-1.393 0L5.3 12.182a1.002 1.002 0 1 1 1.4-1.436l1.328 1.289 3.28-3.181a1 1 0 1 1 1.392 1.435Z"
-                                    />
-                                </svg>
                             </button>
-                        </li>
-                    </ol>
+                        </div>
+                    </div>
 
                     <!-- ALERT -->
                     <div
@@ -176,18 +158,26 @@
                         id="form-pemesanan"
                     >
                         <!-- INFORMASI PENGIRIM -->
-                        <div class="" id="info-pengirim" role="tabpanel">
+                        <div
+                            id="info-pengirim"
+                            role="tabpanel"
+                            class="space-y-6"
+                        >
                             <h3
-                                class="text-xl font-semibold text-green-800 mb-4"
+                                class="text-2xl font-bold text-green-800 mb-4 flex items-center gap-2"
                             >
+                                <span
+                                    class="material-symbols-rounded text-green-600"
+                                    >local_shipping</span
+                                >
                                 Informasi Pengirim
                             </h3>
+
                             <!-- Nama -->
-                            <div>
-                                <label
-                                    for="nama-pengirim"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Nama</label
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >person</span
                                 >
                                 <input
                                     type="text"
@@ -195,23 +185,17 @@
                                     name="nama-pengirim"
                                     maxlength="100"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                    placeholder="Masukkan nama Anda"
+                                    placeholder="Nama Lengkap"
+                                    class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                 />
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Nama wajib diisi, maksimal 100 karakter.
-                                </p>
                             </div>
 
-                            <!-- Nomor WhatsApp & Kode Pos -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="whatsapp-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Nomor WhatsApp</label
+                            <!-- WhatsApp + Kode Pos -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >chat</span
                                     >
                                     <input
                                         type="tel"
@@ -220,21 +204,14 @@
                                         minlength="10"
                                         maxlength="13"
                                         required
-                                        pattern="[0-9]+"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="08XXXXXXXXXX"
+                                        placeholder="Nomor WhatsApp"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Nomor WA harus angka 10-13 digit.
-                                    </p>
                                 </div>
-                                <div>
-                                    <label
-                                        for="kodepos-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kode Pos</label
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >markunread_mailbox</span
                                     >
                                     <input
                                         type="text"
@@ -243,24 +220,17 @@
                                         minlength="5"
                                         maxlength="5"
                                         required
-                                        pattern="[0-9]{5}"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="12345"
+                                        placeholder="Kode Pos"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kode pos harus 5 digit angka.
-                                    </p>
                                 </div>
                             </div>
 
                             <!-- Jalan -->
-                            <div>
-                                <label
-                                    for="jalan-pengirim"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Jalan</label
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >map</span
                                 >
                                 <input
                                     type="text"
@@ -268,23 +238,17 @@
                                     name="jalan-pengirim"
                                     maxlength="100"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                    placeholder="Nama jalan"
+                                    placeholder="Jalan"
+                                    class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                 />
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Jalan wajib diisi, maksimal 100 karakter.
-                                </p>
                             </div>
 
-                            <!-- RT & RW -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="rt-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >RT</label
+                            <!-- RT + RW -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >pin</span
                                     >
                                     <input
                                         type="text"
@@ -293,21 +257,14 @@
                                         minlength="4"
                                         maxlength="4"
                                         required
-                                        pattern="[0-9]{4}"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="0001"
+                                        placeholder="RT"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        RT harus 4 digit angka.
-                                    </p>
                                 </div>
-                                <div>
-                                    <label
-                                        for="rw-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >RW</label
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >pin_drop</span
                                     >
                                     <input
                                         type="text"
@@ -316,139 +273,79 @@
                                         minlength="4"
                                         maxlength="4"
                                         required
-                                        pattern="[0-9]{4}"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="0001"
+                                        placeholder="RW"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        RW harus 4 digit angka.
-                                    </p>
                                 </div>
                             </div>
 
-                            <!-- Lokasi (Provinsi, Kabupaten, Kecamatan, Kelurahan) -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="provinsi-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Provinsi</label
-                                    >
-                                    <select
-                                        id="provinsi-pengirim"
-                                        name="provinsi-pengirim"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">Pilih provinsi</option>
-                                        <option value="jakarta">
-                                            DKI Jakarta
-                                        </option>
-                                        <option value="jabar">
-                                            Jawa Barat
-                                        </option>
-                                        <option value="jateng">
-                                            Jawa Tengah
-                                        </option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Provinsi wajib dipilih.
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        for="kabupaten-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kabupaten</label
-                                    >
-                                    <select
-                                        id="kabupaten-pengirim"
-                                        name="kabupaten-pengirim"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">
-                                            Pilih kabupaten
-                                        </option>
-                                        <option value="depok">Depok</option>
-                                        <option value="bandung">Bandung</option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kabupaten wajib dipilih.
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        for="kecamatan-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kecamatan</label
-                                    >
-                                    <select
-                                        id="kecamatan-pengirim"
-                                        name="kecamatan-pengirim"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">
-                                            Pilih kecamatan
-                                        </option>
-                                        <option value="beji">Beji</option>
-                                        <option value="cimanggis">
-                                            Cimanggis
-                                        </option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kecamatan wajib dipilih.
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        for="kelurahan-pengirim"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kelurahan</label
-                                    >
-                                    <select
-                                        id="kelurahan-pengirim"
-                                        name="kelurahan-pengirim"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">
-                                            Pilih kelurahan
-                                        </option>
-                                        <option value="kemiri">Kemiri</option>
-                                        <option value="kukusan">Kukusan</option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kelurahan wajib dipilih.
-                                    </p>
-                                </div>
+                            <!-- Provinsi, Kabupaten, Kecamatan, Kelurahan -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <select
+                                    id="provinsi-pengirim"
+                                    name="provinsi-pengirim"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Provinsi</option>
+                                </select>
+                                <select
+                                    id="kabupaten-pengirim"
+                                    name="kabupaten-pengirim"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Kabupaten</option>
+                                </select>
+                                <select
+                                    id="kecamatan-pengirim"
+                                    name="kecamatan-pengirim"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Kecamatan</option>
+                                </select>
+                                <select
+                                    id="kelurahan-pengirim"
+                                    name="kelurahan-pengirim"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Kelurahan</option>
+                                </select>
+                            </div>
+
+                            <!-- Tombol Selanjutnya -->
+                            <div class="flex justify-end pt-6">
+                                <button
+                                    type="submit"
+                                    class="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                                >
+                                    Selanjutnya
+                                </button>
                             </div>
                         </div>
 
                         <!-- INFORMASI PENERIMA -->
-                        <div class="hidden" id="info-penerima" role="tabpanel">
+                        <div
+                            id="info-penerima"
+                            role="tabpanel"
+                            class="space-y-6"
+                        >
                             <h3
-                                class="text-xl font-semibold text-green-800 mb-4"
+                                class="text-2xl font-bold text-green-800 mb-4 flex items-center gap-2"
                             >
+                                <span
+                                    class="material-symbols-rounded text-green-600"
+                                    >move_to_inbox</span
+                                >
                                 Informasi Penerima
                             </h3>
                             <!-- Nama -->
-                            <div>
-                                <label
-                                    for="nama-penerima"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Nama</label
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >person</span
                                 >
                                 <input
                                     type="text"
@@ -456,23 +353,17 @@
                                     name="nama-penerima"
                                     maxlength="100"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                    placeholder="Masukkan nama Anda"
+                                    placeholder="Nama Lengkap"
+                                    class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                 />
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Nama wajib diisi, maksimal 100 karakter.
-                                </p>
                             </div>
 
-                            <!-- Nomor WhatsApp & Kode Pos -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="whatsapp-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Nomor WhatsApp</label
+                            <!-- WhatsApp + Kode Pos -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >chat</span
                                     >
                                     <input
                                         type="tel"
@@ -481,21 +372,14 @@
                                         minlength="10"
                                         maxlength="13"
                                         required
-                                        pattern="[0-9]+"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="08XXXXXXXXXX"
+                                        placeholder="Nomor WhatsApp"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Nomor WA harus angka 10-13 digit.
-                                    </p>
                                 </div>
-                                <div>
-                                    <label
-                                        for="kodepos-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kode Pos</label
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >markunread_mailbox</span
                                     >
                                     <input
                                         type="text"
@@ -504,24 +388,17 @@
                                         minlength="5"
                                         maxlength="5"
                                         required
-                                        pattern="[0-9]{5}"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="12345"
+                                        placeholder="Kode Pos"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kode pos harus 5 digit angka.
-                                    </p>
                                 </div>
                             </div>
 
                             <!-- Jalan -->
-                            <div>
-                                <label
-                                    for="jalan-penerima"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Jalan</label
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >map</span
                                 >
                                 <input
                                     type="text"
@@ -529,23 +406,17 @@
                                     name="jalan-penerima"
                                     maxlength="100"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                    placeholder="Nama jalan"
+                                    placeholder="Jalan"
+                                    class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                 />
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Jalan wajib diisi, maksimal 100 karakter.
-                                </p>
                             </div>
 
-                            <!-- RT & RW -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="rt-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >RT</label
+                            <!-- RT + RW -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >pin</span
                                     >
                                     <input
                                         type="text"
@@ -554,21 +425,14 @@
                                         minlength="4"
                                         maxlength="4"
                                         required
-                                        pattern="[0-9]{4}"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="0001"
+                                        placeholder="RT"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        RT harus 4 digit angka.
-                                    </p>
                                 </div>
-                                <div>
-                                    <label
-                                        for="rw-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >RW</label
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >pin_drop</span
                                     >
                                     <input
                                         type="text"
@@ -577,139 +441,81 @@
                                         minlength="4"
                                         maxlength="4"
                                         required
-                                        pattern="[0-9]{4}"
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 invalid:text-red-600"
-                                        placeholder="0001"
+                                        placeholder="RW"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        RW harus 4 digit angka.
-                                    </p>
                                 </div>
                             </div>
 
-                            <!-- Lokasi (Provinsi, Kabupaten, Kecamatan, Kelurahan) -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="provinsi-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Provinsi</label
-                                    >
-                                    <select
-                                        id="provinsi-penerima"
-                                        name="provinsi-penerima"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">Pilih provinsi</option>
-                                        <option value="jakarta">
-                                            DKI Jakarta
-                                        </option>
-                                        <option value="jabar">
-                                            Jawa Barat
-                                        </option>
-                                        <option value="jateng">
-                                            Jawa Tengah
-                                        </option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Provinsi wajib dipilih.
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        for="kabupaten-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kabupaten</label
-                                    >
-                                    <select
-                                        id="kabupaten-penerima"
-                                        name="kabupaten-penerima"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">
-                                            Pilih kabupaten
-                                        </option>
-                                        <option value="depok">Depok</option>
-                                        <option value="bandung">Bandung</option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kabupaten wajib dipilih.
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        for="kecamatan-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kecamatan</label
-                                    >
-                                    <select
-                                        id="kecamatan-penerima"
-                                        name="kecamatan-penerima"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">
-                                            Pilih kecamatan
-                                        </option>
-                                        <option value="beji">Beji</option>
-                                        <option value="cimanggis">
-                                            Cimanggis
-                                        </option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kecamatan wajib dipilih.
-                                    </p>
-                                </div>
-                                <div>
-                                    <label
-                                        for="kelurahan-penerima"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Kelurahan</label
-                                    >
-                                    <select
-                                        id="kelurahan-penerima"
-                                        name="kelurahan-penerima"
-                                        required
-                                        class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    >
-                                        <option value="">
-                                            Pilih kelurahan
-                                        </option>
-                                        <option value="kemiri">Kemiri</option>
-                                        <option value="kukusan">Kukusan</option>
-                                    </select>
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Kelurahan wajib dipilih.
-                                    </p>
-                                </div>
+                            <!-- Provinsi, Kabupaten, Kecamatan, Kelurahan -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <select
+                                    id="provinsi-penerima"
+                                    name="provinsi-penerima"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Provinsi</option>
+                                </select>
+                                <select
+                                    id="kabupaten-penerima"
+                                    name="kabupaten-penerima"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Kabupaten</option>
+                                </select>
+                                <select
+                                    id="kecamatan-penerima"
+                                    name="kecamatan-penerima"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Kecamatan</option>
+                                </select>
+                                <select
+                                    id="kelurahan-penerima"
+                                    name="kelurahan-penerima"
+                                    required
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
+                                >
+                                    <option value="">Pilih Kelurahan</option>
+                                </select>
+                            </div>
+
+                            <!-- Tombol Navigasi -->
+                            <div class="flex justify-end gap-3 pt-6">
+                                <button
+                                    type="button"
+                                    class="rounded-lg bg-gray-400 px-6 py-2 text-sm font-medium text-white hover:bg-gray-500 shadow cursor-pointer"
+                                >
+                                    Sebelumnya
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                                >
+                                    Selanjutnya
+                                </button>
                             </div>
                         </div>
 
                         <!-- INFORMASI BARANG -->
-                        <div class="hidden" id="info-barang" role="tabpanel">
+                        <div id="info-barang" role="tabpanel" class="space-y-6">
                             <h3
-                                class="text-xl font-semibold text-green-800 mb-4"
+                                class="text-2xl font-bold text-green-800 mb-4 flex items-center gap-2"
                             >
+                                <span
+                                    class="material-symbols-rounded text-green-600"
+                                    >inventory_2</span
+                                >
                                 Informasi Barang
                             </h3>
                             <!-- Nama Barang -->
-                            <div>
-                                <label
-                                    for="nama-barang"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Nama Barang</label
+                            <div class="relative">
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >shopping_bag</span
                                 >
                                 <input
                                     type="text"
@@ -717,249 +523,199 @@
                                     name="nama-barang"
                                     maxlength="100"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                    placeholder="Masukkan nama barang"
+                                    placeholder="Nama Barang"
+                                    class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                 />
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Nama barang wajib diisi (maksimal 100
-                                    karakter).
-                                </p>
                             </div>
 
                             <!-- Jumlah & Berat -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label
-                                        for="jumlah"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Jumlah</label
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >format_list_numbered</span
                                     >
                                     <input
                                         type="number"
-                                        id="jumlah"
-                                        name="jumlah"
+                                        id="jumlah-barang"
+                                        name="jumlah-barang"
                                         min="1"
                                         required
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                        placeholder="1"
+                                        placeholder="Jumlah"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Jumlah wajib diisi (minimal 1).
-                                    </p>
                                 </div>
-                                <div>
-                                    <label
-                                        for="berat"
-                                        class="block mb-2 text-sm font-medium text-gray-900"
-                                        >Berat (kg)</label
+                                <div class="relative">
+                                    <span
+                                        class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                        >fitness_center</span
                                     >
                                     <input
                                         type="number"
-                                        id="berat"
-                                        name="berat"
+                                        id="berat-barang"
+                                        name="berat-barang"
                                         min="0.1"
-                                        step="0.01"
+                                        step="0.1"
                                         required
-                                        class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
-                                        placeholder="0.00"
+                                        placeholder="Berat (Kg)"
+                                        class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                     />
-                                    <p
-                                        class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                    >
-                                        Berat wajib diisi dan lebih dari 0.
-                                    </p>
                                 </div>
                             </div>
 
                             <!-- Dimensi -->
                             <div>
                                 <label
-                                    class="block mb-2 text-sm font-medium text-gray-900"
+                                    class="block text-sm font-medium text-gray-700 mb-2"
                                     >Dimensi (cm)</label
                                 >
                                 <div
-                                    class="grid grid-cols-1 md:grid-cols-3 gap-4"
+                                    class="grid grid-cols-1 md:grid-cols-3 gap-6"
                                 >
-                                    <div>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                            >straighten</span
+                                        >
                                         <input
                                             type="number"
                                             id="panjang"
                                             name="panjang"
                                             min="0"
                                             required
-                                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
                                             placeholder="Panjang"
+                                            class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                         />
-                                        <p
-                                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                        >
-                                            Panjang wajib ≥ 0.
-                                        </p>
                                     </div>
-                                    <div>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                            >straighten</span
+                                        >
                                         <input
                                             type="number"
                                             id="lebar"
                                             name="lebar"
                                             min="0"
                                             required
-                                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
                                             placeholder="Lebar"
+                                            class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                         />
-                                        <p
-                                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                        >
-                                            Lebar wajib ≥ 0.
-                                        </p>
                                     </div>
-                                    <div>
+                                    <div class="relative">
+                                        <span
+                                            class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                            >straighten</span
+                                        >
                                         <input
                                             type="number"
                                             id="tinggi"
                                             name="tinggi"
                                             min="0"
                                             required
-                                            class="peer block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
                                             placeholder="Tinggi"
+                                            class="block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
                                         />
-                                        <p
-                                            class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                        >
-                                            Tinggi wajib ≥ 0.
-                                        </p>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Kategori -->
-                            <div>
-                                <label
-                                    for="kategori"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Kategori</label
-                                >
+                            <div class="relative">
                                 <select
-                                    id="kategori"
-                                    name="kategori"
+                                    id="kategori-barang"
+                                    name="kategori-barang"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
                                 >
-                                    <option value="">Pilih kategori</option>
+                                    <option value="">Pilih Kategori</option>
+                                    <option value="dokumen">Dokumen</option>
                                     <option value="elektronik">
                                         Elektronik
                                     </option>
                                     <option value="pakaian">Pakaian</option>
-                                    <option value="dokumen">Dokumen</option>
                                     <option value="lainnya">Lainnya</option>
                                 </select>
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Kategori wajib dipilih.
-                                </p>
                             </div>
 
                             <!-- Asuransi -->
                             <div>
-                                <label
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Butuh Asuransi?</label
+                                <p
+                                    class="text-sm font-medium text-gray-700 mb-2"
                                 >
+                                    Butuh Asuransi?
+                                </p>
                                 <div class="flex items-center gap-6">
-                                    <div class="flex items-center">
+                                    <label
+                                        class="flex items-center gap-2 text-sm text-gray-700"
+                                    >
                                         <input
-                                            id="asuransi-ya"
                                             type="radio"
                                             name="asuransi"
                                             value="true"
                                             required
-                                            class="peer/asuransi block w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                            class="text-green-600 focus:ring-green-500"
                                         />
-                                        <label
-                                            for="asuransi-ya"
-                                            class="ml-2 text-sm text-gray-900"
-                                            >Ya</label
-                                        >
-                                    </div>
-                                    <div class="flex items-center">
+                                        Ya
+                                    </label>
+                                    <label
+                                        class="flex items-center gap-2 text-sm text-gray-700"
+                                    >
                                         <input
-                                            id="asuransi-tidak"
                                             type="radio"
                                             name="asuransi"
                                             value="false"
                                             required
-                                            class="peer/asuransi block w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                                            class="text-green-600 focus:ring-green-500"
                                         />
-                                        <label
-                                            for="asuransi-tidak"
-                                            class="ml-2 text-sm text-gray-900"
-                                            >Tidak</label
-                                        >
-                                    </div>
+                                        Tidak
+                                    </label>
                                 </div>
-                                <p
-                                    class="mt-1 text-sm text-red-600 hidden peer-invalid/asuransi:block"
-                                >
-                                    Silakan pilih opsi asuransi.
-                                </p>
                             </div>
 
                             <!-- Metode Pengiriman -->
-                            <div>
-                                <label
-                                    for="pengiriman"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Metode Pengiriman</label
-                                >
+                            <div class="relative">
                                 <select
-                                    id="pengiriman"
-                                    name="pengiriman"
+                                    id="metode-pengiriman"
+                                    name="metode-pengiriman"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 bg-white p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500"
+                                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500"
                                 >
-                                    <option value="">Pilih metode</option>
+                                    <option value="">
+                                        Pilih Metode Pengiriman
+                                    </option>
                                     <option value="darat">Darat</option>
                                     <option value="laut">Laut</option>
                                     <option value="udara">Udara</option>
                                 </select>
-                                <p
-                                    class="mt-1 text-sm text-red-600 invisible peer-invalid:visible"
-                                >
-                                    Metode pengiriman wajib dipilih.
-                                </p>
                             </div>
 
-                            <!-- Catatan -->
-                            <div>
-                                <label
-                                    for="catatan"
-                                    class="block mb-2 text-sm font-medium text-gray-900"
-                                    >Catatan Tambahan</label
-                                >
+                            <!-- Catatan Tambahan -->
+                            <div class="relative">
                                 <textarea
-                                    id="catatan"
-                                    name="catatan"
-                                    rows="4"
-                                    class="block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500"
-                                    placeholder="Tulis catatan tambahan (opsional)"
+                                    id="catatan-barang"
+                                    name="catatan-barang"
+                                    rows="3"
+                                    placeholder="Catatan tambahan..."
+                                    class="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-700 bg-white focus:border-green-500 focus:ring-green-500"
                                 ></textarea>
                             </div>
 
-                            <!-- Submit -->
-                        </div>
-
-                        <!-- TOMBOL -->
-                        <div class="flex justify-between items-center mt-8">
-                            <button
-                                type="submit"
-                                class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-700 focus:ring-4 focus:ring-green-300"
-                            >
-                                Pesan
-                            </button>
+                            <!-- Tombol Navigasi -->
+                            <div class="flex justify-end gap-3 pt-6">
+                                <button
+                                    type="button"
+                                    class="rounded-lg bg-gray-400 px-6 py-2 text-sm font-medium text-white hover:bg-gray-500 shadow cursor-pointer"
+                                >
+                                    Sebelumnya
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="rounded-lg bg-green-600 px-6 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                                >
+                                    Pesan
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -1048,6 +804,64 @@
 
             //     fetch("");
             // });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const steps = ["info-pengirim", "info-penerima", "info-barang"];
+                let currentStep = 0;
+
+                function updateStepper() {
+                    steps.forEach((_, index) => {
+                        const btn = document.getElementById(`step-${index}`);
+                        const line = document.getElementById(`line-${index}`);
+                        if (btn) {
+                            btn.classList.toggle(
+                                "active",
+                                index <= currentStep
+                            );
+                        }
+                        if (line) {
+                            line.classList.toggle(
+                                "active",
+                                index < currentStep
+                            );
+                        }
+                    });
+                }
+
+                function showStep(step) {
+                    steps.forEach((id, index) => {
+                        const panel = document.getElementById(id);
+                        if (panel) {
+                            panel.style.display =
+                                index === step ? "block" : "none";
+                        }
+                    });
+                    currentStep = step;
+                    updateStepper();
+                }
+
+                // tombol navigasi
+                const form = document.getElementById("form-pemesanan");
+                form.addEventListener("click", function (e) {
+                    if (e.target.tagName === "BUTTON") {
+                        if (e.target.textContent.includes("Selanjutnya")) {
+                            e.preventDefault();
+                            if (currentStep < steps.length - 1) {
+                                showStep(currentStep + 1);
+                            }
+                        }
+                        if (e.target.textContent.includes("Sebelumnya")) {
+                            e.preventDefault();
+                            if (currentStep > 0) {
+                                showStep(currentStep - 1);
+                            }
+                        }
+                    }
+                });
+
+                // init pertama
+                showStep(currentStep);
+            });
         </script>
     </body>
 </html>

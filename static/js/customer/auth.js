@@ -69,3 +69,15 @@ function loginCustomer(event) {
         tampilkanError("Mohon isi kolom yang dibutuhkan");
     }
 }
+
+// Tampilkan sandi
+const lihatPw = document.getElementById("lihat-pw");
+const kolomPw = document.getElementById("password");
+
+lihatPw.addEventListener("change", () => {
+    if (lihatPw.checked) {
+        kolomPw.setAttribute("type", "text");
+    } else {
+        kolomPw.setAttribute("type", "password");
+    }
+});
