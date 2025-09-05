@@ -175,9 +175,24 @@ def authetikasi():
                 # decode ke string
                 hashedPass = hashedPass.decode("utf-8")
 
-
                 # Object ID untuk User
                 iduser = ObjectId()
+
+                kode = generate_verification_code()
+
+                # Enkripsi kv
+                hashedKode = bcrypt.hashpw(kode.encode("utf-8"), bcrypt.gensalt())
+
+                # decode ke string
+                hashedKode = hashedKode.decode("utf-8")
+                expired_at = (datetime.now(timezone.utc) + timedelta(minutes=5))
+
+                # Kirim Kode Verifikasi Ke Database
+                SimpanKode = {
+                    "kode": hashedKode, 
+                    "is_verified": False,
+                    "expired_at": expired_at
+                }
 
                 # Siapkan data
                 DataUser = {
@@ -186,13 +201,15 @@ def authetikasi():
                     "email": email,
                     "password": hashedPass,
                     "role": "customer",
-                    "regist_date": datetime.now()
-
+                    "kode_verif": SimpanKode,
+                    "regist_date": datetime.now(),
+                    "is_active": False
                 }
-
                 
                 # Masukan data ke dalam database
                 if userData.insert_one(DataUser):
+                    print("Akun berhasil dibuat")
+
                     # Buat sesi
                     session.permanent = True
                     session['kedaluwarsa'] = (datetime.now(timezone.utc) + timedelta(days=30)).isoformat()
@@ -200,28 +217,6 @@ def authetikasi():
                     session["name"] = fullname
                     session["email"] = email
                     session["role"] = "customer"
-
-
-                    kode = generate_verification_code()
-
-                    # Enkripsi sandi
-                    hashedKode = bcrypt.hashpw(kode.encode("utf-8"), bcrypt.gensalt())
-
-                    # decode ke string
-                    hashedKode = hashedKode.decode("utf-8")
-                    expired_at = (datetime.now(timezone.utc) + timedelta(minutes=5)).isoformat()
-
-
-                    # Kirim Kode Verifikasi Ke Database
-                    SimpanKode = {
-                        "kode_verif": {
-                            "kode": hashedKode, 
-                            "is_verified": False,
-                            "expired_at": expired_at
-                        }
-                    }
-
-                    userData.update_one({"_id": ObjectId(iduser)}, {"$set": SimpanKode})
 
                     # Kirim Email Ke Pelanggan
                     recipient = email
@@ -250,16 +245,11 @@ def authetikasi():
                         text_body=text_body
                     )
 
-
+                    print("Email berhasil dikirim")
                     
-                    return respon_api("success", 200, "Registrasi Berhasil", {"userid": iduser}, {})
+                    return respon_api("success", 200, "Registrasi Berhasil", [], {})
                 else:
                     return respon_api("error", 500, "Registrasi Gagal", [], {}), 500
-                
-
-
-
-
 
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
@@ -281,7 +271,7 @@ def verifikasi():
             # Validasi Password
             valid = bcrypt.checkpw(encodekv, dbkv)
             if valid:
-                userData.update_one({"_id": ObjectId(session["user_id"])}, {"$set": {"kode_verif.is_verified": True}})
+                userData.update_one({"_id": ObjectId(session["user_id"])}, {"$set": {"kode_verif.is_verified": True, "is_active": True}})
                 return respon_api("success", 200, "Verifikasi berhasil", [], {})
             else:
                 return respon_api("error", 401, "Kode Salah", [], {})
