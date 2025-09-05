@@ -23,6 +23,13 @@ app = Flask(__name__)
 app.secret_key = SESSION_KEY
 app.permanent_session_lifetime = timedelta(hours=1)
 
+# Konfigurasi MailHog (lokal)
+app.config.update(
+  MAIL_SERVER='localhost',
+  MAIL_PORT=1025,
+  MAIL_SENDER='no-reply@demo.local' # hanya label; tidak betul-betul terkirim
+)
+
 # Cek masa sesi login user
 @app.before_request
 def cek_masa_sesi():
@@ -98,5 +105,5 @@ def get_regencies(prov_id):
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
 
-# if __name__ == '__main__':
-#   app.run(debug=True)
+if __name__ == "__main__":
+  app.run(host="0.0.0.0", debug=True)

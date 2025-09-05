@@ -19,21 +19,61 @@
     <div
         class="mb-4 flex justify-between items-center flex-col gap-2.5 sm:flex-row"
     >
-        <h2 class="text-2xl font-bold">Keluhan Pelanggan</h2>
+        <h2 class="text-2xl font-bold dark:text-white">Keluhan Pelanggan</h2>
         <button
             type="button"
-            class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5"
+            class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5 cursor-pointer"
             onclick="markAsRead()"
         >
-            <span class="material-symbols-rounded"> check </span>
+            <span class="material-symbols-rounded"> done_all </span>
             <span> Tandai semua sudah dibaca </span>
         </button>
     </div>
 
     <div class="space-y-4" id="list-keluhan">
-        <p class="text-center font-bold text-gray-600 mt-5" id="info-keluhan">
-            Memuat daftar keluhan...
-        </p>
+        <!-- Skeleton loading -->
+        {% for i in range(10) %}
+        <div
+            class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow flex space-x-3 keluhan animate-pulse"
+        >
+            <!-- Avatar Skeleton -->
+            <div
+                class="w-10 h-10 bg-gray-200 rounded-full dark:bg-gray-700"
+            ></div>
+            <!-- Isi Keluhan -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <div
+                        class="h-6 bg-gray-200 rounded w-24 dark:bg-gray-700"
+                    ></div>
+                    <div
+                        class="h-3 bg-gray-200 rounded w-8 dark:bg-gray-700"
+                    ></div>
+                </div>
+                <div class="mt-2 flex gap-1 flex-wrap">
+                    <div
+                        class="h-4 bg-gray-200 rounded w-32 dark:bg-gray-700"
+                    ></div>
+                    <div
+                        class="h-4 bg-gray-300 rounded w-20 dark:bg-gray-600"
+                    ></div>
+                    <div
+                        class="h-4 bg-gray-200 rounded w-64 dark:bg-gray-700"
+                    ></div>
+                </div>
+
+                <!-- Tombol aksi -->
+                <div class="mt-2 gap-2 tombol-aksi flex">
+                    <div
+                        class="h-8 bg-gray-200 rounded w-44 dark:bg-gray-700 mt-1"
+                    ></div>
+                    <div
+                        class="h-8 bg-gray-200 rounded w-24 dark:bg-gray-700 mt-1"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
 
     <!-- Pagination -->
@@ -63,7 +103,7 @@
         <div class="inline-flex mt-2 xs:mt-0">
             <!-- Buttons -->
             <button
-                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 rounded-s hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                 id="prev-btn"
             >
                 <svg
@@ -84,7 +124,7 @@
                 Prev
             </button>
             <button
-                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-gray-800 border-0 border-s border-gray-700 rounded-e hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                 id="next-btn"
             >
                 Next
@@ -113,7 +153,6 @@
 {% block kontenjs %}
 <script>
     const listKeluhanContainer = document.getElementById("list-keluhan");
-    const infoKeluhan = document.getElementById("info-keluhan");
 
     const startItems = document.getElementById("start-items");
     const endItems = document.getElementById("end-items");
@@ -139,8 +178,11 @@
                 const data = await respon.json();
                 if (!respon.ok) {
                     if (data.code === 404) {
-                        infoKeluhan.textContent =
-                            "Tidak ada keluhan dari pelanggan";
+                        listKeluhanContainer.innerHTML = `
+                            <p class="text-center font-bold text-gray-600 mt-5">
+                                ${data.message}
+                            </p>
+                        `;
 
                         throw new Error(data.message || "Terjadi Kesalahan");
                     } else {
@@ -159,13 +201,13 @@
                         keluhan.dibaca == ""
                     ) {
                         listKeluhan += `
-                            <div class="bg-green-50 p-4 rounded-xl shadow flex space-x-3 keluhan">
+                            <div class="bg-green-50 dark:bg-green-950 p-4 rounded-xl shadow flex space-x-3 keluhan">
                                 <!-- Foto Profil -->
                                 <div class="flex-shrink-0">
                                     <div
-                                        class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center"
+                                        class="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center"
                                     >
-                                        <span class="material-symbols-rounded text-gray-600"
+                                        <span class="material-symbols-rounded text-gray-600 dark:text-gray-300"
                                             >person</span
                                         >
                                     </div>
@@ -173,30 +215,32 @@
                                 <!-- Isi Keluhan -->
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between">
-                                        <p class="font-semibold">${keluhan.nama}</p>
+                                        <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
                                         <span
                                             class="text-xs bg-green-500 text-white px-2 py-0.5 rounded-full"
                                             >Baru</span
                                         >
                                     </div>
-                                    <p class="text-gray-700 mt-1">
+                                    <p class="text-gray-700 dark:text-gray-200 mt-1 text-sm">
                                         ${keluhan.keterangan}
                                     </p>
 
                                     <!-- Tombol aksi -->
                                     <div class="mt-2 gap-2 tombol-aksi flex">
                                         <button
-                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100"
+                                            class="flex items-center gap-1 text-sm px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 dark:text-white hover:bg-gray-100 cursor-pointer"
                                             onclick="markAsRead('${keluhan._id}')"
+                                            type="button"
                                         >
-                                            <span class="material-symbols-rounded">
-                                                check_small
+                                            <span class="material-symbols-rounded ">
+                                                done_all
                                             </span>
                                             <span> Tandai sudah dibaca </span>
                                         </button>
                                         <button
-                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                                            class="flex items-center gap-1 text-sm px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600 cursor-pointer"
                                             onclick="deleteKeluhan('${keluhan._id}')"
+                                            type="button"
                                         >
                                             <span class="material-symbols-rounded"> delete </span>
                                             <span> Hapus </span>
@@ -208,13 +252,13 @@
                     } else {
                         // Jika keluhan sudah dibaca
                         listKeluhan += `
-                            <div class="bg-white p-4 rounded-xl shadow flex space-x-3 keluhan">
+                            <div class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow flex space-x-3 keluhan">
                                 <!-- Foto Profil -->
                                 <div class="flex-shrink-0">
                                     <div
-                                        class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center"
+                                        class="w-10 h-10 bg-gray-300 dark:bg-gray-600 rounded-full flex items-center justify-center"
                                     >
-                                        <span class="material-symbols-rounded text-gray-600"
+                                        <span class="material-symbols-rounded text-gray-600 dark:text-gray-300"
                                             >person</span
                                         >
                                     </div>
@@ -222,27 +266,19 @@
                                 <!-- Isi Keluhan -->
                                 <div class="flex-1">
                                     <div class="flex items-center justify-between">
-                                        <p class="font-semibold">${keluhan.nama}</p>
+                                        <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
                                         <span class="text-xs text-gray-400">Dibaca</span>
                                     </div>
-                                    <p class="text-gray-700 mt-1">
+                                    <p class="text-gray-700 dark:text-gray-200 mt-1 text-sm">
                                         ${keluhan.keterangan}
                                     </p>
 
                                     <!-- Tombol aksi -->
-                                    <div class="mt-2 gap-2 tombol-aksi flex items-center flex-col sm:flex-row">
+                                    <div class="mt-2 gap-2 tombol-aksi flex items-center sm:flex-row">
                                         <button
-                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg border border-gray-300 hover:bg-gray-100"
-                                            onclick="markAsRead('${keluhan._id}')"
-                                        >
-                                            <span class="material-symbols-rounded">
-                                                check_small
-                                            </span>
-                                            <span> Tandai sudah dibaca </span>
-                                        </button>
-                                        <button
-                                            class="flex items-center gap-2 text-sm px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600"
+                                            class="flex items-center gap-1 text-sm px-3 py-1 rounded-lg bg-red-500 text-white hover:bg-red-600 cursor-pointer"
                                             onclick="deleteKeluhan('${keluhan._id}')"
+                                            type="button"
                                         >
                                             <span class="material-symbols-rounded"> delete </span>
                                             <span> Hapus </span>
@@ -308,9 +344,13 @@
                     tampilkanAlertKesalahan("Terjadi kesalahan", data.message);
                     throw new Error(data.message || "Terjadi kesalahan");
                 }
+
+                return data;
             })
             .then((data) => {
+                tampilkanAlertBerhasil("Berhasil", data.message);
                 muatKeluhan(currentPage);
+                checkUnread();
             })
             .catch((error) => {
                 console.error(error);
@@ -336,6 +376,7 @@
             .then((data) => {
                 tampilkanAlertBerhasil("Berhasil", data.message);
                 muatKeluhan(currentPage);
+                checkUnread();
             })
             .catch((error) => {
                 console.error(error);

@@ -210,3 +210,59 @@ function hapusAlert() {
     alertContainer.classList.add("hidden");
     alertContainer.innerHTML = "";
 }
+
+// Ubah true/false jadi Ya/Tidak
+function ubahTrueFalse(isi) {
+    if (isi) {
+        return "Ya";
+    } else {
+        return "Tidak";
+    }
+}
+
+// Ubah aray menjadi list
+function ubahArrayKeList(dataArray) {
+    let container = `<ul class="max-w-md space-y-1 text-gray-500 list-disc dark:text-gray-400">`;
+    dataArray.forEach((data) => {
+        container += `
+            <li>${data}</li>
+        `;
+    });
+    container += `</ul>`;
+    return container;
+}
+
+// Cek pesan belum dibaca
+function checkUnread() {
+    const unreadIndicator = document.getElementById("unread-indicator");
+    const unreadCount = document.getElementById("unread-count");
+
+    fetch("/admin/api/data/feedback?unread=true", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then(async (respon) => {
+            const data = await respon.json();
+            if (!respon.ok) {
+                if (data.code === 404) {
+                    unreadIndicator.classList.add("hidden");
+                    throw new Error(data.message);
+                } else {
+                    throw new Error(data.message || "Terjadi kesalahan");
+                }
+            }
+
+            return data;
+        })
+        .then((data) => {
+            const unreadData = data.data;
+
+            unreadCount.textContent = unreadData.unread;
+            unreadIndicator.classList.remove("hidden");
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
+
+checkUnread();

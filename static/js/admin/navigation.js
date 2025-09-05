@@ -6,3 +6,9 @@ function openNavigation() {
 function closeNavigation() {
     navigationMenu.classList.remove("active");
 }
+
+// Profile menu
+// const profileMenu = document.querySelector("#menu-profile");
+// function toggleProfile() {
+//     profileMenu.classList.toggle("invisible");
+// }

@@ -1,15 +1,17 @@
 <!-- sidebar -->
-<nav class="bg-zinc-100 dark:bg-zinc-900 shadow">
+<nav class="bg-zinc-100 dark:bg-zinc-900 shadow z-10">
     <!-- Logo -->
     <div
-        class="sticky top-0 w-full h-24 flex items-center shrink-0 gap-1 px-5 bg-white dark:bg-zinc-800"
+        class="sticky top-0 w-full h-20 flex items-center justify-between shrink-0 px-5 bg-white dark:bg-zinc-800"
     >
-        <img
-            src="{{url_for('static', filename='images/logo_transparant.png')}}"
-            alt="Logo BCE"
-            class="w-12 h-12 invert dark:invert-0"
-        />
-        <h1 class="font-bold text-2xl dark:text-white">Cargo</h1>
+        <div class="flex items-center gap-1">
+            <img
+                src="{{url_for('static', filename='images/logo_transparant.png')}}"
+                alt="Logo BCE"
+                class="w-12 h-12 invert dark:invert-0"
+            />
+            <h1 class="font-bold text-2xl dark:text-white">Cargo</h1>
+        </div>
         <span
             class="material-symbols-rounded dark:text-white"
             id="side-menu-btn-close"
@@ -55,8 +57,8 @@
         active_page, 'keluhan') }}
     </div>
     <!-- User profile -->
-    <div
-        class="user-profile bg-white dark:bg-zinc-800"
+    <!-- <div
+        class=" user-profile bg-white dark:bg-zinc-800"
         data-popover-target="popover-profile"
         data-popover-trigger="click"
     >
@@ -93,5 +95,5 @@
             <p>Logout</p>
         </a>
         <div data-popper-arrow></div>
-    </div>
+    </div> -->
 </nav>

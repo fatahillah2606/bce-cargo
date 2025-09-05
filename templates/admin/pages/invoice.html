@@ -15,14 +15,16 @@
 {% block judul %}Invoice{% endblock %}
 <!-- Konten -->
 {% block konten %}
-<div class="p-5">
-    <div class="bg-white rounded-xl shadow p-6">
+<div class="sm:p-5">
+    <div class="bg-white sm:rounded-xl shadow p-4">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-800">Kelola Invoice</h2>
             <button
-                class="bg-green-500 text-white text-sm px-4 py-2 rounded-lg hover:bg-green-600"
+                type="button"
+                class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5"
             >
-                + Buat Invoice Baru
+                <span class="material-symbols-rounded"> edit </span>
+                <span>Buat</span>
             </button>
         </div>
 
@@ -41,7 +43,6 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     <!-- Contoh Baris -->
-
                     <tr>
                         <td class="px-4 py-3 font-medium text-gray-800">
                             INV-200725-002
@@ -102,6 +103,63 @@
                                         >delete</span
                                     >
                                 </button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Skeleton loading -->
+                    <tr>
+                        <td class="px-4 py-3 font-medium text-gray-800">
+                            <div
+                                class="h-5 bg-gray-200 rounded w-24 dark:bg-gray-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-gray-200 rounded w-28 dark:bg-gray-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-gray-200 rounded w-20 dark:bg-gray-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-gray-200 rounded w-14 dark:bg-gray-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-gray-200 rounded-full w-12 dark:bg-gray-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-gray-200 rounded w-16 dark:bg-gray-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex gap-3 text-gray-500 text-xl">
+                                <!-- Lihat -->
+                                <div
+                                    class="h-5 bg-gray-200 rounded-full w-6 dark:bg-gray-700 animate-pulse"
+                                ></div>
+
+                                <!-- Unduh -->
+                                <div
+                                    class="h-5 bg-gray-200 rounded-full w-6 dark:bg-gray-700 animate-pulse"
+                                ></div>
+
+                                <!-- Edit -->
+                                <div
+                                    class="h-5 bg-gray-200 rounded-full w-6 dark:bg-gray-700 animate-pulse"
+                                ></div>
+
+                                <!-- Hapus -->
+                                <div
+                                    class="h-5 bg-gray-200 rounded-full w-6 dark:bg-gray-700 animate-pulse"
+                                ></div>
                             </div>
                         </td>
                     </tr>

@@ -1,9 +1,21 @@
 {% macro sidebar_item(label, icon, url, current, target) %}
 <a
     href="{{ url }}"
-    class="{% if current == target %} bg-green-500 text-white icon-active{% else %} text-zinc-500 dark:text-zinc-400 hover:bg-green-500 hover:text-white {% endif %}"
+    class="{% if current == target %} bg-green-500 text-white icon-active{% else %} text-zinc-500 dark:text-zinc-400 hover:bg-green-500! hover:text-white {% endif %} relative"
 >
     <span class="material-symbols-rounded"> {{ icon }} </span>
     <span>{{ label }}</span>
+    {% if label == 'Keluhan' %}
+    <div
+        class="hidden absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-red-500 w-6 h-6"
+        id="unread-indicator"
+    >
+        <span
+            id="unread-count"
+            class="block text-center leading-6 text-xs text-white"
+            >0</span
+        >
+    </div>
+    {% endif %}
 </a>
 {% endmacro %}

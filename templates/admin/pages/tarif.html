@@ -15,24 +15,27 @@
 {% block judul %}Tarif Pengiriman{% endblock %}
 <!-- Konten -->
 {% block konten %}
-<div class="p-5">
+<div class="sm:p-5">
     <!-- Container utama -->
-    <div class="bg-white rounded-xl shadow p-6 mb-6">
-        <div class="bg-white rounded-xl shadow p-6">
-            <div class="flex justify-between items-center me-2 mb-5">
+    <div class="bg-white sm:rounded-xl shadow sm:p-6 sm:mb-6">
+        <div class="bg-white sm:rounded-xl shadow p-6">
+            <div
+                class="flex justify-between items-center flex-col gap-2.5 sm:flex-row me-2 mb-5"
+            >
                 <h2 class="text-lg font-semibold text-gray-800">
                     Daftar tarif pengiriman
                 </h2>
                 <button
                     onclick="modalTambahTarif.toggle()"
                     type="button"
-                    class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5"
+                    class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5 cursor-pointer"
                 >
                     <span class="material-symbols-rounded"> add_2 </span>
                     <span>Tambah</span>
                 </button>
             </div>
 
+            <!-- Tabel -->
             <div class="overflow-x-auto">
                 <table class="min-w-full text-sm text-left text-gray-600">
                     <thead class="text-xs text-gray-500 uppercase bg-gray-100">
@@ -50,16 +53,49 @@
                         class="bg-white divide-y divide-gray-200"
                         id="tarif-pengiriman-container"
                     >
+                        <!-- Skeleton loading -->
+                        {% for i in range(10) %}
                         <tr>
-                            <td colspan="6">
-                                <p
-                                    class="text-center font-bold text-gray-600 mt-5"
-                                    id="info-tarif-pengiriman"
-                                >
-                                    Memuat list tarif pengiriman...
-                                </p>
+                            <td class="px-4 py-3 font-medium text-gray-800">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-6 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-20 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-20 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-12 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-6 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-28 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3 flex gap-2.5">
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-10 dark:bg-gray-700 animate-pulse"
+                                ></div>
+                                <div
+                                    class="h-5 bg-gray-200 rounded w-12 dark:bg-gray-700 animate-pulse"
+                                ></div>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -104,7 +140,7 @@
                 </h3>
                 <button
                     type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
                     onclick="modalTambahTarif.toggle()"
                 >
                     <svg
@@ -281,7 +317,7 @@
                 <div class="flex items-center">
                     <button
                         type="submit"
-                        class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 cursor-pointer"
                         onclick="tambahTarif(event)"
                     >
                         <svg
@@ -301,7 +337,7 @@
                     <button
                         onclick="modalTambahTarif.toggle()"
                         type="reset"
-                        class="px-5 py-2.5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        class="px-5 py-2.5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 cursor-pointer"
                     >
                         Batal
                     </button>
@@ -330,7 +366,7 @@
                 </h3>
                 <button
                     type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
                     onclick="modalEditTarif.toggle()"
                 >
                     <svg
@@ -508,7 +544,7 @@
                 <div class="flex items-center">
                     <button
                         type="submit"
-                        class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        class="text-white inline-flex items-center bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 cursor-pointer"
                         id="simpan-perubahan-tarif"
                     >
                         <svg
@@ -531,7 +567,7 @@
                     <button
                         onclick="modalEditTarif.toggle()"
                         type="reset"
-                        class="px-5 py-2.5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        class="px-5 py-2.5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 cursor-pointer"
                     >
                         Batal
                     </button>
@@ -552,7 +588,7 @@
         <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
             <button
                 type="button"
-                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
                 onclick="modalKonfirmasiHapus.toggle()"
             >
                 <svg
@@ -596,14 +632,14 @@
                 <button
                     id="tombolKonfirmasiHapus"
                     type="button"
-                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center cursor-pointer"
                 >
                     Ya
                 </button>
                 <button
                     onclick="modalKonfirmasiHapus.toggle()"
                     type="button"
-                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 cursor-pointer"
                 >
                     Tidak
                 </button>
@@ -626,9 +662,6 @@
 
     const tarifPengirimanContainer = document.getElementById(
         "tarif-pengiriman-container"
-    );
-    const infoTarifPengiriman = document.getElementById(
-        "info-tarif-pengiriman"
     );
     const nomorHalaman = document.getElementById("page-number");
     const infoDataDitampilkan = document.getElementById(
@@ -682,8 +715,18 @@
                 const data = await respon.json();
                 if (!respon.ok) {
                     if (data.code === 404) {
-                        infoTarifPengiriman.textContent =
-                            "Tarif pengiriman tidak tersedia";
+                        tarifPengirimanContainer.innerHTML = `
+                            <tr>
+                                <td colspan="6">
+                                    <p
+                                        class="text-center font-bold text-gray-600 mt-5"
+                                        id="info-tarif-pengiriman"
+                                    >
+                                        Tarif pengiriman tidak tersedia
+                                    </p>
+                                </td>
+                            </tr>
+                        `;
 
                         infoDataDitampilkan.textContent =
                             "Menampilkan 0 - 0 dari 0 data";
@@ -751,7 +794,7 @@
                                 onclick="muatTarifPengiriman(${
                                     currentPage - 1
                                 })"
-                                class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                             >
                                 <span class="sr-only">Previous</span>
                                 <svg
@@ -802,7 +845,7 @@
                                 <button
                                     onclick="muatTarifPengiriman(${i})"
                                     aria-current="page"
-                                    class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-green-600 border border-green-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white"
+                                    class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-green-600 border border-green-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white cursor-pointer"
                                 >${i}</button>
                             </li>
                         `;
@@ -811,7 +854,7 @@
                             <li>
                                 <button
                                     onclick="muatTarifPengiriman(${i})"
-                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                                 >${i}</button>
                             </li>
                         `;
@@ -826,7 +869,7 @@
                                 onclick="muatTarifPengiriman(${
                                     currentPage + 1
                                 })"
-                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                                class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white cursor-pointer"
                             >
                                 <span class="sr-only">Next</span>
                                 <svg
