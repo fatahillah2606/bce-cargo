@@ -30,8 +30,8 @@ def respon_api(status, code, message, data, pagination):
     return jsonify(respon)
 
 # Tampilkan Semua Data
-def tampilkanDataSpesifik(koleksi, oid):
-    data = koleksi.find_one({"_id": ObjectId(oid)})
+def tampilkanDataSpesifik(koleksi, query):
+    data = koleksi.find_one(query)
     if data:
         return respon_api("success", 200, str("Data tersedia"), convert_objectid_to_str(data), {})
     else:
@@ -95,6 +95,12 @@ def pesanan():
 def profile():
     return render_template("customer/pages/profile.html")
 
+#PENDAFTARAN
+@customer_route.route("/pendaftaran", methods=["GET", "POST"])
+@khusus_customer
+def pendaftaran():
+    return render_template("customer/pages/pendaftaran.html")
+
 # RIWAYAT PESANAN
 @customer_route.route("/riwayat", methods=["GET", "POST"])
 @khusus_customer
@@ -114,14 +120,39 @@ def logout():
     return redirect(url_for("home"))
 
 #API Route
-# Data Pengguna
-@customer_route.route("/api/data/user", methods=["GET","POST"])
+# Data akun Pengguna
+@customer_route.route("/api/data/account", methods=["GET","POST"])
+@khusus_customer
+def dataAkunPelanggan():
+    try:
+        if request.method == "POST":
+            uid = request.args.get("uid")
+            return tampilkanDataSpesifik(userData, uid)
+    
+        # request GET (default)
+        else:
+            return tampilkanDataSpesifik(userData, {"_id": ObjectId(session["user_id"])})
+    except Exception as error:
+        return respon_api("error", 500, "Terjadi kesalahan", str(error), {})
+    
+
+# Data akun Pengguna
+@customer_route.route("/api/data/pelanggan", methods=["GET","POST"])
 @khusus_customer
 def dataPelanggan():
-    uid = request.args.get("uid")
-    return tampilkanDataSpesifik(userData, uid)
-
-
+    try:
+        biopelanggan = collection["data_pelanggan"]
+        if request.method == "POST":
+            # update biodata pelanggan jika pelanggan baru mendaftar
+            if "daftarPelanggan" in request.form:
+                namalengkap = str(request.form[""])
+    
+        # request GET (default)
+        else:
+            return tampilkanDataSpesifik(biopelanggan, {"user_id": ObjectId(session["user_id"])})
+    
+    except Exception as error:
+        return respon_api("error", 500, "Terjadi kesalahan", str(error), {})
 
 # Autentikasi
 @customer_route.route("/api/auth", methods=["GET", "POST"])
@@ -282,4 +313,3 @@ def verifikasi():
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
     
-

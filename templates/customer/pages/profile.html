@@ -925,6 +925,51 @@
                 passKonfirmasi.value = "";
                 errorKonfirmasi.classList.add("hidden");
             });
+
+            // FUNGSI PROFILE
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const formData = new FormData(form);
+                formData.append("form_type", "biodata");
+
+                fetch("/customer/api/profile", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.status === "success") {
+                            alert("Biodata berhasil disimpan!");
+                            toggleEditMode(false);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch((err) => console.error(err));
+            });
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                fetch("/customer/api/data_pelanggan", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        if (data.status === "success") {
+                            alert(data.message);
+                            toggleEditMode(false);
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch((err) => console.error(err));
+            });
+
+            // VALIDASI
+            
         </script>
     </body>
 </html>

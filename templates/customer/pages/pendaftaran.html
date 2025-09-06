@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pendaftaran | BCE</title>
+        <link
+            href="{{url_for('static',filename='dist/output.css')}}"
+            rel="stylesheet"
+        />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/customer/style.css')}}"
+        />
+        <!-- Google icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            section {
+                min-height: auto;
+            }
+            /* Zoom in & out sedang */
+            @keyframes zoomPulse {
+                0%,
+                100% {
+                    transform: scale(0.95);
+                    opacity: 0.95;
+                }
+                50% {
+                    transform: scale(1.05);
+                    opacity: 1;
+                }
+            }
+            .animate-zoom-pulse {
+                animation: zoomPulse 2.5s ease-in-out infinite;
+            }
+
+            /* Glow neon menyatu logo */
+            .logo-glow {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+                    drop-shadow(0 0 40px rgba(144, 238, 144, 0.6));
+                animation: glowPulse 1s ease-in-out infinite;
+            }
+
+            @keyframes glowPulse {
+                0%,
+                100% {
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))
+                        drop-shadow(0 0 16px rgba(255, 255, 255, 0.5))
+                        drop-shadow(0 0 32px rgba(144, 238, 144, 0.5));
+                }
+                50% {
+                    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9))
+                        drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
+                        drop-shadow(0 0 60px rgba(144, 238, 144, 0.7));
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-white font-sans">
+        <!-- Navbar -->
+        {% include 'customer/components/navbar.html' %}
+
+        <!-- floating -->
+        {% include 'customer/components/floating-sidebar.html' %}
+
+        <!-- ALAMAT -->
+        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-buku-alamat">
+            <div
+                class="max-w-3xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
+                <h2
+                    class="text-2xl font-extrabold text-green-800 flex items-center gap-2 mb-8"
+                >
+                    <span class="material-symbols-rounded text-green-600"
+                        >badge</span
+                    >
+                    Biodata Diri
+                </h2>
+                <form method="post" id="form-biodata" class="space-y-6">
+                    <!-- Nama -->
+                    <div class="relative">
+                        <label
+                            for="nama"
+                            class="block text-sm font-medium text-gray-700"
+                            >Nama Lengkap</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="nama"
+                                name="nama"
+                                maxlength="100"
+                                required
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >person</span
+                            >
+                        </div>
+                    </div>
+                    <!-- Nomor Ponsel -->
+                    <div class="relative">
+                        <label
+                            for="ponsel"
+                            class="block text-sm font-medium text-gray-700"
+                            >Nomor Ponsel</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="tel"
+                                id="ponsel"
+                                name="ponsel"
+                                minlength="10"
+                                maxlength="13"
+                                pattern="[0-9]+"
+                                required
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >phone</span
+                            >
+                        </div>
+                    </div>
+                    <!-- Jenis Pelanggan + Perusahaan -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="jenis"
+                                class="block text-sm font-medium text-gray-700"
+                                >Jenis Pelanggan</label
+                            >
+                            <div class="mt-1 relative">
+                                <select
+                                    id="jenis"
+                                    name="jenis"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih jenis</option>
+                                    <option value="perorangan">
+                                        Perorangan
+                                    </option>
+                                    <option value="perusahaan">
+                                        Perusahaan
+                                    </option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >group</span
+                                >
+                            </div>
+                        </div>
+                        <div id="field-perusahaan" class="hidden relative">
+                            <label
+                                for="perusahaan"
+                                class="block text-sm font-medium text-gray-700"
+                                >Nama Perusahaan</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="perusahaan"
+                                    name="perusahaan"
+                                    maxlength="100"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >business</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2 mb-8"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >home_pin</span
+                        >
+                        Alamat
+                    </h2>
+                    <!-- Jalan -->
+                    <div class="relative">
+                        <label
+                            for="jalan"
+                            class="block text-sm font-medium text-gray-700"
+                            >Jalan</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="jalan"
+                                name="jalan"
+                                maxlength="100"
+                                required
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >location_on</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Kode Pos + WhatsApp -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="kodepos"
+                                class="block text-sm font-medium text-gray-700"
+                                >Kode Pos</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="kodepos"
+                                    name="kodepos"
+                                    minlength="5"
+                                    maxlength="5"
+                                    pattern="[0-9]{5}"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >markunread_mailbox</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label
+                                for="whatsapp"
+                                class="block text-sm font-medium text-gray-700"
+                                >Nomor WhatsApp</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="tel"
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    minlength="10"
+                                    maxlength="13"
+                                    pattern="[0-9]+"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >phone_iphone</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RT + RW -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="rt"
+                                class="block text-sm font-medium text-gray-700"
+                                >RT</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="rt"
+                                    name="rt"
+                                    minlength="4"
+                                    maxlength="4"
+                                    pattern="[0-9]{4}"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >tag</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label
+                                for="rw"
+                                class="block text-sm font-medium text-gray-700"
+                                >RW</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="rw"
+                                    name="rw"
+                                    minlength="4"
+                                    maxlength="4"
+                                    pattern="[0-9]{4}"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >tag</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Provinsi, Kabupaten, Kecamatan, Kelurahan -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="provinsi"
+                                class="block text-sm font-medium text-gray-700"
+                                >Provinsi</label
+                            >
+                            <div class="mt-1 relative">
+                                <select
+                                    id="provinsi"
+                                    name="provinsi"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih provinsi</option>
+                                    <option value="jakarta">DKI Jakarta</option>
+                                    <option value="jabar">Jawa Barat</option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >map</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label
+                                for="kabupaten"
+                                class="block text-sm font-medium text-gray-700"
+                                >Kabupaten</label
+                            >
+                            <div class="mt-1 relative">
+                                <select
+                                    id="kabupaten"
+                                    name="kabupaten"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih kabupaten</option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >domain</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label
+                                for="kecamatan"
+                                class="block text-sm font-medium text-gray-700"
+                                >Kecamatan</label
+                            >
+                            <div class="mt-1 relative">
+                                <select
+                                    id="kecamatan"
+                                    name="kecamatan"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih kecamatan</option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >map</span
+                                >
+                            </div>
+                        </div>
+
+                        <div class="relative">
+                            <label
+                                for="kelurahan"
+                                class="block text-sm font-medium text-gray-700"
+                                >Kelurahan</label
+                            >
+                            <div class="mt-1 relative">
+                                <select
+                                    id="kelurahan"
+                                    name="kelurahan"
+                                    required
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih kelurahan</option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >location_city</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Simpan -->
+                    <div class="flex justify-end pt-4">
+                        <button
+                            type="submit"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- footer -->
+        {% include 'customer/components/footer.html' %}
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script>
+            // Tampilkan field perusahaan kalau jenis = perusahaan
+            const jenisSelect = document.getElementById("jenis");
+            const perusahaanField = document.getElementById("field-perusahaan");
+            jenisSelect.addEventListener("change", () => {
+                if (jenisSelect.value === "perusahaan") {
+                    perusahaanField.classList.remove("hidden");
+                    document
+                        .getElementById("perusahaan")
+                        .setAttribute("required", "true");
+                } else {
+                    perusahaanField.classList.add("hidden");
+                    document
+                        .getElementById("perusahaan")
+                        .removeAttribute("required");
+                }
+            });
+
+            // === FORM SUBMIT ===
+            function handleSubmit(formId) {
+                const form = document.getElementById(formId);
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    fetch("/customer/api/data_pelanggan", {
+                        method: "POST",
+                        body: formData,
+                    })
+                        .then((res) => res.json())
+                        .then((data) => {
+                            if (data.status === "success") {
+                                alert(
+                                    data.message || "Data berhasil disimpan!"
+                                );
+                                form.reset();
+                            } else {
+                                alert(data.message || "Gagal menyimpan data!");
+                            }
+                        })
+                        .catch((err) => console.error(err));
+                });
+            }
+
+            handleSubmit("form-biodata");
+            handleSubmit("form-alamat");
+            handleSubmit("form-akun");
+        </script>
+    </body>
+</html>
