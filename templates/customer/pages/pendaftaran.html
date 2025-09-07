@@ -76,7 +76,6 @@
         <!-- floating -->
         {% include 'customer/components/floating-sidebar.html' %}
 
-        <!-- ALAMAT -->
         <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-buku-alamat">
             <div
                 class="max-w-3xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
@@ -89,6 +88,7 @@
                     >
                     Biodata Diri
                 </h2>
+                <!-- Formulir Biodata -->
                 <form method="post" id="form-biodata" class="space-y-6">
                     <!-- Nama -->
                     <div class="relative">
@@ -103,14 +103,20 @@
                                 id="nama"
                                 name="nama"
                                 maxlength="100"
+                                value="{{ nama_pengguna }}"
                                 required
-                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
                             />
                             <span
                                 class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                                 >person</span
                             >
                         </div>
+                        <p
+                            class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                        >
+                            Pesan error
+                        </p>
                     </div>
                     <!-- Nomor Ponsel -->
                     <div class="relative">
@@ -128,13 +134,18 @@
                                 maxlength="13"
                                 pattern="[0-9]+"
                                 required
-                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
                             />
                             <span
                                 class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                                 >phone</span
                             >
                         </div>
+                        <p
+                            class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                        >
+                            Pesan error
+                        </p>
                     </div>
                     <!-- Jenis Pelanggan + Perusahaan -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -149,7 +160,7 @@
                                     id="jenis"
                                     name="jenis"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
                                 >
                                     <option value="">Pilih jenis</option>
                                     <option value="perorangan">
@@ -164,6 +175,11 @@
                                     >group</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
                         <div id="field-perusahaan" class="hidden relative">
                             <label
@@ -184,9 +200,15 @@
                                     >business</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
                     </div>
 
+                    <!-- Alamat -->
                     <h2
                         class="text-2xl font-extrabold text-green-800 flex items-center gap-2 mb-8"
                     >
@@ -194,6 +216,7 @@
                             >home_pin</span
                         >
                         Alamat
+                        <span class="text-xl font-normal">(Opsional)</span>
                     </h2>
                     <!-- Jalan -->
                     <div class="relative">
@@ -216,6 +239,11 @@
                                 >location_on</span
                             >
                         </div>
+                        <p
+                            class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                        >
+                            Pesan error
+                        </p>
                     </div>
 
                     <!-- Kode Pos + WhatsApp -->
@@ -242,6 +270,11 @@
                                     >markunread_mailbox</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
 
                         <div class="relative">
@@ -254,7 +287,6 @@
                                 <input
                                     type="tel"
                                     id="whatsapp"
-                                    name="whatsapp"
                                     minlength="10"
                                     maxlength="13"
                                     pattern="[0-9]+"
@@ -266,6 +298,11 @@
                                     >phone_iphone</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
                     </div>
 
@@ -293,6 +330,11 @@
                                     >tag</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
 
                         <div class="relative">
@@ -317,6 +359,11 @@
                                     >tag</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
                     </div>
 
@@ -333,17 +380,21 @@
                                     id="provinsi"
                                     name="provinsi"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 disabled:border-gray-200 peer-disabled:text-gray-300"
                                 >
                                     <option value="">Pilih provinsi</option>
-                                    <option value="jakarta">DKI Jakarta</option>
-                                    <option value="jabar">Jawa Barat</option>
                                 </select>
                                 <span
                                     class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                                     >map</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
 
                         <div class="relative">
@@ -357,7 +408,8 @@
                                     id="kabupaten"
                                     name="kabupaten"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 disabled:border-gray-200 peer-disabled:text-gray-300"
                                 >
                                     <option value="">Pilih kabupaten</option>
                                 </select>
@@ -366,6 +418,11 @@
                                     >domain</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
 
                         <div class="relative">
@@ -379,7 +436,8 @@
                                     id="kecamatan"
                                     name="kecamatan"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 disabled:border-gray-200 peer-disabled:text-gray-300"
                                 >
                                     <option value="">Pilih kecamatan</option>
                                 </select>
@@ -388,6 +446,11 @@
                                     >map</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
 
                         <div class="relative">
@@ -401,7 +464,8 @@
                                     id="kelurahan"
                                     name="kelurahan"
                                     required
-                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer"
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 text-gray-900 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 transition cursor-pointer disabled:bg-gray-100 disabled:cursor-not-allowed disabled:text-gray-400 disabled:border-gray-200 peer-disabled:text-gray-300"
                                 >
                                     <option value="">Pilih kelurahan</option>
                                 </select>
@@ -410,6 +474,11 @@
                                     >location_city</span
                                 >
                             </div>
+                            <p
+                                class="mt-2 text-sm text-red-600 dark:text-red-500 hidden err-msg"
+                            >
+                                Pesan error
+                            </p>
                         </div>
                     </div>
 
@@ -417,6 +486,7 @@
                     <div class="flex justify-end pt-4">
                         <button
                             type="submit"
+                            onclick="kirimData(event)"
                             class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
                         >
                             Simpan
@@ -430,52 +500,202 @@
         {% include 'customer/components/footer.html' %}
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script src="{{url_for('static',filename='js/customer/form-auth.js')}}"></script>
         <script>
+            // Variable
+
+            const selectProvinsi = document.getElementById("provinsi");
+            const selectKabupaten = document.getElementById("kabupaten");
+            const selectKecamatan = document.getElementById("kecamatan");
+            const selectKelurahan = document.getElementById("kelurahan");
+
+            // Cek jika ada perubahan pada kolom
+            function cekInputPengguna() {
+                let kolomIsian = document.querySelectorAll(
+                    "input[required], select[required]"
+                );
+                kolomIsian.forEach((element) => {
+                    element.addEventListener("input", () => {
+                        fieldNormal(element.parentElement.parentElement);
+                    });
+                });
+            }
+
             // Tampilkan field perusahaan kalau jenis = perusahaan
             const jenisSelect = document.getElementById("jenis");
             const perusahaanField = document.getElementById("field-perusahaan");
+            const inpPerusahaan = document.getElementById("perusahaan");
             jenisSelect.addEventListener("change", () => {
                 if (jenisSelect.value === "perusahaan") {
                     perusahaanField.classList.remove("hidden");
-                    document
-                        .getElementById("perusahaan")
-                        .setAttribute("required", "true");
+                    inpPerusahaan.setAttribute("required", "true");
+                    inpPerusahaan.removeAttribute("disabled");
+
+                    cekInputPengguna();
                 } else {
                     perusahaanField.classList.add("hidden");
-                    document
-                        .getElementById("perusahaan")
-                        .removeAttribute("required");
+                    inpPerusahaan.removeAttribute("required");
+                    inpPerusahaan.setAttribute("disabled", true);
+
+                    cekInputPengguna();
                 }
             });
 
             // === FORM SUBMIT ===
-            function handleSubmit(formId) {
-                const form = document.getElementById(formId);
-                form.addEventListener("submit", function (e) {
-                    e.preventDefault();
-                    const formData = new FormData(form);
-                    fetch("/customer/api/data_pelanggan", {
-                        method: "POST",
-                        body: formData,
-                    })
-                        .then((res) => res.json())
-                        .then((data) => {
-                            if (data.status === "success") {
-                                alert(
-                                    data.message || "Data berhasil disimpan!"
-                                );
-                                form.reset();
-                            } else {
-                                alert(data.message || "Gagal menyimpan data!");
-                            }
-                        })
-                        .catch((err) => console.error(err));
+            function kirimData(event) {
+                event.preventDefault();
+                const formBiodata = document.getElementById("form-biodata");
+                const regisBio = new FormData(formBiodata);
+
+                const formField = document.querySelectorAll(
+                    "input[required], select[required]"
+                );
+
+                for (const [name, value] of regisBio) {
+                    console.log(`${name}: ${value}`);
+                }
+
+                let valid = true;
+                formField.forEach((kolom) => {
+                    if (kolom.value == "") {
+                        fieldError(
+                            kolom.parentElement.parentElement,
+                            "Mohon isi kolom ini"
+                        );
+                    }
                 });
+
+                valid ? "" : alert("Mohon isi kolom yang dibutuhkan");
             }
 
-            handleSubmit("form-biodata");
-            handleSubmit("form-alamat");
-            handleSubmit("form-akun");
+            // Fetch wilayah
+            function fetchWilayahIndo(apiLink, uid) {
+                let link = uid == null ? apiLink : apiLink + "/" + uid;
+
+                return fetch(link, {
+                    method: "GET",
+                })
+                    .then(async (respon) => {
+                        const data = await respon.json();
+                        if (!respon.ok) {
+                            throw new Error(
+                                data.message || "Terjadi Kesalahan"
+                            );
+                        }
+                        return data;
+                    })
+                    .then((data) => {
+                        return data.data;
+                    })
+                    .catch((error) => {
+                        console.error("Gagal fetch: ", error);
+                    });
+            }
+
+            // Opsi provinsi
+            fetchWilayahIndo("/api/data/provinsi").then((respon) => {
+                respon.forEach((provinsi) => {
+                    const opsiProv = new Option(provinsi.name, provinsi.id);
+                    selectProvinsi.add(opsiProv);
+                });
+                selectProvinsi.removeAttribute("disabled");
+            });
+
+            // Paksa disable kabupaten
+            selectKabupaten.setAttribute("disabled", true);
+
+            // Kabupaten
+            selectProvinsi.addEventListener("change", () => {
+                const idProv = selectProvinsi.value;
+
+                // Kosongkan dulu pilihannya
+                selectKabupaten.options.length = 0;
+                const opsiDefault = new Option(
+                    "Pilih kabupaten",
+                    "",
+                    true,
+                    true
+                );
+                selectKabupaten.add(opsiDefault);
+
+                // Fetch kabupaten
+                fetchWilayahIndo("/api/data/kabupaten/", idProv).then(
+                    (respon) => {
+                        respon.forEach((kabupaten) => {
+                            const opsiKab = new Option(
+                                kabupaten.name,
+                                kabupaten.id
+                            );
+                            selectKabupaten.add(opsiKab);
+                        });
+                        selectKabupaten.removeAttribute("disabled");
+                    }
+                );
+            });
+
+            // Paksa disable kecamatan
+            selectKecamatan.setAttribute("disabled", true);
+
+            // Kecamatan
+            selectKabupaten.addEventListener("change", () => {
+                const idKab = selectKabupaten.value;
+
+                // Kosongkan dulu pilihannya
+                selectKecamatan.options.length = 0;
+                const opsiDefault = new Option(
+                    "Pilih kecamatan",
+                    "",
+                    true,
+                    true
+                );
+                selectKecamatan.add(opsiDefault);
+
+                // Fetch kecamatan
+                fetchWilayahIndo("/api/data/kecamatan/", idKab).then(
+                    (respon) => {
+                        respon.forEach((kecamatan) => {
+                            const opsiKec = new Option(
+                                kecamatan.name,
+                                kecamatan.id
+                            );
+                            selectKecamatan.add(opsiKec);
+                        });
+                        selectKecamatan.removeAttribute("disabled");
+                    }
+                );
+            });
+
+            // Paksa disable kelurahan
+            selectKelurahan.setAttribute("disabled", true);
+
+            // Kelurahan
+            selectKecamatan.addEventListener("change", () => {
+                const idKec = selectKecamatan.value;
+
+                // Kosongkan dulu pilihannya
+                selectKelurahan.options.length = 0;
+                const opsiDefault = new Option(
+                    "Pilih kelurahan",
+                    "",
+                    true,
+                    true
+                );
+                selectKelurahan.add(opsiDefault);
+
+                // Fetch kecamatan
+                fetchWilayahIndo("/api/data/kelurahan/", idKec).then(
+                    (respon) => {
+                        respon.forEach((kelurahan) => {
+                            const opsiKec = new Option(
+                                kelurahan.name,
+                                kelurahan.id
+                            );
+                            selectKelurahan.add(opsiKec);
+                        });
+                        selectKelurahan.removeAttribute("disabled");
+                    }
+                );
+            });
         </script>
     </body>
 </html>

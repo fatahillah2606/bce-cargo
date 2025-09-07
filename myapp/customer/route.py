@@ -14,8 +14,14 @@ userData = collection["users"]
 # API
 # Convert _id
 def convert_objectid_to_str(doc):
+    # Conver "_id"
     if '_id' in doc:
         doc['_id'] = str(doc['_id'])
+
+    # Convert "user_id"
+    if 'user_id' in doc:
+        doc['user_id'] = str(doc['user_id'])
+
     return doc
 
 # Respon API
@@ -47,6 +53,16 @@ def khusus_customer(f):
     return decorated_function
 # Atur route
 customer_route = Blueprint("customer", __name__)
+
+@customer_route.context_processor
+def inject_globals():
+    return dict(
+        nama_pengguna=session.get("name"),
+        email_pengguna=session.get("email"),
+        role_pengguna=session.get("role"),
+        active_page=None,  # ini bisa dioverride di masing-masing route
+        current_time=datetime.now(timezone.utc)
+    )
 
 # Route
 @customer_route.route("/", methods=["GET", "POST"])
@@ -87,25 +103,46 @@ def ongkir():
 @customer_route.route("/pesanan", methods=["GET", "POST"])
 @khusus_customer
 def pesanan():
-    return render_template("customer/pages/pesanan.html")
+    bioPelanggan = collection["data_pelanggan"]
+    sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])}, {"user_id": 1})
+    if sudahRegister:
+        return render_template("customer/pages/pesanan.html")
+    else:
+        return(redirect(url_for("customer.pendaftaran")))
 
 #PROFILE
 @customer_route.route("/profile", methods=["GET", "POST"])
 @khusus_customer
 def profile():
-    return render_template("customer/pages/profile.html")
+    bioPelanggan = collection["data_pelanggan"]
+    sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])}, {"user_id": 1})
+    if sudahRegister:
+        return render_template("customer/pages/profile.html")
+    else:
+        return(redirect(url_for("customer.pendaftaran")))
 
 #PENDAFTARAN
 @customer_route.route("/pendaftaran", methods=["GET", "POST"])
 @khusus_customer
 def pendaftaran():
-    return render_template("customer/pages/pendaftaran.html")
+    bioPelanggan = collection["data_pelanggan"]
+    sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])}, {"user_id": 1})
+    print(sudahRegister)
+    if sudahRegister:
+        return redirect(url_for("home"))
+    else:
+        return render_template("customer/pages/pendaftaran.html")
 
 # RIWAYAT PESANAN
 @customer_route.route("/riwayat", methods=["GET", "POST"])
 @khusus_customer
 def riwayat():
-    return render_template("customer/pages/riwayat.html")
+    bioPelanggan = collection["data_pelanggan"]
+    sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])}, {"user_id": 1})
+    if sudahRegister:
+        return render_template("customer/pages/riwayat.html")
+    else:
+        return(redirect(url_for("customer.pendaftaran")))
 
 # Eksperimen
 @customer_route.route("/tes", methods=["GET", "POST"])

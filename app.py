@@ -27,7 +27,7 @@ app.permanent_session_lifetime = timedelta(hours=1)
 app.config.update(
   MAIL_SERVER='localhost',
   MAIL_PORT=1025,
-  MAIL_SENDER='no-reply@demo.local' # hanya label; tidak betul-betul terkirim
+  MAIL_SENDER='no-reply@bcecargo.com' # hanya label; tidak betul-betul terkirim
 )
 
 # Cek masa sesi login user
@@ -86,7 +86,7 @@ def home():
 
 # Provinsi
 @app.route("/api/data/provinsi")
-def get_provinces():
+def get_provinsi():
     try:
         url = "https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
         response = requests.get(url)
@@ -95,10 +95,33 @@ def get_provinces():
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
 
+# Kabupaten
 @app.route("/api/data/kabupaten/<prov_id>")
-def get_regencies(prov_id):
+def get_kabupaten(prov_id):
     try:
         url = f"https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{prov_id}.json"
+        response = requests.get(url)
+        return respon_api("success", 200, "Fetch berhasil", response.json(), {})
+    
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})
+    
+# Kecamatan
+@app.route("/api/data/kecamatan/<kab_id>")
+def get_kecamatan(kab_id):
+    try:
+        url = f"https://www.emsifa.com/api-wilayah-indonesia/api/districts/{kab_id}.json"
+        response = requests.get(url)
+        return respon_api("success", 200, "Fetch berhasil", response.json(), {})
+    
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {})
+
+# Kelurahan
+@app.route("/api/data/kelurahan/<kec_id>")
+def get_kelurahan(kec_id):
+    try:
+        url = f"https://www.emsifa.com/api-wilayah-indonesia/api/villages/{kec_id}.json"
         response = requests.get(url)
         return respon_api("success", 200, "Fetch berhasil", response.json(), {})
     
