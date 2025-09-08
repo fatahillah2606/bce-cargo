@@ -570,7 +570,7 @@
                         body: regisBio,
                     })
                         .then(async (respon) => {
-                            const data = respon.json();
+                            const data = await respon.json();
                             if (!respon.ok) {
                                 alert(data.message);
                                 throw new Error(data.data);
