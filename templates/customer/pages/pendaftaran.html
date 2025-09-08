@@ -216,7 +216,6 @@
                             >home_pin</span
                         >
                         Alamat
-                        <span class="text-xl font-normal">(Opsional)</span>
                     </h2>
                     <!-- Jalan -->
                     <div class="relative">
@@ -230,7 +229,7 @@
                                 type="text"
                                 id="jalan"
                                 name="jalan"
-                                maxlength="100"
+                                maxlength="50"
                                 required
                                 class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
                             />
@@ -279,17 +278,16 @@
 
                         <div class="relative">
                             <label
-                                for="whatsapp"
+                                for="no_rumah"
                                 class="block text-sm font-medium text-gray-700"
-                                >Nomor WhatsApp</label
+                                >Nomor Rumah</label
                             >
                             <div class="mt-1 relative">
                                 <input
-                                    type="tel"
-                                    id="whatsapp"
-                                    minlength="10"
-                                    maxlength="13"
-                                    pattern="[0-9]+"
+                                    type="text"
+                                    id="no_rumah"
+                                    maxlength="20"
+                                    name="no_rumah"
                                     required
                                     class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-900 focus:border-green-500 focus:ring-green-500 transition"
                                 />
@@ -546,14 +544,15 @@
                 event.preventDefault();
                 const formBiodata = document.getElementById("form-biodata");
                 const regisBio = new FormData(formBiodata);
+                regisBio.append("daftarPelanggan", true);
 
                 const formField = document.querySelectorAll(
                     "input[required], select[required]"
                 );
 
-                for (const [name, value] of regisBio) {
-                    console.log(`${name}: ${value}`);
-                }
+                // for (const [name, value] of regisBio) {
+                //     console.log(`${name}: ${value}`);
+                // }
 
                 let valid = true;
                 formField.forEach((kolom) => {
@@ -565,7 +564,26 @@
                     }
                 });
 
-                valid ? "" : alert("Mohon isi kolom yang dibutuhkan");
+                if (valid) {
+                    fetch("/customer/api/data/pelanggan", {
+                        method: "POST",
+                        body: regisBio,
+                    })
+                        .then(async (respon) => {
+                            const data = respon.json();
+                            if (!respon.ok) {
+                                alert(data.message);
+                                throw new Error(data.data);
+                            }
+                            return data;
+                        })
+                        .then((data) => {
+                            alert(data.message);
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
             }
 
             // Fetch wilayah

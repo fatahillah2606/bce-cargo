@@ -51,6 +51,17 @@ def khusus_customer(f):
             return redirect(url_for("customer.login"))
         return f(*args, **kwargs)
     return decorated_function
+
+# Fetch wilayah indonesia
+def fetchIndo(url, idWilayah):
+    wilayah = requests.get(url)
+    wilayah = wilayah.json()
+
+    for listWilayah in wilayah:
+        if listWilayah["id"] == idWilayah:
+            return listWilayah["name"]
+
+
 # Atur route
 customer_route = Blueprint("customer", __name__)
 
@@ -170,7 +181,7 @@ def dataAkunPelanggan():
         else:
             return tampilkanDataSpesifik(userData, {"_id": ObjectId(session["user_id"])})
     except Exception as error:
-        return respon_api("error", 500, "Terjadi kesalahan", str(error), {})
+        return respon_api("error", 500, "Terjadi kesalahan", str(error), {}), 500
     
 
 # Data akun Pengguna
@@ -182,14 +193,69 @@ def dataPelanggan():
         if request.method == "POST":
             # update biodata pelanggan jika pelanggan baru mendaftar
             if "daftarPelanggan" in request.form:
-                namalengkap = str(request.form[""])
+                # Biodata
+                namaLengkap = str(request.form["nama"])
+                noTelp = str(request.form["ponsel"])
+                jenisPelanggan = str(request.form["jenis"])
+                perusahaan = str(request.form.get("perusahaan", ""))
+
+                # Alamat
+                jalan = str(request.form["jalan"])
+                noRumah = str(request.form["no_rumah"])
+                kodepos = str(request.form["kodepos"])
+                rt = str(request.form["rt"])
+                rw = str(request.form["rw"])
+
+                # Wilayah Indonesia
+                provinsi = str(request.form["provinsi"])
+                kabupaten = str(request.form["kabupaten"])
+                kecamatan = str(request.form["kecamatan"])
+                kelurahan = str(request.form["kelurahan"])
+
+                # Link API
+                urlProv = f"https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+                urlKab = f"https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{provinsi}.json"
+                urlKec = f"https://www.emsifa.com/api-wilayah-indonesia/api/districts/{kabupaten}.json"
+                urlKel = f"https://www.emsifa.com/api-wilayah-indonesia/api/villages/{kecamatan}.json"
+
+                provinsi = fetchIndo(urlProv, provinsi)
+                kabupaten = fetchIndo(urlKab, kabupaten)
+                kecamatan = fetchIndo(urlKec, kecamatan)
+                kelurahan = fetchIndo(urlKel, kelurahan)
+
+                DataPelanggan = {
+                    "user_id": ObjectId(session["user_id"]),
+                    "nama_lengkap": namaLengkap,
+                    "alamat": {
+                        "jalan": jalan,
+                        "no_rumah": noRumah,
+                        "rt": rt,
+                        "rw": rw,
+                        "kelurahan": kelurahan,
+                        "kecamatan": kecamatan,
+                        "kabupaten": kabupaten,
+                        "provinsi": provinsi,
+                        "kode_pos": kodepos
+                    },
+                    "no_telepon": noTelp,
+                    "jenis_pelanggan": jenisPelanggan,
+                    "nama_perusahaan": perusahaan,
+                    "created_at": datetime.now(timezone.utc),
+                    "updated_at": datetime.now(timezone.utc)
+                }
+                
+                if biopelanggan.insert_one(DataPelanggan):
+                    return respon_api("success", 200, "Pendaftaran berhasil", [], {})
+                else:
+                    return respon_api("error", 500, "Terjadi kesalahan saat mendaftar", [], {}), 500
+
     
         # request GET (default)
         else:
             return tampilkanDataSpesifik(biopelanggan, {"user_id": ObjectId(session["user_id"])})
     
     except Exception as error:
-        return respon_api("error", 500, "Terjadi kesalahan", str(error), {})
+        return respon_api("error", 500, "Terjadi kesalahan", str(error), {}), 500
 
 # Autentikasi
 @customer_route.route("/api/auth", methods=["GET", "POST"])
@@ -221,9 +287,9 @@ def authetikasi():
 
                     return respon_api("success", 200, "Verifikasi berhasil", [], {})
                 else:
-                    return respon_api("error", 401, "Sandi salah", [], {})
+                    return respon_api("error", 401, "Sandi salah", [], {}), 401
             else:
-                return respon_api("error", 401, "Akun tidak tersedia", [], {})
+                return respon_api("error", 401, "Akun tidak tersedia", [], {}), 401
 
         # Sistem Registrasi
         if "register" in request.form:
@@ -234,7 +300,7 @@ def authetikasi():
             # Cek akun customer
             akun = userData.find_one({"email": email, "role": "customer"})
             if akun: 
-                return respon_api("error", 409, "Email Sudah Terdaftar", [], {})
+                return respon_api("error", 409, "Email Sudah Terdaftar", [], {}), 409
             else:
 
                 # Enkripsi sandi
@@ -320,7 +386,7 @@ def authetikasi():
                     return respon_api("error", 500, "Registrasi Gagal", [], {}), 500
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
     
 # Verifikasi
 @customer_route.route("/api/data/verifikasi", methods=["GET", "POST"])
@@ -342,11 +408,10 @@ def verifikasi():
                 userData.update_one({"_id": ObjectId(session["user_id"])}, {"$set": {"kode_verif.is_verified": True, "is_active": True}})
                 return respon_api("success", 200, "Verifikasi berhasil", [], {})
             else:
-                return respon_api("error", 401, "Kode Salah", [], {})
+                return respon_api("error", 401, "Kode Salah", [], {}), 401
         else:
-            return respon_api("error", 401, "Akun tidak tersedia", [], {})
-        # return respon_api("success", 200, "Fetch berhasil", str(request.form), {})
+            return respon_api("error", 401, "Akun tidak tersedia", [], {}), 401
     
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
     
