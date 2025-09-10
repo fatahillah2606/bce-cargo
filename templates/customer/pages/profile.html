@@ -443,11 +443,9 @@
                                     disabled
                                     class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
                                 >
-                                    <option value="">Pilih provinsi</option>
-                                    <option value="jakarta" selected>
-                                        DKI Jakarta
+                                    <option value="" selected>
+                                        Pilih provinsi
                                     </option>
-                                    <option value="jabar">Jawa Barat</option>
                                 </select>
                                 <span
                                     class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -469,9 +467,8 @@
                                     disabled
                                     class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
                                 >
-                                    <option value="">Pilih kabupaten</option>
-                                    <option value="jaksel" selected>
-                                        Jakarta Selatan
+                                    <option value="" selected>
+                                        Pilih kabupaten
                                     </option>
                                 </select>
                                 <span
@@ -494,9 +491,8 @@
                                     disabled
                                     class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
                                 >
-                                    <option value="">Pilih kecamatan</option>
-                                    <option value="tebet" selected>
-                                        Tebet
+                                    <option value="" selected>
+                                        Pilih kecamatan
                                     </option>
                                 </select>
                                 <span
@@ -519,9 +515,8 @@
                                     disabled
                                     class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
                                 >
-                                    <option value="">Pilih kelurahan</option>
-                                    <option value="menteng" selected>
-                                        Menteng Dalam
+                                    <option value="" selected>
+                                        Pilih kelurahan
                                     </option>
                                 </select>
                                 <span
@@ -586,17 +581,16 @@
                     <!-- Nama -->
                     <div class="relative">
                         <label
-                            for="nama-akun"
+                            for="nama_akun"
                             class="block text-sm font-medium text-gray-700"
                             >Nama</label
                         >
                         <div class="mt-1 relative">
                             <input
                                 type="text"
-                                id="nama-akun"
-                                name="nama-akun"
+                                id="nama_akun"
+                                name="nama_akun"
                                 maxlength="50"
-                                value="{{ nama_pengguna }}"
                                 required
                                 readonly
                                 class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
@@ -626,7 +620,6 @@
                                 id="email"
                                 name="email"
                                 maxlength="100"
-                                value="{{ email_pengguna }}"
                                 required
                                 readonly
                                 class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
@@ -745,6 +738,7 @@
         {% include 'customer/components/footer.html' %}
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script src="{{url_for('static',filename='js/customer/fetch-wilayah.js')}}"></script>
         <script>
             const transitionEl = document.getElementById("page-transition");
             const links = document.querySelectorAll(".page-link");
@@ -781,37 +775,76 @@
             const inputs = form.querySelectorAll("input, select, textarea");
 
             // Muat biodata dari database
-            fetch("/customer/api/data/pelanggan", {
-                method: "GET",
-            })
-                .then(async (respon) => {
-                    const data = await respon.json();
-                    if (!respon.ok) {
-                        console.error(data.message);
-
-                        throw new Error(data.data);
-                    }
-                    return data;
+            function muatDataPelanggan() {
+                fetch("/customer/api/data/pelanggan", {
+                    method: "GET",
                 })
-                .then((data) => {
-                    const biodata = data.data;
+                    .then(async (respon) => {
+                        const data = await respon.json();
+                        if (!respon.ok) {
+                            console.error(data.message);
 
-                    // Biodata
-                    form.nama.value = biodata.nama_lengkap;
-                    form.ponsel.value = biodata.no_telepon;
-                    form.jenis.value = biodata.jenis_pelanggan;
-                    form.perusahaan.value = biodata.nama_perusahaan;
+                            throw new Error(data.data);
+                        }
+                        return data;
+                    })
+                    .then((data) => {
+                        const biodata = data.data;
 
-                    // Alamat
-                    formAlamat.jalan.value = biodata.alamat.jalan;
-                    formAlamat.kodepos.value = biodata.alamat.kode_pos;
-                    formAlamat.no_rumah.value = biodata.alamat.no_rumah;
-                    formAlamat.rt.value = biodata.alamat.rt;
-                    formAlamat.rw.value = biodata.alamat.rw;
+                        // Biodata
+                        form.nama.value = biodata.nama_lengkap;
+                        form.ponsel.value = biodata.no_telepon;
+                        form.jenis.value = biodata.jenis_pelanggan;
+                        form.perusahaan.value = biodata.nama_perusahaan;
+
+                        // Alamat
+                        formAlamat.jalan.value = biodata.alamat.jalan;
+                        formAlamat.kodepos.value = biodata.alamat.kode_pos;
+                        formAlamat.no_rumah.value = biodata.alamat.no_rumah;
+                        formAlamat.rt.value = biodata.alamat.rt;
+                        formAlamat.rw.value = biodata.alamat.rw;
+
+                        // Wilayah
+                        initWilayah({
+                            selectProvinsi: formAlamat.provinsi,
+                            selectKabupaten: formAlamat.kabupaten,
+                            selectKecamatan: formAlamat.kecamatan,
+                            selectKelurahan: formAlamat.kelurahan,
+                            dataWilayah: biodata.alamat, // objek hasil dari database
+                        });
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+
+            function muatAkunPelanggan() {
+                fetch("/customer/api/data/account", {
+                    method: "GET",
                 })
-                .catch((error) => {
-                    console.error(error);
-                });
+                    .then(async (respon) => {
+                        const data = await respon.json();
+                        if (!respon.ok) {
+                            console.error(data.message);
+
+                            throw new Error(data.data);
+                        }
+                        return data;
+                    })
+                    .then((data) => {
+                        const akun = data.data;
+
+                        // Akun
+                        formAkun.nama_akun.value = akun.name;
+                        formAkun.email.value = akun.email;
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            }
+
+            muatDataPelanggan();
+            muatAkunPelanggan();
 
             let editMode = false;
 

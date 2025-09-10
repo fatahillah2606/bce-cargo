@@ -399,7 +399,7 @@
                             <label
                                 for="kabupaten"
                                 class="block text-sm font-medium text-gray-700"
-                                >Kabupaten</label
+                                >Kabupaten/Kota</label
                             >
                             <div class="mt-1 relative">
                                 <select
@@ -484,10 +484,60 @@
                     <div class="flex justify-end pt-4">
                         <button
                             type="submit"
-                            onclick="kirimData(event)"
-                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                            onclick="kirimData(event, this)"
+                            class="relative rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer overflow-hidden"
                         >
-                            Simpan
+                            <span class="button-text">Simpan</span>
+
+                            <!-- Overlay untuk spinner -->
+                            <span
+                                class="loading-overlay absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                            >
+                                <svg
+                                    aria-hidden="true"
+                                    role="status"
+                                    class="inline w-5 h-5 text-white animate-spin"
+                                    viewBox="0 0 100 101"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                >
+                                    <path
+                                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 
+                                        100.591 0 78.2051 0 50.5908C0 22.9766 
+                                        22.3858 0.59082 50 0.59082C77.6142 
+                                        0.59082 100 22.9766 100 50.5908ZM9.08144 
+                                        50.5908C9.08144 73.1895 27.4013 91.5094 
+                                        50 91.5094C72.5987 91.5094 90.9186 
+                                        73.1895 90.9186 50.5908C90.9186 27.9921 
+                                        72.5987 9.67226 50 9.67226C27.4013 
+                                        9.67226 9.08144 27.9921 9.08144 
+                                        50.5908Z"
+                                        fill="#E5E7EB"
+                                    />
+                                    <path
+                                        d="M93.9676 39.0409C96.393 38.4038 
+                                        97.8624 35.9116 97.0079 33.5539C95.2932 
+                                        28.8227 92.871 24.3692 89.8167 
+                                        20.348C85.8452 15.1192 80.8826 
+                                        10.7238 75.2124 7.41289C69.5422 
+                                        4.10194 63.2754 1.94025 56.7698 
+                                        1.05124C51.7666 0.367541 46.6976 
+                                        0.446843 41.7345 1.27873C39.2613 
+                                        1.69328 37.813 4.19778 38.4501 
+                                        6.62326C39.0873 9.04874 41.5694 
+                                        10.4717 44.0505 10.1071C47.8511 
+                                        9.54855 51.7191 9.52689 55.5402 
+                                        10.0491C60.8642 10.7766 65.9928 
+                                        12.5457 70.6331 15.2552C75.2735 
+                                        17.9648 79.3347 21.5619 82.5849 
+                                        25.841C84.9175 28.9121 86.7997 
+                                        32.2913 88.1811 35.8758C89.083 
+                                        38.2158 91.5421 39.6781 93.9676 
+                                        39.0409Z"
+                                        fill="currentColor"
+                                    />
+                                </svg>
+                            </span>
                         </button>
                     </div>
                 </form>
@@ -499,13 +549,21 @@
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
         <script src="{{url_for('static',filename='js/customer/form-auth.js')}}"></script>
+        <script src="{{url_for('static',filename='js/customer/fetch-wilayah.js')}}"></script>
         <script>
             // Variable
-
             const selectProvinsi = document.getElementById("provinsi");
             const selectKabupaten = document.getElementById("kabupaten");
             const selectKecamatan = document.getElementById("kecamatan");
             const selectKelurahan = document.getElementById("kelurahan");
+
+            // Init
+            initWilayah({
+                selectProvinsi: selectProvinsi,
+                selectKabupaten: selectKabupaten,
+                selectKecamatan: selectKecamatan,
+                selectKelurahan: selectKelurahan,
+            });
 
             // Cek jika ada perubahan pada kolom
             function cekInputPengguna() {
@@ -540,8 +598,15 @@
             });
 
             // === FORM SUBMIT ===
-            function kirimData(event) {
+            function kirimData(event, btn) {
                 event.preventDefault();
+
+                // Tampilkan overlay spinner
+                btn.querySelector(".loading-overlay").classList.remove(
+                    "hidden"
+                );
+                btn.classList.add("pointer-events-none"); // blokir klik
+
                 const formBiodata = document.getElementById("form-biodata");
                 const regisBio = new FormData(formBiodata);
                 regisBio.append("daftarPelanggan", true);
@@ -579,141 +644,13 @@
                         })
                         .then((data) => {
                             alert(data.message);
+                            location.href = "/";
                         })
                         .catch((error) => {
                             console.error(error);
                         });
                 }
             }
-
-            // Fetch wilayah
-            function fetchWilayahIndo(apiLink, uid) {
-                let link = uid == null ? apiLink : apiLink + "/" + uid;
-
-                return fetch(link, {
-                    method: "GET",
-                })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            throw new Error(
-                                data.message || "Terjadi Kesalahan"
-                            );
-                        }
-                        return data;
-                    })
-                    .then((data) => {
-                        return data.data;
-                    })
-                    .catch((error) => {
-                        console.error("Gagal fetch: ", error);
-                    });
-            }
-
-            // Opsi provinsi
-            fetchWilayahIndo("/api/data/provinsi").then((respon) => {
-                respon.forEach((provinsi) => {
-                    const opsiProv = new Option(provinsi.name, provinsi.id);
-                    selectProvinsi.add(opsiProv);
-                });
-                selectProvinsi.removeAttribute("disabled");
-            });
-
-            // Paksa disable kabupaten
-            selectKabupaten.setAttribute("disabled", true);
-
-            // Kabupaten
-            selectProvinsi.addEventListener("change", () => {
-                const idProv = selectProvinsi.value;
-
-                // Kosongkan dulu pilihannya
-                selectKabupaten.options.length = 0;
-                const opsiDefault = new Option(
-                    "Pilih kabupaten",
-                    "",
-                    true,
-                    true
-                );
-                selectKabupaten.add(opsiDefault);
-
-                // Fetch kabupaten
-                fetchWilayahIndo("/api/data/kabupaten/", idProv).then(
-                    (respon) => {
-                        respon.forEach((kabupaten) => {
-                            const opsiKab = new Option(
-                                kabupaten.name,
-                                kabupaten.id
-                            );
-                            selectKabupaten.add(opsiKab);
-                        });
-                        selectKabupaten.removeAttribute("disabled");
-                    }
-                );
-            });
-
-            // Paksa disable kecamatan
-            selectKecamatan.setAttribute("disabled", true);
-
-            // Kecamatan
-            selectKabupaten.addEventListener("change", () => {
-                const idKab = selectKabupaten.value;
-
-                // Kosongkan dulu pilihannya
-                selectKecamatan.options.length = 0;
-                const opsiDefault = new Option(
-                    "Pilih kecamatan",
-                    "",
-                    true,
-                    true
-                );
-                selectKecamatan.add(opsiDefault);
-
-                // Fetch kecamatan
-                fetchWilayahIndo("/api/data/kecamatan/", idKab).then(
-                    (respon) => {
-                        respon.forEach((kecamatan) => {
-                            const opsiKec = new Option(
-                                kecamatan.name,
-                                kecamatan.id
-                            );
-                            selectKecamatan.add(opsiKec);
-                        });
-                        selectKecamatan.removeAttribute("disabled");
-                    }
-                );
-            });
-
-            // Paksa disable kelurahan
-            selectKelurahan.setAttribute("disabled", true);
-
-            // Kelurahan
-            selectKecamatan.addEventListener("change", () => {
-                const idKec = selectKecamatan.value;
-
-                // Kosongkan dulu pilihannya
-                selectKelurahan.options.length = 0;
-                const opsiDefault = new Option(
-                    "Pilih kelurahan",
-                    "",
-                    true,
-                    true
-                );
-                selectKelurahan.add(opsiDefault);
-
-                // Fetch kecamatan
-                fetchWilayahIndo("/api/data/kelurahan/", idKec).then(
-                    (respon) => {
-                        respon.forEach((kelurahan) => {
-                            const opsiKec = new Option(
-                                kelurahan.name,
-                                kelurahan.id
-                            );
-                            selectKelurahan.add(opsiKec);
-                        });
-                        selectKelurahan.removeAttribute("disabled");
-                    }
-                );
-            });
         </script>
     </body>
 </html>

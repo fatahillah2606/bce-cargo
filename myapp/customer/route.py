@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, request,render_template, session, redirect, url_for, current_app
 from connection import db_bce
+from pymongo import ReturnDocument
 from functools import wraps
 from datetime import datetime, timedelta, timezone
-import bcrypt, math, requests
+import bcrypt, math, requests, json
 from myapp.customer.generate_code import generate_verification_code
 from bson.objectid import ObjectId
 from myapp.email_utils import send_email_smtp
@@ -35,7 +36,50 @@ def respon_api(status, code, message, data, pagination):
     }
     return jsonify(respon)
 
-# Tampilkan Semua Data
+# Buat kode pemesanan
+def generate_kode_pemesanan(moda: str) -> str:
+    counters = collection["counters"]
+    
+    # mapping moda pake match-case
+    match moda.lower():
+        case "udara":
+            moda_code = "U"
+        case "darat":
+            moda_code = "D"
+        case "laut":
+            moda_code = "L"
+        case _:
+            raise ValueError("Moda tidak dikenal. Gunakan: Udara, Darat, atau Laut.")
+
+    # format tanggal: yymmdd
+    tanggal = datetime.now().strftime("%y%m%d")
+
+    # bikin key unik berdasarkan moda + tanggal
+    key = f"{moda_code}-{tanggal}"
+
+    # update counter di MongoDB (atomic operation)
+    doc = counters.find_one_and_update(
+        {"id": key},
+        {"$inc": {"sequence_value": 1}},
+        upsert=True,  # kalau belum ada, buat baru
+        return_document=ReturnDocument.AFTER
+    )
+
+    # ambil nomor urut
+    urutan = doc["sequence_value"]
+    unique_id = f"{urutan:03}"  # jadi 3 digit
+
+    return f"BCE-{moda_code}-{tanggal}-{unique_id}"
+
+# Ubah UTC ke Indonesia
+def convert_utc_to_indonesia(waktu):
+    # Mengubah waktu UTC ke waktu Indonesia (WIB, UTC+7)
+    indonesia_time = waktu.astimezone(timezone(timedelta(hours=7)))
+    
+    # Mengembalikan format tanggal dan waktu
+    return indonesia_time.strftime('%d %B %Y, %H:%M:%S WIB')
+
+# Tampilkan Data Spesifik
 def tampilkanDataSpesifik(koleksi, query):
     data = koleksi.find_one(query)
     if data:
@@ -53,14 +97,33 @@ def khusus_customer(f):
     return decorated_function
 
 # Fetch wilayah indonesia
-def fetchIndo(url, idWilayah):
-    wilayah = requests.get(url)
-    wilayah = wilayah.json()
+def fetchIndo(jenisWilayah, idWilayah, parentWilayah = None):
+    url = ""
 
-    for listWilayah in wilayah:
-        if listWilayah["id"] == idWilayah:
-            return listWilayah["name"]
+    match jenisWilayah:
+        case "provinsi":
+            url = f"https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
+        case "kabupaten":
+            url = f"https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{parentWilayah}.json"
+        case "kecamatan":
+            url = f"https://www.emsifa.com/api-wilayah-indonesia/api/districts/{parentWilayah}.json"
+        case "kelurahan":
+            url = f"https://www.emsifa.com/api-wilayah-indonesia/api/villages/{parentWilayah}.json"
 
+    try:
+        wilayah = requests.get(url)
+        wilayah = wilayah.json()
+
+        for listWilayah in wilayah:
+            if listWilayah["id"] == idWilayah:
+                dataWilayah = {
+                    "id": int(listWilayah["id"]),
+                    "name": str(listWilayah["name"])
+                }
+
+                return dataWilayah
+    except Exception as error:
+        return print(error)
 
 # Atur route
 customer_route = Blueprint("customer", __name__)
@@ -212,17 +275,6 @@ def dataPelanggan():
                 kecamatan = str(request.form["kecamatan"])
                 kelurahan = str(request.form["kelurahan"])
 
-                # Link API
-                urlProv = f"https://emsifa.github.io/api-wilayah-indonesia/api/provinces.json"
-                urlKab = f"https://emsifa.github.io/api-wilayah-indonesia/api/regencies/{provinsi}.json"
-                urlKec = f"https://www.emsifa.com/api-wilayah-indonesia/api/districts/{kabupaten}.json"
-                urlKel = f"https://www.emsifa.com/api-wilayah-indonesia/api/villages/{kecamatan}.json"
-
-                provinsi = fetchIndo(urlProv, provinsi)
-                kabupaten = fetchIndo(urlKab, kabupaten)
-                kecamatan = fetchIndo(urlKec, kecamatan)
-                kelurahan = fetchIndo(urlKel, kelurahan)
-
                 DataPelanggan = {
                     "user_id": ObjectId(session["user_id"]),
                     "nama_lengkap": namaLengkap,
@@ -231,10 +283,10 @@ def dataPelanggan():
                         "no_rumah": noRumah,
                         "rt": rt,
                         "rw": rw,
-                        "kelurahan": kelurahan,
-                        "kecamatan": kecamatan,
-                        "kabupaten": kabupaten,
-                        "provinsi": provinsi,
+                        "kelurahan": fetchIndo("kelurahan", kelurahan, kecamatan),
+                        "kecamatan": fetchIndo("kecamatan", kecamatan, kabupaten),
+                        "kabupaten": fetchIndo("kabupaten", kabupaten, provinsi),
+                        "provinsi": fetchIndo("provinsi", provinsi),
                         "kode_pos": kodepos
                     },
                     "no_telepon": noTelp,
@@ -256,6 +308,162 @@ def dataPelanggan():
     
     except Exception as error:
         return respon_api("error", 500, "Terjadi kesalahan", str(error), {}), 500
+
+# Pemesanan
+@customer_route.route("/api/data/kategori_barang", methods=["GET"])
+@khusus_customer
+def kategoriBarang():
+    print("Ok")
+    cursor = collection["kategori_barang_kargo"].find({})
+    data = [convert_objectid_to_str(doc) for doc in cursor]
+
+    if data:
+        return respon_api("success", 200, str("Data tersedia"), data, {})
+    else:
+        return respon_api("error", 404, str("Data tidak tersedia"), [], {}), 404
+    
+@customer_route.route("/api/pemesanan", methods=["GET", "POST"])
+@khusus_customer
+def pemesanan():
+    try:
+        if request.method == "POST":
+            dataPemesan = collection["data_pelanggan"].find_one({"user_id": ObjectId(session["user_id"])})
+
+            # Biodata pengirim
+            namaPengirim = str(request.form["nama_pengirim"])
+            noPengirim = str(request.form["whatsapp_pengirim"])
+
+            jalanPengirim = str(request.form["jalan_pengirim"])
+            kodeposPengirim = str(request.form["kodepos_pengirim"])
+            rtPengirim = str(request.form["rt_pengirim"])
+            rwPengirim = str(request.form["rw_pengirim"])
+
+            provinsiPengirim = str(request.form["provinsi_pengirim"])
+            kabupatenPengirim = str(request.form["kabupaten_pengirim"])
+            kecamatanPengirim = str(request.form["kecamatan_pengirim"])
+            kelurahanPengirim = str(request.form["kelurahan_pengirim"])
+
+            alamatLengkapPengirim = "Jl. " + jalanPengirim + ", " + "Rt. " + rtPengirim + ", " + "Rw. " + rwPengirim + ", " + "Kel. " + fetchIndo("kelurahan", kelurahanPengirim, kecamatanPengirim)["name"] + ", " + "Kec. " + fetchIndo("kecamatan", kecamatanPengirim, kabupatenPengirim)["name"] + ", " + "Kab. " + fetchIndo("kabupaten", kabupatenPengirim, provinsiPengirim)["name"] + ", " + "Prov. " + fetchIndo("provinsi", provinsiPengirim)["name"] + ", " + "Kode pos. " + kodeposPengirim
+
+            # Biodata Penerima
+            namaPenerima = str(request.form["nama_penerima"])
+            noPenerima = str(request.form["whatsapp_penerima"])
+
+            jalanPenerima = str(request.form["jalan_penerima"])
+            kodeposPenerima = str(request.form["kodepos_penerima"])
+            rtPenerima = str(request.form["rt_penerima"])
+            rwPenerima = str(request.form["rw_penerima"])
+
+            provinsiPenerima = str(request.form["provinsi_penerima"])
+            kabupatenPenerima = str(request.form["kabupaten_penerima"])
+            kecamatanPenerima = str(request.form["kecamatan_penerima"])
+            kelurahanPenerima = str(request.form["kelurahan_penerima"])
+
+            alamatLengkapPenerima = "Jl. " + jalanPenerima + ", " + "Rt. " + rtPenerima + ", " + "Rw. " + rwPenerima + ", " + "Kel. " + fetchIndo("kelurahan", kelurahanPenerima, kecamatanPenerima)["name"] + ", " + "Kec. " + fetchIndo("kecamatan", kecamatanPenerima, kabupatenPenerima)["name"] + ", " + "Kab. " + fetchIndo("kabupaten", kabupatenPenerima, provinsiPenerima)["name"] + ", " + "Prov. " + fetchIndo("provinsi", provinsiPenerima)["name"] + ", " + "Kode pos. " + kodeposPenerima
+
+            # Data barang
+            listBarang = []
+            dataBarang = json.loads(request.form["data_barang"])
+            global modaBarang
+            global beratKargo
+            beratKargo = 0
+        
+            for barang in dataBarang:
+                idBarang = ObjectId()
+
+                DataBarang = {
+                    "_id": idBarang,
+                    "nama_barang": str(barang["nama_barang"]),
+                    "jumlah": int(barang["jumlah_barang"]),
+                    "berat_kg": float(barang["berat_barang"]),
+                    "dimensi_cm": {
+                        "panjang": float(barang["panjang"]),
+                        "lebar": float(barang["lebar"]),
+                        "tinggi": float(barang["tinggi"])
+                    },
+                    "kategori_id": ObjectId(barang["kategori_barang"]),
+                    "butuh_asuransi": bool(barang["butuh_asuransi"]),
+                    "metode_pengiriman": str(barang["metode_pengiriman"]),
+                    "catatan_tambahan": str(barang["catatan_barang"]),
+                    "status_cek_dg": "belum dicek",
+                    "biaya_surcharge": None,
+                    "butuh_packing_khusus": False,
+                    "butuh_label_dg": False
+                }
+
+                # Kirim data barang ke DB
+                collection["data_barang"].insert_one(DataBarang)
+
+                listBarang.append(idBarang)
+                beratKargo = beratKargo + float(barang["berat_barang"])
+                modaBarang = str(barang["metode_pengiriman"])
+
+            kodePesanan = generate_kode_pemesanan(modaBarang)
+            # Data pesanan
+            DataPesanan = {
+                "_id": ObjectId(),
+                "kode_pemesanan": kodePesanan,
+                "nama_pengirim": namaPengirim,
+                "nama_penerima": namaPenerima,
+                "alamat_pengirim": alamatLengkapPengirim,
+                "alamat_penerima": alamatLengkapPenerima,
+                "no_hp_pengirim": noPengirim,
+                "no_hp_penerima": noPenerima,
+                "jenis_kargo": modaBarang,
+                "berat_kargo": beratKargo,
+                "harga_total": 0,
+                "status": "Pending",
+                "tanggal_pemesanan": datetime.now(timezone.utc),
+                "pelanggan_id": dataPemesan["_id"],
+                "barang_ids": listBarang
+            }
+
+            buatPesanan = collection["pemesanan_kargo"].insert_one(DataPesanan)
+
+            # Kirim email ke setiap admin
+            if buatPesanan:
+                ambilEmailAdmin = collection["users"].find({"role": "admin"}, {"email": 1})
+                listEmailAdmin = [listEmail["email"] for listEmail in ambilEmailAdmin]
+
+                # Bagian kirm email
+                # Data untuk template
+                context = {
+                    "kode_pemesanan": kodePesanan,
+                    "nama_pengirim": namaPengirim,
+                    "no_hp_pengirim": noPengirim,
+                    "alamat_pengirim": alamatLengkapPengirim,
+                    "nama_penerima": namaPenerima,
+                    "no_hp_penerima": noPenerima,
+                    "alamat_penerima": alamatLengkapPenerima,
+                    "jenis_kargo": modaBarang,
+                    "berat_kargo": beratKargo,
+                    "tanggal_pemesanan": convert_utc_to_indonesia(datetime.now(timezone.utc)),
+                    "ADMIN_DASHBOARD_URL": f"http://localhost:5000/admin/pesanan_masuk",
+                    "APP_NAME": "CV. Bahtera Cahaya Express"
+                }
+
+                html_body = render_template("emails/admin/pesan_baru.html", **context)
+                text_body = render_template("emails/admin/pesan_baru.txt", **context)
+
+                # Hanya 1 kali kirim dengan BCC
+                send_email_smtp(
+                    host=current_app.config["MAIL_SERVER"],
+                    port=current_app.config["MAIL_PORT"],
+                    sender=current_app.config["MAIL_SENDER"],
+                    to="no-reply@bce-cargo.local",  # placeholder
+                    subject=f"Pesanan Baru #{kodePesanan}",
+                    html_body=html_body,
+                    text_body=text_body,
+                    bcc=listEmailAdmin
+                )
+
+            return respon_api("success", 200, str("Data terkirim"), [], {})
+        else:
+            return respon_api("error", 400, "Bad request", [], {}), 400
+        
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {}), 500
+
 
 # Autentikasi
 @customer_route.route("/api/auth", methods=["GET", "POST"])

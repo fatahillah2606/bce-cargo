@@ -46,20 +46,17 @@ function loginCustomer(event) {
             method: "POST",
             body: formulir,
         })
-            .then((response) => {
+            .then(async (response) => {
+                const data = await response.json();
                 if (!response.ok) {
-                    throw new Error("Gagal terhubung ke server");
+                    tampilkanError(data.message);
+                    throw new Error(data.message);
                 }
-                return response.json();
+                return data;
             })
             .then((data) => {
-                if (data.code === 200) {
-                    tampilkanError(); // Hapus banner error
-                    location.href = "/";
-                } else {
-                    tampilkanError(data.message);
-                    console.log(data);
-                }
+                tampilkanError(); // Hapus banner error
+                location.href = "/";
             })
             .catch((error) => {
                 console.error(error);
