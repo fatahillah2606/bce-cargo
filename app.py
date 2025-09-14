@@ -21,7 +21,7 @@ from myapp.chatbot.route import chatbot_route
 
 app = Flask(__name__)
 app.secret_key = SESSION_KEY
-app.permanent_session_lifetime = timedelta(hours=1)
+app.permanent_session_lifetime = timedelta(days=30)
 
 # Konfigurasi MailHog (lokal)
 app.config.update(
@@ -127,6 +127,11 @@ def get_kelurahan(kec_id):
     
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
+    
+# Uji coba tampilan email (hapus bagian ini setelah produksi)
+@app.route("/email_test")
+def email_test():
+   return render_template("emails/penolakan_pesanan.html")
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", debug=True)
