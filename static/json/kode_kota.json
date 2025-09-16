@@ -1,0 +1,194 @@
+[
+  {
+    "kode": "JKT",
+    "kota": "Jakarta"
+  },
+  {
+    "kode": "BKS",
+    "kota": "Bengkulu"
+  },
+  {
+    "kode": "BPN",
+    "kota": "Balikpapan"
+  },
+  {
+    "kode": "GTO",
+    "kota": "Gorontalo"
+  },
+  {
+    "kode": "MDC",
+    "kota": "Manado"
+  },
+  {
+    "kode": "MKW",
+    "kota": "Manokwari"
+  },
+  {
+    "kode": "PKU",
+    "kota": "Pekanbaru"
+  },
+  {
+    "kode": "PKY",
+    "kota": "Palangkaraya"
+  },
+  {
+    "kode": "PKN",
+    "kota": "Pangkalanbun"
+  },
+  {
+    "kode": "SOQ",
+    "kota": "Sorong"
+  },
+  {
+    "kode": "TIQ",
+    "kota": "Tanjung Pandan"
+  },
+  {
+    "kode": "TNJ",
+    "kota": "Tanjung Pinang"
+  },
+  {
+    "kode": "TRK",
+    "kota": "Tarakan"
+  },
+  {
+    "kode": "AMQ",
+    "kota": "Ambon"
+  },
+  {
+    "kode": "BIK",
+    "kota": "Biak"
+  },
+  {
+    "kode": "KDI",
+    "kota": "Kendari"
+  },
+  {
+    "kode": "LBJ",
+    "kota": "Labuan Bajo"
+  },
+  {
+    "kode": "PLW",
+    "kota": "Palu"
+  },
+  {
+    "kode": "AAP",
+    "kota": "Samarinda"
+  },
+  {
+    "kode": "SUB",
+    "kota": "Surabaya"
+  },
+  {
+    "kode": "TIM",
+    "kota": "Timika"
+  },
+  {
+    "kode": "TTE",
+    "kota": "Ternate"
+  },
+  {
+    "kode": "BDJ",
+    "kota": "Banjarmasin"
+  },
+  {
+    "kode": "BWX",
+    "kota": "Banyuwangi"
+  },
+  {
+    "kode": "DJB",
+    "kota": "Jambi"
+  },
+  {
+    "kode": "JOG",
+    "kota": "Yogyakarta"
+  },
+  {
+    "kode": "KOE",
+    "kota": "Kupang"
+  },
+  {
+    "kode": "LUW",
+    "kota": "Luwuk"
+  },
+  {
+    "kode": "MJU",
+    "kota": "Mamuju"
+  },
+  {
+    "kode": "MLG",
+    "kota": "Malang"
+  },
+  {
+    "kode": "PLM",
+    "kota": "Palembang"
+  },
+  {
+    "kode": "PNK",
+    "kota": "Pontianak"
+  },
+  {
+    "kode": "SOC",
+    "kota": "Solo"
+  },
+  {
+    "kode": "SRG",
+    "kota": "Semarang"
+  },
+  {
+    "kode": "TKG",
+    "kota": "Tanjung Karang"
+  },
+  {
+    "kode": "TMC",
+    "kota": "Tambolaka"
+  },
+  {
+    "kode": "KNO",
+    "kota": "Medan"
+  },
+  {
+    "kode": "UPG",
+    "kota": "Makassar"
+  },
+  {
+    "kode": "BEJ",
+    "kota": "Berau"
+  },
+  {
+    "kode": "BTH",
+    "kota": "Batam"
+  },
+  {
+    "kode": "BTJ",
+    "kota": "Banda Aceh"
+  },
+  {
+    "kode": "DJJ",
+    "kota": "Jayapura"
+  },
+  {
+    "kode": "DPS",
+    "kota": "Denpasar"
+  },
+  {
+    "kode": "LOP",
+    "kota": "Lombok"
+  },
+  {
+    "kode": "MKQ",
+    "kota": "Merauke"
+  },
+  {
+    "kode": "NBX",
+    "kota": "Nabire"
+  },
+  {
+    "kode": "PDG",
+    "kota": "Padang"
+  },
+  {
+    "kode": "PGK",
+    "kota": "Pangkal Pinang"
+  }
+]

@@ -309,6 +309,19 @@
             function closeModal(id) {
                 document.getElementById(id).classList.add("hidden");
             }
+
+            // POPUP LIHAT DETAIL
+            function openModal(id) {
+                const modal = document.getElementById(id);
+                modal.classList.remove("hidden");
+
+                const content = modal.querySelector("div");
+                content.classList.add("modal-enter");
+                requestAnimationFrame(() => {
+                    content.classList.add("modal-enter-active");
+                    content.classList.remove("modal-enter");
+                });
+            }
         </script>
     </body>
 </html>

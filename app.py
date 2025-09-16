@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect, url_for, session, send_from_directory
 from datetime import timedelta, datetime, timezone
 from dotenv import load_dotenv
-import os, requests
+import os, requests, json
 
 # Load .env
 load_dotenv()
@@ -127,6 +127,16 @@ def get_kelurahan(kec_id):
     
     except Exception as error:
         return respon_api("error", 500, str(error), [], {})
+    
+@app.route("/api/data/kode_kota", methods=["GET"])
+def kodeKota():
+    try:
+      with open("static/json/kode_kota.json", "r") as f:
+        data = json.load(f)
+        return respon_api("success", 200, "JSON Data loaded successfull", data, {})
+    
+    except Exception as e:
+      return respon_api("error", 500, str(e), [], {}), 500
     
 # Uji coba tampilan email (hapus bagian ini setelah produksi)
 @app.route("/email_test")

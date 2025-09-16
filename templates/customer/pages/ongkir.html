@@ -122,6 +122,31 @@
                             id="form-tarif"
                             class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 bg-gray-50 rounded-xl border border-gray-200"
                         >
+                            <!-- Destinasi -->
+                            <div class="flex flex-col">
+                                <label
+                                    for="destinasi"
+                                    class="mb-2 font-medium text-sm text-gray-700"
+                                    >Destinasi</label
+                                >
+                                <select
+                                    id="destinasi"
+                                    name="destinasi"
+                                    required
+                                    class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none cursor-pointer"
+                                >
+                                    <option value="">
+                                        -- Pilih Destinasi --
+                                    </option>
+                                </select>
+                                <p
+                                    id="error-destinasi"
+                                    class="hidden text-xs text-red-500 mt-1"
+                                >
+                                    Destinasi wajib dipilih.
+                                </p>
+                            </div>
+
                             <!-- Moda -->
                             <div class="flex flex-col">
                                 <label
@@ -162,16 +187,16 @@
                                     class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:outline-none cursor-pointer"
                                 >
                                     <option value="">-- Pilih Jenis --</option>
-                                    <option value="door-to-door">
+                                    <option value="door to door">
                                         Door to Door
                                     </option>
-                                    <option value="door-to-port">
+                                    <option value="door to port">
                                         Door to Port
                                     </option>
-                                    <option value="port-to-port">
+                                    <option value="port to port">
                                         Port to Port
                                     </option>
-                                    <option value="port-to-door">
+                                    <option value="port to door">
                                         Port to Door
                                     </option>
                                 </select>
@@ -229,23 +254,26 @@
                         <tr>
                             <th class="px-6 py-3">Destinasi</th>
                             <th class="px-6 py-3">Harga</th>
+                            <th class="px-6 py-3">Kg</th>
                             <th class="px-6 py-3">Jenis</th>
                             <th class="px-6 py-3">Moda</th>
                             <th class="px-6 py-3">Origin</th>
                             <th class="px-6 py-3">Rute</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tarifTable">
                         <tr class="border-b hover:bg-green-50 transition">
                             <td class="px-6 py-4 font-medium text-gray-900">
                                 AMQ
                             </td>
                             <td class="px-6 py-4">Rp. 55.000,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">Port to Port</td>
                             <td class="px-6 py-4">Udara</td>
                             <td class="px-6 py-4">JKT</td>
                             <td class="px-6 py-4">AMBON</td>
                         </tr>
+
                         <!-- ... isi data tarif lain tetap sama -->
                         <tr class="border-b hover:bg-green-50 transition">
                             <td class="px-6 py-4 font-medium text-gray-900">
@@ -253,6 +281,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 33.500,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">udara</td>
                             <td class="px-6 py-4">JKT</td>
@@ -264,6 +293,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 69.500,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">udara</td>
                             <td class="px-6 py-4">JKT</td>
@@ -275,6 +305,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 83.500,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">udara</td>
                             <td class="px-6 py-4">JKT</td>
@@ -286,6 +317,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 35.770,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">darat</td>
                             <td class="px-6 py-4">JKT</td>
@@ -297,6 +329,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 73.990,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">darat</td>
                             <td class="px-6 py-4">JKT</td>
@@ -308,6 +341,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 25.970,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">darat</td>
                             <td class="px-6 py-4">JKT</td>
@@ -319,6 +353,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 40.950,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">laut</td>
                             <td class="px-6 py-4">JKT</td>
@@ -330,6 +365,7 @@
                             </td>
 
                             <td class="px-6 py-4">Rp. 59.940,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">port to port</td>
                             <td class="px-6 py-4">laut</td>
                             <td class="px-6 py-4">JKT</td>
@@ -340,6 +376,7 @@
                                 PLW
                             </td>
                             <td class="px-6 py-4">Rp. 68.670,-</td>
+                            <td class="px-6 py-4">5kg</td>
                             <td class="px-6 py-4">door to door</td>
                             <td class="px-6 py-4">laut</td>
                             <td class="px-6 py-4">JKT</td>
@@ -371,12 +408,52 @@
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
         <script>
+            const opsiDestinasi = document.getElementById("destinasi");
+            // Muat kode kota
+            fetch("/api/data/kode_kota", {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            })
+                .then(async (respon) => {
+                    const data = await respon.json();
+                    if (!respon.ok) {
+                        throw new Error(data.message);
+                    }
+                    return data;
+                })
+                .then((data) => {
+                    listKota = data.data;
+                    listKota.forEach((kota) => {
+                        const opsiBaru = new Option(kota.kota, kota.kode);
+                        opsiDestinasi.add(opsiBaru);
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
             const form = document.getElementById("form-tarif");
             form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
                 let isValid = true;
+                const destinasi = document.getElementById("destinasi");
                 const moda = document.getElementById("moda");
                 const jenis = document.getElementById("jenis");
                 const kg = document.getElementById("kg");
+
+                if (destinasi.value === "") {
+                    document
+                        .getElementById("error-destinasi")
+                        .classList.remove("hidden");
+                    isValid = false;
+                } else {
+                    document
+                        .getElementById("error-destinasi")
+                        .classList.add("hidden");
+                }
 
                 if (moda.value === "") {
                     document
@@ -409,7 +486,86 @@
                     document.getElementById("error-kg").classList.add("hidden");
                 }
 
-                if (!isValid) e.preventDefault();
+                if (!isValid) {
+                    alert("Mohon isi semua kolom yang dibutuhkan");
+                } else {
+                    queryPencarian = {
+                        destinasi: destinasi.value,
+                        moda: moda.value,
+                        jenis: jenis.value,
+                    };
+
+                    fetch("/customer/api/cek_ongkir", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(queryPencarian),
+                    })
+                        .then(async (respon) => {
+                            const data = await respon.json();
+                            if (!respon.ok) {
+                                console.error("HTTP Error: ", data.message);
+                            }
+                            return data;
+                        })
+                        .then((data) => {
+                            const dataTarif = data.data;
+                            if (dataTarif.length === 0) {
+                                alert("Tarif tidak tersedia");
+                            } else {
+                                const tableBody =
+                                    document.getElementById("tarifTable");
+
+                                tableBody.innerHTML = "";
+                                let jumlahKg = parseFloat(kg.value);
+
+                                for (let i = 1; i <= 10; i++) {
+                                    let harga = dataTarif.harga;
+
+                                    // kalau lebih dari 10 kg, tambahkan Rp. 2.000 per kg
+                                    if (jumlahKg > 10) {
+                                        harga += (jumlahKg - 10) * 2000;
+                                    }
+
+                                    // format harga ke Rupiah
+                                    const hargaFormatted =
+                                        "Rp. " +
+                                        harga.toLocaleString("id-ID") +
+                                        ",-";
+
+                                    // buat elemen <tr>
+                                    const row = `
+                                      <tr class="border-b hover:bg-green-50 transition">
+                                        <td class="px-6 py-4 font-medium text-gray-900">${
+                                            dataTarif.destinasi
+                                        }</td>
+                                        <td class="px-6 py-4">${hargaFormatted}</td>
+                                        <td class="px-6 py-4">${jumlahKg++}kg</td>
+                                        <td class="px-6 py-4">${
+                                            dataTarif.jenis
+                                        }</td>
+                                        <td class="px-6 py-4">${
+                                            dataTarif.moda
+                                        }</td>
+                                        <td class="px-6 py-4">${
+                                            dataTarif.origin
+                                        }</td>
+                                        <td class="px-6 py-4">${
+                                            dataTarif.rute
+                                        }</td>
+                                      </tr>
+                                    `;
+
+                                    tableBody.insertAdjacentHTML(
+                                        "beforeend",
+                                        row
+                                    );
+                                }
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
             });
 
             // Transisi
@@ -433,41 +589,6 @@
                     transitionEl.classList.add("translate-x-full");
                     transitionEl.classList.remove("translate-x-0");
                 }, 500);
-            });
-
-            const selectProvinsi = document.getElementById("provinsi");
-            const selectKabupaten = document.getElementById("kota");
-            // Muat data provinsi
-            fetch("/customer/api/data/provinsi", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-            })
-                .then(async (respon) => {
-                    const data = await respon.json();
-                    if (!respon.ok) {
-                        throw new Error("Terjadi kesalahan");
-                    }
-                    return data;
-                })
-                .then((data) => {
-                    const dataProvinsi = data.data;
-                    dataProvinsi.forEach((provinsi) => {
-                        const opsiProvinsi = new Option(
-                            provinsi.name,
-                            provinsi.id
-                        );
-                        selectProvinsi.add(opsiProvinsi);
-                    });
-                })
-                .catch((error) => {
-                    console.error(error);
-                });
-
-            // Cek provinsi apa yang dipilih
-            selectProvinsi.addEventListener("change", () => {
-                let idProvinsi = selectProvinsi.value;
-
-                fetch("");
             });
         </script>
     </body>

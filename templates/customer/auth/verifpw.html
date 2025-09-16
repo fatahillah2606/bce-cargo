@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Verifikasi | BCE</title>
+        <title>Verifikasi Sandi | BCE</title>
         <!-- Flowbite -->
         <link
             rel="stylesheet"
@@ -27,13 +27,11 @@
             <div
                 class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 max-w-md w-full text-center"
             >
-                <!-- Judul -->
                 <h2 class="text-2xl font-bold text-gray-800 dark:text-white">
                     Verifikasi
                 </h2>
                 <p class="mt-2 text-gray-600 dark:text-gray-300 text-sm">
-                    Terima kasih telah mendaftar! <br />
-                    Kami telah mengirimkan email verifikasi ke:
+                    Kami telah mengirimkan email berisi kode verifikasi ke:
                 </p>
 
                 <!-- Email -->
@@ -169,62 +167,6 @@
             </div>
         </section>
         <script>
-            // use this simple function to automatically focus on the next input
-            function focusNextInput(el, prevId, nextId) {
-                if (el.value.length === 0) {
-                    if (prevId) {
-                        document.getElementById(prevId).focus();
-                    }
-                } else {
-                    if (nextId) {
-                        document.getElementById(nextId).focus();
-                    }
-                }
-            }
-
-            document
-                .querySelectorAll("[data-focus-input-init]")
-                .forEach(function (element) {
-                    element.addEventListener("keyup", function () {
-                        const prevId = this.getAttribute(
-                            "data-focus-input-prev"
-                        );
-                        const nextId = this.getAttribute(
-                            "data-focus-input-next"
-                        );
-                        focusNextInput(this, prevId, nextId);
-                    });
-
-                    // Handle paste event to split the pasted code into each input
-                    element.addEventListener("paste", function (event) {
-                        event.preventDefault();
-                        const pasteData = (
-                            event.clipboardData || window.clipboardData
-                        ).getData("text");
-                        const digits = pasteData.replace(/\D/g, ""); // Only take numbers from the pasted data
-
-                        // Get all input fields
-                        const inputs = document.querySelectorAll(
-                            "[data-focus-input-init]"
-                        );
-
-                        // Iterate over the inputs and assign values from the pasted string
-                        inputs.forEach((input, index) => {
-                            if (digits[index]) {
-                                input.value = digits[index];
-                                // Focus the next input after filling the current one
-                                const nextId = input.getAttribute(
-                                    "data-focus-input-next"
-                                );
-                                if (nextId) {
-                                    document.getElementById(nextId).focus();
-                                }
-                            }
-                        });
-                    });
-                });
-
-            // Verifikasi
             function getOtpValue() {
                 let otp = "";
                 document
@@ -235,32 +177,27 @@
                 return otp;
             }
 
-            function verifKode(event) {
-                event.preventDefault();
+            function verifKode(e) {
+                e.preventDefault();
 
                 const kodeVerif = new FormData();
                 kodeVerif.append("kode", getOtpValue());
-                console.log(kodeVerif);
 
-                fetch("/customer/api/data/verifikasi", {
+                fetch("/customer/api/auth/verifpw", {
                     method: "POST",
                     body: kodeVerif,
                 })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            throw new Error(
-                                data.message || "terjadi kesalahan"
-                            );
-                        }
+                    .then(async (res) => {
+                        const data = await res.json();
+                        if (!res.ok) throw new Error(data.message);
                         return data;
                     })
                     .then((data) => {
-                        // Bagian ini jika verifikasi berhasil
-                        location.href = "/customer/profile";
+                        alert("OTP berhasil diverifikasi");
+                        window.location.href = "/customer/newpw";
                     })
-                    .catch((error) => {
-                        console.error(error);
+                    .catch((err) => {
+                        alert("Gagal: " + err.message);
                     });
             }
         </script>

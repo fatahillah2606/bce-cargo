@@ -3,18 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Lupa Sandi</title>
+        <title>Login Page</title>
         <!-- Flowbite -->
         <link
             rel="stylesheet"
             href="{{url_for('static',filename='dist/output.css')}}"
         />
-        <!-- Google Fonts -->
+        <!-- Google Fonts: Poppins for modern typography -->
         <link
             href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
             rel="stylesheet"
         />
-        <!-- Material Icons -->
+        <!-- Material Icons CDN -->
         <link
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet"
@@ -23,72 +23,118 @@
     <body
         class="bg-green-100 dark:bg-green-900 flex items-center justify-center min-h-screen px-4"
     >
-        <!-- Forgot Password Section -->
+        <!-- Login Section -->
         <section
             class="flex flex-col md:flex-row items-center w-full max-w-2xl rounded-3xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg"
         >
-            <!-- Carousel (hidden on mobile) -->
+            <!-- Carousel (hidden di mobile, tampil di md+) -->
             <div
                 id="default-carousel"
                 class="relative hidden md:block w-64 h-full overflow-hidden rounded-2xl shrink-0"
                 data-carousel="slide"
             >
                 <div class="relative h-full overflow-hidden rounded-lg md:h-96">
+                    <!-- Logo -->
                     <img
                         class="absolute top-2.5 left-2.5 w-8 z-50"
                         src="{{ url_for('static',filename='images/logo_transparant.png') }}"
                         alt="Logo BCE"
                     />
+                    <!-- Item 1 -->
                     <div
                         class="hidden duration-700 ease-in-out"
                         data-carousel-item
                     >
                         <img
                             src="{{ url_for('static',filename='images/udara.jpg') }}"
-                            class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                            class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            alt="Udara"
                         />
                     </div>
+                    <!-- Item 2 -->
                     <div
                         class="hidden duration-700 ease-in-out"
                         data-carousel-item
                     >
                         <img
                             src="{{ url_for('static',filename='images/laut.jpg') }}"
-                            class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                            class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            alt="Laut"
                         />
                     </div>
+                    <!-- Item 3 -->
                     <div
                         class="hidden duration-700 ease-in-out"
                         data-carousel-item
                     >
                         <img
                             src="{{ url_for('static',filename='images/darat.jpg') }}"
-                            class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                            class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                            alt="Darat"
                         />
                     </div>
                 </div>
+                <!-- Indicators -->
+                <div
+                    class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2"
+                >
+                    <button
+                        type="button"
+                        class="w-2 h-2 rounded-full"
+                        data-carousel-slide-to="0"
+                    ></button>
+                    <button
+                        type="button"
+                        class="w-2 h-2 rounded-full"
+                        data-carousel-slide-to="1"
+                    ></button>
+                    <button
+                        type="button"
+                        class="w-2 h-2 rounded-full"
+                        data-carousel-slide-to="2"
+                    ></button>
+                </div>
             </div>
 
-            <!-- Forgot Password Form -->
+            <!-- Login Form -->
             <div class="w-full h-full p-6 md:p-8">
                 <h2 class="text-center text-xl md:text-2xl font-bold">
-                    Lupa Sandi
+                    Konfirmasi Password
                 </h2>
                 <div class="w-20 h-px mx-auto mt-2.5 mb-5 bg-gray-300"></div>
 
-                <form class="max-w-full mx-auto" id="forgotpw">
+                <form class="max-w-full mx-auto" id="login">
                     <div class="grid gap-4 mb-4 grid-cols-1">
-                        <!-- Email -->
+                        <!-- Password -->
                         <div>
                             <div class="relative">
                                 <span
                                     class="material-icons absolute left-3 top-2.5 text-gray-400"
-                                    >email</span
+                                    >lock</span
                                 >
                                 <input
-                                    type="email"
-                                    placeholder="Masukkan email Anda"
-                                    name="email"
+                                    type="password"
+                                    placeholder="Password"
+                                    name="password"
+                                    id="password"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Password -->
+                        <div>
+                            <div class="relative">
+                                <span
+                                    class="material-icons absolute left-3 top-2.5 text-gray-400"
+                                    >lock</span
+                                >
+                                <input
+                                    type="password"
+                                    placeholder="Konfirmasi Password"
+                                    name="password"
+                                    id="password"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
                                     required
                                 />
@@ -97,7 +143,7 @@
 
                         <!-- Error -->
                         <p class="text-red-600 hidden text-sm" id="pesan-error">
-                            Email tidak valid.
+                            Pesan error.
                         </p>
 
                         <!-- Button -->
@@ -105,22 +151,10 @@
                             <button
                                 type="submit"
                                 class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 cursor-pointer"
+                                onclick="loginCustomer(event)"
                             >
-                                Kirim Code Verifikasi
+                                Submit
                             </button>
-
-                            <!-- Tambahan -->
-                            <p
-                                class="text-sm text-gray-600 dark:text-gray-300 mt-2"
-                            >
-                                Sudah ingat password?
-                                <a
-                                    href="/customer/login"
-                                    class="text-green-700 font-medium hover:underline"
-                                >
-                                    Silahkan login
-                                </a>
-                            </p>
                         </div>
                     </div>
                 </form>
@@ -129,15 +163,24 @@
 
         <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script src="{{url_for('static', filename='js/customer/auth.js')}}"></script>
         <script>
             document
-                .getElementById("forgotpw")
+                .getElementById("login")
                 .addEventListener("submit", function (e) {
                     e.preventDefault();
 
-                    const formData = new FormData(this);
+                    const inputs = this.querySelectorAll(
+                        "input[type='password']"
+                    );
+                    const newPass = inputs[0].value;
+                    const confirmPass = inputs[1].value;
 
-                    fetch("/customer/api/auth/forgotpw", {
+                    const formData = new FormData();
+                    formData.append("new_password", newPass);
+                    formData.append("confirm_password", confirmPass);
+
+                    fetch("/customer/api/auth/newpw", {
                         method: "POST",
                         body: formData,
                     })
@@ -147,8 +190,10 @@
                             return data;
                         })
                         .then((data) => {
-                            alert(data.message);
-                            window.location.href = "/customer/verifpw";
+                            alert(
+                                "Password berhasil diperbarui, silakan login kembali"
+                            );
+                            window.location.href = "/customer/login";
                         })
                         .catch((err) => {
                             document.getElementById("pesan-error").innerText =

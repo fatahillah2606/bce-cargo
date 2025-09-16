@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request,render_template, session, redirect, url_for, current_app
+from markupsafe import escape
 from connection import db_bce
 from pymongo import ReturnDocument
 from functools import wraps
@@ -8,6 +9,7 @@ from myapp.customer.generate_code import generate_verification_code
 from bson.objectid import ObjectId
 from myapp.email_utils import send_email_smtp
 
+
 # Collection
 collection = db_bce.use_db()
 userData = collection["users"]
@@ -15,15 +17,17 @@ userData = collection["users"]
 # API
 # Convert _id
 def convert_objectid_to_str(doc):
-    # Conver "_id"
-    if '_id' in doc:
-        doc['_id'] = str(doc['_id'])
-
-    # Convert "user_id"
-    if 'user_id' in doc:
-        doc['user_id'] = str(doc['user_id'])
-
-    return doc
+    if isinstance(doc, ObjectId):
+        return str(doc)
+    elif isinstance(doc, dict):
+        return {k: convert_objectid_to_str(v) for k, v in doc.items()}
+    elif isinstance(doc, list):
+        return [convert_objectid_to_str(i) for i in doc]
+    elif isinstance(doc, str):  
+        # sanitasi string dengan escape
+        return escape(doc)
+    else:
+        return doc
 
 # Respon API
 def respon_api(status, code, message, data, pagination):
@@ -35,6 +39,38 @@ def respon_api(status, code, message, data, pagination):
         "pagination": pagination if pagination else {}
     }
     return jsonify(respon)
+
+# Tampilkan Semua Data
+def tampilkanSemuaData(koleksi, page, limit, query, excluded):
+    halaman = int(page if page else 1)
+    batas = int(limit if limit else 10)
+    lewati = (halaman - 1) * batas
+
+    total_items = koleksi.count_documents(query)
+    total_halaman = math.ceil(total_items / batas)
+
+    cursor = koleksi.find(query, excluded).sort("_id", -1).skip(lewati).limit(batas)
+    data = [convert_objectid_to_str(doc) for doc in cursor]
+
+    if data:
+        pageTest = {
+            "current_page": halaman,
+            "per_page": batas,
+            "total_items": total_items,
+            "total_pages": total_halaman
+        }
+
+        return respon_api("success", 200, str("Data tersedia"), data, pageTest)
+    else:
+        return respon_api("error", 404, str("Data tidak tersedia"), [], {}), 404
+
+# Tampilkan data spesifik
+def tampilkanDataSpesifik(koleksi, oid):
+    data = koleksi.find_one({"_id": ObjectId(oid)})
+    if data:
+        return respon_api("success", 200, str("Data tersedia"), convert_objectid_to_str(data), {})
+    else:
+        return respon_api("error", 404, str("Data tidak tersedia"), [], {}), 404
 
 # Buat kode pemesanan
 def generate_kode_pemesanan(moda: str) -> str:
@@ -157,21 +193,37 @@ def login():
     else: 
         return render_template("customer/auth/login.html") 
 
-#FORGOT PASSWORD
+# FORGOT PASSWORD
 @customer_route.route("/forgotpw", methods=["GET", "POST"])
 def forgotpw():
     return render_template("customer/auth/forgotpw.html")
 
-# VERIFIKASI
+# NEW PASSWORD
+@customer_route.route("/newpw", methods=["GET", "POST"])
+def newpw():
+    return render_template("customer/auth/newpw.html")
+
+# VERIFIKASI REGIST
 @customer_route.route("/verif", methods=["GET", "POST"])
 def verif():
     return render_template("customer/auth/verif.html")
+
+# VERIFIKASI PASSWORD
+@customer_route.route("/verifpw", methods=["GET", "POST"])
+def verifpw():
+    return render_template("customer/auth/verifpw.html")
 
 # ONGKIR
 @customer_route.route("/ongkir", methods=["GET", "POST"])
 @khusus_customer
 def ongkir():
     return render_template("customer/pages/ongkir.html")
+
+# KATEGORI BARANG
+@customer_route.route("/kategoribarang", methods=["GET", "POST"])
+@khusus_customer
+def kategoribarang():
+    return render_template("customer/pages/kategoribarang.html")
 
 # PESANAN
 @customer_route.route("/pesanan", methods=["GET", "POST"])
@@ -622,4 +674,111 @@ def verifikasi():
     
     except Exception as error:
         return respon_api("error", 500, str(error), [], {}), 500
+
+
+# EDIT PROFILE
+@customer_route.route("/api/profile", methods=["POST"])
+@khusus_customer
+def update_profile():
+    try:
+        form_type = request.form.get("form_type")  
+        uid = ObjectId(session["user_id"])
+
+        if form_type == "biodata":
+            # update biodata diri
+            nama = request.form.get("nama")
+            ponsel = request.form.get("ponsel")
+            jenis = request.form.get("jenis")
+            perusahaan = request.form.get("perusahaan", "")
+
+            collection["data_pelanggan"].update_one (
+                {"user_id": uid},
+                {"$set": {
+                    "nama_lengkap": nama,
+                    "no_telepon": ponsel,
+                    "jenis_pelanggan": jenis,
+                    "nama_perusahaan": perusahaan,
+                    "updated_at": datetime.now(timezone.utc)
+                }}
+            )
+            return respon_api("success", 200, "Biodata berhasil diperbarui", [], {})
+        
+        elif form_type == "alamat":
+            # update alamat
+            jalan = request.form.get("jalan")
+            no_rumah = request.form.get("no_rumah")
+            rt = request.form.get("rt")
+            rw = request.form.get("rw")
+            kodepos = request.form.get("kodepos")
+
+            provinsi = request.form.get("provinsi")
+            kabupaten = request.form.get("kabupaten")
+            kecamatan = request.form.get("kecamatan")
+            kelurahan = request.form.get("kelurahan")
+
+            collection["data_pelanggan"].update_one(
+                {"user_id": uid},
+                {"$set": {
+                    "alamat": {
+                        "jalan": jalan,
+                        "no_rumah": no_rumah,
+                        "rt": rt,
+                        "rw": rw,
+                        "kode_pos": kodepos,
+                        "provinsi": fetchIndo("provinsi", provinsi),
+                        "kabupaten": fetchIndo("kabupaten", kabupaten, provinsi),
+                        "kecamatan": fetchIndo("kecamatan", kecamatan, kabupaten),
+                        "kelurahan": fetchIndo("kelurahan", kelurahan, kecamatan),
+                    },
+                    "updated_at": datetime.now(timezone.utc)
+                }}
+            )
+            return respon_api("success", 200, "Alamat berhasil diperbarui", [], {})
+        
+        elif form_type == "akun":
+            # update informasi akun
+            nama_akun = request.form.get("nama_akun")
+            email = request.form.get("email")
+            password = request.form.get("password")
+
+            update_data = {
+                "name": nama_akun,
+                "email": email,
+            }
+            if password:
+                hashedPass = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+                update_data["password"] = hashedPass
+
+            userData.update_one({"_id": uid}, {"$set": update_data})
+            return respon_api("success", 200, "Akun berhasil diperbarui", [], {})
+
+        else:
+            return respon_api("error", 400, "Form tidak dikenali", [], {}), 400
+        
+    except Exception as e:
+        return respon_api("error", 500, "Gagal update data", str(e), {}), 500
+
+
+# CEK ONGKIR
+@customer_route.route("/api/cek_ongkir", methods=["GET", "POST"])
+@khusus_customer
+def cek_ongkir():
+    try:
+        tarif = collection["tarif"]
+        if request.method == "POST":
+
+            dataJson = request.get_json()
+
+            queryPencarian = {
+                "destinasi": dataJson.get("destinasi"),
+                "jenis": dataJson.get("jenis"),
+                "moda": dataJson.get("moda")
+            }
+            
+            return tampilkanDataSpesifik(tarif, queryPencarian)
+        
+        else:
+            return tampilkanSemuaData(tarif, request.args.get("page", 1), request.args.get("limit", 10), {}, {})
     
+    except Exception as e:
+        return respon_api("error", 500, str(e), [], {}), 500

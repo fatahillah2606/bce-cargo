@@ -8,7 +8,6 @@
             href="{{url_for('static',filename='dist/output.css')}}"
             rel="stylesheet"
         />
-        <!-- Local CSS -->
         <link
             rel="stylesheet"
             href="{{url_for('static',filename='css/customer/style.css')}}"
@@ -22,7 +21,6 @@
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
-            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
@@ -30,7 +28,6 @@
             section {
                 min-height: auto;
             }
-            /* Zoom in & out sedang */
             @keyframes zoomPulse {
                 0%,
                 100% {
@@ -45,15 +42,12 @@
             .animate-zoom-pulse {
                 animation: zoomPulse 2.5s ease-in-out infinite;
             }
-
-            /* Glow neon menyatu logo */
             .logo-glow {
                 filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
                     drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
                     drop-shadow(0 0 40px rgba(144, 238, 144, 0.6));
                 animation: glowPulse 1s ease-in-out infinite;
             }
-
             @keyframes glowPulse {
                 0%,
                 100% {
@@ -70,11 +64,8 @@
         </style>
     </head>
     <body class="bg-white font-sans">
-        <!-- Navbar -->
-        {% include 'customer/components/navbar.html' %}
-
-        <!-- floating -->
-        {% include 'customer/components/floating-sidebar.html' %}
+        {% include 'customer/components/navbar.html' %} {% include
+        'customer/components/floating-sidebar.html' %}
 
         <!-- BIODATA DIRI -->
         <section
@@ -260,7 +251,6 @@
             <div
                 class="max-w-3xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
             >
-                <!-- Header -->
                 <div class="flex items-center justify-between mb-8">
                     <h2
                         class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
@@ -273,13 +263,11 @@
                     <button
                         id="btn-edit-alamat"
                         type="button"
-                        class="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow transition cursor-pointer"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm text-white"
                     >
                         Edit
                     </button>
                 </div>
-
-                <!-- Form -->
                 <form id="form-alamat" class="space-y-6">
                     <div class="relative">
                         <label
@@ -288,11 +276,6 @@
                             >Jalan</label
                         >
                         <div class="mt-1 relative">
-                            <span
-                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                            >
-                                location_on
-                            </span>
                             <input
                                 type="text"
                                 id="jalan"
@@ -300,12 +283,16 @@
                                 maxlength="100"
                                 required
                                 readonly
-                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2.5 text-sm text-gray-600 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
                             />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >location_on</span
+                            >
                         </div>
                     </div>
 
-                    <!-- Kode Pos + WhatsApp -->
+                    <!-- kode Pos + wa -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="relative">
                             <label
@@ -320,10 +307,9 @@
                                     name="kodepos"
                                     minlength="5"
                                     maxlength="5"
-                                    pattern="[0-9]{5}"
                                     required
                                     readonly
-                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
                                 />
                                 <span
                                     class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -344,13 +330,12 @@
                             >
                             <div class="mt-1 relative">
                                 <input
-                                    type="tel"
+                                    type="text"
                                     id="no_rumah"
                                     name="no_rumah"
-                                    minlength="20"
                                     required
                                     readonly
-                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
                                 />
                                 <span
                                     class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -365,7 +350,7 @@
                         </div>
                     </div>
 
-                    <!-- RT + RW -->
+                    <!-- RT RW -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="relative">
                             <label
@@ -378,12 +363,10 @@
                                     type="text"
                                     id="rt"
                                     name="rt"
-                                    minlength="4"
                                     maxlength="4"
-                                    pattern="[0-9]{4}"
                                     required
                                     readonly
-                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
                                 />
                                 <span
                                     class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
@@ -407,13 +390,12 @@
                                     type="text"
                                     id="rw"
                                     name="rw"
-                                    minlength="4"
                                     maxlength="4"
-                                    pattern="[0-9]{4}"
                                     required
                                     readonly
-                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
                                 />
+
                                 <span
                                     class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
                                     >tag</span
@@ -429,105 +411,39 @@
 
                     <!-- Provinsi, Kabupaten, Kecamatan, Kelurahan -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="relative">
-                            <label
-                                for="provinsi"
-                                class="block text-sm font-medium text-gray-700"
-                                >Provinsi</label
-                            >
-                            <div class="relative">
-                                <select
-                                    id="provinsi"
-                                    name="provinsi"
-                                    required
-                                    disabled
-                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
-                                >
-                                    <option value="" selected>
-                                        Pilih provinsi
-                                    </option>
-                                </select>
-                                <span
-                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                                    >map</span
-                                >
-                            </div>
-                        </div>
-                        <div class="relative">
-                            <label
-                                for="kabupaten"
-                                class="block text-sm font-medium text-gray-700"
-                                >Kabupaten</label
-                            >
-                            <div class="relative">
-                                <select
-                                    id="kabupaten"
-                                    name="kabupaten"
-                                    required
-                                    disabled
-                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
-                                >
-                                    <option value="" selected>
-                                        Pilih kabupaten
-                                    </option>
-                                </select>
-                                <span
-                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                                    >domain</span
-                                >
-                            </div>
-                        </div>
-                        <div class="relative">
-                            <label
-                                for="kecamatan"
-                                class="block text-sm font-medium text-gray-700"
-                                >Kecamatan</label
-                            >
-                            <div class="relative">
-                                <select
-                                    id="kecamatan"
-                                    name="kecamatan"
-                                    required
-                                    disabled
-                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
-                                >
-                                    <option value="" selected>
-                                        Pilih kecamatan
-                                    </option>
-                                </select>
-                                <span
-                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                                    >map</span
-                                >
-                            </div>
-                        </div>
-                        <div class="relative">
-                            <label
-                                for="kelurahan"
-                                class="block text-sm font-medium text-gray-700"
-                                >Kelurahan</label
-                            >
-                            <div class="relative">
-                                <select
-                                    id="kelurahan"
-                                    name="kelurahan"
-                                    required
-                                    disabled
-                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
-                                >
-                                    <option value="" selected>
-                                        Pilih kelurahan
-                                    </option>
-                                </select>
-                                <span
-                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                                    >location_city</span
-                                >
-                            </div>
-                        </div>
+                        <select
+                            id="provinsi"
+                            name="provinsi"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih provinsi</option>
+                        </select>
+                        <select
+                            id="kabupaten"
+                            name="kabupaten"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih kabupaten</option>
+                        </select>
+                        <select
+                            id="kecamatan"
+                            name="kecamatan"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih kecamatan</option>
+                        </select>
+                        <select
+                            id="kelurahan"
+                            name="kelurahan"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih kelurahan</option>
+                        </select>
                     </div>
-
-                    <!-- Tombol Aksi -->
                     <div
                         id="alamat-actions"
                         class="hidden flex justify-end gap-3 pt-4"
@@ -535,13 +451,13 @@
                         <button
                             type="button"
                             id="btn-cancel-alamat"
-                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 cursor-pointer"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm"
                         >
                             Batal
                         </button>
                         <button
                             type="submit"
-                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm text-white"
                         >
                             Simpan
                         </button>
@@ -550,6 +466,7 @@
             </div>
         </section>
 
+        <!-- INFORMASI AKUN -->
         <section
             class="max-w-5xl mx-auto py-12 px-6"
             id="bagian-informasi-akun"
@@ -717,160 +634,104 @@
                 </form>
             </div>
         </section>
+
         <!-- Overlay Transition -->
         <div
             id="page-transition"
             class="fixed inset-0 z-[9999] flex items-center justify-center bg-green-600 transform translate-x-full transition-transform duration-700 ease-in-out"
         >
-            <!-- Logo BCE -->
-            <div class="relative flex items-center justify-center">
-                <!-- Logo + efek glow -->
-                <img
-                    src="/static/images/logo_transparant.png"
-                    alt="BCE Logo"
-                    class="relative w-24 h-24 animate-zoom-pulse logo-glow"
-                    id="bce-logo"
-                />
-            </div>
+            <img
+                src="/static/images/logo_transparant.png"
+                alt="BCE Logo"
+                class="relative w-24 h-24 animate-zoom-pulse logo-glow"
+                id="bce-logo"
+            />
         </div>
 
-        <!-- footer -->
         {% include 'customer/components/footer.html' %}
-        <!-- Flowbite JS -->
         <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
         <script src="{{url_for('static',filename='js/customer/fetch-wilayah.js')}}"></script>
+
         <script>
-            const transitionEl = document.getElementById("page-transition");
-            const links = document.querySelectorAll(".page-link");
-
-            links.forEach((link) => {
-                link.addEventListener("click", function (e) {
-                    e.preventDefault();
-                    const target = this.getAttribute("href");
-
-                    // Tirai menutup
-                    transitionEl.classList.remove("translate-x-full");
-                    transitionEl.classList.add("translate-x-0");
-
-                    // Redirect setelah animasi selesai
-                    setTimeout(() => {
-                        window.location.href = target;
-                    }, 1200);
-                });
-            });
-
-            // Tirai terbuka saat pertama load halaman
-            window.addEventListener("load", () => {
-                setTimeout(() => {
-                    transitionEl.classList.add("translate-x-full");
-                    transitionEl.classList.remove("translate-x-0");
-                }, 500);
-            });
-
-            // Biodata Diri
-            const btnEdit = document.getElementById("btn-edit");
-            const btnCancel = document.getElementById("btn-cancel");
-            const actionButtons = document.getElementById("action-buttons");
-            const form = document.getElementById("form-biodata");
-            const inputs = form.querySelectorAll("input, select, textarea");
-
-            // Muat biodata dari database
+            // =============================
+            // Muat Data Awal
+            // =============================
             function muatDataPelanggan() {
-                fetch("/customer/api/data/pelanggan", {
-                    method: "GET",
-                })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            console.error(data.message);
-
-                            throw new Error(data.data);
-                        }
-                        return data;
-                    })
+                fetch("/customer/api/data/pelanggan")
+                    .then((res) => res.json())
                     .then((data) => {
                         const biodata = data.data;
-
-                        // Biodata
+                        if (!biodata) return;
                         form.nama.value = biodata.nama_lengkap;
                         form.ponsel.value = biodata.no_telepon;
                         form.jenis.value = biodata.jenis_pelanggan;
                         form.perusahaan.value = biodata.nama_perusahaan;
-
-                        // Alamat
                         formAlamat.jalan.value = biodata.alamat.jalan;
                         formAlamat.kodepos.value = biodata.alamat.kode_pos;
                         formAlamat.no_rumah.value = biodata.alamat.no_rumah;
                         formAlamat.rt.value = biodata.alamat.rt;
                         formAlamat.rw.value = biodata.alamat.rw;
-
-                        // Wilayah
                         initWilayah({
                             selectProvinsi: formAlamat.provinsi,
                             selectKabupaten: formAlamat.kabupaten,
                             selectKecamatan: formAlamat.kecamatan,
                             selectKelurahan: formAlamat.kelurahan,
-                            dataWilayah: biodata.alamat, // objek hasil dari database
+                            dataWilayah: biodata.alamat,
                         });
-                    })
-                    .catch((error) => {
-                        console.error(error);
                     });
             }
-
             function muatAkunPelanggan() {
-                fetch("/customer/api/data/account", {
-                    method: "GET",
-                })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            console.error(data.message);
-
-                            throw new Error(data.data);
-                        }
-                        return data;
-                    })
+                fetch("/customer/api/data/account")
+                    .then((res) => res.json())
                     .then((data) => {
                         const akun = data.data;
-
-                        // Akun
+                        if (!akun) return;
                         formAkun.nama_akun.value = akun.name;
                         formAkun.email.value = akun.email;
-                    })
-                    .catch((error) => {
-                        console.error(error);
                     });
             }
-
             muatDataPelanggan();
             muatAkunPelanggan();
 
-            let editMode = false;
-
+            // =============================
+            // Biodata
+            // =============================
+            const form = document.getElementById("form-biodata");
+            const btnEdit = document.getElementById("btn-edit");
+            const btnCancel = document.getElementById("btn-cancel");
+            const actionButtons = document.getElementById("action-buttons");
+            const inputs = form.querySelectorAll("input, select");
             function toggleEditMode(on) {
                 inputs.forEach((el) => {
-                    if (el.tagName === "SELECT") {
-                        el.disabled = !on;
-                    } else {
-                        el.readOnly = !on;
-                    }
-                    // style toggle
+                    if (el.tagName === "SELECT") el.disabled = !on;
+                    else el.readOnly = !on;
                     el.classList.toggle("bg-gray-100", !on);
                     el.classList.toggle("text-gray-500", !on);
                     el.classList.toggle("text-gray-900", on);
                 });
                 btnEdit.classList.toggle("hidden", on);
                 actionButtons.classList.toggle("hidden", !on);
-                editMode = on;
             }
-
             btnEdit.addEventListener("click", () => toggleEditMode(true));
             btnCancel.addEventListener("click", () => toggleEditMode(false));
-
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                formData.append("form_type", "biodata");
+                fetch("/customer/api/profile", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        alert(data.message);
+                        if (data.status === "success") toggleEditMode(false);
+                    });
+            });
             // Optional: tampilkan field perusahaan kalau jenis == perusahaan
             const jenisSelect = document.getElementById("jenis");
             const perusahaanField = document.getElementById("field-perusahaan");
+
             jenisSelect.addEventListener("change", () => {
                 if (jenisSelect.value === "perusahaan") {
                     perusahaanField.classList.remove("hidden");
@@ -885,24 +746,19 @@
                 }
             });
 
+            // =============================
             // Alamat
+            // =============================
+            const formAlamat = document.getElementById("form-alamat");
             const btnEditAlamat = document.getElementById("btn-edit-alamat");
             const btnCancelAlamat =
                 document.getElementById("btn-cancel-alamat");
             const actionAlamat = document.getElementById("alamat-actions");
-            const formAlamat = document.getElementById("form-alamat");
-            const inputsAlamat = formAlamat.querySelectorAll(
-                "input, select, textarea"
-            );
-
+            const inputsAlamat = formAlamat.querySelectorAll("input, select");
             function toggleAlamatEdit(on) {
                 inputsAlamat.forEach((el) => {
-                    if (el.tagName === "SELECT") {
-                        el.disabled = !on;
-                    } else {
-                        el.readOnly = !on;
-                    }
-                    // style toggle
+                    if (el.tagName === "SELECT") el.disabled = !on;
+                    else el.readOnly = !on;
                     el.classList.toggle("bg-gray-100", !on);
                     el.classList.toggle("text-gray-500", !on);
                     el.classList.toggle("text-gray-900", on);
@@ -910,131 +766,95 @@
                 btnEditAlamat.classList.toggle("hidden", on);
                 actionAlamat.classList.toggle("hidden", !on);
             }
-
             btnEditAlamat.addEventListener("click", () =>
                 toggleAlamatEdit(true)
             );
             btnCancelAlamat.addEventListener("click", () =>
                 toggleAlamatEdit(false)
             );
-
-            // Tombol edit informasi akun
-            // Ambil elemen
-            const formAkun = document.getElementById("form-akun");
-            const btnEditAkun = document.getElementById("btn-edit-akun");
-            const btnCancelAkun = document.getElementById("btn-cancel-akun");
-            const actionButtonsAkun = document.getElementById(
-                "action-buttons-akun"
-            );
-
-            const btnEditPassword =
-                document.getElementById("btn-edit-password");
-            const passwordFields = document.getElementById("password-fields");
-            const passBaru = document.getElementById("password-baru");
-            const passKonfirmasi = document.getElementById(
-                "password-konfirmasi"
-            );
-            const errorKonfirmasi = document.getElementById("error-konfirmasi");
-
-            // === Password Section ===
-            btnEditPassword.addEventListener("click", () => {
-                passwordFields.classList.toggle("hidden");
-                // reset field kalau disembunyikan
-                if (passwordFields.classList.contains("hidden")) {
-                    passBaru.value = "";
-                    passKonfirmasi.value = "";
-                    errorKonfirmasi.classList.add("hidden");
-                }
-            });
-
-            // Validasi submit form
-            formAkun.addEventListener("submit", (e) => {
-                if (!passwordFields.classList.contains("hidden")) {
-                    if (passBaru.value !== passKonfirmasi.value) {
-                        e.preventDefault();
-                        errorKonfirmasi.classList.remove("hidden");
-                    } else {
-                        errorKonfirmasi.classList.add("hidden");
-                    }
-                }
-            });
-
-            // === Edit Akun Section ===
-            btnEditAkun.addEventListener("click", () => {
-                // aktifkan semua input
-                formAkun.querySelectorAll("input, select").forEach((el) => {
-                    el.removeAttribute("readonly");
-                    el.removeAttribute("disabled");
-                    el.classList.remove("bg-gray-100", "text-gray-500");
-                    el.classList.add("text-gray-700");
-                });
-
-                actionButtonsAkun.classList.remove("hidden");
-                btnEditAkun.classList.add("hidden");
-            });
-
-            // tombol batal
-            btnCancelAkun.addEventListener("click", () => {
-                // reset kembali readonly/disabled
-                formAkun.querySelectorAll("input, select").forEach((el) => {
-                    el.setAttribute("readonly", true);
-                    el.setAttribute("disabled", true);
-                    el.classList.add("bg-gray-100", "text-gray-500");
-                });
-
-                actionButtonsAkun.classList.add("hidden");
-                btnEditAkun.classList.remove("hidden");
-
-                // sembunyikan password section
-                passwordFields.classList.add("hidden");
-                passBaru.value = "";
-                passKonfirmasi.value = "";
-                errorKonfirmasi.classList.add("hidden");
-            });
-
-            // FUNGSI PROFILE
-            form.addEventListener("submit", function (e) {
+            formAlamat.addEventListener("submit", (e) => {
                 e.preventDefault();
-
-                const formData = new FormData(form);
-                formData.append("form_type", "biodata");
-
+                const formData = new FormData(formAlamat);
+                formData.append("form_type", "alamat");
                 fetch("/customer/api/profile", {
                     method: "POST",
                     body: formData,
                 })
                     .then((res) => res.json())
                     .then((data) => {
-                        if (data.status === "success") {
-                            alert("Biodata berhasil disimpan!");
-                            toggleEditMode(false);
-                        } else {
-                            alert(data.message);
-                        }
-                    })
-                    .catch((err) => console.error(err));
+                        alert(data.message);
+                        if (data.status === "success") toggleAlamatEdit(false);
+                    });
             });
 
-            form.addEventListener("submit", function (e) {
+            // =============================
+            // Informasi Akun
+            // =============================
+            const formAkun = document.getElementById("form-akun");
+            const btnEditAkun = document.getElementById("btn-edit-akun");
+            const btnCancelAkun = document.getElementById("btn-cancel-akun");
+            const actionButtonsAkun = document.getElementById(
+                "action-buttons-akun"
+            );
+            const btnEditPassword =
+                document.getElementById("btn-edit-password");
+            const passwordFields = document.getElementById("password-fields");
+            const passBaru = document.getElementById("password");
+            const passKonfirmasi = document.getElementById(
+                "konfirmasi-password"
+            );
+            btnEditAkun.addEventListener("click", () => {
+                formAkun.querySelectorAll("input").forEach((el) => {
+                    el.removeAttribute("readonly");
+                    el.classList.remove("bg-gray-100", "text-gray-500");
+                    el.classList.add("text-gray-700");
+                });
+                actionButtonsAkun.classList.remove("hidden");
+                btnEditAkun.classList.add("hidden");
+            });
+            btnCancelAkun.addEventListener("click", () => {
+                formAkun.querySelectorAll("input").forEach((el) => {
+                    el.setAttribute("readonly", true);
+                    el.classList.add("bg-gray-100", "text-gray-500");
+                });
+                actionButtonsAkun.classList.add("hidden");
+                btnEditAkun.classList.remove("hidden");
+                passwordFields.classList.add("hidden");
+                passBaru.value = "";
+                passKonfirmasi.value = "";
+            });
+            btnEditPassword.addEventListener("click", () => {
+                passwordFields.classList.toggle("hidden");
+                if (passwordFields.classList.contains("hidden")) {
+                    passBaru.value = "";
+                    passKonfirmasi.value = "";
+                }
+            });
+            formAkun.addEventListener("submit", (e) => {
                 e.preventDefault();
-                const formData = new FormData(form);
-                fetch("/customer/api/data_pelanggan", {
+                if (
+                    !passwordFields.classList.contains("hidden") &&
+                    passBaru.value !== passKonfirmasi.value
+                ) {
+                    alert("Konfirmasi password tidak cocok!");
+                    return;
+                }
+                const formData = new FormData(formAkun);
+                formData.append("form_type", "akun");
+                fetch("/customer/api/profile", {
                     method: "POST",
                     body: formData,
                 })
                     .then((res) => res.json())
                     .then((data) => {
+                        alert(data.message);
                         if (data.status === "success") {
-                            alert(data.message);
-                            toggleEditMode(false);
-                        } else {
-                            alert(data.message);
+                            actionButtonsAkun.classList.add("hidden");
+                            btnEditAkun.classList.remove("hidden");
+                            passwordFields.classList.add("hidden");
                         }
-                    })
-                    .catch((err) => console.error(err));
+                    });
             });
-
-            // VALIDASI
         </script>
     </body>
 </html>
