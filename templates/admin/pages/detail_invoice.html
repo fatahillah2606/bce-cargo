@@ -1,0 +1,360 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}{{detail_invoice.kode_pemesanan}}{% endblock %}
+
+<!-- Style -->
+{% block style %} {% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Detail Invoice{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="p-6 dark:bg-zinc-900 min-h-screen">
+    <div
+        class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-0 mb-6"
+    >
+        <a
+            href="/admin/invoice"
+            class="text-green-600 dark:text-green-400 hover:underline"
+            >&larr; Back to invoices</a
+        >
+        <div class="flex gap-2">
+            <button
+                type="button"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-zinc-100 dark:focus:ring-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"
+            >
+                <span class="material-symbols-rounded text-lg!"> edit </span>
+                <span> Edit </span>
+            </button>
+            <button
+                type="button"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-zinc-100 dark:focus:ring-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"
+            >
+                <span class="material-symbols-rounded text-lg!"> delete </span>
+                <span> Hapus </span>
+            </button>
+            <button
+                class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700"
+            >
+                <span class="material-symbols-rounded text-lg!">
+                    download
+                </span>
+                <span> Unduh </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-6 lg:gap-6">
+        <!-- Invoice Main Content -->
+        <div class="col-span-2 bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
+            <!-- Logo BCE -->
+            <div class="mb-6 flex items-center gap-3">
+                <img
+                    src="{{url_for('static', filename='images/logo.png')}}"
+                    alt="Logo BCE"
+                    class="w-10 h-10"
+                />
+                <span class="text-2xl font-bold text-zinc-900 dark:text-white"
+                    >CV. Bahtera Cahaya Express</span
+                >
+            </div>
+            <div
+                class="flex items-center justify-between mb-6 border-y border-zinc-200 dark:border-zinc-700 py-5"
+            >
+                <h2 class="text-xl font-semibold dark:text-white">
+                    Invoice #{{detail_invoice.kode_invoice}}
+                </h2>
+                <p class="text-zinc-600 dark:text-zinc-400">
+                    Tanggal: {{detail_invoice.tanggal_invoice}}
+                </p>
+            </div>
+
+            <!-- Pay To / Invoice To -->
+            <div
+                class="flex items-center justify-between gap-6 mb-6 text-sm text-zinc-500"
+            >
+                <div class="w-60">
+                    <h4 class="font-semibold dark:text-white text-lg mb-3">
+                        Pay to:
+                    </h4>
+                    <p class="text-zinc-900 dark:text-white">
+                        BCE Cargo, Indonesia
+                    </p>
+                    <p>
+                        Ware House Area Regulated Agent PT. Gatrans Soekarno
+                        Hatta Air Port
+                    </p>
+                    <p>NPWP: 63.410.875.7 - 402.000</p>
+                </div>
+                <div class="w-60">
+                    <h4 class="font-semibold dark:text-white text-lg mb-3">
+                        Invoice to:
+                    </h4>
+                    <p class="text-zinc-900 dark:text-white">Andi Setiawan</p>
+                    <p>Jl. Merdeka No. 45, Jakarta</p>
+                    <p>+62 812 3456 7890</p>
+                </div>
+            </div>
+
+            <!-- Tabel Barang -->
+            <div class="overflow-x-auto">
+                <table
+                    class="w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+                >
+                    <thead
+                        class="text-xs uppercase bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400"
+                    >
+                        <tr>
+                            <th class="px-4 py-3">Nama Barang</th>
+                            <th class="px-4 py-3">Jumlah</th>
+                            <th class="px-4 py-3">Dimensi (cm)</th>
+                            <th class="px-4 py-3">Kategori</th>
+                            <th class="px-4 py-3">Metode Pengiriman</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
+                    >
+                        <tr>
+                            <td class="px-4 py-3">Redmi Note 10 Pro</td>
+                            <td class="px-4 py-3">1</td>
+                            <td class="px-4 py-3">16.4 x 7.65 x 0.81</td>
+                            <td class="px-4 py-3">Mudah Rusak</td>
+                            <td class="px-4 py-3">Darat</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3">Moza Steering Wheel</td>
+                            <td class="px-4 py-3">1</td>
+                            <td class="px-4 py-3">43.18 x 35.56 x 10</td>
+                            <td class="px-4 py-3">Mudah Rusak</td>
+                            <td class="px-4 py-3">Darat</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="mt-6">
+                <h4 class="text-md font-semibold dark:text-white mb-2">
+                    Order summary
+                </h4>
+                <div
+                    class="bg-zinc-100 dark:bg-zinc-700 rounded-lg p-4 space-y-2"
+                >
+                    <div class="flex justify-between">
+                        <span class="text-zinc-600 dark:text-zinc-300"
+                            >Subtotal</span
+                        >
+                        <span class="dark:text-white font-semibold"
+                            >{{detail_invoice.rincian_pembayaran.subtotal}}</span
+                        >
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-zinc-600 dark:text-zinc-300"
+                            >Biaya Surcharge</span
+                        >
+                        <span class="dark:text-white font-semibold"
+                            >{{detail_invoice.rincian_pembayaran.surcharge_dg}}</span
+                        >
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-zinc-600 dark:text-zinc-300"
+                            >Biaya Packing</span
+                        >
+                        <span class="dark:text-white font-semibold"
+                            >{{detail_invoice.rincian_pembayaran.biaya_packing}}</span
+                        >
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-zinc-600 dark:text-zinc-300"
+                            >Diskon</span
+                        >
+                        <span class="dark:text-white font-semibold"
+                            >{{detail_invoice.rincian_pembayaran.diskon}}%</span
+                        >
+                    </div>
+                    <hr class="border-zinc-300 dark:border-zinc-600 my-2" />
+                    <div class="flex justify-between text-lg font-bold">
+                        <span class="dark:text-white">Total</span>
+                        <span class="text-green-600 dark:text-green-400"
+                            >{{detail_invoice.rincian_pembayaran.total}}</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Sidebar -->
+        <div class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6 space-y-6">
+            <!-- Status Invoice -->
+            <div
+                class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-zinc-700 dark:text-green-400"
+            >
+                <svg
+                    class="shrink-0 inline w-4 h-4 me-3"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                >
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+                    />
+                </svg>
+                <span class="sr-only">Info</span>
+                <span class="text-base font-semibold"
+                    >Invoice {{detail_invoice.status_pembayaran}}</span
+                >
+            </div>
+
+            <h2 class="text-zinc-600 dark:text-zinc-400 text-xl my-6">
+                Detail:
+            </h2>
+
+            <!-- Detail Invoice -->
+            <div>
+                <!-- Detail harga -->
+                <div
+                    class="flex justify-between items-center mb-4 py-5 border-y border-zinc-200 dark:border-zinc-700"
+                >
+                    <h3 class="text-2xl font-bold dark:text-white">
+                        {{detail_invoice.rincian_pembayaran.total}}
+                    </h3>
+
+                    <select
+                        id="status_pembayaran"
+                        name="status_pembayaran"
+                        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-40 p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                    >
+                        <option value="Sudah Dibayar">Sudah Dibayar</option>
+                        <option value="Belum Dibayar">Belum Dibayar</option>
+                    </select>
+                </div>
+                <!-- Detail pembuat -->
+                <div class="flex flex-col gap-3 mb-4">
+                    <div
+                        class="text-zinc-600 dark:text-zinc-400 flex items-center"
+                    >
+                        <span class="material-symbols-rounded mr-2">
+                            person_edit
+                        </span>
+                        <span class="text-zinc-900 dark:text-white mr-2.5"
+                            >Dibuat oleh:
+                        </span>
+                        <span>Atep Sopian</span>
+                    </div>
+                    <div
+                        class="text-zinc-600 dark:text-zinc-400 flex items-center"
+                    >
+                        <span class="material-symbols-rounded mr-2">
+                            credit_card
+                        </span>
+                        <span>Dibayar melalui transfer bank</span>
+                    </div>
+                </div>
+                <!-- Detail step -->
+                <div
+                    class="px-2.5 pt-4 border-t border-zinc-200 dark:border-zinc-700"
+                >
+                    <ol
+                        class="relative border-s border-zinc-300 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400"
+                    >
+                        <li class="mb-6 ms-6 flex items-center justify-between">
+                            <span
+                                class="absolute flex items-center justify-center w-5 h-5 bg-green-500 rounded-full -start-2.5"
+                            >
+                                <svg
+                                    class="w-3 h-3 text-white dark:text-zinc-800"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="3"
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            </span>
+                            <h3
+                                class="font-medium leading-tight text-zinc-900 dark:text-white"
+                            >
+                                Invoice created:
+                            </h3>
+                            <p>05/07/2025</p>
+                        </li>
+                        <li class="mb-6 ms-6 flex items-center justify-between">
+                            <span
+                                class="absolute flex items-center justify-center w-5 h-5 bg-green-500 rounded-full -start-2.5"
+                            >
+                                <svg
+                                    class="w-3 h-3 text-white dark:text-zinc-800"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="3"
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            </span>
+                            <h3
+                                class="font-medium leading-tight text-zinc-900 dark:text-white"
+                            >
+                                Invoice sent:
+                            </h3>
+                            <p>06/07/2025</p>
+                        </li>
+                        <li class="ms-6 flex items-center justify-between">
+                            <span
+                                class="absolute flex items-center justify-center w-5 h-5 bg-zinc-500 rounded-full -start-2.5"
+                            >
+                                <svg
+                                    class="w-3 h-3 text-white dark:text-zinc-800"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="3"
+                                        d="M5 13l4 4L19 7"
+                                    />
+                                </svg>
+                            </span>
+                            <h3
+                                class="font-medium leading-tight text-zinc-900 dark:text-white"
+                            >
+                                Invoice paid:
+                            </h3>
+                            <p>08/07/2025</p>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- Modal per halaman -->
+{% block modals %} {% endblock %}
+
+<!-- Konten js -->
+{% block kontenjs %}
+<script>
+    // Ambil URL
+    const url = window.location.href;
+    const kodeInvoice = url.split("/").pop();
+</script>
+{% endblock %}

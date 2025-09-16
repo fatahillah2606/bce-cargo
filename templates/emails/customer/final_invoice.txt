@@ -1,0 +1,45 @@
+[FINAL INVOICE]
+
+Halo {{nama_pelanggan}},
+
+Berikut adalah FINAL INVOICE untuk pesanan Anda dengan kode pemesanan: {{kode_pemesanan}}. 
+Biaya pada invoice ini sudah final dan wajib dibayarkan sesuai ketentuan.
+
+------------------------------------------------------------
+Invoice #: {{invoice_number}}
+Tanggal  : {{tanggal_invoice}}
+------------------------------------------------------------
+
+Pay to:
+BCE Cargo, Indonesia
+Ware House Area Regulated Agent PT.
+Gatrans Soekarno Hatta Air Port
+NPWP: 63.410.875.7 – 402.000
+
+Invoice to:
+{{nama_pelanggan}}
+{{alamat_pelanggan}}
+{{no_hp_pelanggan}}
+
+------------------------------------------------------------
+Nama Barang             Jumlah   Dimensi (cm)           Kategori      Metode Pengiriman
+----------------------------------------------------------------------------------------
+{{nama_barang_1}}       {{jml_1}}   {{dimensi_1}}       {{kategori_1}}   {{metode_1}}
+{{nama_barang_2}}       {{jml_2}}   {{dimensi_2}}       {{kategori_2}}   {{metode_2}}
+... (dst)
+----------------------------------------------------------------------------------------
+
+Order Summary:
+Subtotal        : Rp {{subtotal}}
+Biaya Surcharge : Rp {{surcharge}}
+Biaya Packing   : Rp {{packing}}
+Diskon          : {{diskon}}%
+------------------------------------------------------------
+TOTAL           : Rp {{total}}
+------------------------------------------------------------
+
+Silakan lakukan pembayaran sesuai total yang tertera. 
+Pesanan Anda akan segera diproses setelah pembayaran terkonfirmasi.
+
+Terima kasih,
+Tim {{APP_NAME}}

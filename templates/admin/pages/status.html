@@ -4,38 +4,33 @@
 {% block title %}Status pengiriman{% endblock %}
 
 <!-- Style -->
-{% block style %}
-<link
-    rel="stylesheet"
-    href="{{url_for('static',filename='css/admin/dashboard.css')}}"
-/>
-{% endblock %}
+{% block style %} {% endblock %}
 
 <!-- Judul header -->
 {% block judul %}Status pengiriman{% endblock %}
 <!-- Konten -->
 {% block konten %}
-<div class="sm:p-5">
+<div class="sm:p-4">
     <!-- Container utama -->
-    <div class="bg-white sm:rounded-xl shadow p-4 mb-6">
+    <div class="bg-white dark:bg-zinc-800 sm:rounded-xl shadow p-4">
         <!-- Navigasi Tab -->
-        <div class="mb-6 border-b border-gray-200">
-            <div class="flex gap-2 text-sm font-medium text-gray-500">
+        <div class="mb-6 border-b border-zinc-200 dark:border-zinc-700">
+            <div class="flex gap-2 text-sm font-medium text-zinc-500">
                 <a
                     href="/admin/pesanan_masuk"
-                    class="px-4 py-2 hover:text-green-600 transition"
+                    class="px-4 py-2 hover:text-green-600 dark:hover:text-green-400 transition"
                 >
                     Pesanan Masuk
                 </a>
                 <a
                     href="/admin/riwayat_pesanan"
-                    class="px-4 py-2 hover:text-green-600 transition"
+                    class="px-4 py-2 hover:text-green-600 dark:hover:text-green-400 transition"
                 >
                     Riwayat Pesanan
                 </a>
                 <a
                     href="/admin/status"
-                    class="relative px-4 py-2 text-green-600 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500"
+                    class="relative px-4 py-2 text-green-600 dark:text-green-400 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500 dark:after:bg-green-400"
                 >
                     Status Pengiriman
                 </a>
@@ -43,14 +38,20 @@
         </div>
 
         <!-- Status pengiriman -->
-        <div class="bg-white rounded-xl shadow p-4">
-            <h2 class="text-lg font-semibold text-gray-800 mb-4">
+        <div class="bg-white dark:bg-zinc-800 rounded-xl shadow p-4">
+            <h2
+                class="text-lg font-semibold text-zinc-800 dark:text-zinc-200 mb-4"
+            >
                 Status Pengiriman
             </h2>
 
             <div class="overflow-x-auto">
-                <table class="min-w-full text-sm text-left text-gray-600">
-                    <thead class="text-xs text-gray-500 uppercase bg-gray-100">
+                <table
+                    class="min-w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+                >
+                    <thead
+                        class="text-xs text-zinc-700 dark:text-zinc-400 uppercase bg-zinc-100 dark:bg-zinc-700"
+                    >
                         <tr>
                             <th class="px-4 py-3">Kode</th>
                             <th class="px-4 py-3">Pelanggan</th>
@@ -61,82 +62,226 @@
                         </tr>
                     </thead>
                     <tbody
-                        class="bg-white divide-y divide-gray-200"
+                        class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
                         id="status-pengiriman"
                     >
+                        <!-- Skeleton loading -->
+                        {% for i in range(10) %}
                         <tr>
-                            <td colspan="6">
-                                <p
-                                    class="text-center font-bold text-gray-600 mt-5"
-                                    id="info-status-pengiriman"
-                                >
-                                    Memuat data pengiriman...
-                                </p>
+                            <td class="px-4 py-3 font-medium text-zinc-800">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-32 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-12 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-14 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-32 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                                ></div>
                             </td>
                         </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+                class="flex gap-5 flex-col sm:flex-row items-center justify-between mt-6 text-sm text-zinc-600"
+            >
+                <p id="info-data-ditampilkan">
+                    Menampilkan 1 - 10 dari 50 data
+                </p>
+                <div aria-label="Page navigation order">
+                    <ul
+                        class="flex items-center -space-x-px h-8 text-sm"
+                        id="page-number"
+                    ></ul>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Modal Overlay -->
+{% endblock %}
+<!-- Modal per halaman -->
+{% block modals %}
+<!-- Modal update status pengiriman -->
 <div
-    id="modalStatus"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50"
+    id="modal-update-status"
+    tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full"
 >
-    <div class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 relative">
-        <!-- Judul -->
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">
-            Perbarui Status Pengiriman
-        </h3>
-
-        <!-- Info Pesanan -->
-        <p class="text-sm text-gray-600 mb-2">
-            Kode Pesanan:
-            <span class="font-medium text-gray-800" id="modalKodeStatus"
-                >BCE-U-210725-002</span
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow-sm dark:bg-zinc-700">
+            <!-- Modal header -->
+            <div
+                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-zinc-600 border-zinc-200"
             >
-        </p>
-
-        <!-- Dropdown status -->
-        <label
-            for="statusSelect"
-            class="block text-sm font-medium text-gray-700 mb-1"
-        >
-            Pilih Status Baru:
-        </label>
-        <select
-            id="statusSelect"
-            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
-            <option value="">-- Pilih Status --</option>
-            <option value="Diproses">Diproses</option>
-            <option value="Menunggu pick-up">Menunggu pick-up</option>
-            <option value="Dalam pengiriman">Dalam pengiriman</option>
-            <option value="Sampai tujuan">Sampai tujuan</option>
-            <option value="Selesai">Selesai</option>
-            <option value="Gagal dikirim">Gagal dikirim</option>
-        </select>
-
-        <!-- Tombol Aksi -->
-        <div class="mt-6 flex justify-end gap-2">
-            <button
-                onclick="simpanStatus()"
-                class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600"
-            >
-                Simpan
-            </button>
-            <button
-                onclick="tutupStatusModal()"
-                class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg"
-            >
-                Batal
-            </button>
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                    Perbarui status pengiriman
+                </h3>
+                <button
+                    type="button"
+                    class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-zinc-600 dark:hover:text-white"
+                >
+                    <svg
+                        class="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form class="p-4 md:p-5" id="form-status">
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <p class="dark:text-zinc-200 text-zinc-600 col-span-2">
+                        <span class="text-zinc-900 dark:text-white"
+                            >Kode Pesanan:</span
+                        >
+                        <a href="#" class="hover:underline" id="kode-pesanan"
+                            >BCE-U-250911-003</a
+                        >
+                    </p>
+                    <div class="col-span-2">
+                        <label
+                            for="status"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Status pesanan</label
+                        >
+                        <select
+                            id="status"
+                            name="status"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-zinc-600 dark:border-zinc-500 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        >
+                            <option selected="">Pilih status</option>
+                            <option value="Diproses">Diproses</option>
+                            <option value="Menunggu pick-up">
+                                Menunggu pick-up
+                            </option>
+                            <option value="Dalam pengiriman">
+                                Dalam pengiriman
+                            </option>
+                            <option value="Sampai tujuan">Sampai tujuan</option>
+                            <option value="Selesai">Selesai</option>
+                            <option value="Gagal dikirim">Gagal dikirim</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label
+                            for="notes"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Catatan (Untuk Invoice)</label
+                        >
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            rows="3"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-zinc-600 dark:border-zinc-500 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        ></textarea>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-end items-center border-zinc-200 dark:border-zinc-600"
+                >
+                    <button
+                        onclick="modalUpdateStatus.toggle()"
+                        type="reset"
+                        class="px-5 py-2.5 text-sm font-medium text-zinc-900 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-100 dark:bg-zinc-700 dark:text-white dark:border-zinc-500 dark:hover:bg-zinc-600"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        type="submit"
+                        id="statusSubmit"
+                        class="relative ml-3 px-5 py-2.5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                    >
+                        <span> Perbarui status </span>
+                        <!-- Overlay untuk spinner -->
+                        <span
+                            class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                        >
+                            <svg
+                                aria-hidden="true"
+                                role="status"
+                                class="inline w-5 h-5 text-white animate-spin"
+                                viewBox="0 0 100 101"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 
+                                        100.591 0 78.2051 0 50.5908C0 22.9766 
+                                        22.3858 0.59082 50 0.59082C77.6142 
+                                        0.59082 100 22.9766 100 50.5908ZM9.08144 
+                                        50.5908C9.08144 73.1895 27.4013 91.5094 
+                                        50 91.5094C72.5987 91.5094 90.9186 
+                                        73.1895 90.9186 50.5908C90.9186 27.9921 
+                                        72.5987 9.67226 50 9.67226C27.4013 
+                                        9.67226 9.08144 27.9921 9.08144 
+                                        50.5908Z"
+                                    fill="#E5E7EB"
+                                />
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 
+                                        97.8624 35.9116 97.0079 33.5539C95.2932 
+                                        28.8227 92.871 24.3692 89.8167 
+                                        20.348C85.8452 15.1192 80.8826 
+                                        10.7238 75.2124 7.41289C69.5422 
+                                        4.10194 63.2754 1.94025 56.7698 
+                                        1.05124C51.7666 0.367541 46.6976 
+                                        0.446843 41.7345 1.27873C39.2613 
+                                        1.69328 37.813 4.19778 38.4501 
+                                        6.62326C39.0873 9.04874 41.5694 
+                                        10.4717 44.0505 10.1071C47.8511 
+                                        9.54855 51.7191 9.52689 55.5402 
+                                        10.0491C60.8642 10.7766 65.9928 
+                                        12.5457 70.6331 15.2552C75.2735 
+                                        17.9648 79.3347 21.5619 82.5849 
+                                        25.841C84.9175 28.9121 86.7997 
+                                        32.2913 88.1811 35.8758C89.083 
+                                        38.2158 91.5421 39.6781 93.9676 
+                                        39.0409Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-
 {% endblock %}
 <!-- Js per halaman -->
 {% block kontenjs %}
@@ -144,66 +289,298 @@
     // Variabel
     const statusPengirimanContainer =
         document.getElementById("status-pengiriman");
-    let listStatusPengiriman = "";
+    const nomorHalaman = document.getElementById("page-number");
+    const infoDataDitampilkan = document.getElementById(
+        "info-data-ditampilkan"
+    );
+
+    let listPengiriman = [];
+
+    // Modals
+    // Modal update status pesanan
+    const modalUpdateStatus = new Modal(
+        document.getElementById("modal-update-status"),
+        {
+            backdrop: "dynamic",
+            closable: true,
+        }
+    );
 
     // Request seluruh status pesanan
     function muatStatusPesanan() {
-        fetch("/admin/api/data/pesanan", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        })
+        let listNomorHalaman = "";
+        let listStatusPengiriman = "";
+
+        fetch(
+            "/admin/api/data/pesanan?exclude_status=Pending&exclude_status=Ditolak&exclude_status=Gagal%20dikirim&exclude_status=Selesai",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
             .then(async (respon) => {
                 const data = await respon.json();
                 if (!respon.ok) {
-                    throw new Error(data.message || "Terjadi Kesalahan");
+                    throw new Error(data.message);
                 }
                 return data;
             })
             .then((data) => {
-                data.data.forEach((statusPengiriman) => {
-                    const tanggalPemesanan = formatTanggalGMT7(
-                        statusPengiriman.tanggal_pemesanan
+                listPengiriman = data.data;
+
+                if (listPengiriman.length === 0) {
+                    statusPengirimanContainer.innerHTML = `
+                            <tr>
+                                <td colspan="6">
+                                    <p
+                                        class="text-center font-bold text-zinc-600 mt-5"
+                                        id="info-riwayat-pesanan"
+                                    >
+                                        Tidak ada pesanan yang sedang berjalan
+                                    </p>
+                                </td>
+                            </tr>
+                        `;
+
+                    infoDataDitampilkan.textContent =
+                        "Menampilkan 0 - 0 dari 0 data";
+                } else {
+                    listPengiriman.forEach((statusPengiriman) => {
+                        const tanggalPemesanan = formatTanggalGMT7(
+                            statusPengiriman.tanggal_pemesanan
+                        );
+
+                        listStatusPengiriman += `
+                            <tr>
+                                <td class="px-4 py-3 font-medium dark:text-white text-zinc-800">
+                                    ${statusPengiriman.kode_pemesanan}
+                                </td>
+                                <td class="px-4 py-3">${
+                                    statusPengiriman.nama_pengirim
+                                }</td>
+                                <td class="px-4 py-3">${
+                                    statusPengiriman.jenis_kargo
+                                }</td>
+                                <td class="px-4 py-3 text-sm ${labelText(
+                                    statusPengiriman.status
+                                )}">
+                                    ${statusPengiriman.status}
+                                </td>
+                                <td class="px-4 py-3">${
+                                    tanggalPemesanan.tanggal
+                                }</td>
+                                <td class="px-4 py-3">
+                                    <button
+                                        onclick="openStatusModal('${
+                                            statusPengiriman.kode_pemesanan
+                                        }')"
+                                        class="text-sm px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600 cursor-pointer"
+                                    >
+                                        Perbarui
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    statusPengirimanContainer.innerHTML = listStatusPengiriman;
+
+                    // Info tambahan
+                    let mulai = (data.pagination.current_page - 1) * 10 + 1;
+                    let akhir = Math.min(
+                        data.pagination.current_page * 10,
+                        data.pagination.total_items
                     );
+                    infoDataDitampilkan.textContent = `Menampilkan ${mulai} - ${akhir} dari ${data.pagination.total_items} data`;
 
-                    listStatusPengiriman += `
-                        <tr>
-                            <td class="px-4 py-3 font-medium text-gray-800">
-                                ${statusPengiriman.kode_pemesanan}
-                            </td>
-                            <td class="px-4 py-3">${
-                                statusPengiriman.nama_pengirim
-                            }</td>
-                            <td class="px-4 py-3">${
-                                statusPengiriman.jenis_kargo
-                            }</td>
-                            <td class="px-4 py-3 text-sm ${labelText(
-                                statusPengiriman.status
-                            )}">
-                                ${statusPengiriman.status}
-                            </td>
-                            <td class="px-4 py-3">${
-                                tanggalPemesanan.tanggal
-                            }</td>
-                            <td class="px-4 py-3">
+                    // Pagination
+                    // Tambahkan tombol previous
+                    if (data.pagination.current_page - 1 != 0) {
+                        listNomorHalaman += `
+                            <li>
                                 <button
-                                    onclick="openStatusModal('${
-                                        statusPengiriman.kode_pemesanan
-                                    }')"
-                                    class="text-sm px-3 py-1 bg-green-500 text-white rounded-lg hover:bg-green-600"
+                                    onclick="muatRiwayatPesanan(${
+                                        data.pagination.current_page - 1
+                                    })"
+                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-zinc-500 bg-white border border-e-0 border-zinc-300 rounded-s-lg hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
                                 >
-                                    Perbarui
+                                    <span class="sr-only">Previous</span>
+                                    <svg
+                                        class="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 1 1 5l4 4"
+                                        />
+                                    </svg>
                                 </button>
-                            </td>
-                        </tr>
-                    `;
-                });
+                            </li>
+                        `;
+                    }
 
-                statusPengirimanContainer.innerHTML = listStatusPengiriman;
+                    // Nomor halaman
+                    let totalPages = data.pagination.total_pages;
+                    let currentPage = data.pagination.current_page;
+                    let maxVisible = 5;
+                    let startPage, endPage;
+
+                    if (totalPages <= maxVisible) {
+                        // Semua halaman ditampilkan
+                        startPage = 1;
+                        endPage = totalPages;
+                    } else {
+                        if (currentPage <= 3) {
+                            // Awal halaman
+                            startPage = 1;
+                            endPage = maxVisible;
+                        } else if (currentPage >= totalPages - 2) {
+                            // Mendekati akhir
+                            startPage = totalPages - (maxVisible - 1);
+                            endPage = totalPages;
+                        } else {
+                            // Tengah
+                            startPage = currentPage - 2;
+                            endPage = currentPage + 2;
+                        }
+                    }
+
+                    for (let i = startPage; i <= endPage; i++) {
+                        if (i === currentPage) {
+                            listNomorHalaman += `
+                                <li>
+                                    <button
+                                        onclick="muatTarifPengiriman(${i})"
+                                        aria-current="page"
+                                        class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-green-600 border border-green-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-zinc-700 dark:bg-zinc-700 dark:text-white"
+                                    >${i}</button>
+                                </li>
+                            `;
+                        } else {
+                            listNomorHalaman += `
+                                <li>
+                                    <button
+                                        onclick="muatTarifPengiriman(${i})"
+                                        class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+                                    >${i}</button>
+                                </li>
+                            `;
+                        }
+                    }
+
+                    // Tambahkan tombol next
+                    if (
+                        data.pagination.current_page !=
+                        data.pagination.total_pages
+                    ) {
+                        listNomorHalaman += `
+                            <li>
+                                <button
+                                    onclick="muatRiwayatPesanan(${
+                                        data.pagination.current_page + 1
+                                    })"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 rounded-e-lg hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+                                >
+                                    <span class="sr-only">Next</span>
+                                    <svg
+                                        class="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m1 9 4-4-4-4"
+                                        />
+                                    </svg>
+                                </button>
+                            </li>
+                        `;
+                    }
+
+                    // Masukan ke pegination
+                    nomorHalaman.innerHTML = listNomorHalaman;
+                }
             })
             .catch((error) => {
-                console.error("Fetch error:", error);
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    function openStatusModal(kodePemesanan) {
+        const dataPemesanan = listPengiriman.find(
+            (pemesanan) => pemesanan.kode_pemesanan === kodePemesanan
+        );
+        const linkKodePesanan = document.getElementById("kode-pesanan");
+        const elmFormStatus = document.getElementById("form-status");
+
+        linkKodePesanan.setAttribute(
+            "href",
+            `/admin/detail_pesanan/${dataPemesanan.kode_pemesanan}`
+        );
+        linkKodePesanan.textContent = dataPemesanan.kode_pemesanan;
+        elmFormStatus.status.value = dataPemesanan.status;
+
+        // popupModal = document.getElementById("modal-update-status");
+        const statusSubmitBtn = document.getElementById("statusSubmit");
+        statusSubmitBtn.setAttribute(
+            "onclick",
+            `updateStatus(event, this, '${kodePemesanan}')`
+        );
+        modalUpdateStatus.toggle();
+    }
+
+    // Update status
+    function updateStatus(event, btn, kode) {
+        event.preventDefault();
+
+        // Tampilkan overlay spinner
+        btn.querySelector(".loading-overlay").classList.remove("hidden");
+        btn.classList.add("pointer-events-none"); // blokir klik
+
+        const formStatus = new FormData(document.getElementById("form-status"));
+        formStatus.append("update_status", true);
+
+        fetch(`/admin/api/data/detail_pesanan/${kode}`, {
+            method: "POST",
+            body: formStatus,
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                muatStatusPesanan();
+                tampilkanAlertBerhasil(
+                    "Status diperbarui",
+                    "Status pesanan berhasil diperbarui dan diteruskan ke pelanggan."
+                );
+
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+                modalUpdateStatus.toggle();
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
             });
     }
 

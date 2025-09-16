@@ -141,7 +141,7 @@ def kodeKota():
 # Uji coba tampilan email (hapus bagian ini setelah produksi)
 @app.route("/email_test")
 def email_test():
-   return render_template("emails/penolakan_pesanan.html")
+   return render_template("emails/customer/update_status.html")
 
 if __name__ == "__main__":
   app.run(host="0.0.0.0", debug=True)

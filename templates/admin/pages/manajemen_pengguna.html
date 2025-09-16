@@ -4,26 +4,23 @@
 {% block title %}Manajemen Pengguna{% endblock %}
 
 <!-- Style -->
-{% block style %}
-<link
-    rel="stylesheet"
-    href="{{url_for('static',filename='css/admin/dashboard.css')}}"
-/>
-{% endblock %}
+{% block style %} {% endblock %}
 
 <!-- Judul header -->
 {% block judul %}Kelola Pengguna{% endblock %}
 <!-- Konten -->
 {% block konten %}
-<div class="sm:p-5">
-    <div class="bg-white sm:rounded-xl shadow p-4 mb-6">
+<div class="sm:p-4">
+    <div class="bg-white dark:bg-zinc-800 sm:rounded-xl shadow p-4">
         <!-- Tabs Navigation -->
-        <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
-            <ul class="flex flex-wrap text-sm font-medium text-center">
+        <div class="mb-6 border-b border-zinc-200 dark:border-zinc-700">
+            <ul
+                class="flex flex-wrap text-sm font-medium text-center text-zinc-500"
+            >
                 <li class="mr-2">
                     <a
                         href="/admin/manajemen_pengguna"
-                        class="inline-block p-2 border-b-2 border-green-600 text-green-600 rounded-t-lg active"
+                        class="inline-block p-2 border-b-2 border-green-600 dark:border-green-400 text-green-600 dark:text-green-400 rounded-t-lg active"
                         aria-current="page"
                     >
                         Admin
@@ -32,7 +29,7 @@
                 <li class="mr-2">
                     <a
                         href="/admin/manajemen_customer"
-                        class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-green-600 hover:border-green-600"
+                        class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-green-600 dark:hover:text-green-400 transition"
                     >
                         Customer
                     </a>
@@ -62,34 +59,34 @@
                 <!-- Skeleton loading Card -->
                 {% for i in range(10) %}
                 <div
-                    class="relative p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 animate-pulse"
+                    class="relative p-4 bg-white border border-zinc-200 rounded-lg shadow-sm dark:bg-zinc-800 dark:border-zinc-700 animate-pulse"
                 >
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-4">
                             <!-- Avatar Skeleton -->
                             <div
-                                class="w-12 h-12 bg-gray-200 rounded-full dark:bg-gray-700"
+                                class="w-12 h-12 bg-zinc-200 rounded-full dark:bg-zinc-700"
                             ></div>
                             <div>
                                 <!-- Nama Skeleton -->
                                 <div
-                                    class="h-4 bg-gray-200 rounded w-24 mb-2 dark:bg-gray-700"
+                                    class="h-4 bg-zinc-200 rounded w-24 mb-2 dark:bg-zinc-700"
                                 ></div>
                                 <!-- Email Skeleton -->
                                 <div
-                                    class="h-3 bg-gray-200 rounded w-32 dark:bg-gray-700"
+                                    class="h-3 bg-zinc-200 rounded w-32 dark:bg-zinc-700"
                                 ></div>
                             </div>
                         </div>
                         <!-- Menu Button Skeleton -->
                         <div
-                            class="w-6 h-6 bg-gray-200 rounded-full dark:bg-gray-700"
+                            class="w-6 h-6 bg-zinc-200 rounded-full dark:bg-zinc-700"
                         ></div>
                     </div>
                     <div class="mt-4">
                         <!-- Role Badge Skeleton -->
                         <div
-                            class="h-5 w-16 bg-gray-200 rounded-full dark:bg-gray-700"
+                            class="h-5 w-16 bg-zinc-200 rounded-full dark:bg-zinc-700"
                         ></div>
                     </div>
                 </div>
@@ -110,17 +107,17 @@
 >
     <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
+        <div class="relative bg-white rounded-lg shadow-sm dark:bg-zinc-700">
             <!-- Modal header -->
             <div
-                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
+                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-zinc-600 border-zinc-200"
             >
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
                     Tambah Admin baru
                 </h3>
                 <button
                     type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-zinc-600 dark:hover:text-white"
                     onclick=""
                 >
                     <svg
@@ -153,14 +150,14 @@
                     <div class="col-span-2">
                         <label
                             for="name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
                             >Nama</label
                         >
                         <input
                             type="text"
                             name="name"
                             id="name"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-zinc-600 dark:border-zinc-500 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Nama admin"
                             maxlength="50"
                             required
@@ -176,14 +173,14 @@
                     <div class="col-span-2">
                         <label
                             for="email"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
                             >Email</label
                         >
                         <input
                             type="email"
                             name="email"
                             id="email"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-zinc-600 dark:border-zinc-500 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Email admin"
                             maxlength="50"
                             required
@@ -199,14 +196,14 @@
                     <div class="col-span-2 sm:col-span-1">
                         <label
                             for="password"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
                             >Sandi</label
                         >
                         <input
                             type="password"
                             name="password"
                             id="password"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-zinc-600 dark:border-zinc-500 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Sandi admin"
                             required
                         />
@@ -221,14 +218,14 @@
                     <div class="col-span-2 sm:col-span-1">
                         <label
                             for="confirm-password"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
                             >Konfirmasi sandi</label
                         >
                         <input
                             type="password"
                             name="confirm-password"
                             id="confirm-password"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-zinc-600 dark:border-zinc-500 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                             placeholder="Ketik ulang sandi"
                             required
                         />
@@ -262,7 +259,7 @@
                     <button
                         onclick=""
                         type="reset"
-                        class="px-5 py-2.5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        class="px-5 py-2.5 ms-3 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-zinc-100 dark:focus:ring-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"
                     >
                         Batal
                     </button>
@@ -283,103 +280,115 @@
     function muatListAdmin() {
         fetch("/admin/api/data/users?role=admin", {
             method: "GET",
+            headers: { "Content-Type": "application/json" },
         })
             .then(async (respon) => {
                 const data = await respon.json();
                 if (!respon.ok) {
-                    throw new Error(data.message || "Terjadi kesalahan");
+                    throw new Error(data.message);
                 }
                 return data;
             })
             .then((data) => {
                 const dataPengguna = data.data;
-                let listAdmin = "";
-                dataPengguna.forEach((admin, i) => {
-                    listAdmin += `
-                        <!-- Admin Card -->
-                        <div
-                            class="relative p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-                        >
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <img
-                                        class="w-12 h-12 rounded-full"
-                                        src="{{url_for('static', filename='images/logo.png')}}"
-                                        alt="Admin Avatar"
-                                    />
-                                    <div>
-                                        <h5
-                                            class="text-lg font-semibold text-gray-900 dark:text-white"
+
+                if (dataPengguna === 0) {
+                    //
+                } else {
+                    let listAdmin = "";
+                    dataPengguna.forEach((admin, i) => {
+                        listAdmin += `
+                            <!-- Admin Card -->
+                            <div
+                                class="relative p-4 bg-white border border-zinc-200 rounded-lg shadow-sm dark:bg-zinc-800 dark:border-zinc-700"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-4">
+                                        <img
+                                            class="w-12 h-12 rounded-full"
+                                            src="{{url_for('static', filename='images/logo.png')}}"
+                                            alt="Admin Avatar"
+                                        />
+                                        <div>
+                                            <h5
+                                                class="text-lg font-semibold text-zinc-900 dark:text-white"
+                                            >
+                                                ${admin.name}
+                                            </h5>
+                                            <p
+                                                class="text-sm text-zinc-500 dark:text-zinc-400"
+                                            >
+                                                ${admin.email}
+                                            </p>
+                                        </div>
+                                    </div>
+    
+                                    <!-- Dropdown button -->
+                                    <button
+                                        id="dropdownAdminButton${i}"
+                                        data-dropdown-toggle="dropdownAdmin${i}"
+                                        data-dropdown-placement="left"
+                                        data-dropdown-offset-distance="6"
+                                        data-dropdown-offset-skidding="25"
+                                        class="inline-flex items-center p-2 text-sm font-medium text-zinc-500 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 focus:outline-none cursor-pointer"
+                                        type="button"
+                                    >
+                                        <svg
+                                            class="w-5 h-5"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
                                         >
-                                            ${admin.name}
-                                        </h5>
-                                        <p
-                                            class="text-sm text-gray-500 dark:text-gray-400"
+                                            <path
+                                                d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"
+                                            />
+                                        </svg>
+                                    </button>
+    
+                                    <!-- Dropdown menu -->
+                                    <div
+                                        id="dropdownAdmin${i}"
+                                        class="hidden z-10 w-28 bg-white divide-y divide-zinc-100 rounded-lg shadow dark:bg-zinc-700"
+                                    >
+                                        <ul
+                                            class="py-2 text-sm text-zinc-700 dark:text-zinc-200"
+                                            aria-labelledby="dropdownAdminButton${i}"
                                         >
-                                            ${admin.email}
-                                        </p>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white"
+                                                    >Edit</a
+                                                >
+                                            </li>
+                                            <li>
+                                                <a
+                                                    href="#"
+                                                    class="block px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-zinc-600 dark:hover:text-red-400"
+                                                    >Hapus</a
+                                                >
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-
-                                <!-- Dropdown button -->
-                                <button
-                                    id="dropdownAdminButton${i}"
-                                    data-dropdown-toggle="dropdownAdmin${i}"
-                                    class="inline-flex items-center p-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none"
-                                    type="button"
-                                >
-                                    <svg
-                                        class="w-5 h-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
+                                <div class="mt-4">
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900 rounded-full"
+                                        >Admin</span
                                     >
-                                        <path
-                                            d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"
-                                        />
-                                    </svg>
-                                </button>
-
-                                <!-- Dropdown menu -->
-                                <div
-                                    id="dropdownAdmin${i}"
-                                    class="hidden z-10 w-28 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
-                                >
-                                    <ul
-                                        class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownAdminButton${i}"
-                                    >
-                                        <li>
-                                            <a
-                                                href="#"
-                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >Edit</a
-                                            >
-                                        </li>
-                                        <li>
-                                            <a
-                                                href="#"
-                                                class="block px-4 py-2 text-red-600 hover:bg-red-100 dark:hover:bg-gray-600 dark:hover:text-red-400"
-                                                >Hapus</a
-                                            >
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
-                            <div class="mt-4">
-                                <span
-                                    class="px-2 py-1 text-xs font-medium text-green-800 bg-green-100 rounded-full"
-                                    >Admin</span
-                                >
-                            </div>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
 
-                userList.innerHTML = listAdmin;
-                initFlowbite();
+                    userList.innerHTML = listAdmin;
+
+                    // Muat ulang flowbite js
+                    initFlowbite();
+                }
             })
             .catch((error) => {
-                console.error("Fetch error: ", error);
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
             });
     }
 

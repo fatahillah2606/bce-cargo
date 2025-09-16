@@ -1,0 +1,16 @@
+[PEMBARUAN STATUS PESANAN]
+
+Halo {{nama_pelanggan}},
+
+Pesanan Anda dengan kode pemesanan: {{kode_pemesanan}} mengalami pembaruan status.
+
+Status Pesanan:
+{{status_pesanan}}
+
+Catatan dari Admin:
+{{catatan_admin}}
+
+Anda dapat memantau perkembangan pesanan Anda melalui akun di sistem {{APP_NAME}}.
+
+Terima kasih telah menggunakan layanan {{APP_NAME}}.
+Tim {{APP_NAME}}

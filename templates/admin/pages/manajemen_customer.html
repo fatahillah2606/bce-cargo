@@ -4,27 +4,23 @@
 {% block title %}Manajemen Pengguna{% endblock %}
 
 <!-- Style -->
-{% block style %}
-<link
-    rel="stylesheet"
-    href="{{url_for('static',filename='css/admin/dashboard.css')}}"
-/>
-{% endblock %}
+{% block style %} {% endblock %}
 
 <!-- Judul header -->
 {% block judul %}Kelola Pengguna{% endblock %}
 <!-- Konten -->
 {% block konten %}
-<div class="sm:p-5">
-    <div class="bg-white rounded-xl shadow p-4 mb-6">
+<div class="sm:p-4">
+    <div class="bg-white dark:bg-zinc-800 sm:rounded-xl shadow p-4">
         <!-- Tabs Navigation -->
-        <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
-            <ul class="flex flex-wrap text-sm font-medium text-center">
+        <div class="mb-6 border-b border-zinc-200 dark:border-zinc-700">
+            <ul
+                class="flex flex-wrap text-sm font-medium text-center text-zinc-500"
+            >
                 <li class="mr-2">
                     <a
                         href="/admin/manajemen_pengguna"
-                        class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-green-600 hover:border-green-600"
-                        aria-current="page"
+                        class="inline-block p-2 border-b-2 border-transparent rounded-t-lg hover:text-green-600 dark:hover:text-green-400 transition"
                     >
                         Admin
                     </a>
@@ -32,7 +28,8 @@
                 <li class="mr-2">
                     <a
                         href="/admin/manajemen_customer"
-                        class="inline-block p-2 border-b-2 border-green-600 text-green-600 rounded-t-lg active"
+                        class="inline-block p-2 border-b-2 border-green-600 dark:border-green-400 text-green-600 dark:text-green-400 rounded-t-lg active"
+                        aria-current="page"
                     >
                         Customer
                     </a>
@@ -50,34 +47,34 @@
                 <!-- Skeleton loading Card -->
                 {% for i in range(10) %}
                 <div
-                    class="relative p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 animate-pulse"
+                    class="relative p-4 bg-white border border-zinc-200 rounded-lg shadow-sm dark:bg-zinc-800 dark:border-zinc-700 animate-pulse"
                 >
                     <div class="flex items-center justify-between">
                         <div class="flex items-center space-x-4">
                             <!-- Avatar Skeleton -->
                             <div
-                                class="w-12 h-12 bg-gray-200 rounded-full dark:bg-gray-700"
+                                class="w-12 h-12 bg-zinc-200 rounded-full dark:bg-zinc-700"
                             ></div>
                             <div>
                                 <!-- Nama Skeleton -->
                                 <div
-                                    class="h-4 bg-gray-200 rounded w-24 mb-2 dark:bg-gray-700"
+                                    class="h-4 bg-zinc-200 rounded w-24 mb-2 dark:bg-zinc-700"
                                 ></div>
                                 <!-- Email Skeleton -->
                                 <div
-                                    class="h-3 bg-gray-200 rounded w-32 dark:bg-gray-700"
+                                    class="h-3 bg-zinc-200 rounded w-32 dark:bg-zinc-700"
                                 ></div>
                             </div>
                         </div>
                         <!-- Menu Button Skeleton -->
                         <div
-                            class="w-6 h-6 bg-gray-200 rounded-full dark:bg-gray-700"
+                            class="w-6 h-6 bg-zinc-200 rounded-full dark:bg-zinc-700"
                         ></div>
                     </div>
                     <div class="mt-4">
                         <!-- Role Badge Skeleton -->
                         <div
-                            class="h-5 w-16 bg-gray-200 rounded-full dark:bg-gray-700"
+                            class="h-5 w-16 bg-zinc-200 rounded-full dark:bg-zinc-700"
                         ></div>
                     </div>
                 </div>
@@ -98,17 +95,17 @@
 >
     <div class="relative w-full max-w-2xl max-h-full p-4">
         <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+        <div class="relative bg-white rounded-lg shadow dark:bg-zinc-800">
             <!-- Modal header -->
             <div
-                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200"
+                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-zinc-600 border-zinc-200"
             >
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
                     Detail akun Customer
                 </h3>
                 <button
                     type="button"
-                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-zinc-600 dark:hover:text-white"
                     onclick=""
                 >
                     <svg
@@ -134,7 +131,7 @@
             <div class="px-4">
                 <!-- Tabs -->
                 <ul
-                    class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400"
+                    class="flex flex-wrap text-sm font-medium text-center text-zinc-500 border-b border-zinc-200 dark:border-zinc-700 dark:text-zinc-400"
                     id="customerDetailTab"
                     data-tabs-toggle="#customerDetailTabContent"
                     role="tablist"
@@ -179,41 +176,41 @@
                         <dl class="space-y-4">
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Nama
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     John Doe
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Email
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     johndoe@example.com
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Tanggal Daftar
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     01 Januari 2024
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Status Akun
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     Ya
                                 </dd>
                             </div>
@@ -230,72 +227,72 @@
                         <dl class="space-y-4">
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Nama Lengkap
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     Johnathan Doe
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Alamat Lengkap
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     Jl. Merpati No. 123, RT 02 RW 05, Kelurahan
                                     Mawar, Kecamatan Melati
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Nomor Telepon
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     0812-3456-7890
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Jenis Pelanggan
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     Perusahaan
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Nama Perusahaan
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     PT Teknologi Hebat
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Tanggal Dibuat
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     01 Januari 2024
                                 </dd>
                             </div>
                             <div>
                                 <dt
-                                    class="font-medium text-gray-700 dark:text-gray-300"
+                                    class="font-medium text-zinc-700 dark:text-zinc-300"
                                 >
                                     Tanggal Update
                                 </dt>
-                                <dd class="text-gray-900 dark:text-white">
+                                <dd class="text-zinc-900 dark:text-white">
                                     15 Maret 2024
                                 </dd>
                             </div>
@@ -306,7 +303,7 @@
 
             <!-- Modal footer -->
             <div
-                class="flex justify-end items-center gap-2 p-4 border-t border-gray-200 rounded-b dark:border-gray-700"
+                class="flex justify-end items-center gap-2 p-4 border-t border-zinc-200 rounded-b dark:border-zinc-700"
             >
                 <button
                     type="button"
@@ -341,96 +338,105 @@
             .then(async (respon) => {
                 const data = await respon.json();
                 if (!respon.ok) {
-                    throw new Error(data.message || "Terjadi kesalahan");
+                    throw new Error(data.message);
                 }
                 return data;
             })
             .then((data) => {
                 const dataPengguna = data.data;
-                let listCustomer = "";
-                dataPengguna.forEach((customer, i) => {
-                    listCustomer += `
-                        <!-- Customer Card -->
-                        <div
-                            class="relative p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
-                        >
-                            <div class="flex items-center justify-between">
-                                <div class="flex items-center space-x-4">
-                                    <div
-                                        class="w-12 h-12 rounded-full relative bg-zinc-100"
-                                    >
-                                        <span
-                                            class="material-symbols-rounded absolute top-1/2 left-1/2 -translate-1/2 text-3xl!"
-                                        >
-                                            person
-                                        </span>
-                                    </div>
-                                    <div>
-                                        <h5
-                                            class="text-lg font-semibold text-gray-900 dark:text-white"
-                                        >
-                                            ${customer.name}
-                                        </h5>
-                                        <p
-                                            class="text-sm text-gray-500 dark:text-gray-400"
-                                        >
-                                            ${customer.email}
-                                        </p>
-                                    </div>
-                                </div>
 
-                                <!-- Dropdown button -->
-                                <button
-                                    id="dropdownCustomerButton${i}"
-                                    data-dropdown-toggle="dropdownCustomer${i}"
-                                    class="inline-flex items-center p-2 text-sm font-medium text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none"
-                                    type="button"
-                                >
-                                    <svg
-                                        class="w-5 h-5"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <path
-                                            d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"
-                                        />
-                                    </svg>
-                                </button>
-
-                                <!-- Dropdown menu -->
-                                <div
-                                    id="dropdownCustomer${i}"
-                                    class="hidden z-10 w-28 bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700"
-                                >
-                                    <ul
-                                        class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                        aria-labelledby="dropdownCustomerButton1"
-                                    >
-                                        <li>
-                                            <button
-                                                onclick="accountDetails('${customer._id}')"
-                                                class="block w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                                >Detail</button
+                if (dataPengguna.length === 0) {
+                    //
+                } else {
+                    let listCustomer = "";
+                    dataPengguna.forEach((customer, i) => {
+                        listCustomer += `
+                            <!-- Customer Card -->
+                            <div
+                                class="relative p-4 bg-white border border-zinc-200 rounded-lg shadow-sm dark:bg-zinc-800 dark:border-zinc-700"
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-4">
+                                        <div
+                                            class="w-12 h-12 rounded-full relative bg-zinc-100 dark:bg-zinc-700"
+                                        >
+                                            <span
+                                                class="material-symbols-rounded absolute top-1/2 left-1/2 -translate-1/2 text-3xl! dark:text-zinc-100"
                                             >
-                                        </li>
-                                    </ul>
+                                                person
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <h5
+                                                class="text-lg font-semibold text-zinc-900 dark:text-white"
+                                            >
+                                                ${customer.name}
+                                            </h5>
+                                            <p
+                                                class="text-sm text-zinc-500 dark:text-zinc-400"
+                                            >
+                                                ${customer.email}
+                                            </p>
+                                        </div>
+                                    </div>
+        
+                                    <!-- Dropdown button -->
+                                    <button
+                                        id="dropdownCustomerButton${i}"
+                                        data-dropdown-toggle="dropdownCustomer${i}"
+                                        data-dropdown-placement="bottom"
+                                        data-dropdown-offset-distance="6"
+                                        data-dropdown-offset-skidding="-25"
+                                        class="inline-flex items-center p-2 text-sm font-medium text-zinc-500 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-700 focus:outline-none cursor-pointer"
+                                        type="button"
+                                    >
+                                        <svg
+                                            class="w-5 h-5"
+                                            fill="currentColor"
+                                            viewBox="0 0 20 20"
+                                        >
+                                            <path
+                                                d="M10 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 8.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10 14a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"
+                                            />
+                                        </svg>
+                                    </button>
+        
+                                    <!-- Dropdown menu -->
+                                    <div
+                                        id="dropdownCustomer${i}"
+                                        class="hidden z-10 w-28 bg-white divide-y divide-zinc-100 rounded-lg shadow dark:bg-zinc-700"
+                                    >
+                                        <ul
+                                            class="py-2 text-sm text-zinc-700 dark:text-zinc-200"
+                                            aria-labelledby="dropdownCustomerButton1"
+                                        >
+                                            <li>
+                                                <button
+                                                    onclick="accountDetails('${customer._id}')"
+                                                    class="block w-full text-left px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer"
+                                                    >Detail</button
+                                                >
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <span
+                                        class="px-2 py-1 text-xs font-medium text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-900 rounded-full"
+                                        >Customer</span
+                                    >
                                 </div>
                             </div>
-                            <div class="mt-4">
-                                <span
-                                    class="px-2 py-1 text-xs font-medium text-blue-800 bg-blue-100 rounded-full"
-                                    >Customer</span
-                                >
-                            </div>
-                        </div>
-                    `;
-                });
+                        `;
+                    });
 
-                userList.innerHTML = listCustomer;
-                initFlowbite();
+                    userList.innerHTML = listCustomer;
+                    initFlowbite();
+                }
             })
             .catch((error) => {
-                console.error("Fetch error: ", error);
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
             });
     }
 

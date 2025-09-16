@@ -4,38 +4,33 @@
 {% block title %}Pesanan masuk{% endblock %}
 
 <!-- Style -->
-{% block style %}
-<link
-    rel="stylesheet"
-    href="{{url_for('static',filename='css/admin/dashboard.css')}}"
-/>
-{% endblock %}
+{% block style %} {% endblock %}
 
 <!-- Judul header -->
 {% block judul %}Pesanan masuk{% endblock %}
 <!-- Konten -->
 {% block konten %}
-<div class="sm:p-5">
+<div class="sm:p-4">
     <!-- Container utama -->
-    <div class="bg-white sm:rounded-xl shadow p-4 mb-6">
+    <div class="bg-white dark:bg-zinc-800 sm:rounded-xl shadow p-4">
         <!-- Navigasi Tab -->
-        <div class="mb-6 border-b border-gray-200">
-            <div class="flex gap-2 text-sm font-medium text-gray-500">
+        <div class="mb-6 border-b border-zinc-200 dark:border-zinc-700">
+            <div class="flex gap-2 text-sm font-medium text-zinc-500">
                 <a
                     href="/admin/pesanan_masuk"
-                    class="relative px-4 py-2 text-green-600 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500"
+                    class="relative px-4 py-2 text-green-600 dark:text-green-400 font-semibold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-green-500 dark:after:bg-green-400"
                 >
                     Pesanan Masuk
                 </a>
                 <a
                     href="/admin/riwayat_pesanan"
-                    class="px-4 py-2 hover:text-green-600 transition"
+                    class="px-4 py-2 hover:text-green-600 dark:hover:text-green-400 transition"
                 >
                     Riwayat Pesanan
                 </a>
                 <a
                     href="/admin/status"
-                    class="px-4 py-2 hover:text-green-600 transition"
+                    class="px-4 py-2 hover:text-green-600 dark:hover:text-green-400 transition"
                 >
                     Status Pengiriman
                 </a>
@@ -44,12 +39,47 @@
 
         <!-- List Pesanan Masuk -->
         <div class="space-y-4" id="pesanan-masuk">
-            <p
-                class="text-center font-bold text-gray-600"
-                id="info-pesanan-masuk"
+            {% for i in range(10) %}
+            <div
+                class="flex items-start gap-4 bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-800 shadow-sm rounded-lg p-4 animate-pulse"
             >
-                Memuat pesanan terbaru...
-            </p>
+                <div
+                    class="w-6 h-6 bg-zinc-200 rounded-lg dark:bg-zinc-800"
+                ></div>
+                <div class="flex-1">
+                    <div class="mb-1 flex flex-wrap gap-1">
+                        <div
+                            class="h-5 bg-zinc-200 rounded w-32 dark:bg-zinc-900"
+                        ></div>
+                        <div
+                            class="h-5 bg-zinc-300 rounded w-52 dark:bg-zinc-800"
+                        ></div>
+                        <div
+                            class="h-5 bg-zinc-200 rounded w-24 dark:bg-zinc-900"
+                        ></div>
+                    </div>
+                    <div class="flex flex-wrap gap-1">
+                        <div
+                            class="h-3 bg-zinc-200 rounded w-20 dark:bg-zinc-800"
+                        ></div>
+                        <div
+                            class="h-3 bg-zinc-300 rounded w-40 dark:bg-zinc-900"
+                        ></div>
+                        <div
+                            class="h-3 bg-zinc-200 rounded w-14 dark:bg-zinc-800"
+                        ></div>
+                        <div
+                            class="h-3 bg-zinc-300 rounded w-32 dark:bg-zinc-900"
+                        ></div>
+                    </div>
+                </div>
+                <div>
+                    <div
+                        class="h-8 bg-zinc-200 rounded-lg w-14 dark:bg-zinc-800"
+                    ></div>
+                </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -62,12 +92,12 @@
 >
     <div class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 relative">
         <!-- Judul -->
-        <h3 class="text-lg font-semibold text-gray-800 mb-4">
+        <h3 class="text-lg font-semibold text-zinc-800 mb-4">
             Detail Pesanan - <span id="modalKode">BCE-U-240626-001</span>
         </h3>
 
         <!-- Isi Konten -->
-        <div class="space-y-2 text-sm text-gray-700">
+        <div class="space-y-2 text-sm text-zinc-700">
             <p>
                 <strong>Nama Pelanggan:</strong>
                 <span id="modalNama">Fajar Prasetyo</span>
@@ -89,7 +119,7 @@
             <div class="mt-4">
                 <label
                     for="nominalInput"
-                    class="block text-sm font-medium text-gray-600 mb-1"
+                    class="block text-sm font-medium text-zinc-600 mb-1"
                     >Nominal Harga (Rp)</label
                 >
                 <input
@@ -119,7 +149,7 @@
             </button>
             <button
                 onclick="tutupModal()"
-                class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg"
+                class="bg-zinc-300 text-zinc-800 px-4 py-2 rounded-lg"
             >
                 Tutup
             </button>
@@ -147,62 +177,66 @@
             .then(async (respon) => {
                 const data = await respon.json();
                 if (!respon.ok) {
-                    if (data.code === 404) {
-                        // Jika tidak ada pesanan masuk
-                        const infoPesananMasuk =
-                            document.getElementById("info-pesanan-masuk");
-                        infoPesananMasuk.textContent =
-                            "Tidak ada pesanan masuk";
-
-                        // Lempar error agar tidak di proses datanya
-                        throw new Error(data.message || "Terjadi kesalahan");
-                    } else {
-                        throw new Error(data.message || "Terjadi kesalahan");
-                    }
+                    throw new Error(data.message);
                 }
                 return data;
             })
             .then((data) => {
-                data.data.forEach((pesananMasuk) => {
-                    let tanggalPemesanan = formatTanggalGMT7(
-                        pesananMasuk.tanggal_pemesanan
-                    );
-                    listPesanan += `
-                        <div
-                            class="flex items-start gap-4 bg-gray-50 border border-gray-200 shadow-sm rounded-lg p-4"
-                        >
-                            <span class="material-symbols-rounded text-green-600 text-3xl"
-                                >local_shipping</span
-                            >
-                            <div class="flex-1">
-                                <p class="text-sm text-gray-700 mb-1">
-                                    <span class="font-semibold text-gray-900"
-                                        >${pesananMasuk.kode_pemesanan}</span
-                                    >
-                                    dari
-                                    <span class="font-medium">${pesananMasuk.nama_pengirim}</span> meminta
-                                    pengiriman <span class="italic">Kargo ${pesananMasuk.jenis_kargo}</span>.
-                                </p>
-                                <p class="text-xs text-gray-500">
-                                    ${pesananMasuk.alamat_pengirim} → ${pesananMasuk.alamat_penerima} · ${tanggalPemesanan.tanggal}
-                                </p>
-                            </div>
-                            <div>
-                                <button
-                                    class="text-sm px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
-                                    onclick="openModal('${pesananMasuk.kode_pemesanan}')"
-                                >
-                                    Lihat
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                });
+                const dataPesanan = data.data;
 
-                pesananMasukContainer.innerHTML = listPesanan;
+                if (dataPesanan.length === 0) {
+                    // Jika tidak ada pesanan masuk
+                    pesananMasukContainer.innerHTML = `
+                            <p
+                                class="text-center font-bold text-zinc-600"
+                                id="info-pesanan-masuk"
+                            >
+                                Tidak ada pesanan masuk
+                            </p>
+                        `;
+                } else {
+                    dataPesanan.forEach((pesananMasuk) => {
+                        let tanggalPemesanan = formatTanggalGMT7(
+                            pesananMasuk.tanggal_pemesanan
+                        );
+                        listPesanan += `
+                            <div
+                                class="flex items-start gap-4 bg-zinc-50 dark:bg-zinc-700 border border-zinc-200 dark:border-zinc-800 shadow-sm rounded-lg p-4"
+                            >
+                                <span class="material-symbols-rounded text-green-600 dark:text-green-400 text-3xl"
+                                    >local_shipping</span
+                                >
+                                <div class="flex-1">
+                                    <p class="text-sm text-zinc-700 dark:text-zinc-300 mb-1">
+                                        <span class="font-semibold text-zinc-900 dark:text-zinc-100"
+                                            >${pesananMasuk.kode_pemesanan}</span
+                                        >
+                                        dari
+                                        <span class="font-medium">${pesananMasuk.nama_pengirim}</span> meminta
+                                        pengiriman <span class="italic">Kargo ${pesananMasuk.jenis_kargo}</span>.
+                                    </p>
+                                    <p class="text-xs text-zinc-500 dark:text-zinc-400">
+                                        ${pesananMasuk.alamat_pengirim} · ${tanggalPemesanan.tanggal}
+                                    </p>
+                                </div>
+                                <div>
+                                    <a
+                                        href="/admin/detail_pesanan/${pesananMasuk.kode_pemesanan}"
+                                        class="text-sm px-3 py-1.5 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+                                    >
+                                        Lihat
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    pesananMasukContainer.innerHTML = listPesanan;
+                }
             })
             .catch((error) => {
-                console.error("Fetch error:", error);
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
             });
     }
 

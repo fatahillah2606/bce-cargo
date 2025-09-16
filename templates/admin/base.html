@@ -31,16 +31,14 @@
         />
         {% block style %}{% endblock %}
     </head>
-    <body class="w-full h-screen overflow-hidden bg-zinc-100 dark:bg-zinc-900">
+    <body class="bg-zinc-100 dark:bg-zinc-900">
         <div class="konten">
             <!-- Navigasi -->
             {% include 'admin/components/navigation.html' %}
 
-            <section
-                class="w-full h-screen overflow-auto relative pb-20 sm:pb-0"
-            >
+            <section class="w-full min-h-[100dvh] overflow-auto relative">
                 <header
-                    class="flex items-center justify-between px-4 sm:px-7 gap-2.5 sm:gap-5 h-20 bg-white dark:bg-zinc-800 shadow sticky top-0 z-10"
+                    class="flex items-center justify-between px-4 sm:px-7 gap-2.5 sm:gap-5 h-16 bg-white dark:bg-zinc-800 shadow sticky top-0 z-10"
                 >
                     <!-- Heading title dan tombol menu (untuk mobile) -->
                     <div class="flex items-center gap-2.5 sm:gap-5">
@@ -52,7 +50,7 @@
                             dehaze
                         </span>
                         <h2
-                            class="text-2xl sm:text-4xl font-extrabold dark:text-white"
+                            class="text-xl sm:text-3xl font-extrabold dark:text-white"
                         >
                             {% block judul %}{% endblock %}
                         </h2>
@@ -61,7 +59,7 @@
                     <!-- Profile -->
                     <div>
                         <div
-                            class="cursor-pointer rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
+                            class="cursor-pointer rounded-full md:me-0 focus:ring-4 focus:ring-zinc-300 dark:focus:ring-zinc-600"
                             aria-expanded="false"
                             data-dropdown-toggle="menu-profile"
                             data-dropdown-placement="bottom"
@@ -80,6 +78,9 @@
                 <!-- Konten -->
                 {% block konten %}{% endblock %}
 
+                <!-- Footer -->
+                {% include 'admin/components/footer.html' %}
+
                 <!-- alerts -->
                 <div
                     class="fixed bottom-0 right-0 z-50 w-full max-w-96 p-5"
@@ -96,8 +97,6 @@
         >
             <span class="material-symbols-rounded leading-12!"> refresh </span>
         </button>
-
-        <!-- Footer -->
 
         <!-- Modals -->
         {% block modals %}{% endblock %}

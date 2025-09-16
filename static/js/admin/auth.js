@@ -51,16 +51,9 @@ function loginAdmin(event) {
                 const data = await response.json();
                 if (!response.ok) {
                     tampilkanError(data.message);
-                    throw new Error(data.message || "Terjadi kesalahan");
-                }
-                return data;
-            })
-            .then((data) => {
-                if (data.code === 200) {
+                } else {
                     tampilkanError(); // Hapus banner error
                     location.href = "/admin/dashboard";
-                } else {
-                    tampilkanError("Email atau Sandi salah");
                 }
             })
             .catch((error) => {

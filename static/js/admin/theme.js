@@ -18,8 +18,8 @@ function toggleTheme() {
 // Cek preferensi tema
 if (localStorage.getItem("theme") === "dark") {
     document.documentElement.classList.add("dark");
-    themeSwitch.setAttribute("checked", "");
+    themeSwitch ? themeSwitch.setAttribute("checked", "") : "";
 } else {
     document.documentElement.classList.remove("dark");
-    themeSwitch.removeAttribute("checked");
+    themeSwitch ? themeSwitch.removeAttribute("checked") : "";
 }

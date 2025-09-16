@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Pembaruan Status Pesanan</title>
+    </head>
+    <body
+        style="
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+        "
+    >
+        <table
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="background-color: #f5f6fa; padding: 20px 0"
+        >
+            <tr>
+                <td align="center">
+                    <table
+                        width="600"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="
+                            background-color: #ffffff;
+                            border-radius: 8px;
+                            overflow: hidden;
+                        "
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                style="
+                                    background-color: #2d3436;
+                                    color: #ffffff;
+                                    padding: 20px;
+                                    text-align: center;
+                                "
+                            >
+                                <h2 style="margin: 0">
+                                    CV. Bahtera Cahaya Express
+                                </h2>
+                            </td>
+                        </tr>
+
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 20px; color: #2d3436">
+                                <h3 style="margin-top: 0">
+                                    Pembaruan Status Pesanan
+                                </h3>
+                                <p>Halo <strong>{{nama_pelanggan}}</strong>,</p>
+                                <p>
+                                    Kami ingin memberitahukan bahwa pesanan Anda
+                                    dengan kode
+                                    <strong>{{kode_pemesanan}}</strong>
+                                    mengalami pembaruan status.
+                                </p>
+
+                                <!-- Status Box -->
+                                <div
+                                    style="
+                                        border: 1px solid #dfe6e9;
+                                        border-radius: 6px;
+                                        padding: 15px;
+                                        margin: 20px 0;
+                                        background-color: #f1f2f6;
+                                    "
+                                >
+                                    <p style="margin: 0; font-size: 16px">
+                                        <strong>Status Pesanan:</strong>
+                                    </p>
+                                    <p
+                                        style="
+                                            margin: 5px 0;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                            color: #0984e3;
+                                        "
+                                    >
+                                        {{status_pesanan}}
+                                        <!-- contoh: Diproses / Menunggu Pick-up / Dalam Pengiriman -->
+                                    </p>
+                                </div>
+
+                                <!-- Catatan Admin -->
+                                <p><strong>Catatan dari Admin:</strong></p>
+                                <blockquote
+                                    style="
+                                        margin: 10px 0;
+                                        padding: 10px 15px;
+                                        border-left: 4px solid #0984e3;
+                                        background: #f9f9f9;
+                                        font-style: italic;
+                                    "
+                                >
+                                    {{catatan_admin}}
+                                </blockquote>
+
+                                <p>
+                                    Anda dapat memantau pesanan Anda melalui
+                                    akun di sistem {{APP_NAME}}. Terima kasih
+                                    telah menggunakan layanan kami.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                style="
+                                    background-color: #f1f2f6;
+                                    padding: 15px;
+                                    font-size: 12px;
+                                    color: #636e72;
+                                    text-align: center;
+                                "
+                            >
+                                Email ini dikirim otomatis oleh sistem
+                                {{APP_NAME}}.<br />
+                                © {{YEAR}} {{APP_NAME}}. All rights reserved.
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
