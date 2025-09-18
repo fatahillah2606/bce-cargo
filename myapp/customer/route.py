@@ -215,7 +215,6 @@ def verifpw():
 
 # ONGKIR
 @customer_route.route("/ongkir", methods=["GET", "POST"])
-@khusus_customer
 def ongkir():
     return render_template("customer/pages/ongkir.html")
 
@@ -761,7 +760,6 @@ def update_profile():
 
 # CEK ONGKIR
 @customer_route.route("/api/cek_ongkir", methods=["GET", "POST"])
-@khusus_customer
 def cek_ongkir():
     try:
         tarif = collection["tarif"]
@@ -782,3 +780,26 @@ def cek_ongkir():
     
     except Exception as e:
         return respon_api("error", 500, str(e), [], {}), 500
+    
+
+# Tampilkan riwayat pesanan
+@customer_route.route("/api/riwayat", methods=["GET"])
+@khusus_customer
+def get_riwayat_pesanan():
+    try:
+        pesanan_collection = collection["pesanan"]
+        
+        # Ambil data pesanan untuk user yang sedang login
+        query = {"user_id": ObjectId(session["user_id"])}
+        
+        riwayat_pesanan = pesanan_collection.find(query).sort("created_at", -1)
+        
+        data_pesanan = [convert_objectid_to_str(doc) for doc in riwayat_pesanan]
+        
+        if data_pesanan:
+            return respon_api("success", 200, "Riwayat pesanan ditemukan", data_pesanan, {})
+        else:
+            return respon_api("error", 404, "Riwayat pesanan tidak ditemukan", [], {}), 404
+            
+    except Exception as e:
+        return respon_api("error", 500, "Gagal mengambil riwayat pesanan", str(e), {}), 500
