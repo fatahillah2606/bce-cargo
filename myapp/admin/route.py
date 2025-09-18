@@ -176,14 +176,18 @@ def detailInvoice(kode_invoice):
     detail_invoice = collection["invoice"].find_one({"kode_invoice": kode_invoice})
 
     if detail_invoice:
-        detail_invoice["tanggal_invoice"] = convert_utc_to_indonesia(detail_invoice["tanggal_invoice"])
+        dataPemesanan = collection["pemesanan_kargo"].find_one({"_id": detail_invoice["pemesanan_id"]})
+        dataBarang = [collection["data_barang"].find_one({"_id": idBarang}) for idBarang in dataPemesanan["barang_ids"]]
+        for barang in dataBarang:
+            barang["kategori_id"] = collection["kategori_barang_kargo"].find_one({"_id": barang["kategori_id"]}, {"nama_kategori": 1})
 
+        detail_invoice["tanggal_invoice"] = convert_utc_to_indonesia(detail_invoice["tanggal_invoice"])
         detail_invoice["rincian_pembayaran"]["subtotal"] = format_rupiah(detail_invoice["rincian_pembayaran"]["subtotal"])
         detail_invoice["rincian_pembayaran"]["surcharge_dg"] = format_rupiah(detail_invoice["rincian_pembayaran"]["surcharge_dg"])
         detail_invoice["rincian_pembayaran"]["biaya_packing"] = format_rupiah(detail_invoice["rincian_pembayaran"]["biaya_packing"])
         detail_invoice["rincian_pembayaran"]["total"] = format_rupiah(detail_invoice["rincian_pembayaran"]["total"])
         
-        return render_template("admin/pages/detail_invoice.html", active_page="invoice", detail_invoice = detail_invoice)
+        return render_template("admin/pages/detail_invoice.html", active_page="invoice", detail_invoice = detail_invoice, data_pemesanan = dataPemesanan, data_barang = dataBarang)
     else:
         abort(404)
 
@@ -248,27 +252,6 @@ def keluhan():
 def logout():
     session.clear()
     return redirect(url_for("admin.login"))
-
-# handler untuk error pages
-@admin_route.app_errorhandler(403)
-@khusus_admin
-def forbidden_error(error):
-    return render_template("admin/errors/403.html"), 403
-
-@admin_route.app_errorhandler(404)
-@khusus_admin
-def not_found_error(error):
-    return render_template("admin/errors/404.html"), 404
-
-@admin_route.app_errorhandler(500)
-@khusus_admin
-def internal_error(error):
-    return render_template("admin/errors/500.html"), 500
-
-@admin_route.app_errorhandler(503)
-@khusus_admin
-def service_unavailable(error):
-    return render_template("admin/errors/503.html"), 503
 
 # API Route
 # Sistem autentikasi

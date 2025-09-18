@@ -91,9 +91,11 @@
                     <h4 class="font-semibold dark:text-white text-lg mb-3">
                         Invoice to:
                     </h4>
-                    <p class="text-zinc-900 dark:text-white">Andi Setiawan</p>
-                    <p>Jl. Merdeka No. 45, Jakarta</p>
-                    <p>+62 812 3456 7890</p>
+                    <p class="text-zinc-900 dark:text-white">
+                        {{data_pemesanan.nama_pengirim}}
+                    </p>
+                    <p>{{data_pemesanan.alamat_pengirim}}</p>
+                    <p>{{data_pemesanan.no_hp_pengirim}}</p>
                 </div>
             </div>
 
@@ -116,20 +118,23 @@
                     <tbody
                         class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
                     >
+                        {% for barang in data_barang %}
                         <tr>
-                            <td class="px-4 py-3">Redmi Note 10 Pro</td>
-                            <td class="px-4 py-3">1</td>
-                            <td class="px-4 py-3">16.4 x 7.65 x 0.81</td>
-                            <td class="px-4 py-3">Mudah Rusak</td>
-                            <td class="px-4 py-3">Darat</td>
+                            <td class="px-4 py-3">{{ barang.nama_barang }}</td>
+                            <td class="px-4 py-3">{{ barang.jumlah }}</td>
+                            <td class="px-4 py-3">
+                                {{ barang.dimensi_cm.panjang }} x {{
+                                barang.dimensi_cm.lebar }} x {{
+                                barang.dimensi_cm.tinggi }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ barang.kategori_id.nama_kategori }}
+                            </td>
+                            <td class="px-4 py-3">
+                                {{ barang.metode_pengiriman }}
+                            </td>
                         </tr>
-                        <tr>
-                            <td class="px-4 py-3">Moza Steering Wheel</td>
-                            <td class="px-4 py-3">1</td>
-                            <td class="px-4 py-3">43.18 x 35.56 x 10</td>
-                            <td class="px-4 py-3">Mudah Rusak</td>
-                            <td class="px-4 py-3">Darat</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -188,8 +193,9 @@
         <!-- Invoice Sidebar -->
         <div class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6 space-y-6">
             <!-- Status Invoice -->
+            <!-- <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-zinc-700 dark:text-green-400"> -->
             <div
-                class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-zinc-700 dark:text-green-400"
+                class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-zinc-700 dark:text-red-400"
             >
                 <svg
                     class="shrink-0 inline w-4 h-4 me-3"
@@ -222,14 +228,14 @@
                         {{detail_invoice.rincian_pembayaran.total}}
                     </h3>
 
-                    <select
+                    <!-- <select
                         id="status_pembayaran"
                         name="status_pembayaran"
                         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-40 p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
                     >
                         <option value="Sudah Dibayar">Sudah Dibayar</option>
                         <option value="Belum Dibayar">Belum Dibayar</option>
-                    </select>
+                    </select> -->
                 </div>
                 <!-- Detail pembuat -->
                 <div class="flex flex-col gap-3 mb-4">
@@ -284,7 +290,7 @@
                             >
                                 Invoice created:
                             </h3>
-                            <p>05/07/2025</p>
+                            <!-- <p>05/07/2025</p> -->
                         </li>
                         <li class="mb-6 ms-6 flex items-center justify-between">
                             <span
@@ -310,7 +316,7 @@
                             >
                                 Invoice sent:
                             </h3>
-                            <p>06/07/2025</p>
+                            <!-- <p>06/07/2025</p> -->
                         </li>
                         <li class="ms-6 flex items-center justify-between">
                             <span
@@ -336,7 +342,7 @@
                             >
                                 Invoice paid:
                             </h3>
-                            <p>08/07/2025</p>
+                            <!-- <p>08/07/2025</p> -->
                         </li>
                     </ol>
                 </div>

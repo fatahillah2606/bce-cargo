@@ -783,23 +783,44 @@ def cek_ongkir():
     
 
 # Tampilkan riwayat pesanan
-@customer_route.route("/api/riwayat", methods=["GET"])
+@customer_route.route("/api/data/riwayat", methods=["GET"])
 @khusus_customer
 def get_riwayat_pesanan():
     try:
-        pesanan_collection = collection["pesanan"]
         
         # Ambil data pesanan untuk user yang sedang login
-        query = {"user_id": ObjectId(session["user_id"])}
-        
-        riwayat_pesanan = pesanan_collection.find(query).sort("created_at", -1)
-        
-        data_pesanan = [convert_objectid_to_str(doc) for doc in riwayat_pesanan]
-        
-        if data_pesanan:
-            return respon_api("success", 200, "Riwayat pesanan ditemukan", data_pesanan, {})
+        idPelanggan = collection["data_pelanggan"].find_one({"user_id": ObjectId(session["user_id"])}, {"_id": 1})
+        dataPemesanan = collection["pemesanan_kargo"].find({"pelanggan_id": ObjectId(idPelanggan["_id"])})
+
+        # looping agar bisa ditampilkan
+        dataPemesanan = [listPemesanan for listPemesanan in dataPemesanan]
+
+        if dataPemesanan:
+            return respon_api("success", 200, "Riwayat pesanan tersedia", [convert_objectid_to_str(pemesanan) for pemesanan in dataPemesanan], {})
         else:
-            return respon_api("error", 404, "Riwayat pesanan tidak ditemukan", [], {}), 404
-            
+            return respon_api("success", 200, "Riwayat tidak pesanan tersedia", [], {})
+
     except Exception as e:
         return respon_api("error", 500, "Gagal mengambil riwayat pesanan", str(e), {}), 500
+    
+# Tampilkan data barang pesanan
+@customer_route.route("/api/data/barang/<kode_pemesanan>", methods=["GET"])
+@khusus_customer
+def get_barang_pesanan(kode_pemesanan):
+    try:
+        
+        # ambil data si pemesan
+        dataPelanggan = collection["data_pelanggan"].find_one({"user_id": ObjectId(session["user_id"])})
+        dataPemesanan = collection["pemesanan_kargo"].find_one({"kode_pemesanan": kode_pemesanan})
+
+        if dataPelanggan["_id"] == dataPemesanan["pelanggan_id"]:
+            barangIds = [idBarang for idBarang in dataPemesanan["barang_ids"]]
+            return tampilkanSemuaData(collection["data_barang"], request.args.get("page", 1), request.args.get("limit", 10), {"_id": {"$in": barangIds}}, {})
+        else:
+            return respon_api("error", 404, "Anda tidak memiliki akses untuk ini", [], {}), 403
+
+
+    except Exception as e:
+        return respon_api("error", 500, "Gagal mengambil barang pesanan", str(e), {}), 500
+
+        

@@ -222,6 +222,13 @@
                                     />
                                     Tampilkan Sandi
                                 </label>
+                                <!-- Error -->
+                                <p
+                                    class="text-red-600 hidden text-sm"
+                                    id="pesan-error"
+                                >
+                                    Mohon isi semua kolom.
+                                </p>
                                 <button
                                     type="submit"
                                     class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 cursor-pointer"
@@ -253,99 +260,58 @@
         <script>
             const form = document.getElementById("register");
 
-            form.addEventListener("submit", function (e) {
-                let isValid = true;
-
-                // Full Name
-                const fullname = form.fullname;
-                if (
-                    fullname.value.trim() === "" ||
-                    fullname.value.length > 100
-                ) {
-                    document
-                        .getElementById("error-fullname")
-                        .classList.remove("hidden");
-                    isValid = false;
-                } else {
-                    document
-                        .getElementById("error-fullname")
-                        .classList.add("hidden");
-                }
-
-                // Email
-                const email = form.email;
-                if (email.value.trim() === "" || email.value.length > 50) {
-                    document
-                        .getElementById("error-email")
-                        .classList.remove("hidden");
-                    isValid = false;
-                } else {
-                    document
-                        .getElementById("error-email")
-                        .classList.add("hidden");
-                }
-
-                // Password
-                const password = document.getElementById("password");
-                if (password.value.length < 6) {
-                    document
-                        .getElementById("error-password")
-                        .classList.remove("hidden");
-                    isValid = false;
-                } else {
-                    document
-                        .getElementById("error-password")
-                        .classList.add("hidden");
-                }
-
-                // Confirm Password
-                const confirmPassword =
-                    document.getElementById("confirm_password");
-                if (confirmPassword.value !== password.value) {
-                    document
-                        .getElementById("error-confirm")
-                        .classList.remove("hidden");
-                    isValid = false;
-                } else {
-                    document
-                        .getElementById("error-confirm")
-                        .classList.add("hidden");
-                }
-
-                if (!isValid) {
-                    e.preventDefault(); // cegah submit kalau invalid
-                }
-            });
-
             // Daftar
             function daftar(event) {
                 event.preventDefault();
 
-                const formpendaftaran = new FormData(
-                    document.getElementById("register")
-                );
-                formpendaftaran.append("register", true);
+                const pesanError = document.getElementById("pesan-error");
 
-                fetch("/customer/api/auth", {
-                    method: "POST",
-                    body: formpendaftaran,
-                })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            throw new Error(
-                                data.message || "terjadi kesalahan"
-                            );
-                        }
-                        return data;
+                const kolomIsian = document.querySelectorAll("input[required]");
+                valid = true;
+                kolomIsian.forEach((isian) => {
+                    if (isian.value == "") {
+                        pesanError.textContent = "Mohon isi semua kolom";
+                        pesanError.classList.remove("hidden");
+                        valid = false;
+                    }
+                });
+
+                const sandi = document.getElementById("password");
+                const konfirm_sandi =
+                    document.getElementById("confirm_password");
+                if (sandi.value !== "" && sandi.value !== konfirm_sandi) {
+                    valid = false;
+                    pesanError.textContent = "Sandi tidak sesuai";
+                    pesanError.classList.remove("hidden");
+                }
+
+                if (valid) {
+                    const formpendaftaran = new FormData(
+                        document.getElementById("register")
+                    );
+                    formpendaftaran.append("register", true);
+
+                    fetch("/customer/api/auth", {
+                        method: "POST",
+                        body: formpendaftaran,
                     })
-                    .then((data) => {
-                        // Bagian ini jika verifikasi berhasil
-                        location.href = "/customer/verif";
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
+                        .then(async (respon) => {
+                            const data = await respon.json();
+                            if (!respon.ok) {
+                                throw new Error(
+                                    data.message || "terjadi kesalahan"
+                                );
+                            }
+                            return data;
+                        })
+                        .then((data) => {
+                            // Bagian ini jika verifikasi berhasil
+                            location.href = "/customer/verif";
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
             }
         </script>
     </body>
