@@ -23,8 +23,12 @@ function tampilkanError(pesan) {
     }
 }
 
-function loginAdmin(event) {
+function loginAdmin(event, btn) {
     event.preventDefault();
+
+    // Tampilkan overlay spinner
+    btn.querySelector(".loading-overlay").classList.remove("hidden");
+    btn.classList.add("pointer-events-none"); // blokir klik
 
     // formulir
     const formElm = document.getElementById("login");
@@ -51,8 +55,18 @@ function loginAdmin(event) {
                 const data = await response.json();
                 if (!response.ok) {
                     tampilkanError(data.message);
+                    // Hapus overlay spinner
+                    btn.querySelector(".loading-overlay").classList.add(
+                        "hidden"
+                    );
+                    btn.classList.remove("pointer-events-none");
                 } else {
                     tampilkanError(); // Hapus banner error
+                    // Hapus overlay spinner
+                    btn.querySelector(".loading-overlay").classList.add(
+                        "hidden"
+                    );
+                    btn.classList.remove("pointer-events-none");
                     location.href = "/admin/dashboard";
                 }
             })
@@ -61,6 +75,9 @@ function loginAdmin(event) {
             });
     } else {
         // Jika "false" tampilkan banner
+        // Hapus overlay spinner
+        btn.querySelector(".loading-overlay").classList.add("hidden");
+        btn.classList.remove("pointer-events-none");
         tampilkanError("Mohon isi kolom yang dibutuhkan");
     }
 }

@@ -312,7 +312,7 @@
         let listStatusPengiriman = "";
 
         fetch(
-            "/admin/api/data/pesanan?exclude_status=Pending&exclude_status=Ditolak&exclude_status=Gagal%20dikirim&exclude_status=Selesai",
+            "/admin/api/data/pesanan?exclude_status=Pending&exclude_status=Ditolak&exclude_status=Gagal%20dikirim&exclude_status=Selesai&exclude_status=Sampai%20tujuan",
             {
                 method: "GET",
                 headers: {

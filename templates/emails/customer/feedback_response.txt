@@ -1,0 +1,14 @@
+[BALASAN KELUHAN PELANGGAN]
+
+Halo {{nama_pelanggan}},
+
+Kami mohon maaf atas ketidaknyamanan yang Anda alami.
+
+Berikut adalah respon dari tim kami terkait keluhan Anda:
+{{respon_admin}}
+
+Terima kasih atas kesabaran dan pengertian Anda.
+Kami berkomitmen untuk terus meningkatkan layanan agar pengalaman Anda semakin baik.
+
+Salam hangat,
+Tim {{APP_NAME}}

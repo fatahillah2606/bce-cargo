@@ -324,7 +324,7 @@ def autentikasi():
                     return respon_api("error", 401, "Email atau Sandi salah", [], {}), 401
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
 
 # Pemesanan Kargo
 @admin_route.route("/api/data/pesanan", methods=["GET", "POST"])
@@ -634,7 +634,7 @@ def kelolaInvoice():
                 return tampilkanSemuaData(data_invoice, request.args.get("page", 1), request.args.get("limit", 10), {}, {})
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
 
 # Kelola users
 @admin_route.route("/api/data/users", methods=["GET", "POST"])
@@ -650,7 +650,7 @@ def dataUsers():
                 return respon_api("error", 400, "Bad request", [], {}), 400
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
     
 # Kelola data pelanggan
 @admin_route.route("/api/data/pelanggan", methods=["GET", "POST"])
@@ -666,7 +666,7 @@ def dataPelanggan():
                 return respon_api("error", 400, "Bad request", [], {}), 400
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
     
 # Kategori Barang Kargo
 @admin_route.route("/api/data/kategori", methods=["GET", "POST"])
@@ -685,7 +685,7 @@ def dataKategori():
                 return tampilkanSemuaData(kategori_barang, request.args.get("page", 1), request.args.get("limit", 10), {}, {})
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
 
 # Tarif
 @admin_route.route("/api/data/tarif", methods=["GET", "POST", "DELETE"])
@@ -778,6 +778,7 @@ def dataFeedback():
         if request.method == "POST":
             data_json = request.get_json()
 
+            # Tandai dibaca
             if data_json and data_json.get("markRead"):
                 markRead = str(data_json.get("markRead"))
 
@@ -786,6 +787,38 @@ def dataFeedback():
                 else:
                     return respon_api("error", 500, "Terjadi kesalahan", [], {}), 500
 
+            # Balas keluhan
+            if data_json and data_json.get("jawab_keluhan"):
+                dataKeluhan = feedback.find_one({"_id": ObjectId(data_json.get(str("keluhan_id")))})
+
+                if feedback.update_one({"_id": ObjectId(data_json.get(str("keluhan_id")))}, {"$set": {"dibaca": True}}):
+                    if "email" not in dataKeluhan or dataKeluhan["email"] == "":
+                        return respon_api("error", 404, "Pelanggan tidak mencantumkan email", [], {}), 404
+                    else:
+                        context = {
+                            "nama_pelanggan": dataKeluhan["nama"],
+                            "respon_admin": str(data_json.get("jawab_keluhan")),
+                            "YEAR": datetime.now(timezone.utc).year,
+                            "APP_NAME": "CV. Bahtera Cahaya Express"
+                        }
+
+                        # Render template Jinja (HTML & plain-text)
+                        html_body = render_template("emails/customer/feedback_response.html", **context)
+                        text_body = render_template("emails/customer/feedback_response.txt", **context)
+
+                        send_email_smtp(
+                            host = current_app.config["MAIL_SERVER"],
+                            port = current_app.config["MAIL_PORT"],
+                            sender = current_app.config["MAIL_SENDER"],
+                            to = dataKeluhan["email"],
+                            subject = f"Kami mohon maaf atas ketidaknyamanan yang Anda alami",
+                            html_body = html_body,
+                            text_body = text_body
+                        )
+
+                        return respon_api("success", 200, "Pesan terkirim", [], {})
+
+            # Tandai semua dibaca
             else:
                 if feedback.update_many({}, {"$set": {"dibaca": True}}):
                     return respon_api("success", 200, "Semua keluhan ditandai sudah dibaca", [], {})
@@ -820,7 +853,7 @@ def dataFeedback():
                 return tampilkanSemuaData(feedback, request.args.get("page", 1), request.args.get("limit", 10), {}, {})
 
     except Exception as error:
-        return respon_api("error", 500, str(error), [], {})
+        return respon_api("error", 500, str(error), [], {}), 500
 
 # Experiment
 @admin_route.route("/register", methods=["GET", "POST"])

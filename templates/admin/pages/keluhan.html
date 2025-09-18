@@ -56,16 +56,6 @@
                         class="h-4 bg-zinc-200 rounded w-64 dark:bg-zinc-700"
                     ></div>
                 </div>
-
-                <!-- Tombol aksi -->
-                <div class="mt-2 gap-2 tombol-aksi flex">
-                    <div
-                        class="h-8 bg-zinc-200 rounded w-44 dark:bg-zinc-700 mt-1"
-                    ></div>
-                    <div
-                        class="h-8 bg-zinc-200 rounded w-24 dark:bg-zinc-700 mt-1"
-                    ></div>
-                </div>
             </div>
         </div>
         {% endfor %}
@@ -157,6 +147,10 @@
 
     let currentPage;
 
+    function toggleBalas(idForm) {
+        document.getElementById(idForm).classList.toggle("hidden");
+    }
+
     function muatKeluhan(halaman) {
         let listKeluhan = "";
 
@@ -188,7 +182,7 @@
 
                     throw new Error(data.message || "Terjadi Kesalahan");
                 } else {
-                    dataKeluhan.forEach((keluhan) => {
+                    dataKeluhan.forEach((keluhan, i) => {
                         // Jika keluhan belum dibaca
                         if (
                             keluhan.dibaca == undefined ||
@@ -210,7 +204,37 @@
                                     <!-- Isi Keluhan -->
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between">
-                                            <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
+                                            <div 
+                                                class="flex items-center gap-1 cursor-pointer"
+                                                id="tombolMenuKeluhan${i}"
+                                                data-dropdown-toggle="menuKeluhan${i}"
+                                            >
+                                                <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
+                                                <button
+                                                    class="inline-flex items-center text-sm font-medium text-center text-zinc-900 rounded-lg hover:bg-zinc-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-zinc-50 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
+                                                    type="button"
+                                                >
+                                                    <span class="material-symbols-rounded text-zinc-400"> keyboard_arrow_down </span>
+                                                </button>
+
+                                                <!-- Dropdown menu -->
+                                                <div
+                                                    id="menuKeluhan${i}"
+                                                    class="z-10 hidden bg-white divide-y divide-zinc-100 rounded-lg shadow-sm w-44 dark:bg-zinc-700 dark:divide-zinc-600"
+                                                >
+                                                    <ul
+                                                        class="py-2 text-sm text-zinc-700 dark:text-zinc-200"
+                                                    >
+                                                        <li class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer" onclick="toggleBalas('balas_keluhan${i}')">Balas</li>
+                                                        <li class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer" onclick="markAsRead('${keluhan._id}')">Tandai dibaca</li>
+                                                    </ul>
+                                                    <div class="my-2 text-red-600 hover:bg-red-100 dark:hover:bg-zinc-600 dark:hover:text-red-400 cursor-pointer" onclick="deleteKeluhan('${keluhan._id}')">
+                                                        <span class="block px-4 py-2 text-sm">
+                                                            Hapus
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <span
                                                 class="text-xs bg-green-500 dark:bg-green-800 dark:text-green-400 text-white px-2 py-0.5 rounded-full"
                                                 >Baru</span
@@ -219,35 +243,31 @@
                                         <p class="text-zinc-700 dark:text-zinc-200 mt-1 text-sm">
                                             ${keluhan.keterangan}
                                         </p>
-    
-                                        <!-- Tombol aksi -->
-                                        <div class="mt-2 gap-2 tombol-aksi flex">
-                                            <button
-                                                class="flex items-center gap-1 focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm pl-1 pr-2 py-1 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 cursor-pointer"
-                                                onclick="markAsRead('${keluhan._id}')"
-                                                type="button"
-                                            >
-                                                <span class="material-symbols-rounded ">
-                                                    done_all
-                                                </span>
-                                                <span> Tandai sudah dibaca </span>
+                                        <form
+                                            class="flex items-center gap-1.5 mt-3 hidden"
+                                            name="balas_keluhan${i}"
+                                            id="balas_keluhan${i}"
+                                            method="post"
+                                        >
+                                            <div class="flex flex-auto items-center bg-zinc-50 border border-zinc-300 dark:bg-zinc-700 dark:border-zinc-600 rounded-full overflow-hidden">
+                                                <span class="material-symbols-rounded w-10 h-10 cursor-pointer flex-none text-center leading-10! dark:text-white" onclick="toggleBalas('balas_keluhan${i}')">close</span>
+                                                <textarea
+                                                    id="jawab_keluhan${i}"
+                                                    name="jawab_keluhan"
+                                                    class="w-full h-10 bg-zinc-50 border-none! dark:bg-zinc-700 text-zinc-900 text-sm block p-2.5 dark:text-white resize-none flex-auto"
+                                                ></textarea>
+                                            </div>
+                                            <button type="submit" onclick="kirimBalasan(event, '${keluhan._id}', 'balas_keluhan${i}')" class="bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 rounded-full w-10 h-10 flex-none flex items-center justify-center cursor-pointer">
+                                                <span class="material-symbols-rounded text-white"> send </span>
                                             </button>
-                                            <button
-                                                class="flex items-center gap-1 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm pl-1 pr-2 py-1 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 cursor-pointer"
-                                                onclick="deleteKeluhan('${keluhan._id}')"
-                                                type="button"
-                                            >
-                                                <span class="material-symbols-rounded"> delete </span>
-                                                <span> Hapus </span>
-                                            </button>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             `;
                         } else {
                             // Jika keluhan sudah dibaca
                             listKeluhan += `
-                                <div class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow flex space-x-3 keluhan">
+                                <div class="bg-white hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700 p-4 rounded-xl shadow flex space-x-3 keluhan">
                                     <!-- Foto Profil -->
                                     <div class="flex-shrink-0">
                                         <div
@@ -261,24 +281,59 @@
                                     <!-- Isi Keluhan -->
                                     <div class="flex-1">
                                         <div class="flex items-center justify-between">
-                                            <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
+                                            <div 
+                                                class="flex items-center gap-1 cursor-pointer"
+                                                id="tombolMenuKeluhan${i}"
+                                                data-dropdown-toggle="menuKeluhan${i}"
+                                            >
+                                                <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
+                                                <button
+                                                    class="inline-flex items-center text-sm font-medium text-center text-zinc-900 rounded-lg hover:bg-zinc-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-zinc-50 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
+                                                    type="button"
+                                                >
+                                                    <span class="material-symbols-rounded text-zinc-400"> keyboard_arrow_down </span>
+                                                </button>
+
+                                                <!-- Dropdown menu -->
+                                                <div
+                                                    id="menuKeluhan${i}"
+                                                    class="z-10 hidden bg-white divide-y divide-zinc-100 rounded-lg shadow-sm w-44 dark:bg-zinc-700 dark:divide-zinc-600"
+                                                >
+                                                    <ul
+                                                        class="py-2 text-sm text-zinc-700 dark:text-zinc-200"
+                                                    >
+                                                        <li class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer" onclick="toggleBalas('balas_keluhan${i}')">Balas</li>
+                                                    </ul>
+                                                    <div class="my-2 text-red-600 hover:bg-red-100 dark:hover:bg-zinc-600 dark:hover:text-red-400 cursor-pointer" onclick="deleteKeluhan('${keluhan._id}')">
+                                                        <span class="block px-4 py-2 text-sm">
+                                                            Hapus
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <span class="text-xs text-zinc-400">Dibaca</span>
                                         </div>
                                         <p class="text-zinc-700 dark:text-zinc-200 mt-1 text-sm">
                                             ${keluhan.keterangan}
                                         </p>
-    
-                                        <!-- Tombol aksi -->
-                                        <div class="mt-2 gap-2 tombol-aksi flex items-center sm:flex-row">
-                                            <button
-                                                class="flex items-center gap-1 text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm pl-1 pr-2 py-1 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900 cursor-pointer"
-                                                onclick="deleteKeluhan('${keluhan._id}')"
-                                                type="button"
-                                            >
-                                                <span class="material-symbols-rounded"> delete </span>
-                                                <span> Hapus </span>
+                                        <form
+                                            class="flex items-center gap-1.5 mt-3 hidden"
+                                            name="balas_keluhan${i}"
+                                            id="balas_keluhan${i}"
+                                            method="post"
+                                        >
+                                            <div class="flex flex-auto items-center bg-zinc-50 border border-zinc-300 dark:bg-zinc-700 dark:border-zinc-600 rounded-full overflow-hidden">
+                                                <span class="material-symbols-rounded w-10 h-10 cursor-pointer flex-none text-center leading-10! dark:text-white" onclick="toggleBalas('balas_keluhan${i}')">close</span>
+                                                <textarea
+                                                    id="jawab_keluhan${i}"
+                                                    name="jawab_keluhan"
+                                                    class="w-full h-10 bg-zinc-50 border-none! dark:bg-zinc-700 text-zinc-900 text-sm block p-2.5 dark:text-white resize-none flex-auto"
+                                                ></textarea>
+                                            </div>
+                                            <button type="submit" onclick="kirimBalasan(event, '${keluhan._id}', 'balas_keluhan${i}')" class="bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 rounded-full w-10 h-10 flex-none flex items-center justify-center cursor-pointer">
+                                                <span class="material-symbols-rounded text-white"> send </span>
                                             </button>
-                                        </div>
+                                        </form>
                                     </div>
                                 </div>
                             `;
@@ -317,6 +372,9 @@
                     } else {
                         nextBtn.removeAttribute("onclick");
                     }
+
+                    // Muat ulang flowbite js
+                    initFlowbite();
                 }
             })
             .catch((error) => {
@@ -373,6 +431,40 @@
                 tampilkanAlertBerhasil("Berhasil", data.message);
                 muatKeluhan(currentPage);
                 checkUnread();
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Balas keluhan
+    function kirimBalasan(event, idKeluhan, idForm) {
+        event.preventDefault();
+
+        const kolomPesan = new FormData(document.getElementById(idForm));
+        toggleBalas(idForm);
+
+        fetch("/admin/api/data/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                keluhan_id: idKeluhan,
+                jawab_keluhan: kolomPesan.get("jawab_keluhan"),
+            }),
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                tampilkanAlertBerhasil("Berhasil", data.message);
+                muatKeluhan(currentPage);
             })
             .catch((error) => {
                 tampilkanAlertKesalahan("An error occurred", error);

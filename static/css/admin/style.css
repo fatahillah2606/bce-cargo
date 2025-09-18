@@ -10,10 +10,6 @@
     display: none;
 }
 
-.keluhan:hover .tombol-aksi {
-    display: flex;
-}
-
 @media screen and (max-width: 1000px) {
     .konten {
         grid-template-columns: 0px 1fr;
