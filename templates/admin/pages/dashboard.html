@@ -246,7 +246,9 @@
                         (item) => item.status === "Dalam pengiriman"
                     ).length;
                     sampaiTujuan.textContent = data.data.filter(
-                        (item) => item.status === "Sampai tujuan"
+                        (item) =>
+                            item.status === "Sampai tujuan" ||
+                            item.status === "Selesai"
                     ).length;
                     statusPending.textContent = data.data.filter(
                         (item) => item.status === "Pending"
@@ -383,7 +385,7 @@
                     </td>
                     <td class="px-4 py-3 dark:text-zinc-400">
                         <span
-                            class="inline-block px-2 py-1 text-xs font-semibold text-white ${labelWarna(
+                            class="inline-block px-2 py-1 text-xs text-center font-semibold text-white ${labelWarna(
                                 tiapData.status
                             )} rounded-full"
                         >

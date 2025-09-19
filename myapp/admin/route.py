@@ -214,21 +214,21 @@ def riwayat_pesanan():
 @admin_route.route("/status")
 @khusus_admin
 def status():
-    print(session.get("kedaluwarsa"))
     return render_template("admin/pages/status.html", active_page="pesanan_masuk")
 
 @admin_route.route("/detail_pesanan/<kode_pesanan>")
 @khusus_admin
 def detailPesanan(kode_pesanan):
-    # Ambil data pemesanan
+    # Ambil data pemesan
     detailPesanan = collection["pemesanan_kargo"].find_one({"kode_pemesanan": kode_pesanan})
+    dataPelanggan = collection["data_pelanggan"].find_one({"_id": detailPesanan["pelanggan_id"]})
 
     # Apakah pesanan ada?
     if detailPesanan:
         detailPesanan["tanggal_pemesanan"] = convert_utc_to_indonesia(detailPesanan["tanggal_pemesanan"])
         detailPesanan["harga_total"] = format_rupiah(detailPesanan["harga_total"])
 
-        return render_template("admin/pages/detail_pesanan.html", active_page="pesanan_masuk", detail_pesanan = detailPesanan)
+        return render_template("admin/pages/detail_pesanan.html", active_page="pesanan_masuk", detail_pesanan = detailPesanan, data_pelanggan = dataPelanggan)
     else:
         abort(404)
 
@@ -370,7 +370,11 @@ def dataPesanan():
                     }
                 }
 
-                return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), queryPencarian, {})
+                query = pemesanan.find(queryPencarian, {}).sort("_id", -1)
+                data = [convert_objectid_to_str(hasil) for hasil in query]
+                return respon_api("success", 200, "Data tersedia", data, {})
+
+                # return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), queryPencarian, {})
 
             else:
                 # Tampilkan semua data tanpa filtrasi
@@ -556,7 +560,6 @@ def APIdetailPesanan(kode_pesanan):
                 return tampilkanDataSpesifik(collection["pemesanan_kargo"], detailPesanan["_id"])
 
     except Exception as error:
-        print(error)
         return respon_api("error", 500, str(error), [], {}), 500
     
 # API Detail barang
@@ -567,7 +570,34 @@ def dataBarang():
     detailBarang = collection["data_barang"]
     try:
         if request.method == "POST":
-            return respon_api("error", 400, "Bad request", [], {}), 400
+            if "update_barang" in request.form:
+                print("Ok")
+                berat_kg = float(request.form["berat_kg"])
+                kategori_barang = ObjectId(request.form["kategori_barang"])
+                asuransi = True if request.form["asuransi"] == "true" else False
+                status_dg = request.form["dg"]
+                biaya_surcharge = request.form["biaya_surcharge"] if "biaya_surcharge" in request.form else 0
+                biaya_surcharge = 0 if not biaya_surcharge else int(biaya_surcharge)
+                packing_khusus = True if request.form["packing_khusus"] == "true" else False
+                label_dg = True if request.form["labelDG"] == "true" else False
+
+                data_barang = {
+                    "berat_kg": berat_kg,
+                    "kategori_id": kategori_barang,
+                    "butuh_asuransi": asuransi,
+                    "status_cek_dg": status_dg,
+                    "biaya_surcharge": biaya_surcharge,
+                    "butuh_packing_khusus": packing_khusus,
+                    "butuh_label_dg": label_dg
+                }
+                print(data_barang)
+
+                ubah_data = detailBarang.update_one({"_id": ObjectId(request.form["id_barang"])}, {"$set": data_barang})
+                
+                if ubah_data:
+                    return respon_api("success", 200, "Data barang diubah", [], {})
+                else:
+                    return respon_api("error", 500, "Terjadi kesalahan saat mengubah data barang", [], {}), 500
             
         else:
             idBarang = request.args.get("id_barang")
@@ -788,7 +818,7 @@ def dataFeedback():
                     return respon_api("error", 500, "Terjadi kesalahan", [], {}), 500
 
             # Balas keluhan
-            if data_json and data_json.get("jawab_keluhan"):
+            if data_json and data_json.get("respon_keluhan"):
                 dataKeluhan = feedback.find_one({"_id": ObjectId(data_json.get(str("keluhan_id")))})
 
                 if feedback.update_one({"_id": ObjectId(data_json.get(str("keluhan_id")))}, {"$set": {"dibaca": True}}):

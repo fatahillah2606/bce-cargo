@@ -170,6 +170,18 @@
                             {{detail_pesanan.nama_pengirim}}
                         </span>
                     </li>
+                    {% if data_pelanggan.nama_perusahaan %}
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white"
+                            >Nama Perusahaan:</span
+                        >
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{data_pelanggan.nama_perusahaan}}
+                        </span>
+                    </li>
+                    {% endif %}
                     <li class="flex justify-between gap-2.5 py-2.5">
                         <span class="font-medium dark:text-white">Alamat:</span>
                         <span
@@ -291,7 +303,6 @@
                         <input
                             type="text"
                             name="nama_barang"
-                            value="Laptop Dell"
                             disabled
                             class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
                         />
@@ -306,7 +317,6 @@
                         <input
                             type="number"
                             name="jumlah"
-                            value="1"
                             disabled
                             class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
                         />
@@ -321,7 +331,6 @@
                         <input
                             type="number"
                             name="berat_kg"
-                            value="2.5"
                             required
                             class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
                         />
@@ -343,7 +352,6 @@
                         <input
                             type="number"
                             name="panjang"
-                            value="40"
                             disabled
                             placeholder="Panjang"
                             class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
@@ -351,7 +359,6 @@
                         <input
                             type="number"
                             name="lebar"
-                            value="30"
                             disabled
                             placeholder="Lebar"
                             class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
@@ -359,7 +366,6 @@
                         <input
                             type="number"
                             name="tinggi"
-                            value="5"
                             disabled
                             placeholder="Tinggi"
                             class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
@@ -433,7 +439,6 @@
                     <input
                         type="text"
                         name="metode_pengiriman"
-                        value="Express"
                         disabled
                         class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
                     />
@@ -479,7 +484,6 @@
                     <input
                         type="number"
                         name="biaya_surcharge"
-                        value="0"
                         class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
                     />
                 </div>
@@ -569,9 +573,59 @@
                     </button>
                     <button
                         type="submit"
-                        class="ml-3 px-5 py-2.5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                        id="submit-barang"
+                        class="relative ml-3 px-5 py-2.5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300"
                     >
-                        Simpan Perubahan
+                        <span>Simpan perubahan</span>
+                        <!-- Overlay untuk spinner -->
+                        <span
+                            class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                        >
+                            <svg
+                                aria-hidden="true"
+                                role="status"
+                                class="inline w-5 h-5 text-white animate-spin"
+                                viewBox="0 0 100 101"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 
+                                        100.591 0 78.2051 0 50.5908C0 22.9766 
+                                        22.3858 0.59082 50 0.59082C77.6142 
+                                        0.59082 100 22.9766 100 50.5908ZM9.08144 
+                                        50.5908C9.08144 73.1895 27.4013 91.5094 
+                                        50 91.5094C72.5987 91.5094 90.9186 
+                                        73.1895 90.9186 50.5908C90.9186 27.9921 
+                                        72.5987 9.67226 50 9.67226C27.4013 
+                                        9.67226 9.08144 27.9921 9.08144 
+                                        50.5908Z"
+                                    fill="#E5E7EB"
+                                />
+                                <path
+                                    d="M93.9676 39.0409C96.393 38.4038 
+                                        97.8624 35.9116 97.0079 33.5539C95.2932 
+                                        28.8227 92.871 24.3692 89.8167 
+                                        20.348C85.8452 15.1192 80.8826 
+                                        10.7238 75.2124 7.41289C69.5422 
+                                        4.10194 63.2754 1.94025 56.7698 
+                                        1.05124C51.7666 0.367541 46.6976 
+                                        0.446843 41.7345 1.27873C39.2613 
+                                        1.69328 37.813 4.19778 38.4501 
+                                        6.62326C39.0873 9.04874 41.5694 
+                                        10.4717 44.0505 10.1071C47.8511 
+                                        9.54855 51.7191 9.52689 55.5402 
+                                        10.0491C60.8642 10.7766 65.9928 
+                                        12.5457 70.6331 15.2552C75.2735 
+                                        17.9648 79.3347 21.5619 82.5849 
+                                        25.841C84.9175 28.9121 86.7997 
+                                        32.2913 88.1811 35.8758C89.083 
+                                        38.2158 91.5421 39.6781 93.9676 
+                                        39.0409Z"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </span>
                     </button>
                 </div>
             </form>
@@ -960,6 +1014,7 @@
                 </h3>
                 <button
                     type="button"
+                    onclick="modalUpdateStatus.toggle()"
                     class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-zinc-600 dark:hover:text-white"
                 >
                     <svg
@@ -1380,6 +1435,13 @@
                         dataBarang.butuh_packing_khusus;
                     formDetailBarang.labelDG.value = dataBarang.butuh_label_dg;
 
+                    document
+                        .getElementById("submit-barang")
+                        .setAttribute(
+                            "onclick",
+                            `updateBarang(event, this, "${dataBarang._id}")`
+                        );
+
                     // Tampilkan modal
                     itemDetailModal.toggle();
                 }
@@ -1387,6 +1449,51 @@
             .catch((error) => {
                 tampilkanAlertKesalahan("An error occurred", error);
                 console.error(error);
+            });
+    }
+
+    // Update data barang
+    function updateBarang(event, btn, idBarang) {
+        event.preventDefault();
+
+        // Tampilkan overlay spinner
+        btn.querySelector(".loading-overlay").classList.remove("hidden");
+        btn.classList.add("pointer-events-none"); // blokir klik
+
+        const formBarang = new FormData(
+            document.getElementById("detail-barang")
+        );
+        formBarang.append("update_barang", true);
+        formBarang.append("id_barang", idBarang);
+
+        // fetch
+        fetch("/admin/api/data/barang", {
+            method: "POST",
+            body: formBarang,
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
+                muatListBarang();
+                tampilkanAlertBerhasil("Success", data.message);
+                itemDetailModal.toggle();
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
             });
     }
 
