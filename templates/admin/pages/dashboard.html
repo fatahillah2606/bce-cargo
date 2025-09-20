@@ -179,7 +179,7 @@
 
     // Minta data
     function muatDataTahunIni() {
-        // fetch API
+        // fetch 10 data pesanan terbaru
         const sekarang = new Date();
         fetch("/admin/api/data/pesanan?tahun=" + sekarang.getFullYear(), {
             method: "GET",
@@ -199,19 +199,12 @@
 
                 if (listData.length === 0) {
                     // Jika data tidak tersedia, tampilkan informasi
-                    const infoGrafik = document.getElementById("info-grafik");
                     const infoPesananTerbaru = document.getElementById(
                         "info-pesanan-terbaru"
                     );
 
-                    infoGrafik.classList.remove("hidden");
-                    infoGrafik.classList.add("flex");
-
                     infoPesananTerbaru.textContent = "Data tidak tersedia.";
                 } else {
-                    // Proses chart
-                    chartPesanan(hitungPesananPerBulanGMT7(listData));
-
                     // Proses data terbaru
                     pesananTerbaru(listData);
                 }
@@ -219,6 +212,31 @@
             .catch((error) => {
                 tampilkanAlertKesalahan("An error occurred", error);
                 console.error(error);
+            });
+
+        // Fetch data untuk chart.js
+        fetch("/admin/api/data/pesanan?chart=true", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                data = data.data;
+                if (data.length === 0) {
+                    const infoGrafik = document.getElementById("info-grafik");
+                    infoGrafik.classList.remove("hidden");
+                    infoGrafik.classList.add("flex");
+                } else {
+                    chartPesanan(data);
+                }
             });
     }
 
@@ -259,25 +277,6 @@
                 tampilkanAlertKesalahan("An error occurred", error);
                 console.error(error);
             });
-    }
-
-    // Hitung pesanan perbulan
-    function hitungPesananPerBulanGMT7(responData) {
-        const hasil = new Array(12).fill(0); // Januari–Desember = 12 elemen
-
-        responData.forEach((item) => {
-            const dateUTC = new Date(item.tanggal_pemesanan);
-
-            // Konversi ke GMT+7
-            const dateGMT7 = new Date(dateUTC.getTime() + 7 * 60 * 60 * 1000);
-
-            // Ambil bulan sesuai GMT+7
-            const bulan = dateGMT7.getMonth(); // 0 = Januari, 11 = Desember
-
-            hasil[bulan]++;
-        });
-
-        return hasil;
     }
 
     // chart.js

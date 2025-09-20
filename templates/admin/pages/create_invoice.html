@@ -1,0 +1,563 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}Buat invoice{% endblock %}
+
+<!-- Style -->
+{% block style %} {% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Buat Invoice{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="p-6 dark:bg-zinc-900 min-h-screen">
+    <div
+        class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 sm:gap-0 mb-6"
+    >
+        <a
+            href="/admin/invoice"
+            class="text-green-600 dark:text-green-400 hover:underline"
+            >&larr; Back to invoices</a
+        >
+        <div class="flex gap-2">
+            <button
+                type="reset"
+                form="buat_invoice"
+                onclick="history.back()"
+                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-zinc-100 dark:focus:ring-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"
+            >
+                <span class="material-symbols-rounded text-lg!">
+                    close_small
+                </span>
+                <span> Batal </span>
+            </button>
+            <button
+                type="submit"
+                form="buat_invoice"
+                class="relative flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700"
+            >
+                <span class="material-symbols-rounded text-lg!"> save </span>
+                <span> Simpan </span>
+                <!-- Overlay untuk spinner -->
+                <span
+                    class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                >
+                    <span
+                        class="material-symbols-rounded inline text-xl! text-white animate-spin"
+                    >
+                        progress_activity
+                    </span>
+                </span>
+            </button>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left side: Invoice Form -->
+        <div class="bg-zinc-800 p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-white mb-4">Invoice Form</h2>
+            <form
+                class="space-y-5"
+                id="buat_invoice"
+                name="buat_invoice"
+                method="post"
+            >
+                <!-- Row 1: Invoice Number + Customer -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Invoice Number -->
+                    <div>
+                        <label
+                            for="invoice_number"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Nomor Invoice (Dibuat otomatis)</label
+                        >
+                        <input
+                            type="text"
+                            id="invoice_number"
+                            name="invoice_number"
+                            readonly
+                            value="INV-000000-000"
+                            class="bg-zinc-700 border border-zinc-600 text-zinc-400 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
+                        />
+                    </div>
+
+                    <!-- Customer -->
+                    <div>
+                        <label
+                            for="customer"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Pelanggan</label
+                        >
+                        <select
+                            id="customer"
+                            name="customer"
+                            class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                        >
+                            <option value="">Pilih pelanggan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 2: Payment Condition + Jenis Invoice -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Payment Condition -->
+                    <div>
+                        <label
+                            for="payment_condition"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Kondisi pembayaran</label
+                        >
+                        <select
+                            id="payment_condition"
+                            name="payment_condition"
+                            class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                        >
+                            <option value="belum">Belum Dibayar</option>
+                            <option value="sudah">Sudah Dibayar</option>
+                        </select>
+                    </div>
+
+                    <!-- Jenis Invoice -->
+                    <div>
+                        <label
+                            for="invoice_type"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Jenis Invoice</label
+                        >
+                        <select
+                            id="invoice_type"
+                            name="invoice_type"
+                            class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                        >
+                            <option value="proforma">Proforma</option>
+                            <option value="final">Final</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 3: Due Date + Untuk Pemesanan -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Due Date -->
+                    <div>
+                        <label
+                            for="due_date"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Jatuh tempo</label
+                        >
+                        <input
+                            type="date"
+                            id="due_date"
+                            name="due_date"
+                            class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                        />
+                    </div>
+
+                    <!-- Untuk Pemesanan -->
+                    <div>
+                        <label
+                            for="reference"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Untuk Pemesanan</label
+                        >
+                        <select
+                            id="reference"
+                            name="reference"
+                            class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                        >
+                            <option value="">Pilih Kode Pesanan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Additional Info -->
+                <div>
+                    <label
+                        for="additional_info"
+                        class="block mb-2 text-sm font-medium text-zinc-200"
+                        >Catatan invoice</label
+                    >
+                    <textarea
+                        id="additional_info"
+                        name="additional_info"
+                        rows="4"
+                        class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                        placeholder="Tulis informasi tambahan di sini..."
+                    ></textarea>
+                </div>
+
+                <!-- Biaya Section -->
+                <div class="border-t border-zinc-600 pt-4 space-y-4">
+                    <h3 class="text-md font-semibold text-white">Biaya</h3>
+
+                    <!-- Subtotal + Surcharge -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                for="subtotal"
+                                class="block mb-2 text-sm font-medium text-zinc-200"
+                                >Subtotal</label
+                            >
+                            <input
+                                type="number"
+                                id="subtotal"
+                                name="subtotal"
+                                class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                                placeholder="Masukkan subtotal"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                for="surcharge"
+                                class="block mb-2 text-sm font-medium text-zinc-200"
+                                >Biaya Surcharge</label
+                            >
+                            <input
+                                type="number"
+                                id="surcharge"
+                                name="surcharge"
+                                class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                                placeholder="Masukkan surcharge"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Packing + Diskon -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                for="packing"
+                                class="block mb-2 text-sm font-medium text-zinc-200"
+                                >Biaya Packing</label
+                            >
+                            <input
+                                type="number"
+                                id="packing"
+                                name="packing"
+                                class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                                placeholder="Masukkan biaya packing"
+                            />
+                        </div>
+                        <div>
+                            <label
+                                for="discount"
+                                class="block mb-2 text-sm font-medium text-zinc-200"
+                                >Diskon</label
+                            >
+                            <input
+                                type="number"
+                                id="discount"
+                                name="discount"
+                                class="bg-zinc-700 border border-zinc-600 text-zinc-200 text-sm rounded-lg block w-full p-2.5"
+                                placeholder="Masukkan diskon"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div>
+                        <label
+                            for="total"
+                            class="block mb-2 text-sm font-medium text-zinc-200"
+                            >Total Biaya</label
+                        >
+                        <input
+                            type="number"
+                            id="total"
+                            name="total"
+                            readonly
+                            class="bg-zinc-600 border border-zinc-500 text-zinc-400 text-sm rounded-lg block w-full p-2.5 cursor-not-allowed"
+                        />
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    form="buat_invoice"
+                    class="relative flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700"
+                >
+                    <span class="material-symbols-rounded text-lg!">
+                        save
+                    </span>
+                    <span> Simpan </span>
+                    <!-- Overlay untuk spinner -->
+                    <span
+                        class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                    >
+                        <span
+                            class="material-symbols-rounded inline text-xl! text-white animate-spin"
+                        >
+                            progress_activity
+                        </span>
+                    </span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Right side: Invoice Preview (kosong dulu) -->
+        <div class="bg-zinc-800 p-0 sm:p-6 rounded-lg shadow-sm">
+            <h2 class="text-lg font-semibold text-white m-6 sm:m-0 mb-4">
+                Invoice Preview
+            </h2>
+            <div id="invoice-preview" class="text-zinc-300">
+                <!-- Invoice Main Content -->
+                <div
+                    class="col-span-2 bg-white dark:bg-zinc-800 rounded-lg shadow p-6"
+                >
+                    <!-- Logo BCE -->
+                    <div class="mb-6 flex items-center gap-3">
+                        <img
+                            src="{{url_for('static', filename='images/logo.png')}}"
+                            alt="Logo BCE"
+                            class="w-10 h-10"
+                        />
+                        <span
+                            class="sm:text-2xl font-bold text-zinc-900 dark:text-white"
+                            >CV. Bahtera Cahaya Express</span
+                        >
+                    </div>
+                    <div
+                        class="flex items-center gap-2 justify-between mb-6 border-y border-zinc-200 dark:border-zinc-700 py-5"
+                    >
+                        <h2 class="sm:text-xl font-semibold dark:text-white">
+                            Invoice #<span id="preview_kode_invoice"></span>
+                        </h2>
+                        <p class="text-zinc-600 dark:text-zinc-400">
+                            Tanggal: <span id="preview_tgl_invoice"></span>
+                        </p>
+                    </div>
+
+                    <!-- Pay To / Invoice To -->
+                    <div
+                        class="flex items-start justify-between gap-6 mb-6 text-sm text-zinc-500"
+                    >
+                        <div class="w-60">
+                            <h4
+                                class="font-semibold dark:text-white text-lg mb-3"
+                            >
+                                Pay to:
+                            </h4>
+                            <p class="text-zinc-900 dark:text-white">
+                                BCE Cargo, Indonesia
+                            </p>
+                            <p>
+                                Ware House Area Regulated Agent PT. Gatrans
+                                Soekarno Hatta Air Port
+                            </p>
+                            <p>NPWP: 63.410.875.7 - 402.000</p>
+                        </div>
+                        <div class="w-60">
+                            <h4
+                                class="font-semibold dark:text-white text-lg mb-3"
+                            >
+                                Invoice to:
+                            </h4>
+                            <p
+                                class="text-zinc-900 dark:text-white"
+                                id="preview_penerima_invoice"
+                            ></p>
+                            <p id="preview_alamat_penerima_invoice"></p>
+                            <p id="preview_notlp_penerima_invoice"></p>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Barang -->
+                    <div class="overflow-x-auto">
+                        <table
+                            class="w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+                        >
+                            <thead
+                                class="text-xs uppercase bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400"
+                            >
+                                <tr>
+                                    <th class="px-4 py-3">Nama Barang</th>
+                                    <th class="px-4 py-3">Jumlah</th>
+                                    <th class="px-4 py-3">Dimensi (cm)</th>
+                                    <th class="px-4 py-3">Kategori</th>
+                                    <th class="px-4 py-3">Metode Pengiriman</th>
+                                </tr>
+                            </thead>
+                            <tbody
+                                class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
+                            >
+                                {% for i in range(2) %}
+                                <tr>
+                                    <td class="px-4 py-3">
+                                        <div
+                                            class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                                        ></div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div
+                                            class="h-5 bg-zinc-200 rounded w-6 dark:bg-zinc-700 animate-pulse"
+                                        ></div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div
+                                            class="h-5 bg-zinc-200 rounded w-24 dark:bg-zinc-700 animate-pulse"
+                                        ></div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div
+                                            class="h-5 bg-zinc-200 rounded w-16 dark:bg-zinc-700 animate-pulse"
+                                        ></div>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div
+                                            class="h-5 bg-zinc-200 rounded w-12 dark:bg-zinc-700 animate-pulse"
+                                        ></div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Order Summary -->
+                    <div class="mt-6">
+                        <h4 class="text-md font-semibold dark:text-white mb-2">
+                            Order summary
+                        </h4>
+                        <div
+                            class="bg-zinc-100 dark:bg-zinc-700 rounded-lg p-4 space-y-2"
+                        >
+                            <div class="flex justify-between">
+                                <span class="text-zinc-600 dark:text-zinc-300"
+                                    >Subtotal</span
+                                >
+                                <span
+                                    class="dark:text-white font-semibold"
+                                    id="preview_subtotal"
+                                    >Rp 0</span
+                                >
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-zinc-600 dark:text-zinc-300"
+                                    >Biaya Surcharge</span
+                                >
+                                <span
+                                    class="dark:text-white font-semibold"
+                                    id="preview_surcharge"
+                                    >Rp 0</span
+                                >
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-zinc-600 dark:text-zinc-300"
+                                    >Biaya Packing</span
+                                >
+                                <span
+                                    class="dark:text-white font-semibold"
+                                    id="preview_packing"
+                                    >Rp 0</span
+                                >
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-zinc-600 dark:text-zinc-300"
+                                    >Diskon</span
+                                >
+                                <span
+                                    class="dark:text-white font-semibold"
+                                    id="preview_diskon"
+                                    >0%</span
+                                >
+                            </div>
+                            <hr
+                                class="border-zinc-300 dark:border-zinc-600 my-2"
+                            />
+                            <div class="flex justify-between text-lg font-bold">
+                                <span class="dark:text-white">Total</span>
+                                <span
+                                    class="text-green-600 dark:text-green-400"
+                                    id="preview_total_biaya"
+                                    >Rp 0</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- Modal per halaman -->
+{% block modals %} {% endblock %}
+
+<!-- Konten js -->
+{% block kontenjs %}
+<script>
+    const formInvoice = document.getElementById("buat_invoice");
+
+    // Muat list pelanggan
+    function muatListPelanggan() {
+        fetch("/admin/api/data/pelanggan?pilih_pelanggan=true", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                data = data.data;
+                if (data.length === 0) {
+                    console.info("Data pelanggan tidak tersedia");
+                } else {
+                    data.forEach((pelanggan) => {
+                        const listPelanggan = new Option(
+                            pelanggan.nama_lengkap,
+                            pelanggan._id
+                        );
+                        formInvoice.customer.add(listPelanggan);
+                    });
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Muat list pemesanan
+    function muatListPemesanan() {
+        fetch("/admin/api/data/pesanan?pilih_pemesanan=true", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                data = data.data;
+                if (data.length === 0) {
+                    console.info("Data pemesanan tidak tersedia");
+                } else {
+                    data.forEach((pemesanan) => {
+                        const listPemesanan = new Option(
+                            pemesanan.kode_pemesanan,
+                            pemesanan._id
+                        );
+                        formInvoice.reference.add(listPemesanan);
+                    });
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    muatListPelanggan();
+    muatListPemesanan();
+</script>
+{% endblock %}

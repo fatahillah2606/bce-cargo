@@ -20,28 +20,26 @@
             >&larr; Back to invoices</a
         >
         <div class="flex gap-2">
-            <button
+            {% if detail_invoice.jenis_invoice != 'final' %}
+            <a
+                href="/admin/edit_invoice/{{ detail_invoice.kode_invoice }}"
                 type="button"
                 class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-green-700 focus:z-10 focus:ring-4 focus:ring-zinc-100 dark:focus:ring-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"
             >
                 <span class="material-symbols-rounded text-lg!"> edit </span>
                 <span> Edit </span>
-            </button>
-            <button
-                type="button"
-                class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-zinc-900 focus:outline-none bg-white rounded-lg border border-zinc-200 hover:bg-zinc-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-zinc-100 dark:focus:ring-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:border-zinc-600 dark:hover:text-white dark:hover:bg-zinc-700"
-            >
-                <span class="material-symbols-rounded text-lg!"> delete </span>
-                <span> Hapus </span>
-            </button>
-            <button
+            </a>
+            {% endif %}
+            <a
+                href="/admin/print_invoice/{{ detail_invoice.kode_invoice }}"
+                target="_blank"
                 class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700"
             >
                 <span class="material-symbols-rounded text-lg!">
                     download
                 </span>
                 <span> Unduh </span>
-            </button>
+            </a>
         </div>
     </div>
 
@@ -194,9 +192,9 @@
         <!-- Invoice Sidebar -->
         <div class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6 space-y-6">
             <!-- Status Invoice -->
-            <!-- <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-zinc-700 dark:text-green-400"> -->
             <div
-                class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-zinc-700 dark:text-red-400"
+                class="flex items-center p-4 mb-4 text-sm {% if detail_invoice.status_pembayaran == 'Sudah Dibayar' %} text-green-800 rounded-lg bg-green-50 dark:bg-zinc-700 dark:text-green-400 {% else %} text-red-800 rounded-lg bg-red-50 dark:bg-zinc-700 dark:text-red-400 {% endif %}"
+                id="status_invoice"
             >
                 <svg
                     class="shrink-0 inline w-4 h-4 me-3"
@@ -228,15 +226,20 @@
                     <h3 class="text-2xl font-bold dark:text-white">
                         {{detail_invoice.rincian_pembayaran.total}}
                     </h3>
-
-                    <!-- <select
-                        id="status_pembayaran"
-                        name="status_pembayaran"
-                        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-40 p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                    >
-                        <option value="Sudah Dibayar">Sudah Dibayar</option>
-                        <option value="Belum Dibayar">Belum Dibayar</option>
-                    </select> -->
+                    {% if detail_invoice.jenis_invoice != 'final' and
+                    detail_invoice.status_pembayaran != 'Sudah Dibayar' %}
+                    <div id="kondisi_pembayaran">
+                        <select
+                            id="status_pembayaran"
+                            name="status_pembayaran"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-40 p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
+                        >
+                            <option value="" selected>Status pembayaran</option>
+                            <option value="Sudah Dibayar">Sudah Dibayar</option>
+                            <option value="Belum Dibayar">Belum Dibayar</option>
+                        </select>
+                    </div>
+                    {% endif %}
                 </div>
                 <!-- Detail pembuat -->
                 <div class="flex flex-col gap-3 mb-4">
@@ -291,7 +294,7 @@
                             >
                                 Invoice created:
                             </h3>
-                            <!-- <p>05/07/2025</p> -->
+                            <p>05/07/2025</p>
                         </li>
                         <li class="mb-6 ms-6 flex items-center justify-between">
                             <span
@@ -317,7 +320,7 @@
                             >
                                 Invoice sent:
                             </h3>
-                            <!-- <p>06/07/2025</p> -->
+                            <p>06/07/2025</p>
                         </li>
                         <li class="ms-6 flex items-center justify-between">
                             <span
@@ -343,7 +346,7 @@
                             >
                                 Invoice paid:
                             </h3>
-                            <!-- <p>08/07/2025</p> -->
+                            <p>08/07/2025</p>
                         </li>
                     </ol>
                 </div>

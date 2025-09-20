@@ -73,15 +73,23 @@ def tampilkanDataSpesifik(koleksi, oid):
 
 # Etc
 # Ubah UTC ke Indonesia
-def convert_utc_to_indonesia(waktu):
+def utc_to_indonesia(waktu, jenis):
     if waktu.tzinfo is None:
         zona_utc = pytz.utc
         waktu = zona_utc.localize(waktu)
     
     zona_wib = pytz.timezone("Asia/Jakarta")
     waktu = waktu.astimezone(zona_wib)
-    
-    return waktu.strftime("%d %B %Y, %H:%M:%S WIB")
+
+    match jenis:
+        case "tanggal":
+            return waktu.strftime("%d %B %Y")
+        
+        case "waktu":
+            return waktu.strftime("%H:%M:%S WIB")
+        
+        case _:
+            return waktu.strftime("%d %B %Y, %H:%M:%S WIB")
 
 # Format rupiah
 def format_rupiah(angka):
@@ -181,7 +189,7 @@ def detailInvoice(kode_invoice):
         for barang in dataBarang:
             barang["kategori_id"] = collection["kategori_barang_kargo"].find_one({"_id": barang["kategori_id"]}, {"nama_kategori": 1})
 
-        detail_invoice["tanggal_invoice"] = convert_utc_to_indonesia(detail_invoice["tanggal_invoice"])
+        detail_invoice["tanggal_invoice"] = utc_to_indonesia(detail_invoice["tanggal_invoice"], "tanggal")
         detail_invoice["rincian_pembayaran"]["subtotal"] = format_rupiah(detail_invoice["rincian_pembayaran"]["subtotal"])
         detail_invoice["rincian_pembayaran"]["surcharge_dg"] = format_rupiah(detail_invoice["rincian_pembayaran"]["surcharge_dg"])
         detail_invoice["rincian_pembayaran"]["biaya_packing"] = format_rupiah(detail_invoice["rincian_pembayaran"]["biaya_packing"])
@@ -190,6 +198,32 @@ def detailInvoice(kode_invoice):
         return render_template("admin/pages/detail_invoice.html", active_page="invoice", detail_invoice = detail_invoice, data_pemesanan = dataPemesanan, data_barang = dataBarang)
     else:
         abort(404)
+
+@admin_route.route("/print_invoice/<kode_invoice>")
+@khusus_admin
+def printInvoice(kode_invoice):
+    detail_invoice = collection["invoice"].find_one({"kode_invoice": kode_invoice})
+
+    if detail_invoice:
+        dataPemesanan = collection["pemesanan_kargo"].find_one({"_id": detail_invoice["pemesanan_id"]})
+        dataBarang = [collection["data_barang"].find_one({"_id": idBarang}) for idBarang in dataPemesanan["barang_ids"]]
+        for barang in dataBarang:
+            barang["kategori_id"] = collection["kategori_barang_kargo"].find_one({"_id": barang["kategori_id"]}, {"nama_kategori": 1})
+
+        detail_invoice["tanggal_invoice"] = utc_to_indonesia(detail_invoice["tanggal_invoice"], "tanggal")
+        detail_invoice["rincian_pembayaran"]["subtotal"] = format_rupiah(detail_invoice["rincian_pembayaran"]["subtotal"])
+        detail_invoice["rincian_pembayaran"]["surcharge_dg"] = format_rupiah(detail_invoice["rincian_pembayaran"]["surcharge_dg"])
+        detail_invoice["rincian_pembayaran"]["biaya_packing"] = format_rupiah(detail_invoice["rincian_pembayaran"]["biaya_packing"])
+        detail_invoice["rincian_pembayaran"]["total"] = format_rupiah(detail_invoice["rincian_pembayaran"]["total"])
+        
+        return render_template("admin/print/invoice.html", active_page="invoice", detail_invoice = detail_invoice, data_pemesanan = dataPemesanan, data_barang = dataBarang)
+    else:
+        abort(404)
+
+@admin_route.route("/buat_invoice")
+@khusus_admin
+def buatInvoice():
+    return render_template("admin/pages/create_invoice.html", active_page="invoice") 
 
 @admin_route.route("/laporan")
 @khusus_admin
@@ -225,7 +259,7 @@ def detailPesanan(kode_pesanan):
 
     # Apakah pesanan ada?
     if detailPesanan:
-        detailPesanan["tanggal_pemesanan"] = convert_utc_to_indonesia(detailPesanan["tanggal_pemesanan"])
+        detailPesanan["tanggal_pemesanan"] = utc_to_indonesia(detailPesanan["tanggal_pemesanan"], "tanggal")
         detailPesanan["harga_total"] = format_rupiah(detailPesanan["harga_total"])
 
         return render_template("admin/pages/detail_pesanan.html", active_page="pesanan_masuk", detail_pesanan = detailPesanan, data_pelanggan = dataPelanggan)
@@ -341,6 +375,8 @@ def dataPesanan():
             excludeStatus = request.args.getlist("exclude_status")
             idPemesanan = request.args.get("id")
             tahun = request.args.get("tahun")
+            chart = request.args.get("chart")
+            pilihPemesanan = request.args.get("pilih_pemesanan")
             
             if statusPesanan:
                 # Ambil query apa saja yang di filter berdasarkan status
@@ -370,11 +406,54 @@ def dataPesanan():
                     }
                 }
 
-                query = pemesanan.find(queryPencarian, {}).sort("_id", -1)
-                data = [convert_objectid_to_str(hasil) for hasil in query]
-                return respon_api("success", 200, "Data tersedia", data, {})
+                return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), queryPencarian, {})
 
-                # return tampilkanSemuaData(pemesanan, request.args.get("page", 1), request.args.get("limit", 10), queryPencarian, {})
+            elif chart:
+                # Tahun berjalan (di timezone lokal GMT+7)
+                tahun_sekarang = datetime.now().year
+
+                # Pipeline MongoDB
+                pipeline = [
+                    {
+                        "$addFields": {
+                            # Ubah tanggal ke GMT+7
+                            "tanggal_gmt7": {
+                                "$dateAdd": {
+                                    "startDate": "$tanggal_pemesanan",
+                                    "unit": "hour",
+                                    "amount": 7
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "$match": {
+                            "$expr": { "$eq": [ { "$year": "$tanggal_gmt7" }, tahun_sekarang ] }
+                        }
+                    },
+                    {
+                        "$group": {
+                            "_id": { "bulan": { "$month": "$tanggal_gmt7" } },
+                            "total": { "$sum": 1 }
+                        }
+                    }
+                ]
+
+                hasil_agg = list(pemesanan.aggregate(pipeline))
+
+                # Siapkan array 12 elemen (0–11 untuk Jan–Des)
+                hasil = [0] * 12
+                for row in hasil_agg:
+                    bulan = row["_id"]["bulan"] - 1  # MongoDB $month = 1–12, kita geser ke 0–11
+                    hasil[bulan] = row["total"]
+
+                return respon_api("success", 200, "Data tersedia", hasil, {})
+            
+            elif pilihPemesanan:
+                cursor = pemesanan.find({"status": {"$ne": "Selesai"}}, {"_id": 1, "kode_pemesanan": 1})
+                data = [convert_objectid_to_str(listPemesanan) for listPemesanan in cursor]
+
+                return respon_api("success", 200, "List pemesanan tersedia", data, {})
 
             else:
                 # Tampilkan semua data tanpa filtrasi
@@ -400,7 +479,7 @@ def APIdetailPesanan(kode_pesanan):
 
                     # Kirim email tanda pesanan ditolak
                     context = {
-                        "tanggal_pemesanan": convert_utc_to_indonesia(detailPesanan["tanggal_pemesanan"]),
+                        "tanggal_pemesanan": utc_to_indonesia(detailPesanan["tanggal_pemesanan"]),
                         "nama_pengirim": dataPelanggan["nama_lengkap"],
                         "kode_pemesanan": detailPesanan["kode_pemesanan"],
                         "alasan_penolakan": alasanPenolakan,
@@ -473,11 +552,11 @@ def APIdetailPesanan(kode_pesanan):
                                 listDataBarang.append(barang)
                         
                         context = {
-                            "tanggal_pemesanan": convert_utc_to_indonesia(detailPesanan["tanggal_pemesanan"]),
+                            "tanggal_pemesanan": utc_to_indonesia(detailPesanan["tanggal_pemesanan"]),
                             "nama_pengirim": dataPelanggan["nama_lengkap"],
                             "kode_pemesanan": detailPesanan["kode_pemesanan"],
                             "invoice_number": dataInvoice["kode_invoice"],
-                            "tanggal_invoice": convert_utc_to_indonesia(dataInvoice["tanggal_invoice"]),
+                            "tanggal_invoice": utc_to_indonesia(dataInvoice["tanggal_invoice"]),
                             "nama_pengirim": detailPesanan["nama_pengirim"],
                             "alamat_pengirim": detailPesanan["alamat_pengirim"],
                             "no_hp_pengirim": detailPesanan["no_hp_pengirim"],
@@ -631,22 +710,14 @@ def kelolaInvoice():
                 total_halaman = math.ceil(total_items / batas)
 
                 cursor = data_invoice.find().sort("_id", -1).skip(lewati).limit(batas)
-                data = []
-                for barisData in cursor:
-                    dataPemesanan = collection["pemesanan_kargo"].find_one({"_id": ObjectId(barisData["pemesanan_id"])})
-                    dataPelanggan = collection["data_pelanggan"].find_one({"_id": ObjectId(barisData["pelanggan_id"])})
+                data = [convert_objectid_to_str(baris_data) for baris_data in cursor]
 
-                    data.append({
-                        "_id": str(barisData["_id"]),
-                        "kode_invoice": barisData["kode_invoice"],
-                        "pemesanan": convert_objectid_to_str(dataPemesanan),
-                        "pelanggan": convert_objectid_to_str(dataPelanggan),
-                        "metode_pembayaran": barisData["metode_pembayaran"],
-                        "status_pembayaran": barisData["status_pembayaran"],
-                        "rincian_pembayaran": barisData["rincian_pembayaran"],
-                        "catatan": barisData["catatan"],
-                        "updated_at": barisData["updated_at"]
-                    })
+                for i in range(len(data)):
+                    dataPemesanan = collection["pemesanan_kargo"].find_one({"_id": ObjectId(data[i]["pemesanan_id"])})
+                    dataPelanggan = collection["data_pelanggan"].find_one({"_id": ObjectId(data[i]["pelanggan_id"])})
+
+                    data[i]["pelanggan_id"] = convert_objectid_to_str(dataPelanggan)
+                    data[i]["pemesanan_id"] = convert_objectid_to_str(dataPemesanan)
 
                 if data:
                     pageTest = {
@@ -662,6 +733,29 @@ def kelolaInvoice():
 
             else:
                 return tampilkanSemuaData(data_invoice, request.args.get("page", 1), request.args.get("limit", 10), {}, {})
+
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {}), 500
+    
+# Detail invoice
+@admin_route.route("/api/data/detail_invoice/<kode_invoice>", methods=["GET", "POST"])
+@khusus_admin
+def APIdetailInvoice(kode_invoice):
+    try:
+        # Muat data
+        detailInvoice = collection["invoice"].find_one({"kode_invoice": kode_invoice})
+        detailPesanan = collection["pemesanan_kargo"].find_one({"_id": detailInvoice["pemesanan_id"]})
+        detailPelanggan = collection["data_pelanggan"].find_one({"_id": detailInvoice["pelanggan_id"]})
+        detailAkun = collection["users"].find_one({"_id": detailPelanggan["user_id"]}, {"password": 0, "kode_verif": 0})
+        
+        detailBarang = [id_barang for id_barang in detailPesanan["barang_ids"]]
+        detailBarang = collection["data_barang"].find({"_id": {"$in": detailBarang}})
+        detailBarang = [barang for barang in detailBarang]
+
+        if request.method == "POST":
+            return respon_api("error", 400, "Bad request", [], {}), 400
+        else:
+            return respon_api("success", 200, "Invoice tersedia", convert_objectid_to_str(detailBarang), {})
 
     except Exception as error:
         return respon_api("error", 500, str(error), [], {}), 500
@@ -692,6 +786,13 @@ def dataPelanggan():
             if "id" in request.args:
                 idPelanggan = str(request.args["id"])
                 return tampilkanDataSpesifik(data_pelanggan, idPelanggan)
+            
+            elif "pilih_pelanggan" in request.args:
+                cursor = data_pelanggan.find({}, {"_id": 1, "nama_lengkap": 1})
+                listPelanggan = [convert_objectid_to_str(pelanggan) for pelanggan in cursor]
+
+                return respon_api("success", 200, "List data pelanggan", listPelanggan, {})
+
             else:
                 return respon_api("error", 400, "Bad request", [], {}), 400
 

@@ -80,6 +80,77 @@
                 </div>
                 {% endfor %}
             </div>
+
+            <!-- Pagination -->
+            <div class="flex flex-col items-center my-5">
+                <!-- Help text -->
+                <span class="text-sm text-zinc-700 dark:text-zinc-400">
+                    Menampilkan
+                    <span
+                        class="font-semibold text-zinc-900 dark:text-white"
+                        id="start-items"
+                        >0</span
+                    >
+                    sampai
+                    <span
+                        class="font-semibold text-zinc-900 dark:text-white"
+                        id="end-items"
+                        >0</span
+                    >
+                    dari
+                    <span
+                        class="font-semibold text-zinc-900 dark:text-white"
+                        id="max-items"
+                        >0</span
+                    >
+                    Entri
+                </span>
+                <div class="inline-flex mt-2 xs:mt-0">
+                    <!-- Buttons -->
+                    <button
+                        class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-zinc-800 rounded-s hover:bg-zinc-900 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                        id="prev-btn"
+                    >
+                        <svg
+                            class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M13 5H1m0 0 4 4M1 5l4-4"
+                            />
+                        </svg>
+                        Prev
+                    </button>
+                    <button
+                        class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-zinc-800 border-0 border-s border-zinc-700 rounded-e hover:bg-zinc-900 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                        id="next-btn"
+                    >
+                        Next
+                        <svg
+                            class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 14 10"
+                        >
+                            <path
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9"
+                            />
+                        </svg>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -330,9 +401,20 @@
     // Variable
     const userList = document.getElementById("user-list");
 
+    const startItems = document.getElementById("start-items");
+    const endItems = document.getElementById("end-items");
+    const maxItems = document.getElementById("max-items");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    let currentPage;
+
     // Muat akun Admin
-    function muatListCustomer() {
-        fetch("/admin/api/data/users?role=customer", {
+    function muatListCustomer(halaman) {
+        // Cek apakah "halaman" kosong?
+        halaman == undefined ? (halaman = "") : (halaman = halaman);
+
+        fetch(`/admin/api/data/users?role=customer&page=${halaman}`, {
             method: "GET",
         })
             .then(async (respon) => {
@@ -431,6 +513,38 @@
                     });
 
                     userList.innerHTML = listCustomer;
+
+                    // Pagination
+                    let totalPages = data.pagination.total_pages;
+                    currentPage = data.pagination.current_page;
+                    let totalItems = data.pagination.total_items;
+
+                    let mulai = (currentPage - 1) * 10 + 1;
+                    let akhir = Math.min(currentPage * 10, totalItems);
+
+                    startItems.textContent = mulai;
+                    endItems.textContent = akhir;
+                    maxItems.textContent = totalItems;
+
+                    // Atur tombol pagination
+                    if (currentPage - 1 != 0) {
+                        prevBtn.setAttribute(
+                            "onclick",
+                            `muatListCustomer(${currentPage - 1})`
+                        );
+                    } else {
+                        prevBtn.removeAttribute("onclick");
+                    }
+
+                    if (currentPage != totalPages) {
+                        nextBtn.setAttribute(
+                            "onclick",
+                            `muatListCustomer(${currentPage + 1})`
+                        );
+                    } else {
+                        nextBtn.removeAttribute("onclick");
+                    }
+
                     initFlowbite();
                 }
             })
