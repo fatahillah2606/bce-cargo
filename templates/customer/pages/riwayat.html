@@ -286,62 +286,6 @@
 
             // Fungsi Modal (Lihat detail)
             function openModal(id, kodePemesanan) {
-                // fetch
-                fetch(`/customer/api/data/barang/${kodePemesanan}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            throw new Error(data.message);
-                        }
-                        return data;
-                    })
-                    .then((data) => {
-                        data = data.data;
-                        dataBarangPesanan = data;
-                        if (data.length === 0) {
-                            // Kalo data barang tidak tersedia
-                        } else {
-                            document.getElementById(
-                                "kode-pemesanan"
-                            ).textContent = dataPemesanan[0].kode_pemesanan;
-                            document.getElementById(
-                                "tanggal-pemesanan"
-                            ).textContent = dataPemesanan[0].tanggal_pemesanan;
-                            document.getElementById(
-                                "nama-pengirim"
-                            ).textContent = dataPemesanan[0].nama_pengirim;
-                            document.getElementById(
-                                "alamat-pengirim"
-                            ).textContent = dataPemesanan[0].alamat_pengirim;
-                            document.getElementById(
-                                "nama-penerima"
-                            ).textContent = dataPemesanan[0].nama_penerima;
-                            document.getElementById(
-                                "alamat-penerima"
-                            ).textContent = dataPemesanan[0].alamat_penerima;
-                            document.getElementById("no-pengirim").textContent =
-                                dataPemesanan[0].no_pengirim;
-                            document.getElementById("no-penerima").textContent =
-                                dataPemesanan[0].no_penerima;
-                            document.getElementById("jenis").textContent =
-                                dataPemesanan[0].jenis_kargo;
-                            document.getElementById("berat").textContent =
-                                dataBarangPesanan.berat_kg;
-                            document.getElementById("harga").textContent =
-                                dataPemesanan[0].harga_total;
-                            document.getElementById("status").textContent =
-                                dataPemesanan[0].status;
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-
                 // modal
                 document.getElementById(id).classList.remove("hidden");
 
@@ -371,7 +315,7 @@
                     .then(async (respon) => {
                         const data = await respon.json();
                         if (!respon.ok) {
-                            throw new Error(data.message);
+                            throw new Error(data.data);
                         }
                         return data;
                     })
@@ -399,14 +343,18 @@
                                                 ${pemesanan.status}
                                             </span>
                                         </div>
-                                        <p class="text-sm text-gray-500">Tanggal: ${pemesanan.tanggal_pemesanan}</p>
+                                        <p class="text-sm text-gray-500">Tanggal: ${
+                                            pemesanan.tanggal_pemesanan
+                                        }</p>
                                     
                                         <div
                                             class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm"
                                         >
                                             <div>
                                                 <p class="font-medium text-gray-700">Penerima</p>
-                                                <p class="text-gray-600">${pemesanan.nama_penerima}</p>
+                                                <p class="text-gray-600">${
+                                                    pemesanan.nama_penerima
+                                                }</p>
                                             </div>
                                             <div>
                                                 <p class="font-medium text-gray-700">Alamat</p>
@@ -416,22 +364,47 @@
                                             </div>
                                             <div>
                                                 <p class="font-medium text-gray-700">Jenis Kargo</p>
-                                                <p class="text-gray-600">${pemesanan.jenis_kargo}</p>
+                                                <p class="text-gray-600">${
+                                                    pemesanan.jenis_kargo
+                                                }</p>
                                             </div>
                                             <div>
                                                 <p class="font-medium text-gray-700">Harga</p>
-                                                <p class="text-green-600 font-bold">${pemesanan.harga_total}</p>
+                                                <p class="text-green-600 font-bold">${
+                                                    pemesanan.harga_total
+                                                }</p>
                                             </div>
                                         </div>
                                     
                                         <!-- Tombol Detail -->
-                                        <div class="mt-5 flex justify-end">
-                                            <button
-                                                onclick="openModal('modal1', '${pemesanan.kode_pemesanan}')"
-                                                class="px-5 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 shadow transition cursor-pointer"
-                                            >
-                                                Lihat Detail
-                                            </button>
+                                        <div class="flex items-center justify-end gap-2">
+                                            <div class="mt-5 flex justify-end">
+                                                <a
+                                                    href="/customer/riwayat/${
+                                                        pemesanan.kode_pemesanan
+                                                    }"
+                                                    class="px-5 py-2 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 shadow transition cursor-pointer"
+                                                >
+                                                    Lihat Detail
+                                                </a>
+                                            </div>
+
+                                            ${
+                                                pemesanan.invoice == null
+                                                    ? ``
+                                                    : `
+                                                <!-- Download Invoice -->
+                                                <div class="mt-5 flex justify-end">
+                                                    <a
+                                                        href="/customer/invoice/${pemesanan.invoice.kode_invoice}"
+                                                        target="_blank"
+                                                        class="px-5 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 shadow transition cursor-pointer"
+                                                    >
+                                                        Unduh Invoice
+                                                    </a>
+                                                </div>
+                                            `
+                                            }
                                         </div>
                                     </div>
                                 `;

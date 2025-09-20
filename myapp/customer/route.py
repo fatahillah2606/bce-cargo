@@ -4,7 +4,7 @@ from connection import db_bce
 from pymongo import ReturnDocument
 from functools import wraps
 from datetime import datetime, timedelta, timezone
-import bcrypt, math, requests, json
+import bcrypt, math, requests, json, pytz
 from myapp.customer.generate_code import generate_verification_code
 from bson.objectid import ObjectId
 from myapp.email_utils import send_email_smtp
@@ -114,6 +114,31 @@ def convert_utc_to_indonesia(waktu):
     
     # Mengembalikan format tanggal dan waktu
     return indonesia_time.strftime('%d %B %Y, %H:%M:%S WIB')
+
+# Ubah UTC ke Indonesia
+def utc_to_indonesia(waktu, jenis):
+    if waktu.tzinfo is None:
+        zona_utc = pytz.utc
+        waktu = zona_utc.localize(waktu)
+    
+    zona_wib = pytz.timezone("Asia/Jakarta")
+    waktu = waktu.astimezone(zona_wib)
+
+    match jenis:
+        case "tanggal":
+            return waktu.strftime("%d %B %Y")
+        
+        case "waktu":
+            return waktu.strftime("%H:%M:%S WIB")
+        
+        case _:
+            return waktu.strftime("%d %B %Y, %H:%M:%S WIB")
+        
+# Format rupiah
+def format_rupiah(angka):
+    formatted = f"{angka:,.0f}"
+    formatted = formatted.replace(',', '.')
+    return f"Rp {formatted}"
 
 # Tampilkan Data Spesifik
 def tampilkanDataSpesifik(koleksi, query):
@@ -267,6 +292,53 @@ def riwayat():
     sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])}, {"user_id": 1})
     if sudahRegister:
         return render_template("customer/pages/riwayat.html")
+    else:
+        return(redirect(url_for("customer.pendaftaran")))
+    
+# RIWAYAT PESANAN SPESIFIK
+@customer_route.route("/riwayat/<kode_pesanan>", methods=["GET", "POST"])
+@khusus_customer
+def riwayatSpesifik(kode_pesanan):
+    bioPelanggan = collection["data_pelanggan"]
+    sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])})
+    if sudahRegister:
+
+        dataBarang = []
+        dataPesanan = collection["pemesanan_kargo"].find_one({"kode_pemesanan": kode_pesanan})
+        for barang in dataPesanan["barang_ids"]:
+            listBarang = collection["data_barang"].find_one({"_id": barang})
+            listBarang["kategori_id"] = collection["kategori_barang_kargo"].find_one({"_id": listBarang["kategori_id"]})
+            
+            dataBarang.append(listBarang)
+
+        dataPesanan["barang_ids"] = dataBarang
+
+        return render_template("customer/pages/detail_pemesanan.html", detail_pesanan = dataPesanan, data_pelanggan = sudahRegister)
+    else:
+        return(redirect(url_for("customer.pendaftaran")))
+
+# Invoice
+@customer_route.route("/invoice/<kode_invoice>", methods=["GET", "POST"])
+@khusus_customer
+def invoice(kode_invoice):
+    bioPelanggan = collection["data_pelanggan"]
+    sudahRegister = bioPelanggan.find_one({"user_id": ObjectId(session["user_id"])})
+    if sudahRegister:
+
+        detail_invoice = collection["invoice"].find_one({"kode_invoice": kode_invoice})
+        if detail_invoice:
+            dataPemesanan = collection["pemesanan_kargo"].find_one({"_id": detail_invoice["pemesanan_id"]})
+            dataBarang = [collection["data_barang"].find_one({"_id": idBarang}) for idBarang in dataPemesanan["barang_ids"]]
+            for barang in dataBarang:
+                barang["kategori_id"] = collection["kategori_barang_kargo"].find_one({"_id": barang["kategori_id"]}, {"nama_kategori": 1})
+
+            detail_invoice["tanggal_invoice"] = utc_to_indonesia(detail_invoice["tanggal_invoice"], "tanggal")
+            detail_invoice["rincian_pembayaran"]["subtotal"] = format_rupiah(detail_invoice["rincian_pembayaran"]["subtotal"])
+            detail_invoice["rincian_pembayaran"]["surcharge_dg"] = format_rupiah(detail_invoice["rincian_pembayaran"]["surcharge_dg"])
+            detail_invoice["rincian_pembayaran"]["biaya_packing"] = format_rupiah(detail_invoice["rincian_pembayaran"]["biaya_packing"])
+            detail_invoice["rincian_pembayaran"]["total"] = format_rupiah(detail_invoice["rincian_pembayaran"]["total"])
+
+        return render_template("customer/print/invoice.html", detail_invoice = detail_invoice, data_pemesanan = dataPemesanan, data_barang = dataBarang)
     else:
         return(redirect(url_for("customer.pendaftaran")))
 
@@ -794,16 +866,26 @@ def get_riwayat_pesanan():
         dataPemesanan = collection["pemesanan_kargo"].find({"pelanggan_id": ObjectId(idPelanggan["_id"])})
 
         # looping agar bisa ditampilkan
-        dataPemesanan = [listPemesanan for listPemesanan in dataPemesanan]
+        dataPemesanan = [convert_objectid_to_str(listPemesanan) for listPemesanan in dataPemesanan]
+        for i in range(len(dataPemesanan)):
+            dataBarang = []
+            for barang in dataPemesanan[i]["barang_ids"]:
+                listBarang = collection["data_barang"].find_one({"_id": ObjectId(barang)})
+                dataBarang.append(listBarang)
+
+            invoice = collection["invoice"].find_one({"pemesanan_id": ObjectId(dataPemesanan[i]["_id"])}, {"kode_invoice": 1})
+            dataPemesanan[i]["invoice"] = convert_objectid_to_str(invoice)
+            dataPemesanan[i]["barang_ids"] = convert_objectid_to_str(dataBarang)
 
         if dataPemesanan:
-            return respon_api("success", 200, "Riwayat pesanan tersedia", [convert_objectid_to_str(pemesanan) for pemesanan in dataPemesanan], {})
+            return respon_api("success", 200, "Riwayat pesanan tersedia", dataPemesanan, {})
         else:
             return respon_api("success", 200, "Riwayat tidak pesanan tersedia", [], {})
 
     except Exception as e:
         return respon_api("error", 500, "Gagal mengambil riwayat pesanan", str(e), {}), 500
     
+
 # Tampilkan data barang pesanan
 @customer_route.route("/api/data/barang/<kode_pemesanan>", methods=["GET"])
 @khusus_customer
