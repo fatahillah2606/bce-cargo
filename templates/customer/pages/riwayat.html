@@ -378,7 +378,8 @@
                     .then((data) => {
                         data = data.data;
                         if (data.length === 0) {
-                            // Jika riwayat pesanan tidak ada
+                            listPemesananContainer.innerHTML =
+                                "<p>Histori pemesanan tidak tersedia</p>";
                         } else {
                             dataPemesanan = data;
                             let listPemesanan = "";

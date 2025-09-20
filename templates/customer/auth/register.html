@@ -279,7 +279,7 @@
                 const sandi = document.getElementById("password");
                 const konfirm_sandi =
                     document.getElementById("confirm_password");
-                if (sandi.value !== "" && sandi.value !== konfirm_sandi) {
+                if (sandi.value !== "" && sandi.value !== konfirm_sandi.value) {
                     valid = false;
                     pesanError.textContent = "Sandi tidak sesuai";
                     pesanError.classList.remove("hidden");

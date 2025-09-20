@@ -206,7 +206,8 @@ def newpw():
 # VERIFIKASI REGIST
 @customer_route.route("/verif", methods=["GET", "POST"])
 def verif():
-    return render_template("customer/auth/verif.html")
+    email = session["email"]
+    return render_template("customer/auth/verif.html", email = email)
 
 # VERIFIKASI PASSWORD
 @customer_route.route("/verifpw", methods=["GET", "POST"])
