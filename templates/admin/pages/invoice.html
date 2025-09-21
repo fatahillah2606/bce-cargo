@@ -240,7 +240,10 @@
                                         ${invoice.status_pembayaran}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3">20 Jul 2025</td>
+                                <td class="px-4 py-3">${formatTanggal(
+                                    invoice.tanggal_invoice,
+                                    ""
+                                )}</td>
                                 <td class="px-4 py-3">
                                     <div class="flex gap-3 text-zinc-500 text-xl">
                                         <!-- Lihat -->
@@ -277,7 +280,7 @@
                                                 ? ``
                                                 : `
                                                     <!-- Edit -->
-                                                    <button
+                                                    <a href="/admin/edit_invoice/${invoice.kode_invoice}"
                                                         title="Edit"
                                                         class="hover:text-yellow-500 dark:hover:text-yellow-500 transition cursor-pointer"
                                                     >
@@ -285,7 +288,7 @@
                                                             class="material-symbols-rounded text-[20px]"
                                                             >edit</span
                                                         >
-                                                    </button>
+                                                    </a>
                                                 `
                                         }
                                     </div>

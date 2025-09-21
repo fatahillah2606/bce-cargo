@@ -85,6 +85,9 @@ def utc_to_indonesia(waktu, jenis):
         case "tanggal":
             return waktu.strftime("%d %B %Y")
         
+        case "short":
+            return waktu.strftime("%d/%m/%Y")
+        
         case "waktu":
             return waktu.strftime("%H:%M:%S WIB")
         
@@ -196,6 +199,27 @@ def detailInvoice(kode_invoice):
         detail_invoice["rincian_pembayaran"]["total"] = format_rupiah(detail_invoice["rincian_pembayaran"]["total"])
         
         return render_template("admin/pages/detail_invoice.html", active_page="invoice", detail_invoice = detail_invoice, data_pemesanan = dataPemesanan, data_barang = dataBarang)
+    else:
+        abort(404)
+
+@admin_route.route("/edit_invoice/<kode_invoice>")
+@khusus_admin
+def editInvoice(kode_invoice):
+    detail_invoice = collection["invoice"].find_one({"kode_invoice": kode_invoice})
+
+    if detail_invoice:
+        dataPemesanan = collection["pemesanan_kargo"].find_one({"_id": detail_invoice["pemesanan_id"]})
+        dataBarang = [collection["data_barang"].find_one({"_id": idBarang}) for idBarang in dataPemesanan["barang_ids"]]
+        for barang in dataBarang:
+            barang["kategori_id"] = collection["kategori_barang_kargo"].find_one({"_id": barang["kategori_id"]}, {"nama_kategori": 1})
+
+        detail_invoice["tanggal_invoice"] = utc_to_indonesia(detail_invoice["tanggal_invoice"], "tanggal")
+        detail_invoice["rincian_pembayaran"]["subtotal"] = format_rupiah(detail_invoice["rincian_pembayaran"]["subtotal"])
+        detail_invoice["rincian_pembayaran"]["surcharge_dg"] = format_rupiah(detail_invoice["rincian_pembayaran"]["surcharge_dg"])
+        detail_invoice["rincian_pembayaran"]["biaya_packing"] = format_rupiah(detail_invoice["rincian_pembayaran"]["biaya_packing"])
+        detail_invoice["rincian_pembayaran"]["total"] = format_rupiah(detail_invoice["rincian_pembayaran"]["total"])
+        
+        return render_template("admin/pages/edit_invoice.html", active_page="invoice", detail_invoice = detail_invoice, data_pemesanan = dataPemesanan, data_barang = dataBarang)
     else:
         abort(404)
 
@@ -533,7 +557,10 @@ def APIdetailPesanan(kode_pesanan):
                             "total": totalBiaya
                         },
                         "catatan": catatan,
-                        "updated_at": datetime.now(timezone.utc)
+                        "updated_at": datetime.now(timezone.utc),
+                        "sent_at": datetime.now(timezone.utc),
+                        "jenis_invoice": "proforma",
+                        "pembuat": "sistem"
                     }
 
                     buatInvoice = collection["invoice"].insert_one(dataInvoice)
@@ -552,11 +579,11 @@ def APIdetailPesanan(kode_pesanan):
                                 listDataBarang.append(barang)
                         
                         context = {
-                            "tanggal_pemesanan": utc_to_indonesia(detailPesanan["tanggal_pemesanan"]),
+                            "tanggal_pemesanan": utc_to_indonesia(detailPesanan["tanggal_pemesanan"], "tanggal"),
                             "nama_pengirim": dataPelanggan["nama_lengkap"],
                             "kode_pemesanan": detailPesanan["kode_pemesanan"],
                             "invoice_number": dataInvoice["kode_invoice"],
-                            "tanggal_invoice": utc_to_indonesia(dataInvoice["tanggal_invoice"]),
+                            "tanggal_invoice": utc_to_indonesia(dataInvoice["tanggal_invoice"], "tanggal"),
                             "nama_pengirim": detailPesanan["nama_pengirim"],
                             "alamat_pengirim": detailPesanan["alamat_pengirim"],
                             "no_hp_pengirim": detailPesanan["no_hp_pengirim"],
@@ -697,6 +724,86 @@ def kelolaInvoice():
         data_invoice = collection["invoice"]
 
         if request.method == "POST":
+            if "buat_invoice" in request.form:
+                # Data invoice
+                pelanggan_id = ObjectId(request.form["customer"])
+                status_pembayaran = str(request.form["payment_condition"])
+                jenis_invoice = str(request.form["invoice_type"])
+                due_date = request.form["due_date"]
+                pemesanan_id = ObjectId(request.form["reference"])
+                catatan = str(request.form["additional_info"])
+
+                # Rincian biaya
+                subtotal = int(request.form["subtotal"])
+                surcharge = int(request.form["surcharge"])
+                packing = int(request.form["packing"])
+                discount = int(request.form["discount"])
+                total = int(request.form["total"])
+
+                dataInvoice = {
+                    "_id": ObjectId(),
+                    "kode_invoice": generate_kode_invoice(),
+                    "pemesanan_id": pemesanan_id,
+                    "pelanggan_id": pelanggan_id,
+                    "tanggal_invoice": datetime.now(timezone.utc),
+                    "metode_pembayaran": "Transfer Bank",
+                    "status_pembayaran": status_pembayaran,
+                    "rincian_pembayaran": {
+                        "subtotal": subtotal,
+                        "surcharge_dg": surcharge,
+                        "biaya_packing": packing,
+                        "diskon": discount,
+                        "total": total
+                    },
+                    "catatan": catatan,
+                    "updated_at": datetime.now(timezone.utc),
+                    "sent_at": datetime.now(timezone.utc),
+                    "due_date": datetime.strptime(due_date, "%Y-%m-%d"),
+                    "jenis_invoice": jenis_invoice,
+                    "pembuat": session.get("name")
+                }
+
+                if collection["invoice"].insert_one(dataInvoice):
+                    return respon_api("success", 200, "Ok", {"kode": dataInvoice["kode_invoice"]}, {})
+                else:
+                    return respon_api("error", 500, "Terjadi kesalahan saat membuat invoice", [], {}), 500
+                
+            if "edit_invoice" in request.form:
+                # Data invoice
+                status_pembayaran = str(request.form["payment_condition"])
+                jenis_invoice = str(request.form["invoice_type"])
+                due_date = request.form["due_date"]
+                catatan = str(request.form["additional_info"])
+
+                # Rincian biaya
+                subtotal = int(request.form["subtotal"])
+                surcharge = int(request.form["surcharge"])
+                packing = int(request.form["packing"])
+                discount = int(request.form["discount"])
+                total = int(request.form["total"])
+
+                dataInvoice = {
+                    "status_pembayaran": status_pembayaran,
+                    "rincian_pembayaran": {
+                        "subtotal": subtotal,
+                        "surcharge_dg": surcharge,
+                        "biaya_packing": packing,
+                        "diskon": discount,
+                        "total": total
+                    },
+                    "catatan": catatan,
+                    "updated_at": datetime.now(timezone.utc),
+                    "sent_at": datetime.now(timezone.utc),
+                    "due_date": datetime.strptime(due_date, "%Y-%m-%d"),
+                    "jenis_invoice": jenis_invoice if status_pembayaran == "Belum Dibayar" else "final",
+                    "pembuat": session.get("name")
+                }
+
+                if collection["invoice"].update_one({"kode_invoice": request.form["kode_invoice"]}, {"$set": dataInvoice}):
+                    return respon_api("success", 200, "Ok", {"kode": request.form["kode_invoice"]}, {})
+                else:
+                    return respon_api("error", 500, "Terjadi kesalahan saat membuat invoice", [], {}), 500
+
             return respon_api("error", 400, "Bad request", [], {}), 400
         else:
             withPemesanan = request.args.get("with_pemesanan")
@@ -744,19 +851,83 @@ def APIdetailInvoice(kode_invoice):
     try:
         # Muat data
         detailInvoice = collection["invoice"].find_one({"kode_invoice": kode_invoice})
-        detailPesanan = collection["pemesanan_kargo"].find_one({"_id": detailInvoice["pemesanan_id"]})
-        detailPelanggan = collection["data_pelanggan"].find_one({"_id": detailInvoice["pelanggan_id"]})
-        detailAkun = collection["users"].find_one({"_id": detailPelanggan["user_id"]}, {"password": 0, "kode_verif": 0})
-        
-        detailBarang = [id_barang for id_barang in detailPesanan["barang_ids"]]
-        detailBarang = collection["data_barang"].find({"_id": {"$in": detailBarang}})
-        detailBarang = [barang for barang in detailBarang]
 
         if request.method == "POST":
+            if "update_status" in request.form:
+                status_pembayaran = str(request.form["status_pembayaran"])
+
+                updateInvoice = collection["invoice"].update_one({"kode_invoice": kode_invoice}, {"$set": {"status_pembayaran": status_pembayaran, "jenis_invoice": "final"}})
+                
+                if updateInvoice:
+                    return respon_api("success", 200, "Status invoice diperbarui", [], {})
+                else:
+                    return respon_api("success", 200, "Kesalahan memperbarui status invoice", [], {})
+
             return respon_api("error", 400, "Bad request", [], {}), 400
         else:
-            return respon_api("success", 200, "Invoice tersedia", convert_objectid_to_str(detailBarang), {})
+            return respon_api("success", 200, "Invoice tersedia", convert_objectid_to_str(detailInvoice), {})
 
+    except Exception as error:
+        return respon_api("error", 500, str(error), [], {}), 500
+
+# Laporan Transaksi
+@admin_route.route("/api/data/laporan", methods=["GET"])
+@khusus_admin
+def APILaporanTransaksi():
+    try:
+        dataPemesanan = collection["pemesanan_kargo"]
+
+        # Ambil parameter start & end dari query string
+        start_date_str = request.args.get("start")
+        end_date_str = request.args.get("end")
+
+        if not start_date_str or not end_date_str:
+            return respon_api("error", 400, "start dan end harus disertakan", [], {}), 400
+
+        # Parsing string ke datetime (format: YYYY-MM-DD)
+        start_date = datetime.strptime(start_date_str, "%Y-%m-%d")
+        end_date = datetime.strptime(end_date_str, "%Y-%m-%d")
+
+        # --- Query Transaksi (pemesanan) ---
+        cursor_pemesanan = dataPemesanan.find({"tanggal_pemesanan": {"$gte": start_date, "$lte": end_date}},{})
+        data = list(cursor_pemesanan)
+
+        # --- Query Invoice ---
+        total_invoice = collection["invoice"].count_documents({
+            "tanggal_invoice": {"$gte": start_date, "$lte": end_date}
+        })
+
+        for i in range(len(data)):
+            data[i]["invoice"] = collection["invoice"].find_one({"pemesanan_id": ObjectId(data[i]["_id"])})
+
+        # --- Hitung summary ---
+        total_pesanan = len(data)
+        total_pendapatan = sum(item.get("harga_total", 0) for item in data)
+        pelanggan_unik = len(set(item.get("pelanggan_id") for item in data if "pelanggan_id" in item))
+
+        summary = {
+            "total_pesanan": total_pesanan,
+            "total_invoice": total_invoice,
+            "total_pendapatan": total_pendapatan,
+            "pelanggan_unik": pelanggan_unik
+        }
+
+        # Convert datetime ke string untuk frontend
+        for item in data:
+            if isinstance(item["tanggal_pemesanan"], datetime):
+                item["tanggal_pemesanan"] = item["tanggal_pemesanan"].strftime("%Y-%m-%d")
+
+        responAPI = {
+            "code": 200,
+            "data": convert_objectid_to_str(data),
+            "summary": convert_objectid_to_str(summary),
+            "message": "Data laporan tersedia",
+            "status": "success",
+            "pagination": {}
+        }
+
+        return jsonify(responAPI)
+    
     except Exception as error:
         return respon_api("error", 500, str(error), [], {}), 500
 
@@ -987,37 +1158,37 @@ def dataFeedback():
         return respon_api("error", 500, str(error), [], {}), 500
 
 # Experiment
-@admin_route.route("/register", methods=["GET", "POST"])
-def register():
-    return render_template("admin/auth/regist.html")
+# @admin_route.route("/register", methods=["GET", "POST"])
+# def register():
+#     return render_template("admin/auth/regist.html")
 
-@admin_route.route("/send-test-email", methods=["POST"])
-def send_test_email():
-    data = request.get_json(silent=True) or {}
-    recipient = data.get("to", "test@example.com")
+# @admin_route.route("/send-test-email", methods=["POST"])
+# def send_test_email():
+#     data = request.get_json(silent=True) or {}
+#     recipient = data.get("to", "test@example.com")
 
-    # Data dinamis untuk template
-    context = {
-        "USER_NAME": data.get("name", "Pelanggan BCE Cargo"),
-        "APP_NAME": data.get("app_name", "BCE Cargo"),
-        "CODE": data.get("code", "123456"),
-        "EXP_MINUTES": data.get("expired", "5"),
-        "SUPPORT_EMAIL": data.get("email_support", "support@bcecargo.com"),
-        "YEAR": datetime.now().year
-    }
+#     # Data dinamis untuk template
+#     context = {
+#         "USER_NAME": data.get("name", "Pelanggan BCE Cargo"),
+#         "APP_NAME": data.get("app_name", "BCE Cargo"),
+#         "CODE": data.get("code", "123456"),
+#         "EXP_MINUTES": data.get("expired", "5"),
+#         "SUPPORT_EMAIL": data.get("email_support", "support@bcecargo.com"),
+#         "YEAR": datetime.now().year
+#     }
 
-    # Render template Jinja (HTML & plain-text)
-    html_body = render_template("emails/verif.html", **context)
-    text_body = render_template("emails/verif.txt", **context)
+#     # Render template Jinja (HTML & plain-text)
+#     html_body = render_template("emails/verif.html", **context)
+#     text_body = render_template("emails/verif.txt", **context)
 
-    send_email_smtp(
-        host=current_app.config["MAIL_SERVER"],
-        port=current_app.config["MAIL_PORT"],
-        sender=current_app.config["MAIL_SENDER"],
-        to=recipient,
-        subject=f"Kode verifikasi akun anda adalah " + data.get("code", "123456"),
-        html_body=html_body,
-        text_body=text_body
-    )
+#     send_email_smtp(
+#         host=current_app.config["MAIL_SERVER"],
+#         port=current_app.config["MAIL_PORT"],
+#         sender=current_app.config["MAIL_SENDER"],
+#         to=recipient,
+#         subject=f"Kode verifikasi akun anda adalah " + data.get("code", "123456"),
+#         html_body=html_body,
+#         text_body=text_body
+#     )
 
-    return respon_api("success", 200, "Email sent to: " + recipient, [], {})
+#     return respon_api("success", 200, "Email sent to: " + recipient, [], {})

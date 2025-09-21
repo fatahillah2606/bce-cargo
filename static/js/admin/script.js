@@ -23,6 +23,36 @@ function formatTanggalGMT7(dateString) {
     return { hari, tanggal, jam };
 }
 
+function formatTanggal(dateString, jenis) {
+    let date;
+    let day;
+    let month;
+    let year;
+
+    switch (jenis) {
+        case "short":
+            date = new Date(dateString);
+            day = String(date.getDate()).padStart(2, "0"); // Mengambil hari dan menambahkan nol di depan jika perlu
+            month = String(date.getMonth() + 1).padStart(2, "0"); // Mengambil bulan (0-11) dan menambah 1
+            year = String(date.getFullYear()).slice(-2); // Mengambil dua digit terakhir dari tahun
+
+            return `${day}/${month}/${year}`;
+
+        case "formatISO":
+            date = new Date(dateString);
+            year = date.getFullYear(); // Mengambil tahun
+            month = String(date.getMonth() + 1).padStart(2, "0"); // Mengambil bulan (0-11) dan menambah 1
+            day = String(date.getDate()).padStart(2, "0"); // Mengambil hari dan menambahkan nol di depan jika perlu
+
+            return `${year}-${month}-${day}`;
+
+        default:
+            const options = { day: "2-digit", month: "short", year: "numeric" };
+            date = new Date(dateString);
+            return date.toLocaleDateString("en-GB", options);
+    }
+}
+
 // Label warna untuk status pesanan
 function labelWarna(statusPesanan) {
     switch (statusPesanan) {

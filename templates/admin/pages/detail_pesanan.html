@@ -1379,6 +1379,10 @@
                 );
             })
             .catch((error) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
                 tampilkanAlertKesalahan(
                     "Terjadi kesalahan",
                     "Kesalahan saat menolak pesanan"
@@ -1451,6 +1455,10 @@
                 );
             })
             .catch((error) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
                 tampilkanAlertKesalahan("An error occurred", error);
                 console.error(error);
             });
@@ -1492,6 +1500,10 @@
                 modalUpdateStatus.toggle();
             })
             .catch((error) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
                 tampilkanAlertKesalahan("An error occurred", error);
                 console.error(error);
             });

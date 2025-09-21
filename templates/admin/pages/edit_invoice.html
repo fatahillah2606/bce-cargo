@@ -1,13 +1,13 @@
 {% extends 'admin/base.html' %}
 
 <!-- Title -->
-{% block title %}Buat invoice{% endblock %}
+{% block title %}Edit #{{detail_invoice.kode_invoice}}{% endblock %}
 
 <!-- Style -->
 {% block style %} {% endblock %}
 
 <!-- Judul header -->
-{% block judul %}Buat Invoice{% endblock %}
+{% block judul %}Edit Invoice{% endblock %}
 <!-- Konten -->
 {% block konten %}
 <div class="p-6 dark:bg-zinc-900 min-h-screen">
@@ -72,13 +72,14 @@
                         <label
                             for="invoice_number"
                             class="block mb-2 text-sm font-medium dark:text-zinc-200"
-                            >Nomor Invoice (Dibuat otomatis)</label
+                            >Nomor Invoice</label
                         >
                         <input
                             type="text"
                             id="invoice_number"
-                            readonly
-                            value="INV-000000-000"
+                            name="invoice_number"
+                            disabled
+                            value="{{detail_invoice.kode_invoice}}"
                             class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
                         />
                     </div>
@@ -93,9 +94,12 @@
                         <select
                             id="customer"
                             name="customer"
-                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                            disabled
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
                         >
-                            <option value="">Pilih pelanggan</option>
+                            <option value="">
+                                {{data_pemesanan.nama_pengirim}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -131,8 +135,8 @@
                             name="invoice_type"
                             class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
                         >
-                            <option value="final" selected>Final</option>
                             <option value="proforma">Proforma</option>
+                            <option value="final">Final</option>
                         </select>
                     </div>
                 </div>
@@ -164,9 +168,12 @@
                         <select
                             id="reference"
                             name="reference"
-                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                            disabled
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
                         >
-                            <option value="">Pilih Kode Pesanan</option>
+                            <option value="">
+                                {{data_pemesanan.kode_pemesanan}}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -324,10 +331,15 @@
                         class="flex items-center gap-2 justify-between mb-6 border-y border-zinc-200 dark:border-zinc-700 py-5"
                     >
                         <h2 class="sm:text-xl font-semibold dark:text-white">
-                            Invoice #<span id="preview_kode_invoice"></span>
+                            Invoice #<span id="preview_kode_invoice"
+                                >{{detail_invoice.kode_invoice}}</span
+                            >
                         </h2>
                         <p class="text-zinc-600 dark:text-zinc-400">
-                            Tanggal: <span id="preview_tgl_invoice"></span>
+                            Tanggal:
+                            <span id="preview_tgl_invoice"
+                                >{{detail_invoice.tanggal_invoice}}</span
+                            >
                         </p>
                     </div>
 
@@ -359,9 +371,15 @@
                             <p
                                 class="text-zinc-900 dark:text-white"
                                 id="preview_pengirim_invoice"
-                            ></p>
-                            <p id="preview_alamat_pengirim_invoice"></p>
-                            <p id="preview_notlp_pengirim_invoice"></p>
+                            >
+                                {{data_pemesanan.nama_pengirim}}
+                            </p>
+                            <p id="preview_alamat_pengirim_invoice">
+                                {{data_pemesanan.alamat_pengirim}}
+                            </p>
+                            <p id="preview_notlp_pengirim_invoice">
+                                {{data_pemesanan.no_hp_pengirim}}
+                            </p>
                         </div>
                     </div>
 
@@ -385,32 +403,24 @@
                                 class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
                                 id="list-barang"
                             >
-                                {% for i in range(2) %}
+                                {% for barang in data_barang %}
                                 <tr>
                                     <td class="px-4 py-3">
-                                        <div
-                                            class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
-                                        ></div>
+                                        {{ barang.nama_barang }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        <div
-                                            class="h-5 bg-zinc-200 rounded w-6 dark:bg-zinc-700 animate-pulse"
-                                        ></div>
+                                        {{ barang.jumlah }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        <div
-                                            class="h-5 bg-zinc-200 rounded w-24 dark:bg-zinc-700 animate-pulse"
-                                        ></div>
+                                        {{ barang.dimensi_cm.panjang }} x {{
+                                        barang.dimensi_cm.lebar }} x {{
+                                        barang.dimensi_cm.tinggi }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        <div
-                                            class="h-5 bg-zinc-200 rounded w-16 dark:bg-zinc-700 animate-pulse"
-                                        ></div>
+                                        {{ barang.kategori_id.nama_kategori }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        <div
-                                            class="h-5 bg-zinc-200 rounded w-12 dark:bg-zinc-700 animate-pulse"
-                                        ></div>
+                                        {{ barang.metode_pengiriman }}
                                     </td>
                                 </tr>
                                 {% endfor %}
@@ -433,7 +443,8 @@
                                 <span
                                     class="dark:text-white font-semibold"
                                     id="preview_subtotal"
-                                    >Rp 0</span
+                                >
+                                    {{detail_invoice.rincian_pembayaran.subtotal}}</span
                                 >
                             </div>
                             <div class="flex justify-between">
@@ -443,7 +454,7 @@
                                 <span
                                     class="dark:text-white font-semibold"
                                     id="preview_surcharge"
-                                    >Rp 0</span
+                                    >{{detail_invoice.rincian_pembayaran.surcharge_dg}}</span
                                 >
                             </div>
                             <div class="flex justify-between">
@@ -453,7 +464,7 @@
                                 <span
                                     class="dark:text-white font-semibold"
                                     id="preview_packing"
-                                    >Rp 0</span
+                                    >{{detail_invoice.rincian_pembayaran.biaya_packing}}</span
                                 >
                             </div>
                             <div class="flex justify-between">
@@ -463,7 +474,7 @@
                                 <span
                                     class="dark:text-white font-semibold"
                                     id="preview_discount"
-                                    >0%</span
+                                    >{{detail_invoice.rincian_pembayaran.diskon}}%</span
                                 >
                             </div>
                             <hr
@@ -474,7 +485,7 @@
                                 <span
                                     class="text-green-600 dark:text-green-400"
                                     id="preview_total_biaya"
-                                    >Rp 0</span
+                                    >{{detail_invoice.rincian_pembayaran.total}}</span
                                 >
                             </div>
                         </div>
@@ -492,11 +503,16 @@
 <!-- Konten js -->
 {% block kontenjs %}
 <script>
+    // Ambil URL
+    const url = window.location.href;
+    const kodeInvoice = url.split("/").pop();
+
     const formInvoice = document.getElementById("buat_invoice");
     const costInput = document.querySelectorAll(".cost-input");
 
     let kode_pemesanan;
     let listKategori = [];
+    let DataInvoice = {};
 
     // Fungsi hitung total
     function hitungTotal() {
@@ -533,16 +549,6 @@
     costInput.forEach((cost) => {
         cost.addEventListener("input", hitungTotal);
     });
-
-    // Muat tanggal saat ini
-    const waktu = new Date();
-    const formattedDateLong = waktu.toLocaleDateString("id-ID", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-    });
-    document.getElementById("preview_tgl_invoice").textContent =
-        formattedDateLong;
 
     // Muat kategori
     fetch("/admin/api/data/kategori", {
@@ -751,6 +757,60 @@
         }
     });
 
+    // Muat invoice
+    function muatInvoice(kode) {
+        fetch(`/admin/api/data/detail_invoice/${kode}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                data = data.data;
+                if (data.length === 0) {
+                    tampilkanAlertKesalahan(
+                        "Kesalahan",
+                        "Data invoice tidak tersedia"
+                    );
+                } else {
+                    DataInvoice = data;
+
+                    // Detail invoice
+                    formInvoice.payment_condition.value =
+                        data.status_pembayaran;
+
+                    formInvoice.invoice_type.value = data.jenis_invoice;
+                    formInvoice.additional_info.value = data.catatan;
+                    formInvoice.due_date.value = formatTanggal(
+                        data.due_date,
+                        "formatISO"
+                    );
+
+                    // Rincian biaya
+                    formInvoice.subtotal.value =
+                        data.rincian_pembayaran.subtotal;
+                    formInvoice.surcharge.value =
+                        data.rincian_pembayaran.surcharge_dg;
+                    formInvoice.packing.value =
+                        data.rincian_pembayaran.biaya_packing;
+                    formInvoice.discount.value = data.rincian_pembayaran.diskon;
+                    formInvoice.total.value = data.rincian_pembayaran.total;
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Update invoice
     function simpanInvoice(event, btn) {
         event.preventDefault();
 
@@ -761,7 +821,8 @@
         const buatInvoice = new FormData(
             document.getElementById("buat_invoice")
         );
-        buatInvoice.append("buat_invoice", true);
+        buatInvoice.append("edit_invoice", true);
+        buatInvoice.append("kode_invoice", DataInvoice.kode_invoice);
 
         fetch("/admin/api/data/invoice", {
             method: "POST",
@@ -794,5 +855,7 @@
                 modalUpdateStatus.toggle();
             });
     }
+
+    muatInvoice(kodeInvoice);
 </script>
 {% endblock %}
