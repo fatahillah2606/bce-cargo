@@ -1,0 +1,392 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}Kategori{% endblock %}
+
+<!-- Style -->
+{% block style %} {% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Kategori{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="sm:p-4">
+    <div class="bg-white dark:bg-zinc-800 sm:rounded-xl shadow p-6">
+        <!-- Header -->
+        <div
+            class="flex justify-between items-center flex-col gap-2.5 sm:flex-row me-2 mb-5"
+        >
+            <h2 class="text-lg font-semibold text-zinc-800 dark:text-zinc-200">
+                Kategori barang kargo
+            </h2>
+            <button
+                type="button"
+                class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5"
+            >
+                <span class="material-symbols-rounded"> add_2 </span>
+                <span>Tambah</span>
+            </button>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+            <table
+                class="min-w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+            >
+                <thead
+                    class="text-xs text-zinc-700 dark:text-zinc-400 uppercase bg-zinc-100 dark:bg-zinc-700"
+                >
+                    <tr>
+                        <th class="px-4 py-3">Nama Kategori</th>
+                        <th class="px-4 py-3">Nama Kategori (EN)</th>
+                        <th class="px-4 py-3">Khusus Darat</th>
+                        <th class="px-4 py-3">Ketentuan Khusus</th>
+                        <th class="px-4 py-3">Contoh Barang</th>
+                        <th class="px-4 py-3">Packing Khusus</th>
+                        <th class="px-4 py-3">Label DG</th>
+                        <th class="px-4 py-3">Biaya Tambahan</th>
+                        <th class="px-4 py-3">Asuransi Disarankan</th>
+                        <th class="px-4 py-3">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody
+                    class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
+                    id="kategori-kargo-container"
+                >
+                    <!-- Skeleton loading -->
+                    {% for i in range(10) %}
+                    <tr>
+                        <td class="px-4 py-3 font-medium text-zinc-800">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-10 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 inline-block bg-zinc-200 rounded w-24 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                            <div
+                                class="h-5 inline-block bg-zinc-300 rounded w-10 dark:bg-zinc-600 animate-pulse"
+                            ></div>
+                            <div
+                                class="h-5 inline-block bg-zinc-200 rounded w-16 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <ul
+                                class="max-w-md space-y-1 text-zinc-500 list-disc dark:text-zinc-400"
+                            >
+                                <li>
+                                    <div
+                                        class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                                    ></div>
+                                </li>
+                                <li>
+                                    <div
+                                        class="h-5 bg-zinc-200 rounded w-12 dark:bg-zinc-700 animate-pulse"
+                                    ></div>
+                                </li>
+                            </ul>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-10 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-10 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-10 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-10 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3 flex gap-2.5">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-10 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-12 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div
+            class="flex gap-5 flex-col sm:flex-row items-center justify-between mt-6 text-sm text-zinc-600"
+        >
+            <p
+                id="info-data-ditampilkan"
+                class="text-zinc-400 dark:text-zinc-400"
+            >
+                Menampilkan 0 - 0 dari 0 data
+            </p>
+            <div aria-label="Page navigation example">
+                <ul
+                    class="flex items-center -space-x-px h-8 text-sm"
+                    id="page-number"
+                ></ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- Js per halaman -->
+{% block kontenjs %}
+<script>
+    // Variable
+    const kategoriKargoContainer = document.getElementById(
+        "kategori-kargo-container"
+    );
+
+    const nomorHalaman = document.getElementById("page-number");
+    const infoDataDitampilkan = document.getElementById(
+        "info-data-ditampilkan"
+    );
+    let currentPage;
+
+    // Muat kategori kargo
+    function muatKategoriKargo(halaman) {
+        let listKategoriKargo = "";
+        let listNomorHalaman = "";
+
+        // Cek apakah "halaman" kosong?
+        halaman == undefined ? (halaman = "") : (halaman = halaman);
+
+        fetch("/admin/api/data/kategori?page=" + halaman, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                const listData = data.data;
+
+                if (listData.length === 0) {
+                    kategoriKargoContainer.innerHTML = `
+                            <tr>
+                                <td colspan="10">
+                                    <p
+                                        class="text-center font-bold text-zinc-600 mt-5"
+                                    >
+                                        Daftar kategori barang tidak tersedia
+                                    </p>
+                                </td>
+                            </tr>
+                        `;
+
+                    infoDataDitampilkan.textContent =
+                        "Menampilkan 0 - 0 dari 0 data";
+                } else {
+                    listData.forEach((kategori) => {
+                        listKategoriKargo += `
+                            <tr>
+                                <td class="px-4 py-3 font-medium text-zinc-900 dark:text-white">
+                                    ${kategori.nama_kategori}
+                                </td>
+                                <td class="px-4 py-3">${
+                                    kategori.nama_kategori_en
+                                }</td>
+                                <td class="px-4 py-3">${ubahTrueFalse(
+                                    kategori.khusus_pengiriman_darat_saja
+                                )}</td>
+                                <td class="px-4 py-3">${
+                                    kategori.ketentuan_khusus
+                                }</td>
+                                <td class="px-4 py-3">${ubahArrayKeList(
+                                    kategori.contoh_barang
+                                )}</td>
+                                <td class="px-4 py-3">${ubahTrueFalse(
+                                    kategori.butuh_packing_khusus
+                                )}</td>
+                                <td class="px-4 py-3">${ubahTrueFalse(
+                                    kategori.butuh_label_dg
+                                )}</td>
+                                <td class="px-4 py-3">${ubahTrueFalse(
+                                    kategori.biaya_tambahan
+                                )}</td>
+                                <td class="px-4 py-3">${ubahTrueFalse(
+                                    kategori.asuransi_disarankan
+                                )}</td>
+                                <td class="px-4 py-3 flex gap-2.5">
+                                    <a
+                                        href="#"
+                                        class="text-green-600 dark:text-green-500 hover:underline text-sm font-medium"
+                                        onclick="editTarif('${kategori._id}')"
+                                        >Edit</a
+                                    >
+                                    <a
+                                        href="#"
+                                        class="text-red-600 dark:text-red-500 hover:underline text-sm font-medium"
+                                        onclick="hapusTarif('${kategori._id}')"
+                                        >Hapus</a
+                                    >
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    kategoriKargoContainer.innerHTML = listKategoriKargo;
+
+                    // Info tambahan
+                    let mulai = (data.pagination.current_page - 1) * 10 + 1;
+                    let akhir = Math.min(
+                        data.pagination.current_page * 10,
+                        data.pagination.total_items
+                    );
+                    infoDataDitampilkan.textContent = `Menampilkan ${mulai} - ${akhir} dari ${data.pagination.total_items} data`;
+
+                    // Pagination
+                    let totalPages = data.pagination.total_pages;
+                    currentPage = data.pagination.current_page;
+                    let maxVisible = 5;
+                    let startPage, endPage;
+
+                    // Tambahkan tombol previous
+                    if (currentPage - 1 != 0) {
+                        listNomorHalaman += `
+                            <li>
+                                <button
+                                    onclick="muatTarifPengiriman(${
+                                        currentPage - 1
+                                    })"
+                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-zinc-500 bg-white border border-e-0 border-zinc-300 rounded-s-lg hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                                >
+                                    <span class="sr-only">Previous</span>
+                                    <svg
+                                        class="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 1 1 5l4 4"
+                                        />
+                                    </svg>
+                                </button>
+                            </li>
+                        `;
+                    }
+
+                    // Nomor halaman
+                    if (totalPages <= maxVisible) {
+                        // Semua halaman ditampilkan
+                        startPage = 1;
+                        endPage = totalPages;
+                    } else {
+                        if (currentPage <= 3) {
+                            // Awal halaman
+                            startPage = 1;
+                            endPage = maxVisible;
+                        } else if (currentPage >= totalPages - 2) {
+                            // Mendekati akhir
+                            startPage = totalPages - (maxVisible - 1);
+                            endPage = totalPages;
+                        } else {
+                            // Tengah
+                            startPage = currentPage - 2;
+                            endPage = currentPage + 2;
+                        }
+                    }
+
+                    for (let i = startPage; i <= endPage; i++) {
+                        if (i === currentPage) {
+                            listNomorHalaman += `
+                                <li>
+                                    <button
+                                        onclick="muatTarifPengiriman(${i})"
+                                        aria-current="page"
+                                        class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-green-600 border border-green-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-zinc-700 dark:bg-zinc-700 dark:text-white cursor-pointer"
+                                    >${i}</button>
+                                </li>
+                            `;
+                        } else {
+                            listNomorHalaman += `
+                                <li>
+                                    <button
+                                        onclick="muatTarifPengiriman(${i})"
+                                        class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                                    >${i}</button>
+                                </li>
+                            `;
+                        }
+                    }
+
+                    // Tambahkan tombol next
+                    if (currentPage != totalPages) {
+                        listNomorHalaman += `
+                            <li>
+                                <button
+                                    onclick="muatTarifPengiriman(${
+                                        currentPage + 1
+                                    })"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 rounded-e-lg hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                                >
+                                    <span class="sr-only">Next</span>
+                                    <svg
+                                        class="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m1 9 4-4-4-4"
+                                        />
+                                    </svg>
+                                </button>
+                            </li>
+                        `;
+                    }
+
+                    // Masukan ke pegination
+                    nomorHalaman.innerHTML = listNomorHalaman;
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    muatKategoriKargo();
+</script>
+{% endblock %}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id" style="margin: 0; padding: 0">
+    <body style="margin: 0; padding: 0; background-color: #f5f6f8">
+        <table
+            role="presentation"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            width="100%"
+            style="background-color: #f5f6f8; margin: 0; padding: 24px 0"
+        >
+            <tr>
+                <td align="center" style="padding: 0 16px">
+                    <!-- Card -->
+                    <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        width="100%"
+                        style="
+                            max-width: 640px;
+                            background: #ffffff;
+                            border-radius: 12px;
+                            overflow: hidden;
+                            border: 1px solid #e6e8eb;
+                        "
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                align="left"
+                                style="padding: 20px 24px; background: #0f172a"
+                            >
+                                <table role="presentation" width="100%">
+                                    <tr>
+                                        <td
+                                            style="
+                                                font-family: Arial, Helvetica,
+                                                    sans-serif;
+                                                font-size: 18px;
+                                                line-height: 24px;
+                                                color: #ffffff;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Notifikasi Pesanan Baru
+                                        </td>
+                                        <td
+                                            align="right"
+                                            style="
+                                                font-family: Arial, Helvetica,
+                                                    sans-serif;
+                                                font-size: 12px;
+                                                line-height: 18px;
+                                                color: #cbd5e1;
+                                            "
+                                        >
+                                            {{tanggal_pemesanan}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Body -->
+                        <tr>
+                            <td style="padding: 28px 24px 16px 24px">
+                                <h2
+                                    style="
+                                        margin: 0 0 8px 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 20px;
+                                        line-height: 28px;
+                                        color: #0f172a;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    Pesanan Kargo Baru ({{kode_pemesanan}})
+                                </h2>
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 14px;
+                                        line-height: 22px;
+                                        color: #334155;
+                                    "
+                                >
+                                    Berikut adalah detail pesanan kargo terbaru
+                                    yang masuk ke sistem.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Detail Table -->
+                        <tr>
+                            <td style="padding: 0 24px 24px 24px">
+                                <table
+                                    role="presentation"
+                                    cellpadding="6"
+                                    cellspacing="0"
+                                    border="0"
+                                    width="100%"
+                                    style="
+                                        border-collapse: collapse;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 13px;
+                                        line-height: 20px;
+                                        color: #0f172a;
+                                    "
+                                >
+                                    <tr style="background: #f1f5f9">
+                                        <td
+                                            style="
+                                                font-weight: bold;
+                                                width: 180px;
+                                            "
+                                        >
+                                            Kode Pemesanan
+                                        </td>
+                                        <td>{{kode_pemesanan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Nama Pengirim
+                                        </td>
+                                        <td>{{nama_pengirim}}</td>
+                                    </tr>
+                                    <tr style="background: #f9fafb">
+                                        <td style="font-weight: bold">
+                                            No. HP Pengirim
+                                        </td>
+                                        <td>{{no_hp_pengirim}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Alamat Pengirim
+                                        </td>
+                                        <td>{{alamat_pengirim}}</td>
+                                    </tr>
+                                    <tr style="background: #f9fafb">
+                                        <td style="font-weight: bold">
+                                            Nama Penerima
+                                        </td>
+                                        <td>{{nama_penerima}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            No. HP Penerima
+                                        </td>
+                                        <td>{{no_hp_penerima}}</td>
+                                    </tr>
+                                    <tr style="background: #f9fafb">
+                                        <td style="font-weight: bold">
+                                            Alamat Penerima
+                                        </td>
+                                        <td>{{alamat_penerima}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Jenis Kargo
+                                        </td>
+                                        <td>{{jenis_kargo}}</td>
+                                    </tr>
+                                    <tr style="background: #f9fafb">
+                                        <td style="font-weight: bold">
+                                            Berat Kargo
+                                        </td>
+                                        <td>{{berat_kargo}} kg</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Tanggal Pemesanan
+                                        </td>
+                                        <td>{{tanggal_pemesanan}}</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- CTA -->
+                        <tr>
+                            <td
+                                align="center"
+                                style="padding: 8px 24px 24px 24px"
+                            >
+                                <a
+                                    href="{{ADMIN_DASHBOARD_URL}}"
+                                    target="_blank"
+                                    style="
+                                        display: inline-block;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 14px;
+                                        line-height: 18px;
+                                        font-weight: 700;
+                                        text-decoration: none;
+                                        color: #ffffff;
+                                        background: #2563eb;
+                                        padding: 12px 20px;
+                                        border-radius: 10px;
+                                    "
+                                >
+                                    Kelola Pesanan
+                                </a>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                style="
+                                    background: #f8fafc;
+                                    padding: 16px 24px;
+                                    border-top: 1px solid #e6e8eb;
+                                "
+                            >
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 11px;
+                                        line-height: 18px;
+                                        color: #94a3b8;
+                                    "
+                                >
+                                    Email ini dikirim otomatis oleh sistem
+                                    {{APP_NAME}}. Silakan masuk ke dashboard
+                                    admin untuk memproses pesanan.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- /Card -->
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

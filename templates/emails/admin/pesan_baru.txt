@@ -1,0 +1,23 @@
+[NOTIFIKASI PESANAN BARU]
+
+Kode Pemesanan : {{kode_pemesanan}}
+Tanggal        : {{tanggal_pemesanan}}
+
+--- Data Pengirim ---
+Nama           : {{nama_pengirim}}
+No. HP         : {{no_hp_pengirim}}
+Alamat         : {{alamat_pengirim}}
+
+--- Data Penerima ---
+Nama           : {{nama_penerima}}
+No. HP         : {{no_hp_penerima}}
+Alamat         : {{alamat_penerima}}
+
+--- Detail Kargo ---
+Jenis Kargo    : {{jenis_kargo}}
+Berat Kargo    : {{berat_kargo}} kg
+
+Silakan masuk ke dashboard admin untuk memproses pesanan ini:
+{{ADMIN_DASHBOARD_URL}}
+
+Email ini dikirim otomatis oleh sistem {{APP_NAME}}.

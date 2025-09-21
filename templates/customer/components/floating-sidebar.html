@@ -1,0 +1,98 @@
+<!-- Floating Sidebar -->
+<div
+    class="floating-sidebar bg-green-500 dark:bg-green-900 p-2 flex flex-col space-y-2 rounded-r-lg shadow-lg"
+>
+    <a
+        href="/customer/profile"
+        class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+    >
+        <span class="material-symbols-rounded text-white">person</span>
+        <span
+            class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+        >
+            Profile
+        </span>
+    </a>
+
+    <a
+        href="/customer/ongkir"
+        class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+    >
+        <span class="material-symbols-rounded text-white">payments</span>
+        <span
+            class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+        >
+            Cek Ongkir
+        </span>
+    </a>
+
+    <!-- wajib login -->
+    <div
+        id="wajib-login"
+        class="{% if 'user_id' not in session or session.get('role') != 'customer' %}hidden{% endif %} flex flex-col space-y-2"
+    >
+        <a
+            href="/customer/pesanan"
+            class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+        >
+            <span class="material-symbols-rounded text-white"
+                >add_shopping_cart</span
+            >
+            <span
+                class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+            >
+                Pesanan
+            </span>
+        </a>
+
+        <a
+            href="/customer/profile#bagian-buku-alamat"
+            class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+        >
+            <span class="material-symbols-rounded text-white">location_on</span>
+            <span
+                class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+            >
+                Alamat
+            </span>
+        </a>
+
+        <a
+            href="/customer/riwayat"
+            class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+        >
+            <span class="material-symbols-rounded text-white"
+                >receipt_long</span
+            >
+            <span
+                class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+            >
+                Riwayat
+            </span>
+        </a>
+
+        <a
+            href="/customer/kategoribarang"
+            class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+        >
+            <span class="material-symbols-rounded text-white">category</span>
+            <span
+                class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+            >
+                Kategori
+            </span>
+        </a>
+
+        <a
+            href="/customer/logout"
+            class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+        >
+            <span class="material-symbols-rounded text-white">logout</span>
+            <span
+                class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+            >
+                Logout
+            </span>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+[PESANAN DITOLAK]
+
+Halo {{nama_pengirim}},
+
+Pesanan kargo Anda dengan kode pemesanan: {{kode_pemesanan}}
+yang dibuat pada {{tanggal_pemesanan}} telah DITOLAK oleh admin.
+
+Alasan penolakan:
+{{alasan_penolakan}}
+
+Jika Anda merasa ada kesalahan atau ingin mengajukan pertanyaan, 
+silakan hubungi tim dukungan melalui tautan berikut:
+{{SUPPORT_URL}}
+
+Terima kasih,
+Tim {{APP_NAME}}

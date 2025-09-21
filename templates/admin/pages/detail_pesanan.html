@@ -1,0 +1,1512 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}{{detail_pesanan.kode_pemesanan}}{% endblock %}
+
+<!-- Style -->
+{% block style %} {% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Detail Pesanan{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="p-6 dark:bg-zinc-900 min-h-screen">
+    <!-- Header -->
+    <div class="flex items-center flex-wrap justify-between mb-6 gap-6">
+        <div>
+            <div class="flex flex-wrap items-center gap-2">
+                <h2 class="text-lg font-semibold dark:text-white">
+                    Order {{detail_pesanan.kode_pemesanan}}
+                </h2>
+                <span
+                    id="status-pesanan"
+                    class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm"
+                    >{{detail_pesanan.status}}</span
+                >
+            </div>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                Tanggal dibuat: {{detail_pesanan.tanggal_pemesanan}}
+            </p>
+        </div>
+        {% if detail_pesanan.status == 'Pending' %}
+        <div class="flex gap-3 w-full sm:w-auto" id="action-button">
+            <button
+                class="flex items-center gap-2.5 cursor-pointer px-4 py-2 text-sm text-red-500 border border-red-500 rounded-lg hover:bg-red-500 hover:text-white grow"
+                onclick="modalTolakPesanan.toggle()"
+            >
+                <span class="material-symbols-rounded"> block </span>
+                <span>Tolak</span>
+            </button>
+            <button
+                class="flex items-center gap-2.5 cursor-pointer px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700 grow"
+                onclick="modalTerimaPesanan.toggle()"
+            >
+                <span class="material-symbols-rounded"> check </span>
+                <span>Terima</span>
+            </button>
+        </div>
+        {% elif detail_pesanan.status == 'Ditolak' or detail_pesanan.status ==
+        'Gagal dikirim' or detail_pesanan.status == 'Selesai'%}
+        <div class="flex gap-3 w-full sm:w-auto" id="action-button">
+            <!-- Kosongkan tombol -->
+        </div>
+        {% else %}
+        <div class="flex gap-3 w-full sm:w-auto" id="action-button">
+            <button
+                class="flex items-center gap-2.5 cursor-pointer px-4 py-2 text-sm text-white bg-green-600 rounded-lg hover:bg-green-700 grow"
+                onclick="modalUpdateStatus.toggle()"
+            >
+                <span class="material-symbols-rounded">
+                    published_with_changes
+                </span>
+                <span>Update status</span>
+            </button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-6 lg:gap-6">
+        <!-- Order Details -->
+        <div class="col-span-2 bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
+            <h3 class="text-lg font-semibold dark:text-white mb-4">
+                Order details
+            </h3>
+            <div class="overflow-x-auto">
+                <table
+                    class="w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+                >
+                    <thead
+                        class="text-xs uppercase bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400"
+                    >
+                        <tr>
+                            <th class="px-4 py-3">Nama Barang</th>
+                            <th class="px-4 py-3">Jumlah</th>
+                            <th class="px-4 py-3">Dimensi (cm)</th>
+                            <th class="px-4 py-3">Kategori</th>
+                            <th class="px-4 py-3">Metode pengiriman</th>
+                            <th class="px-4 py-3">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        id="list-barang"
+                        class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
+                    >
+                        {% for i in range(5) %}
+                        <tr>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-6 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-24 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-16 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-12 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                            <td class="px-4 py-3">
+                                <div
+                                    class="h-5 bg-zinc-200 rounded w-20 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="mt-6">
+                <h4 class="text-md font-semibold dark:text-white mb-2">
+                    Order summary
+                </h4>
+                <div class="bg-zinc-100 dark:bg-zinc-700 rounded-lg p-4">
+                    <p class="text-sm text-zinc-700 dark:text-zinc-300">
+                        Biaya pengiriman final akan ditentukan oleh Admin.
+                    </p>
+                    <div class="flex justify-between mt-3">
+                        <span class="text-zinc-600 dark:text-zinc-400"
+                            >Total Biaya</span
+                        >
+                        <span
+                            class="dark:text-white font-semibold"
+                            id="total-biaya"
+                            >{{detail_pesanan.harga_total}}</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer & Receiver Details -->
+        <div class="space-y-6">
+            <!-- Pengirim -->
+            <div class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold dark:text-white mb-4">
+                    Detail Pengirim
+                </h3>
+                <ul
+                    class="space-y-2 text-zinc-700 dark:text-zinc-300 text-sm divide-y divide-zinc-200 dark:divide-zinc-700"
+                >
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white">Nama:</span>
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{detail_pesanan.nama_pengirim}}
+                        </span>
+                    </li>
+                    {% if data_pelanggan.nama_perusahaan %}
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white"
+                            >Nama Perusahaan:</span
+                        >
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{data_pelanggan.nama_perusahaan}}
+                        </span>
+                    </li>
+                    {% endif %}
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white">Alamat:</span>
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{detail_pesanan.alamat_pengirim}}
+                        </span>
+                    </li>
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white"
+                            >Nomor HP:</span
+                        >
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{detail_pesanan.no_hp_pengirim}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Penerima -->
+            <div class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold dark:text-white mb-4">
+                    Detail Penerima
+                </h3>
+                <ul
+                    class="space-y-2 text-zinc-700 dark:text-zinc-300 text-sm divide-y divide-zinc-200 dark:divide-zinc-700"
+                >
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white">Nama:</span>
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{detail_pesanan.nama_penerima}}
+                        </span>
+                    </li>
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white">Alamat:</span>
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{detail_pesanan.alamat_penerima}}
+                        </span>
+                    </li>
+                    <li class="flex justify-between gap-2.5 py-2.5">
+                        <span class="font-medium dark:text-white"
+                            >Nomor HP:</span
+                        >
+                        <span
+                            class="text-zinc-600 dark:text-zinc-400 text-right"
+                        >
+                            {{detail_pesanan.no_hp_penerima}}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- Modal per halaman -->
+{% block modals %}
+<!-- Modal lihat/edit barang-->
+<div
+    id="item-detail-modal"
+    tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full"
+>
+    <div class="relative p-4 w-full max-w-4xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-zinc-800">
+            <!-- Modal header -->
+            <div
+                class="flex items-center justify-between p-4 md:p-5 border-b border-zinc-200 dark:border-zinc-600 rounded-t"
+            >
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                    Detail Barang
+                </h3>
+                <button
+                    type="button"
+                    class="text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-zinc-700 dark:hover:text-white"
+                    onclick="itemDetailModal.toggle()"
+                >
+                    <svg
+                        class="w-3 h-3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form
+                class="p-4 md:p-6 space-y-4"
+                method="post"
+                name="detail-barang"
+                id="detail-barang"
+            >
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Nama Barang -->
+                    <div class="col-span-2">
+                        <label
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Nama Barang</label
+                        >
+                        <input
+                            type="text"
+                            name="nama_barang"
+                            disabled
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                        />
+                    </div>
+
+                    <!-- Jumlah -->
+                    <div>
+                        <label
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Jumlah</label
+                        >
+                        <input
+                            type="number"
+                            name="jumlah"
+                            disabled
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                        />
+                    </div>
+
+                    <!-- Berat -->
+                    <div>
+                        <label
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Berat (Kg)</label
+                        >
+                        <input
+                            type="number"
+                            name="berat_kg"
+                            required
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                        />
+                        <p
+                            class="mt-2 text-sm text-red-600 dark:text-red-500 hidden"
+                        >
+                            Some error message.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dimensi -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Dimensi (cm)</label
+                    >
+                    <div class="grid grid-cols-3 gap-3">
+                        <input
+                            type="number"
+                            name="panjang"
+                            disabled
+                            placeholder="Panjang"
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                        />
+                        <input
+                            type="number"
+                            name="lebar"
+                            disabled
+                            placeholder="Lebar"
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                        />
+                        <input
+                            type="number"
+                            name="tinggi"
+                            disabled
+                            placeholder="Tinggi"
+                            class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                        />
+                    </div>
+                </div>
+
+                <!-- Kategori -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Kategori</label
+                    >
+                    <select
+                        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                        required
+                        name="kategori_barang"
+                        id="kategori-barang"
+                    >
+                        <option value="">Pilih kategori</option>
+                    </select>
+                    <p
+                        class="mt-2 text-sm text-red-600 dark:text-red-500 hidden"
+                    >
+                        Some error message.
+                    </p>
+                </div>
+
+                <!-- Butuh Asuransi -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Butuh Asuransi</label
+                    >
+                    <div class="flex items-center gap-6">
+                        <label class="flex items-center">
+                            <input
+                                type="radio"
+                                name="asuransi"
+                                value="true"
+                                required
+                                class="w-4 h-4 text-green-600 border-zinc-300 focus:ring-green-500"
+                            />
+                            <span
+                                class="ml-2 text-sm text-zinc-700 dark:text-zinc-300"
+                                >Ya</span
+                            >
+                        </label>
+                        <label class="flex items-center">
+                            <input
+                                type="radio"
+                                name="asuransi"
+                                value="false"
+                                required
+                                class="w-4 h-4 text-green-600 border-zinc-300 focus:ring-green-500"
+                            />
+                            <span
+                                class="ml-2 text-sm text-zinc-700 dark:text-zinc-300"
+                                >Tidak</span
+                            >
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Metode Pengiriman -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Metode Pengiriman</label
+                    >
+                    <input
+                        type="text"
+                        name="metode_pengiriman"
+                        disabled
+                        class="bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                    />
+                </div>
+
+                <!-- Catatan Tambahan -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Catatan Tambahan</label
+                    >
+                    <textarea
+                        rows="2"
+                        name="catatan_tambahan"
+                        disabled
+                        class="w-full bg-zinc-100 border border-zinc-300 text-zinc-500 text-sm rounded-lg block p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-zinc-400 cursor-not-allowed"
+                    ></textarea>
+                </div>
+
+                <!-- Status Cek DG -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                    >
+                        Status Cek DG (Dangerous)
+                    </label>
+                    <select
+                        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                        name="dg"
+                    >
+                        <option value="belum dicek">Belum dicek</option>
+                        <option value="bukan DG">Bukan DG</option>
+                        <option value="termasuk DG">Termasuk DG</option>
+                    </select>
+                </div>
+
+                <!-- Biaya Surcharge -->
+                <div id="biaya-surcharge" class="hidden">
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Biaya Surcharge</label
+                    >
+                    <input
+                        type="number"
+                        name="biaya_surcharge"
+                        class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                    />
+                </div>
+
+                <!-- Packing Khusus -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Butuh Packing Khusus</label
+                    >
+                    <div class="flex items-center gap-6">
+                        <label class="flex items-center">
+                            <input
+                                type="radio"
+                                name="packing_khusus"
+                                value="true"
+                                required
+                                class="w-4 h-4 text-green-600 border-zinc-300 focus:ring-green-500"
+                            />
+                            <span
+                                class="ml-2 text-sm text-zinc-700 dark:text-zinc-300"
+                                >Ya</span
+                            >
+                        </label>
+                        <label class="flex items-center">
+                            <input
+                                type="radio"
+                                name="packing_khusus"
+                                value="false"
+                                required
+                                class="w-4 h-4 text-green-600 border-zinc-300 focus:ring-green-500"
+                            />
+                            <span
+                                class="ml-2 text-sm text-zinc-700 dark:text-zinc-300"
+                                >Tidak</span
+                            >
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Label DG -->
+                <div>
+                    <label
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Butuh Label DG</label
+                    >
+                    <div class="flex items-center gap-6">
+                        <label class="flex items-center">
+                            <input
+                                type="radio"
+                                name="labelDG"
+                                value="true"
+                                required
+                                class="w-4 h-4 text-green-600 border-zinc-300 focus:ring-green-500"
+                            />
+                            <span
+                                class="ml-2 text-sm text-zinc-700 dark:text-zinc-300"
+                                >Ya</span
+                            >
+                        </label>
+                        <label class="flex items-center">
+                            <input
+                                type="radio"
+                                name="labelDG"
+                                value="false"
+                                required
+                                class="w-4 h-4 text-green-600 border-zinc-300 focus:ring-green-500"
+                            />
+                            <span
+                                class="ml-2 text-sm text-zinc-700 dark:text-zinc-300"
+                                >Tidak</span
+                            >
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div
+                    class="flex justify-end items-center pt-4 md:pt-5 border-t border-zinc-200 dark:border-zinc-600"
+                >
+                    <button
+                        onclick="itemDetailModal.toggle()"
+                        type="reset"
+                        class="px-5 py-2.5 text-sm font-medium text-zinc-900 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-100 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-700"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        type="submit"
+                        id="submit-barang"
+                        class="relative ml-3 px-5 py-2.5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                    >
+                        <span>Simpan perubahan</span>
+                        <!-- Overlay untuk spinner -->
+                        <span
+                            class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                        >
+                            <span
+                                class="material-symbols-rounded inline text-xl! text-white animate-spin"
+                            >
+                                progress_activity
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Tolak Pesanan -->
+<div
+    id="reject-modal"
+    tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full"
+>
+    <div class="relative p-4 w-full max-w-lg max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-zinc-800">
+            <!-- Modal header -->
+            <div
+                class="flex items-center justify-between p-4 md:p-5 border-b border-zinc-200 dark:border-zinc-600 rounded-t"
+            >
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                    Tolak Pesanan
+                </h3>
+                <button
+                    type="button"
+                    class="text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-zinc-700 dark:hover:text-white"
+                    onclick="modalTolakPesanan.toggle()"
+                >
+                    <svg
+                        class="w-3 h-3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form
+                class="p-4 md:p-6 space-y-4"
+                name="tolak-pesanan"
+                id="tolak-pesanan"
+            >
+                <!-- Alasan Penolakan -->
+                <div>
+                    <label
+                        for="rejectReason"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                    >
+                        Alasan Penolakan
+                    </label>
+                    <textarea
+                        id="rejectReason"
+                        rows="4"
+                        name="alasan_penolakan"
+                        placeholder="Tuliskan alasan penolakan pesanan..."
+                        class="w-full bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg block p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                    ></textarea>
+                </div>
+
+                <!-- Modal footer -->
+                <div
+                    class="flex justify-end items-center pt-4 md:pt-5 border-t border-zinc-200 dark:border-zinc-600"
+                >
+                    <button
+                        type="reset"
+                        onclick="modalTolakPesanan.toggle()"
+                        class="px-5 py-2.5 text-sm font-medium text-zinc-900 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-100 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-700"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        type="submit"
+                        onclick="tolakPesanan(event, this)"
+                        class="relative ml-3 px-5 py-2.5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:ring-red-300"
+                    >
+                        <span>Tolak Pesanan</span>
+                        <!-- Overlay untuk spinner -->
+                        <span
+                            class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                        >
+                            <span
+                                class="material-symbols-rounded inline text-xl! text-white animate-spin"
+                            >
+                                progress_activity
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Setujui & Tentukan Biaya -->
+<div
+    id="approve-modal"
+    tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full"
+>
+    <div class="relative p-4 w-full max-w-lg max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-zinc-800">
+            <!-- Modal header -->
+            <div
+                class="flex items-center justify-between p-4 md:p-5 border-b border-zinc-200 dark:border-zinc-600 rounded-t"
+            >
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                    Setujui & Tentukan Biaya
+                </h3>
+                <button
+                    type="button"
+                    class="text-zinc-400 hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-zinc-700 dark:hover:text-white"
+                    onclick="modalTerimaPesanan.toggle()"
+                >
+                    <svg
+                        class="w-3 h-3"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <form
+                class="p-4 md:p-6 space-y-4"
+                name="terima-pesanan"
+                id="terima-pesanan"
+            >
+                <!-- Subtotal -->
+                <div>
+                    <label
+                        for="subtotal"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Subtotal</label
+                    >
+                    <input
+                        type="number"
+                        id="subtotal"
+                        name="subtotal"
+                        class="cost-input bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                        placeholder="Masukkan subtotal"
+                    />
+                </div>
+
+                <!-- Biaya Surcharge -->
+                <div>
+                    <label
+                        for="surcharge"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Biaya Surcharge</label
+                    >
+                    <input
+                        type="number"
+                        id="surcharge"
+                        name="surcharge"
+                        class="cost-input bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                        placeholder="Masukkan biaya surcharge"
+                    />
+                </div>
+
+                <!-- Biaya Packing -->
+                <div>
+                    <label
+                        for="packing"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Biaya Packing</label
+                    >
+                    <input
+                        type="number"
+                        id="packing"
+                        name="packing"
+                        class="cost-input bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                        placeholder="Masukkan biaya packing"
+                    />
+                </div>
+
+                <!-- Diskon -->
+                <div>
+                    <label
+                        for="discount"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Diskon (%)</label
+                    >
+                    <input
+                        type="number"
+                        id="discount"
+                        name="discount"
+                        value="0"
+                        class="cost-input bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                        placeholder="Masukkan diskon"
+                    />
+                </div>
+
+                <!-- Total Biaya (Readonly) -->
+                <div>
+                    <label
+                        for="totalAmount"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Total Biaya</label
+                    >
+                    <input
+                        type="text"
+                        id="totalAmount"
+                        name="totalAmount"
+                        readonly
+                        class="bg-zinc-100 border border-zinc-300 text-zinc-900 text-sm rounded-lg block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:text-white"
+                    />
+                </div>
+
+                <!-- Catatan -->
+                <div>
+                    <label
+                        for="notes"
+                        class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                        >Catatan (Untuk Invoice)</label
+                    >
+                    <textarea
+                        id="notes"
+                        name="notes"
+                        rows="3"
+                        class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-green-500 focus:border-green-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                    ></textarea>
+                </div>
+
+                <!-- Preview Total -->
+                <!-- <div class="bg-zinc-100 dark:bg-zinc-700 p-4 rounded-lg">
+                    <div
+                        class="flex justify-between text-zinc-700 dark:text-zinc-200 mb-2"
+                    >
+                        <span>Total Biaya:</span>
+                        <span
+                            id="totalAmount"
+                            class="font-bold text-green-600 dark:text-green-400"
+                            >Rp 0</span
+                        >
+                    </div>
+                </div> -->
+
+                <!-- Modal footer -->
+                <div
+                    class="flex justify-end items-center pt-4 md:pt-5 border-t border-zinc-200 dark:border-zinc-600"
+                >
+                    <button
+                        type="button"
+                        onclick="modalTerimaPesanan.toggle()"
+                        class="px-5 py-2.5 text-sm font-medium text-zinc-900 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-100 dark:bg-zinc-700 dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-700"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        type="submit"
+                        onclick="terimaPesanan(event, this)"
+                        class="relative ml-3 px-5 py-2.5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                    >
+                        <span> Terima pesanan </span>
+                        <!-- Overlay untuk spinner -->
+                        <span
+                            class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                        >
+                            <span
+                                class="material-symbols-rounded inline text-xl! text-white animate-spin"
+                            >
+                                progress_activity
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal update status pengiriman -->
+<div
+    id="modal-update-status"
+    tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 flex justify-center items-center w-full h-full"
+>
+    <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-zinc-800">
+            <!-- Modal header -->
+            <div
+                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-zinc-600 border-zinc-200"
+            >
+                <h3 class="text-lg font-semibold text-zinc-900 dark:text-white">
+                    Perbarui status pengiriman
+                </h3>
+                <button
+                    type="button"
+                    onclick="modalUpdateStatus.toggle()"
+                    class="text-zinc-400 bg-transparent hover:bg-zinc-200 hover:text-zinc-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-zinc-600 dark:hover:text-white"
+                >
+                    <svg
+                        class="w-3 h-3"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 14 14"
+                    >
+                        <path
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form class="p-4 md:p-5" id="form-status">
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <p class="dark:text-zinc-200 text-zinc-600 col-span-2">
+                        <span class="text-zinc-900 dark:text-white"
+                            >Kode Pesanan:</span
+                        >
+                        <a href="#" class="hover:underline" id="kode-pesanan"
+                            >BCE-U-250911-003</a
+                        >
+                    </p>
+                    <div class="col-span-2">
+                        <label
+                            for="status"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Status pesanan</label
+                        >
+                        <select
+                            id="status"
+                            name="status"
+                            class="bg-zinc-50 border border-zinc-300 text-zinc-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                        >
+                            <option selected="">Pilih status</option>
+                            <option value="Diproses">Diproses</option>
+                            <option value="Menunggu pick-up">
+                                Menunggu pick-up
+                            </option>
+                            <option value="Dalam pengiriman">
+                                Dalam pengiriman
+                            </option>
+                            <option value="Sampai tujuan">Sampai tujuan</option>
+                            <option value="Selesai">Selesai</option>
+                            <option value="Gagal dikirim">Gagal dikirim</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label
+                            for="notes"
+                            class="block mb-2 text-sm font-medium text-zinc-900 dark:text-white"
+                            >Catatan (Untuk Invoice)</label
+                        >
+                        <textarea
+                            id="notes"
+                            name="notes"
+                            rows="3"
+                            class="block p-2.5 w-full text-sm text-zinc-900 bg-zinc-50 rounded-lg border border-zinc-300 focus:ring-green-500 focus:border-green-500 dark:bg-zinc-700 dark:border-zinc-600 dark:placeholder-zinc-400 dark:text-white"
+                        ></textarea>
+                    </div>
+                </div>
+                <div
+                    class="flex justify-end items-center border-zinc-200 dark:border-zinc-600"
+                >
+                    <button
+                        onclick="modalUpdateStatus.toggle()"
+                        type="reset"
+                        class="px-5 py-2.5 text-sm font-medium text-zinc-900 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-100 dark:bg-zinc-700 dark:text-white dark:border-zinc-500 dark:hover:bg-zinc-600"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        type="submit"
+                        onclick="updateStatus(event, this)"
+                        class="relative ml-3 px-5 py-2.5 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 focus:ring-4 focus:ring-green-300"
+                    >
+                        <span> Perbarui status </span>
+                        <!-- Overlay untuk spinner -->
+                        <span
+                            class="loading-overlay rounded-lg absolute inset-0 flex items-center justify-center bg-green-600/70 pointer-events-none hidden"
+                        >
+                            <span
+                                class="material-symbols-rounded inline text-xl! text-white animate-spin"
+                            >
+                                progress_activity
+                            </span>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<!-- Konten js -->
+{% block kontenjs %}
+<script>
+    // Ambil URL
+    const url = window.location.href;
+    const kodePesanan = url.split("/").pop();
+
+    // Variable
+    const listBarangContainer = document.getElementById("list-barang");
+    const actionButtons = document.getElementById("action-button");
+    let listKategori = [];
+    let dataPesanan = [];
+
+    // Status pesanan
+    let statusPesanan = document.getElementById("status-pesanan");
+    labelStatusPesanan(statusPesanan.textContent, statusPesanan);
+
+    // Form detail barang
+    let formDetailBarang = document.getElementById("detail-barang");
+
+    /* Modals */
+    // Modal lihat/edit barang
+    const itemDetailModal = new Modal(
+        document.getElementById("item-detail-modal"),
+        {
+            backdrop: "dynamic",
+            closable: true,
+        }
+    );
+
+    // Modal terima pesanan
+    const modalTerimaPesanan = new Modal(
+        document.getElementById("approve-modal"),
+        {
+            backdrop: "dynamic",
+            closable: true,
+        }
+    );
+
+    // Modal tolak pesanan
+    const modalTolakPesanan = new Modal(
+        document.getElementById("reject-modal"),
+        {
+            backdrop: "dynamic",
+            closable: true,
+        }
+    );
+
+    // Modal update status pesanan
+    const modalUpdateStatus = new Modal(
+        document.getElementById("modal-update-status"),
+        {
+            backdrop: "dynamic",
+            closable: true,
+        }
+    );
+
+    // Muat kategori
+    fetch("/admin/api/data/kategori", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(async (respon) => {
+            const data = await respon.json();
+            if (!respon.ok) {
+                throw new Error(data.message);
+            }
+            return data;
+        })
+        .then((data) => {
+            listKategori = data.data;
+
+            if (listKategori.length === 0) {
+                console.warn(data.message);
+            } else {
+                listKategori.forEach((category) => {
+                    const opsi = new Option(
+                        category.nama_kategori,
+                        category._id
+                    );
+                    formDetailBarang.kategori_barang.add(opsi);
+                });
+
+                muatListBarang();
+            }
+        })
+        .catch((error) => {
+            tampilkanAlertKesalahan("An error occurred", error);
+            console.error(error);
+        });
+
+    // Fungsi untuk convert kategori_id ke nama_kategori
+    function fetchKategori(kategoriId) {
+        const kategoriBarang = listKategori.find(
+            (kategori) => kategori._id === kategoriId
+        );
+        return kategoriBarang.nama_kategori;
+    }
+
+    // Cek opsi biaya surcharge
+    const kolomBiayaSurcharge = document.getElementById("biaya-surcharge");
+
+    formDetailBarang.dg.addEventListener("change", () => {
+        if (formDetailBarang.dg.value == "termasuk DG") {
+            formDetailBarang.biaya_surcharge.removeAttribute("disabled");
+            formDetailBarang.biaya_surcharge.setAttribute("required", "");
+            kolomBiayaSurcharge.classList.remove("hidden");
+        } else {
+            formDetailBarang.biaya_surcharge.removeAttribute("required");
+            formDetailBarang.biaya_surcharge.setAttribute("disabled", "");
+            kolomBiayaSurcharge.classList.add("hidden");
+        }
+    });
+
+    // Muat detail pesanan
+    function muatDetailPesanan() {
+        fetch(`/admin/api/data/detail_pesanan/${kodePesanan}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                dataPesanan = data.data;
+
+                if (dataPesanan.length === 0) {
+                    console.warn(data.message);
+                } else {
+                    // Update status pesanan
+                    statusPesanan.textContent = dataPesanan.status;
+                    labelStatusPesanan(
+                        statusPesanan.textContent,
+                        statusPesanan
+                    );
+                    document.getElementById("total-biaya").textContent =
+                        "Rp " + dataPesanan.harga_total.toLocaleString("id-ID");
+
+                    // Cek status
+                    actionButtons.innerHTML = actionButtonsDetailPesanan(
+                        dataPesanan.status
+                    );
+                    console.log(actionButtonsDetailPesanan(dataPesanan.status));
+                    console.log(dataPesanan.status);
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Muat list barang
+    function muatListBarang() {
+        fetch(
+            `/admin/api/data/detail_pesanan/${kodePesanan}?list_barang=true`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        )
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                const dataBarang = data.data;
+                let listBarang = "";
+                let biayaSurcharge = 0;
+
+                if (dataBarang.length === 0) {
+                    listBarangContainer.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="px-4 py-3">List barang tidak tersedia</td?
+                        </tr>
+                    `;
+                    console.warn(data.message);
+                } else {
+                    dataBarang.forEach((barang) => {
+                        listBarang += `
+                            <tr>
+                                <td class="px-4 py-3">${barang.nama_barang}</td>
+                                <td class="px-4 py-3">${barang.jumlah}</td>
+                                <td class="px-4 py-3">
+                                    ${barang.dimensi_cm.panjang} x
+                                    ${barang.dimensi_cm.lebar} x
+                                    ${barang.dimensi_cm.tinggi}
+                                </td>
+                                <td class="px-4 py-3">${fetchKategori(
+                                    barang.kategori_id
+                                )}</td>
+                                <td class="px-4 py-3">${
+                                    barang.metode_pengiriman
+                                }</td>
+                                <td class="px-4 py-3">
+                                    <button
+                                        onclick="muatDataBarang('${
+                                            barang._id
+                                        }')"
+                                        class="text-green-500 hover:underline text-sm cursor-pointer"
+                                    >
+                                        Lihat/Edit
+                                    </button>
+                                </td>
+                            </tr>
+                        `;
+
+                        biayaSurcharge =
+                            biayaSurcharge + barang.biaya_surcharge;
+                    });
+                    document.getElementById("surcharge").value = biayaSurcharge;
+
+                    listBarangContainer.innerHTML = listBarang;
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Muat data barang
+    function muatDataBarang(idBarang) {
+        fetch(`/admin/api/data/barang?id_barang=${idBarang}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                const dataBarang = data.data;
+
+                if (dataBarang.length === 0) {
+                    console.warn(data.message);
+                } else {
+                    // Masukan data ke modal
+                    formDetailBarang.nama_barang.value = dataBarang.nama_barang;
+                    formDetailBarang.jumlah.value = dataBarang.jumlah;
+                    formDetailBarang.berat_kg.value = dataBarang.berat_kg;
+                    formDetailBarang.panjang.value =
+                        dataBarang.dimensi_cm.panjang;
+                    formDetailBarang.lebar.value = dataBarang.dimensi_cm.lebar;
+                    formDetailBarang.tinggi.value =
+                        dataBarang.dimensi_cm.tinggi;
+                    formDetailBarang.kategori_barang.value =
+                        dataBarang.kategori_id;
+                    formDetailBarang.asuransi.value = dataBarang.butuh_asuransi;
+                    formDetailBarang.metode_pengiriman.value =
+                        dataBarang.metode_pengiriman;
+                    formDetailBarang.catatan_tambahan.value =
+                        dataBarang.catatan_tambahan;
+                    formDetailBarang.dg.value = dataBarang.status_cek_dg;
+                    formDetailBarang.biaya_surcharge.value =
+                        dataBarang.biaya_surcharge;
+                    formDetailBarang.packing_khusus.value =
+                        dataBarang.butuh_packing_khusus;
+                    formDetailBarang.labelDG.value = dataBarang.butuh_label_dg;
+
+                    document
+                        .getElementById("submit-barang")
+                        .setAttribute(
+                            "onclick",
+                            `updateBarang(event, this, "${dataBarang._id}")`
+                        );
+
+                    // Tampilkan modal
+                    itemDetailModal.toggle();
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Update data barang
+    function updateBarang(event, btn, idBarang) {
+        event.preventDefault();
+
+        // Tampilkan overlay spinner
+        btn.querySelector(".loading-overlay").classList.remove("hidden");
+        btn.classList.add("pointer-events-none"); // blokir klik
+
+        const formBarang = new FormData(
+            document.getElementById("detail-barang")
+        );
+        formBarang.append("update_barang", true);
+        formBarang.append("id_barang", idBarang);
+
+        // fetch
+        fetch("/admin/api/data/barang", {
+            method: "POST",
+            body: formBarang,
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
+                muatListBarang();
+                tampilkanAlertBerhasil("Success", data.message);
+                itemDetailModal.toggle();
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+            });
+    }
+
+    // Tolak pesanan
+    function tolakPesanan(event, btn) {
+        event.preventDefault();
+
+        // Tampilkan overlay spinner
+        btn.querySelector(".loading-overlay").classList.remove("hidden");
+        btn.classList.add("pointer-events-none"); // blokir klik
+
+        const formTolakPesanan = new FormData(
+            document.getElementById("tolak-pesanan")
+        );
+        formTolakPesanan.append("tolak_pesanan", true);
+
+        fetch(`/admin/api/data/detail_pesanan/${kodePesanan}`, {
+            method: "POST",
+            body: formTolakPesanan,
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+                modalTolakPesanan.toggle();
+
+                muatDetailPesanan();
+
+                tampilkanAlertBerhasil(
+                    "Pesanan Ditolak",
+                    "Pesanan telah ditolak dan pelanggan telah diberitahu."
+                );
+            })
+            .catch((error) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
+                tampilkanAlertKesalahan(
+                    "Terjadi kesalahan",
+                    "Kesalahan saat menolak pesanan"
+                );
+                console.error(error);
+            });
+    }
+
+    // Terima pesanan
+    // Fungsi hitung total
+    function calculateTotal() {
+        const subtotal =
+            parseFloat(document.getElementById("subtotal").value) || 0;
+        const surcharge =
+            parseFloat(document.getElementById("surcharge").value) || 0;
+        const packing =
+            parseFloat(document.getElementById("packing").value) || 0;
+        const discount =
+            parseFloat(document.getElementById("discount").value) || 0;
+
+        // const total = subtotal + surcharge + packing - discount;
+        // document.getElementById("totalAmount").textContent =
+        //     "Rp " + total.toLocaleString("id-ID");
+
+        let total = subtotal + surcharge + packing;
+        total = total - total * (discount / 100);
+        document.getElementById("totalAmount").value = total;
+    }
+
+    document.querySelectorAll(".cost-input").forEach((input) => {
+        input.addEventListener("input", calculateTotal);
+    });
+
+    // Fungsi terima pesanan
+    function terimaPesanan(event, btn) {
+        event.preventDefault();
+
+        // Tampilkan overlay spinner
+        btn.querySelector(".loading-overlay").classList.remove("hidden");
+        btn.classList.add("pointer-events-none"); // blokir klik
+
+        const formBiaya = new FormData(
+            document.getElementById("terima-pesanan")
+        );
+
+        formBiaya.append("terima_pesanan", true);
+
+        fetch(`/admin/api/data/detail_pesanan/${kodePesanan}`, {
+            method: "POST",
+            body: formBiaya,
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+                modalTerimaPesanan.toggle();
+
+                muatDetailPesanan();
+
+                tampilkanAlertBerhasil(
+                    "Pesanan Diterima",
+                    "Pesanan berhasil diterima dan telah diteruskan kepada pelanggan."
+                );
+            })
+            .catch((error) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Update status
+    function updateStatus(event, btn) {
+        event.preventDefault();
+
+        // Tampilkan overlay spinner
+        btn.querySelector(".loading-overlay").classList.remove("hidden");
+        btn.classList.add("pointer-events-none"); // blokir klik
+
+        const formStatus = new FormData(document.getElementById("form-status"));
+        formStatus.append("update_status", true);
+
+        fetch(`/admin/api/data/detail_pesanan/${kodePesanan}`, {
+            method: "POST",
+            body: formStatus,
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                muatDetailPesanan();
+                tampilkanAlertBerhasil(
+                    "Status diperbarui",
+                    "Status pesanan berhasil diperbarui dan diteruskan ke pelanggan."
+                );
+
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+                modalUpdateStatus.toggle();
+            })
+            .catch((error) => {
+                // Hapus overlay spinner
+                btn.querySelector(".loading-overlay").classList.add("hidden");
+                btn.classList.remove("pointer-events-none");
+
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+</script>
+{% endblock %}

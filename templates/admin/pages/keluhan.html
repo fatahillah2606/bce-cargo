@@ -1,0 +1,478 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}Keluhan{% endblock %}
+
+<!-- Style -->
+{% block style %} {% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Keluhan{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="p-4">
+    <div
+        class="mb-4 flex justify-between items-center flex-col gap-2.5 sm:flex-row"
+    >
+        <h2 class="text-2xl font-bold dark:text-white">Keluhan Pelanggan</h2>
+        <button
+            type="button"
+            class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5 cursor-pointer"
+            onclick="markAsRead()"
+        >
+            <span class="material-symbols-rounded"> done_all </span>
+            <span> Tandai semua sudah dibaca </span>
+        </button>
+    </div>
+
+    <div class="space-y-4" id="list-keluhan">
+        <!-- Skeleton loading -->
+        {% for i in range(10) %}
+        <div
+            class="bg-white dark:bg-zinc-800 p-4 rounded-xl shadow flex space-x-3 keluhan animate-pulse"
+        >
+            <!-- Avatar Skeleton -->
+            <div
+                class="w-10 h-10 bg-zinc-200 rounded-full dark:bg-zinc-700"
+            ></div>
+            <!-- Isi Keluhan -->
+            <div class="flex-1">
+                <div class="flex items-center justify-between">
+                    <div
+                        class="h-6 bg-zinc-200 rounded w-24 dark:bg-zinc-700"
+                    ></div>
+                    <div
+                        class="h-3 bg-zinc-200 rounded w-8 dark:bg-zinc-700"
+                    ></div>
+                </div>
+                <div class="mt-2 flex gap-1 flex-wrap">
+                    <div
+                        class="h-4 bg-zinc-200 rounded w-32 dark:bg-zinc-700"
+                    ></div>
+                    <div
+                        class="h-4 bg-zinc-300 rounded w-20 dark:bg-zinc-600"
+                    ></div>
+                    <div
+                        class="h-4 bg-zinc-200 rounded w-64 dark:bg-zinc-700"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="flex flex-col items-center my-5">
+        <!-- Help text -->
+        <span class="text-sm text-zinc-700 dark:text-zinc-400">
+            Menampilkan
+            <span
+                class="font-semibold text-zinc-900 dark:text-white"
+                id="start-items"
+                >0</span
+            >
+            sampai
+            <span
+                class="font-semibold text-zinc-900 dark:text-white"
+                id="end-items"
+                >0</span
+            >
+            dari
+            <span
+                class="font-semibold text-zinc-900 dark:text-white"
+                id="max-items"
+                >0</span
+            >
+            Entri
+        </span>
+        <div class="inline-flex mt-2 xs:mt-0">
+            <!-- Buttons -->
+            <button
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-zinc-800 rounded-s hover:bg-zinc-900 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                id="prev-btn"
+            >
+                <svg
+                    class="w-3.5 h-3.5 me-2 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 5H1m0 0 4 4M1 5l4-4"
+                    />
+                </svg>
+                Prev
+            </button>
+            <button
+                class="flex items-center justify-center px-4 h-10 text-base font-medium text-white bg-zinc-800 border-0 border-s border-zinc-700 rounded-e hover:bg-zinc-900 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white cursor-pointer"
+                id="next-btn"
+            >
+                Next
+                <svg
+                    class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                >
+                    <path
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+<!-- Js per halaman -->
+{% block kontenjs %}
+<script>
+    const listKeluhanContainer = document.getElementById("list-keluhan");
+
+    const startItems = document.getElementById("start-items");
+    const endItems = document.getElementById("end-items");
+    const maxItems = document.getElementById("max-items");
+    const prevBtn = document.getElementById("prev-btn");
+    const nextBtn = document.getElementById("next-btn");
+
+    let currentPage;
+
+    function toggleBalas(idForm) {
+        document.getElementById(idForm).classList.toggle("hidden");
+    }
+
+    function muatKeluhan(halaman) {
+        let listKeluhan = "";
+
+        // Cek apakah "halaman" kosong?
+        halaman == undefined ? (halaman = "") : (halaman = halaman);
+
+        fetch("/admin/api/data/feedback?page=" + halaman, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+
+                return data;
+            })
+            .then((data) => {
+                const dataKeluhan = data.data;
+                if (dataKeluhan.length === 0) {
+                    listKeluhanContainer.innerHTML = `
+                            <p class="text-center font-bold text-zinc-600 mt-5">
+                                ${data.message}
+                            </p>
+                        `;
+
+                    throw new Error(data.message || "Terjadi Kesalahan");
+                } else {
+                    dataKeluhan.forEach((keluhan, i) => {
+                        // Jika keluhan belum dibaca
+                        if (
+                            keluhan.dibaca == undefined ||
+                            keluhan.dibaca == false ||
+                            keluhan.dibaca == ""
+                        ) {
+                            listKeluhan += `
+                                <div class="bg-green-50 dark:bg-zinc-800 p-4 rounded-xl shadow flex space-x-3 keluhan">
+                                    <!-- Foto Profil -->
+                                    <div class="flex-shrink-0">
+                                        <div
+                                            class="w-10 h-10 bg-zinc-300 dark:bg-zinc-600 rounded-full flex items-center justify-center"
+                                        >
+                                            <span class="material-symbols-rounded text-zinc-600 dark:text-zinc-300"
+                                                >person</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- Isi Keluhan -->
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div 
+                                                class="flex items-center gap-1 cursor-pointer"
+                                                id="tombolMenuKeluhan${i}"
+                                                data-dropdown-toggle="menuKeluhan${i}"
+                                            >
+                                                <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
+                                                <button
+                                                    class="inline-flex items-center text-sm font-medium text-center text-zinc-900 rounded-lg hover:bg-zinc-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-zinc-50 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
+                                                    type="button"
+                                                >
+                                                    <span class="material-symbols-rounded text-zinc-400"> keyboard_arrow_down </span>
+                                                </button>
+
+                                                <!-- Dropdown menu -->
+                                                <div
+                                                    id="menuKeluhan${i}"
+                                                    class="z-10 hidden bg-white divide-y divide-zinc-100 rounded-lg shadow-sm w-44 dark:bg-zinc-700 dark:divide-zinc-600"
+                                                >
+                                                    <ul
+                                                        class="py-2 text-sm text-zinc-700 dark:text-zinc-200"
+                                                    >
+                                                        <li class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer" onclick="toggleBalas('balas_keluhan${i}')">Balas</li>
+                                                        <li class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer" onclick="markAsRead('${keluhan._id}')">Tandai dibaca</li>
+                                                    </ul>
+                                                    <div class="my-2 text-red-600 hover:bg-red-100 dark:hover:bg-zinc-600 dark:hover:text-red-400 cursor-pointer" onclick="deleteKeluhan('${keluhan._id}')">
+                                                        <span class="block px-4 py-2 text-sm">
+                                                            Hapus
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span
+                                                class="text-xs bg-green-500 dark:bg-green-800 dark:text-green-400 text-white px-2 py-0.5 rounded-full"
+                                                >Baru</span
+                                            >
+                                        </div>
+                                        <p class="text-zinc-700 dark:text-zinc-200 mt-1 text-sm">
+                                            ${keluhan.keterangan}
+                                        </p>
+                                        <form
+                                            class="flex items-center gap-1.5 mt-3 hidden"
+                                            name="balas_keluhan${i}"
+                                            id="balas_keluhan${i}"
+                                            method="post"
+                                        >
+                                            <div class="flex flex-auto items-center bg-zinc-50 border border-zinc-300 dark:bg-zinc-700 dark:border-zinc-600 rounded-full overflow-hidden">
+                                                <span class="material-symbols-rounded w-10 h-10 cursor-pointer flex-none text-center leading-10! dark:text-white" onclick="toggleBalas('balas_keluhan${i}')">close</span>
+                                                <textarea
+                                                    id="jawab_keluhan${i}"
+                                                    name="jawab_keluhan"
+                                                    class="w-full h-10 bg-zinc-50 border-none! dark:bg-zinc-700 text-zinc-900 text-sm block p-2.5 dark:text-white resize-none flex-auto"
+                                                ></textarea>
+                                            </div>
+                                            <button type="submit" onclick="kirimBalasan(event, '${keluhan._id}', 'balas_keluhan${i}')" class="bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 rounded-full w-10 h-10 flex-none flex items-center justify-center cursor-pointer">
+                                                <span class="material-symbols-rounded text-white"> send </span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            `;
+                        } else {
+                            // Jika keluhan sudah dibaca
+                            listKeluhan += `
+                                <div class="bg-white hover:bg-zinc-100 dark:bg-zinc-800 hover:dark:bg-zinc-700 p-4 rounded-xl shadow flex space-x-3 keluhan">
+                                    <!-- Foto Profil -->
+                                    <div class="flex-shrink-0">
+                                        <div
+                                            class="w-10 h-10 bg-zinc-300 dark:bg-zinc-600 rounded-full flex items-center justify-center"
+                                        >
+                                            <span class="material-symbols-rounded text-zinc-600 dark:text-zinc-300"
+                                                >person</span
+                                            >
+                                        </div>
+                                    </div>
+                                    <!-- Isi Keluhan -->
+                                    <div class="flex-1">
+                                        <div class="flex items-center justify-between">
+                                            <div 
+                                                class="flex items-center gap-1 cursor-pointer"
+                                                id="tombolMenuKeluhan${i}"
+                                                data-dropdown-toggle="menuKeluhan${i}"
+                                            >
+                                                <p class="font-semibold text-lg dark:text-white">${keluhan.nama}</p>
+                                                <button
+                                                    class="inline-flex items-center text-sm font-medium text-center text-zinc-900 rounded-lg hover:bg-zinc-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-zinc-50 dark:hover:bg-zinc-700 dark:focus:ring-zinc-600"
+                                                    type="button"
+                                                >
+                                                    <span class="material-symbols-rounded text-zinc-400"> keyboard_arrow_down </span>
+                                                </button>
+
+                                                <!-- Dropdown menu -->
+                                                <div
+                                                    id="menuKeluhan${i}"
+                                                    class="z-10 hidden bg-white divide-y divide-zinc-100 rounded-lg shadow-sm w-44 dark:bg-zinc-700 dark:divide-zinc-600"
+                                                >
+                                                    <ul
+                                                        class="py-2 text-sm text-zinc-700 dark:text-zinc-200"
+                                                    >
+                                                        <li class="block px-4 py-2 hover:bg-zinc-100 dark:hover:bg-zinc-600 dark:hover:text-white cursor-pointer" onclick="toggleBalas('balas_keluhan${i}')">Balas</li>
+                                                    </ul>
+                                                    <div class="my-2 text-red-600 hover:bg-red-100 dark:hover:bg-zinc-600 dark:hover:text-red-400 cursor-pointer" onclick="deleteKeluhan('${keluhan._id}')">
+                                                        <span class="block px-4 py-2 text-sm">
+                                                            Hapus
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="text-xs text-zinc-400">Dibaca</span>
+                                        </div>
+                                        <p class="text-zinc-700 dark:text-zinc-200 mt-1 text-sm">
+                                            ${keluhan.keterangan}
+                                        </p>
+                                        <form
+                                            class="flex items-center gap-1.5 mt-3 hidden"
+                                            name="balas_keluhan${i}"
+                                            id="balas_keluhan${i}"
+                                            method="post"
+                                        >
+                                            <div class="flex flex-auto items-center bg-zinc-50 border border-zinc-300 dark:bg-zinc-700 dark:border-zinc-600 rounded-full overflow-hidden">
+                                                <span class="material-symbols-rounded w-10 h-10 cursor-pointer flex-none text-center leading-10! dark:text-white" onclick="toggleBalas('balas_keluhan${i}')">close</span>
+                                                <textarea
+                                                    id="jawab_keluhan${i}"
+                                                    name="jawab_keluhan"
+                                                    class="w-full h-10 bg-zinc-50 border-none! dark:bg-zinc-700 text-zinc-900 text-sm block p-2.5 dark:text-white resize-none flex-auto"
+                                                ></textarea>
+                                            </div>
+                                            <button type="submit" onclick="kirimBalasan(event, '${keluhan._id}', 'balas_keluhan${i}')" class="bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 rounded-full w-10 h-10 flex-none flex items-center justify-center cursor-pointer">
+                                                <span class="material-symbols-rounded text-white"> send </span>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            `;
+                        }
+                    });
+
+                    listKeluhanContainer.innerHTML = listKeluhan;
+
+                    // Pagination
+                    let totalPages = data.pagination.total_pages;
+                    currentPage = data.pagination.current_page;
+                    let totalItems = data.pagination.total_items;
+
+                    let mulai = (currentPage - 1) * 10 + 1;
+                    let akhir = Math.min(currentPage * 10, totalItems);
+
+                    startItems.textContent = mulai;
+                    endItems.textContent = akhir;
+                    maxItems.textContent = totalItems;
+
+                    // Atur tombol pagination
+                    if (currentPage - 1 != 0) {
+                        prevBtn.setAttribute(
+                            "onclick",
+                            `muatKeluhan(${currentPage - 1})`
+                        );
+                    } else {
+                        prevBtn.removeAttribute("onclick");
+                    }
+
+                    if (currentPage != totalPages) {
+                        nextBtn.setAttribute(
+                            "onclick",
+                            `muatKeluhan(${currentPage + 1})`
+                        );
+                    } else {
+                        nextBtn.removeAttribute("onclick");
+                    }
+
+                    // Muat ulang flowbite js
+                    initFlowbite();
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Tandai sudah dibaca
+    function markAsRead(oId) {
+        // Cek apakah "oId" kosong?
+        oId == undefined ? (oId = "") : (oId = oId);
+
+        fetch("/admin/api/data/feedback", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ markRead: oId }),
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+
+                return data;
+            })
+            .then((data) => {
+                tampilkanAlertBerhasil("Berhasil", data.message);
+                muatKeluhan(currentPage);
+                checkUnread();
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Hapus keluhan
+    function deleteKeluhan(oId) {
+        fetch("/admin/api/data/feedback", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ delete: oId }),
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+
+                return data;
+            })
+            .then((data) => {
+                tampilkanAlertBerhasil("Berhasil", data.message);
+                muatKeluhan(currentPage);
+                checkUnread();
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    // Balas keluhan
+    function kirimBalasan(event, idKeluhan, idForm) {
+        event.preventDefault();
+
+        const kolomPesan = new FormData(document.getElementById(idForm));
+        toggleBalas(idForm);
+
+        fetch("/admin/api/data/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                respon_keluhan: true,
+                keluhan_id: idKeluhan,
+                jawab_keluhan: kolomPesan.get("jawab_keluhan"),
+            }),
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                tampilkanAlertBerhasil("Berhasil", data.message);
+                muatKeluhan(currentPage);
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    muatKeluhan();
+</script>
+{% endblock %}

@@ -1,0 +1,437 @@
+{% extends 'admin/base.html' %}
+
+<!-- Title -->
+{% block title %}Invoice{% endblock %}
+
+<!-- Style -->
+{% block style %} {% endblock %}
+
+<!-- Judul header -->
+{% block judul %}Invoice{% endblock %}
+<!-- Konten -->
+{% block konten %}
+<div class="sm:p-4">
+    <div class="bg-white dark:bg-zinc-800 sm:rounded-xl shadow p-4">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-zinc-800 dark:text-white">
+                Kelola Invoice
+            </h2>
+            <a
+                href="/admin/buat_invoice"
+                class="flex justify-center items-center gap-2.5 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm pr-5 pl-2.5 py-2.5"
+            >
+                <span class="material-symbols-rounded"> edit </span>
+                <span>Buat</span>
+            </a>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table
+                class="min-w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+            >
+                <thead
+                    class="text-xs text-zinc-700 dark:text-zinc-400 uppercase bg-zinc-100 dark:bg-zinc-700"
+                >
+                    <tr>
+                        <th class="px-4 py-3">Kode Invoice</th>
+                        <th class="px-4 py-3">Kode Pesanan</th>
+                        <th class="px-4 py-3">Pelanggan</th>
+                        <th class="px-4 py-3">Total (Rp)</th>
+                        <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3">Tanggal</th>
+                        <th class="px-4 py-3">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody
+                    class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
+                    id="list-invoice"
+                >
+                    <!-- Skeleton loading -->
+                    {% for i in range(10) %}
+                    <tr>
+                        <td class="px-4 py-3 font-medium text-zinc-800">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-24 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-28 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-40 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-14 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded-full w-20 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div
+                                class="h-5 bg-zinc-200 rounded w-16 dark:bg-zinc-700 animate-pulse"
+                            ></div>
+                        </td>
+                        <td class="px-4 py-3">
+                            <div class="flex gap-3 text-zinc-500 text-xl">
+                                <!-- Lihat -->
+                                <div
+                                    class="h-5 bg-zinc-200 rounded-full w-6 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+
+                                <!-- Unduh -->
+                                <div
+                                    class="h-5 bg-zinc-200 rounded-full w-6 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+
+                                <!-- Edit -->
+                                <div
+                                    class="h-5 bg-zinc-200 rounded-full w-6 dark:bg-zinc-700 animate-pulse"
+                                ></div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div
+            class="flex gap-5 flex-col sm:flex-row items-center justify-between mt-6 text-sm text-zinc-600"
+        >
+            <p id="info-data-ditampilkan">Menampilkan 1 - 10 dari 50 data</p>
+            <div aria-label="Page navigation order">
+                <ul
+                    class="flex items-center -space-x-px h-8 text-sm"
+                    id="page-number"
+                ></ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Hapus -->
+<div
+    id="modalHapusInvoice"
+    class="fixed inset-0 bg-black/50 z-50 hidden items-center justify-center"
+>
+    <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-xl">
+        <h3 class="text-lg font-semibold text-zinc-800 mb-4">
+            Konfirmasi Hapus Invoice
+        </h3>
+
+        <p class="text-sm text-zinc-600 mb-6">
+            Apakah Anda yakin ingin menghapus invoice
+            <span id="hapusKodeInvoice" class="font-medium text-zinc-800"
+                >INV-220725-001</span
+            >? Tindakan ini tidak dapat dibatalkan.
+        </p>
+
+        <div class="flex justify-end gap-2">
+            <button
+                onclick="tutupModalHapus()"
+                class="bg-zinc-300 text-zinc-800 px-4 py-2 rounded-lg"
+            >
+                Batal
+            </button>
+            <button
+                onclick="hapusInvoice()"
+                class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
+            >
+                Hapus
+            </button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- Modal per halaman -->
+{% block modals %} {% endblock %}
+
+<!-- Konten js -->
+{% block kontenjs %}
+<script>
+    // Variabel
+    const nomorHalaman = document.getElementById("page-number");
+    const infoDataDitampilkan = document.getElementById(
+        "info-data-ditampilkan"
+    );
+
+    function warnaStatus(status) {
+        return status == "Belum Dibayar" ? "bg-red-500" : "bg-green-500";
+    }
+
+    async function getData(url) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP error: ${response.status}`);
+        const data = await response.json();
+        return data.data;
+    }
+
+    const listInvoiceContainer = document.getElementById("list-invoice");
+    function muatListInvoice(halaman) {
+        let listInvoice = "";
+        let listNomorHalaman = "";
+
+        // Cek apakah "halaman" kosong?
+        halaman == undefined ? (halaman = 1) : (halaman = halaman);
+
+        fetch("/admin/api/data/invoice?with_pemesanan=true&page=" + halaman, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then(async (respon) => {
+                const data = await respon.json();
+                if (!respon.ok) {
+                    throw new Error(data.message);
+                }
+                return data;
+            })
+            .then((data) => {
+                const dataInvoice = data.data;
+                if (dataInvoice.length === 0) {
+                    listInvoiceContainer.innerHTML = `
+                        <tr>
+                            <td colspan="6">
+                                <p
+                                    class="text-center font-bold text-zinc-600 mt-5"
+                                    id="info-riwayat-pesanan"
+                                >
+                                    Invoice tidak tersedia
+                                </p>
+                            </td>
+                        </tr>
+                    `;
+                } else {
+                    dataInvoice.forEach((invoice) => {
+                        listInvoice += `
+                            <tr>
+                                <td
+                                    class="px-4 py-3 font-medium text-zinc-800 dark:text-white"
+                                >
+                                    ${invoice.kode_invoice}
+                                </td>
+                                <td class="px-4 py-3">${
+                                    invoice.pemesanan_id.kode_pemesanan
+                                }</td>
+                                <td class="px-4 py-3">${
+                                    invoice.pemesanan_id.nama_pengirim
+                                }</td>
+                                <td class="px-4 py-3">Rp ${invoice.rincian_pembayaran.total.toLocaleString(
+                                    "id-ID"
+                                )}</td>
+                                <td class="px-4 py-3">
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-semibold text-white ${warnaStatus(
+                                            invoice.status_pembayaran
+                                        )} rounded-full"
+                                    >
+                                        ${invoice.status_pembayaran}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3">${formatTanggal(
+                                    invoice.tanggal_invoice,
+                                    ""
+                                )}</td>
+                                <td class="px-4 py-3">
+                                    <div class="flex gap-3 text-zinc-500 text-xl">
+                                        <!-- Lihat -->
+                                        <a
+                                            href="/admin/detail_invoice/${
+                                                invoice.kode_invoice
+                                            }"
+                                            title="Lihat"
+                                            class="hover:text-green-600 dark:hover:text-green-500 transition cursor-pointer"
+                                        >
+                                            <span
+                                                class="material-symbols-rounded text-[20px]"
+                                                >visibility</span
+                                            >
+                                        </a>
+
+                                        <!-- Unduh -->
+                                        <a
+                                            href="/admin/print_invoice/${
+                                                invoice.kode_invoice
+                                            }"
+                                            target="_blank"
+                                            title="Unduh"
+                                            class="hover:text-blue-600 dark:hover:text-blue-500 transition cursor-pointer"
+                                        >
+                                            <span
+                                                class="material-symbols-rounded text-[20px]"
+                                                >download</span
+                                            >
+                                        </a>
+
+                                        ${
+                                            invoice.jenis_invoice === "final"
+                                                ? ``
+                                                : `
+                                                    <!-- Edit -->
+                                                    <a href="/admin/edit_invoice/${invoice.kode_invoice}"
+                                                        title="Edit"
+                                                        class="hover:text-yellow-500 dark:hover:text-yellow-500 transition cursor-pointer"
+                                                    >
+                                                        <span
+                                                            class="material-symbols-rounded text-[20px]"
+                                                            >edit</span
+                                                        >
+                                                    </a>
+                                                `
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        `;
+                    });
+
+                    listInvoiceContainer.innerHTML = listInvoice;
+
+                    // Info tambahan
+                    let mulai = (data.pagination.current_page - 1) * 10 + 1;
+                    let akhir = Math.min(
+                        data.pagination.current_page * 10,
+                        data.pagination.total_items
+                    );
+                    infoDataDitampilkan.textContent = `Menampilkan ${mulai} - ${akhir} dari ${data.pagination.total_items} data`;
+
+                    // Pagination
+                    // Tambahkan tombol previous
+                    if (data.pagination.current_page - 1 != 0) {
+                        listNomorHalaman += `
+                            <li>
+                                <button
+                                    onclick="muatRiwayatPesanan(${
+                                        data.pagination.current_page - 1
+                                    })"
+                                    class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-zinc-500 bg-white border border-e-0 border-zinc-300 rounded-s-lg hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+                                >
+                                    <span class="sr-only">Previous</span>
+                                    <svg
+                                        class="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M5 1 1 5l4 4"
+                                        />
+                                    </svg>
+                                </button>
+                            </li>
+                        `;
+                    }
+
+                    // Nomor halaman
+                    let totalPages = data.pagination.total_pages;
+                    let currentPage = data.pagination.current_page;
+                    let maxVisible = 5;
+                    let startPage, endPage;
+
+                    if (totalPages <= maxVisible) {
+                        // Semua halaman ditampilkan
+                        startPage = 1;
+                        endPage = totalPages;
+                    } else {
+                        if (currentPage <= 3) {
+                            // Awal halaman
+                            startPage = 1;
+                            endPage = maxVisible;
+                        } else if (currentPage >= totalPages - 2) {
+                            // Mendekati akhir
+                            startPage = totalPages - (maxVisible - 1);
+                            endPage = totalPages;
+                        } else {
+                            // Tengah
+                            startPage = currentPage - 2;
+                            endPage = currentPage + 2;
+                        }
+                    }
+
+                    for (let i = startPage; i <= endPage; i++) {
+                        if (i === currentPage) {
+                            listNomorHalaman += `
+                                <li>
+                                    <button
+                                        onclick="muatTarifPengiriman(${i})"
+                                        aria-current="page"
+                                        class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-green-600 border border-green-300 bg-green-50 hover:bg-green-100 hover:text-green-700 dark:border-zinc-700 dark:bg-zinc-700 dark:text-white"
+                                    >${i}</button>
+                                </li>
+                            `;
+                        } else {
+                            listNomorHalaman += `
+                                <li>
+                                    <button
+                                        onclick="muatTarifPengiriman(${i})"
+                                        class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+                                    >${i}</button>
+                                </li>
+                            `;
+                        }
+                    }
+
+                    // Tambahkan tombol next
+                    if (
+                        data.pagination.current_page !=
+                        data.pagination.total_pages
+                    ) {
+                        listNomorHalaman += `
+                            <li>
+                                <button
+                                    onclick="muatRiwayatPesanan(${
+                                        data.pagination.current_page + 1
+                                    })"
+                                    class="flex items-center justify-center px-3 h-8 leading-tight text-zinc-500 bg-white border border-zinc-300 rounded-e-lg hover:bg-zinc-100 hover:text-zinc-700 dark:bg-zinc-800 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-700 dark:hover:text-white"
+                                >
+                                    <span class="sr-only">Next</span>
+                                    <svg
+                                        class="w-2.5 h-2.5 rtl:rotate-180"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 6 10"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m1 9 4-4-4-4"
+                                        />
+                                    </svg>
+                                </button>
+                            </li>
+                        `;
+                    }
+
+                    // Masukan ke pegination
+                    nomorHalaman.innerHTML = listNomorHalaman;
+                }
+            })
+            .catch((error) => {
+                tampilkanAlertKesalahan("An error occurred", error);
+                console.error(error);
+            });
+    }
+
+    muatListInvoice();
+</script>
+{% endblock %}

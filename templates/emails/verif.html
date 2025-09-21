@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id" style="margin: 0; padding: 0">
+    <body style="margin: 0; padding: 0; background-color: #f5f6f8">
+        <!-- Preheader (teks pratinjau) -->
+        <div
+            style="
+                display: none;
+                max-height: 0;
+                overflow: hidden;
+                opacity: 0;
+                color: transparent;
+            "
+        >
+            Kode verifikasi Anda: {{CODE}} — berlaku {{EXP_MINUTES}} menit.
+        </div>
+
+        <table
+            role="presentation"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            width="100%"
+            style="background-color: #f5f6f8; margin: 0; padding: 24px 0"
+        >
+            <tr>
+                <td align="center" style="padding: 0 16px">
+                    <!-- Card -->
+                    <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        width="100%"
+                        style="
+                            max-width: 600px;
+                            background: #ffffff;
+                            border-radius: 12px;
+                            overflow: hidden;
+                            border: 1px solid #e6e8eb;
+                        "
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                align="left"
+                                style="padding: 24px; background: #0f172a"
+                            >
+                                <table
+                                    role="presentation"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    border="0"
+                                    width="100%"
+                                >
+                                    <tr>
+                                        <td
+                                            style="
+                                                font-family: Arial, Helvetica,
+                                                    sans-serif;
+                                                font-size: 18px;
+                                                line-height: 24px;
+                                                color: #ffffff;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            {{APP_NAME}}
+                                        </td>
+                                        <td
+                                            align="right"
+                                            style="
+                                                font-family: Arial, Helvetica,
+                                                    sans-serif;
+                                                font-size: 12px;
+                                                line-height: 18px;
+                                                color: #cbd5e1;
+                                            "
+                                        >
+                                            Keamanan Akun
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Body -->
+                        <tr>
+                            <td style="padding: 28px 24px 8px 24px">
+                                <h1
+                                    style="
+                                        margin: 0 0 8px 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 20px;
+                                        line-height: 28px;
+                                        color: #0f172a;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    Verifikasi akun Anda
+                                </h1>
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 14px;
+                                        line-height: 22px;
+                                        color: #334155;
+                                    "
+                                >
+                                    Halo {{USER_NAME}}, gunakan kode berikut
+                                    untuk menyelesaikan proses verifikasi di
+                                    {{APP_NAME}}. Demi keamanan, jangan bagikan
+                                    kode ini kepada siapa pun.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Code Block -->
+                        <tr>
+                            <td
+                                align="center"
+                                style="padding: 16px 24px 8px 24px"
+                            >
+                                <!-- 6 digit code as boxes -->
+                                <table
+                                    role="presentation"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    border="0"
+                                    style="margin: 8px auto"
+                                >
+                                    <tr>
+                                        <!-- Split {{CODE}} into digits server-side if memungkinkan; atau render langsung 6 digit di satu kotak besar di bawah. -->
+                                        <!-- Versi kotak tunggal (fallback/lebih mudah): -->
+                                        <td align="center" style="padding: 0">
+                                            <div
+                                                style="
+                                                    display: inline-block;
+                                                    font-family: Arial,
+                                                        Helvetica, sans-serif;
+                                                    font-size: 28px;
+                                                    letter-spacing: 6px;
+                                                    line-height: 48px;
+                                                    color: #0f172a;
+                                                    font-weight: 700;
+                                                    background: #f1f5f9;
+                                                    border: 1px solid #e2e8f0;
+                                                    border-radius: 10px;
+                                                    padding: 12px 20px;
+                                                "
+                                            >
+                                                {{CODE}}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <!-- Opsi versi 6 kotak terpisah (jika ingin), render hanya jika Anda memecah digitnya):
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:8px auto;">
+                  <tr>
+                    <td style="padding:0 4px;"><div style="width:44px; height:56px; border:1px solid #e2e8f0; border-radius:10px; background:#f1f5f9; font:700 24px/56px Arial, Helvetica, sans-serif; text-align:center; color:#0f172a;">{{D1}}</div></td>
+                    <td style="padding:0 4px;"><div style="width:44px; height:56px; border:1px solid #e2e8f0; border-radius:10px; background:#f1f5f9; font:700 24px/56px Arial, Helvetica, sans-serif; text-align:center; color:#0f172a;">{{D2}}</div></td>
+                    <td style="padding:0 4px;"><div style="width:44px; height:56px; border:1px solid #e2e8f0; border-radius:10px; background:#f1f5f9; font:700 24px/56px Arial, Helvetica, sans-serif; text-align:center; color:#0f172a;">{{D3}}</div></td>
+                    <td style="padding:0 4px;"><div style="width:44px; height:56px; border:1px solid #e2e8f0; border-radius:10px; background:#f1f5f9; font:700 24px/56px Arial, Helvetica, sans-serif; text-align:center; color:#0f172a;">{{D4}}</div></td>
+                    <td style="padding:0 4px;"><div style="width:44px; height:56px; border:1px solid #e2e8f0; border-radius:10px; background:#f1f5f9; font:700 24px/56px Arial, Helvetica, sans-serif; text-align:center; color:#0f172a;">{{D5}}</div></td>
+                    <td style="padding:0 4px;"><div style="width:44px; height:56px; border:1px solid #e2e8f0; border-radius:10px; background:#f1f5f9; font:700 24px/56px Arial, Helvetica, sans-serif; text-align:center; color:#0f172a;">{{D6}}</div></td>
+                  </tr>
+                </table>
+                -->
+                            </td>
+                        </tr>
+
+                        <!-- Notes -->
+                        <tr>
+                            <td style="padding: 8px 24px 24px 24px">
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 12px;
+                                        line-height: 20px;
+                                        color: #64748b;
+                                    "
+                                >
+                                    Kode akan kedaluwarsa dalam
+                                    <strong style="color: #0f172a"
+                                        >{{EXP_MINUTES}}</strong
+                                    >
+                                    menit. Jika Anda tidak meminta kode ini,
+                                    Anda dapat mengabaikan email ini. Untuk
+                                    bantuan, hubungi
+                                    <a
+                                        href="mailto:{{SUPPORT_EMAIL}}"
+                                        style="
+                                            color: #2563eb;
+                                            text-decoration: none;
+                                        "
+                                        >{{SUPPORT_EMAIL}}</a
+                                    >.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                style="
+                                    background: #f8fafc;
+                                    padding: 16px 24px;
+                                    border-top: 1px solid #e6e8eb;
+                                "
+                            >
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 11px;
+                                        line-height: 18px;
+                                        color: #94a3b8;
+                                    "
+                                >
+                                    Email ini dikirim otomatis oleh
+                                    {{APP_NAME}}. Jangan membalas email ini.
+                                </p>
+                                <p
+                                    style="
+                                        margin: 6px 0 0 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 11px;
+                                        line-height: 18px;
+                                        color: #94a3b8;
+                                    "
+                                >
+                                    © {{YEAR}} {{APP_NAME}}. Semua hak cipta
+                                    dilindungi.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- /Card -->
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

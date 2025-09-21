@@ -1,0 +1,34 @@
+    <button class="chatbot-toggler">
+            <span class="material-symbols-rounded">mode_comment</span>
+            <span class="material-symbols-rounded">close</span>
+    </button>
+        <div class="chatbot">
+            <header>
+                <h2>Chatbot</h2>
+                <span class="close-btn material-symbols-rounded">close</span>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+                    <div class="bubble">
+                        <p>Halo, selamat datang di website BCE Cargo!👋<br/>Jika butuh bantuan bisa langsung tanyakan di sini ya!</p>
+                        <div class="chat-options">
+                            <button onclick="fillTemplate('keluhan')">
+                                Keluhan
+                            </button>
+                            <button onclick="fillTemplate('cek_pemesanan')">
+                                Cek Pemesanan
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="chat-input">
+                <textarea
+                    placeholder="Enter a message..."
+                    spellcheck="false"
+                    required
+                ></textarea>
+                <span id="send-btn" class="material-symbols-rounded">send</span>
+            </div>
+        </div>

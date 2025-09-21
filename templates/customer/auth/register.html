@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Registration Page - Flowbite Inspired Design</title>
+        <!-- Flowbite -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+        <!-- Google Fonts: Poppins for modern typography -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Material Icons CDN -->
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-green-100 dark:bg-green-900 flex items-center justify-center min-h-screen px-4"
+    >
+        <body
+            class="bg-green-100 dark:bg-green-900 flex items-center justify-center min-h-screen px-4"
+        >
+            <!-- Login Section -->
+            <section
+                class="flex flex-col md:flex-row items-center w-full max-w-2xl rounded-3xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg"
+            >
+                <!-- Carousel (hidden di mobile, tampil di md+) -->
+                <div
+                    id="default-carousel"
+                    class="relative hidden md:block w-64 h-full overflow-hidden rounded-2xl shrink-0"
+                    data-carousel="slide"
+                >
+                    <div
+                        class="relative h-full overflow-hidden rounded-lg md:h-96"
+                    >
+                        <!-- Logo -->
+                        <img
+                            class="absolute top-2.5 left-2.5 w-8 z-50"
+                            src="{{ url_for('static',filename='images/logo_transparant.png') }}"
+                            alt="Logo BCE"
+                        />
+                        <!-- Item 1 -->
+                        <div
+                            class="hidden duration-700 ease-in-out"
+                            data-carousel-item
+                        >
+                            <img
+                                src="{{ url_for('static',filename='images/udara.jpg') }}"
+                                class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="Udara"
+                            />
+                        </div>
+                        <!-- Item 2 -->
+                        <div
+                            class="hidden duration-700 ease-in-out"
+                            data-carousel-item
+                        >
+                            <img
+                                src="{{ url_for('static',filename='images/laut.jpg') }}"
+                                class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="Laut"
+                            />
+                        </div>
+                        <!-- Item 3 -->
+                        <div
+                            class="hidden duration-700 ease-in-out"
+                            data-carousel-item
+                        >
+                            <img
+                                src="{{ url_for('static',filename='images/darat.jpg') }}"
+                                class="absolute block w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                                alt="Darat"
+                            />
+                        </div>
+                    </div>
+                    <!-- Indicators -->
+                    <div
+                        class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-2"
+                    >
+                        <button
+                            type="button"
+                            class="w-2 h-2 rounded-full"
+                            data-carousel-slide-to="0"
+                        ></button>
+                        <button
+                            type="button"
+                            class="w-2 h-2 rounded-full"
+                            data-carousel-slide-to="1"
+                        ></button>
+                        <button
+                            type="button"
+                            class="w-2 h-2 rounded-full"
+                            data-carousel-slide-to="2"
+                        ></button>
+                    </div>
+                </div>
+
+                <!-- Form Registrasi -->
+                <div class="w-full h-full p-6 md:p-8">
+                    <h2 class="text-center text-xl md:text-2xl font-bold">
+                        Registrasi
+                    </h2>
+                    <div
+                        class="w-20 h-px mx-auto mt-2.5 mb-5 bg-gray-300"
+                    ></div>
+
+                    <form id="register" class="max-w-full mx-auto">
+                        <div class="grid gap-4 mb-4 grid-cols-1">
+                            <!-- Full Name -->
+                            <div>
+                                <div class="relative">
+                                    <span
+                                        class="material-icons absolute left-3 top-2.5 text-gray-400"
+                                        >person</span
+                                    >
+                                    <input
+                                        type="text"
+                                        name="fullname"
+                                        maxlength="100"
+                                        required
+                                        placeholder="Full Name"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+                                    />
+                                </div>
+                                <p
+                                    id="error-fullname"
+                                    class="hidden text-xs text-red-500 mt-1"
+                                >
+                                    Full Name wajib diisi (maksimal 100
+                                    karakter).
+                                </p>
+                            </div>
+
+                            <!-- Email -->
+                            <div>
+                                <div class="relative">
+                                    <span
+                                        class="material-icons absolute left-3 top-2.5 text-gray-400"
+                                        >email</span
+                                    >
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        maxlength="50"
+                                        required
+                                        placeholder="Email"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+                                    />
+                                </div>
+                                <p
+                                    id="error-email"
+                                    class="hidden text-xs text-red-500 mt-1"
+                                >
+                                    Email wajib diisi (maksimal 50 karakter).
+                                </p>
+                            </div>
+
+                            <!-- Password -->
+                            <div>
+                                <div class="relative">
+                                    <span
+                                        class="material-icons absolute left-3 top-2.5 text-gray-400"
+                                        >lock</span
+                                    >
+                                    <input
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        minlength="6"
+                                        required
+                                        placeholder="Password"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+                                    />
+                                </div>
+                                <p
+                                    id="error-password"
+                                    class="hidden text-xs text-red-500 mt-1"
+                                >
+                                    Password minimal 6 karakter.
+                                </p>
+                            </div>
+
+                            <!-- Confirm Password -->
+                            <div>
+                                <div class="relative">
+                                    <span
+                                        class="material-icons absolute left-3 top-2.5 text-gray-400"
+                                        >lock</span
+                                    >
+                                    <input
+                                        type="password"
+                                        id="confirm_password"
+                                        name="confirm_password"
+                                        required
+                                        placeholder="Confirm Password"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 block w-full p-2.5 focus:ring-green-500 focus:border-green-500"
+                                    />
+                                </div>
+                                <p
+                                    id="error-confirm"
+                                    class="hidden text-xs text-red-500 mt-1"
+                                >
+                                    Konfirmasi password harus sama.
+                                </p>
+                            </div>
+
+                            <!-- Tombol -->
+                            <div class="flex flex-col justify-center">
+                                <label
+                                    class="flex items-center gap-2 text-gray-700 dark:text-gray-300"
+                                >
+                                    <input
+                                        id="lihat-pw"
+                                        type="checkbox"
+                                        class="w-4 h-4 border border-gray-300 rounded-sm bg-gray-50 focus:ring-2 focus:ring-green-500 dark:bg-gray-700 dark:border-gray-600 cursor-pointer"
+                                    />
+                                    Tampilkan Sandi
+                                </label>
+                                <!-- Error -->
+                                <p
+                                    class="text-red-600 hidden text-sm"
+                                    id="pesan-error"
+                                >
+                                    Mohon isi semua kolom.
+                                </p>
+                                <button
+                                    type="submit"
+                                    class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 cursor-pointer"
+                                    onclick="daftar(event)"
+                                >
+                                    Registrasi
+                                </button>
+                                <!-- Tambahan -->
+                                <p
+                                    class="text-sm text-gray-600 dark:text-gray-300"
+                                >
+                                    Sudah punya akun?
+                                    <a
+                                        href="/customer/login"
+                                        class="text-green-700 font-medium hover:underline"
+                                    >
+                                        Silahkan login
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </body>
+
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script>
+            const form = document.getElementById("register");
+
+            // Daftar
+            function daftar(event) {
+                event.preventDefault();
+
+                const pesanError = document.getElementById("pesan-error");
+
+                const kolomIsian = document.querySelectorAll("input[required]");
+                valid = true;
+                kolomIsian.forEach((isian) => {
+                    if (isian.value == "") {
+                        pesanError.textContent = "Mohon isi semua kolom";
+                        pesanError.classList.remove("hidden");
+                        valid = false;
+                    }
+                });
+
+                const sandi = document.getElementById("password");
+                const konfirm_sandi =
+                    document.getElementById("confirm_password");
+                if (sandi.value !== "" && sandi.value !== konfirm_sandi.value) {
+                    valid = false;
+                    pesanError.textContent = "Sandi tidak sesuai";
+                    pesanError.classList.remove("hidden");
+                }
+
+                if (valid) {
+                    const formpendaftaran = new FormData(
+                        document.getElementById("register")
+                    );
+                    formpendaftaran.append("register", true);
+
+                    fetch("/customer/api/auth", {
+                        method: "POST",
+                        body: formpendaftaran,
+                    })
+                        .then(async (respon) => {
+                            const data = await respon.json();
+                            if (!respon.ok) {
+                                throw new Error(
+                                    data.message || "terjadi kesalahan"
+                                );
+                            }
+                            return data;
+                        })
+                        .then((data) => {
+                            // Bagian ini jika verifikasi berhasil
+                            location.href = "/customer/verif";
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                        });
+                }
+            }
+        </script>
+    </body>
+</html>

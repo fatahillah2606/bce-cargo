@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Page Not Found - BCE Cargo</title>
+        <!-- Favicon -->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ url_for('static', filename='images/favicon.ico') }}"
+        />
+        <!-- Flowbite -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+        <!-- Google Icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+    </head>
+    <body
+        class="flex items-center justify-center min-h-screen bg-zinc-100 dark:bg-zinc-900"
+    >
+        <div
+            class="min-h-screen flex flex-col items-center justify-center dark:bg-zinc-900 text-center px-6"
+        >
+            <h1
+                class="text-9xl font-extrabold text-zinc-900 dark:text-white tracking-widest"
+            >
+                404
+            </h1>
+            <div
+                class="bg-green-500 text-white dark:text-zinc-900 px-2 text-sm rounded rotate-12 absolute"
+            >
+                Page Not Found
+            </div>
+            <p class="text-zinc-600 dark:text-zinc-400 mt-6">
+                Halaman yang kamu cari tidak ditemukan.
+            </p>
+            <div class="mt-6">
+                <a
+                    href="/"
+                    class="px-6 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700"
+                    >Kembali ke Beranda</a
+                >
+            </div>
+        </div>
+
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script src="{{url_for('static', filename='js/admin/theme.js')}}"></script>
+    </body>
+</html>

@@ -1,46 +1,89 @@
-# bce-cargo
+# 🚀 Bahtera Cahaya Express
 
-## Deskripsi
+Proyek ini adalah aplikasi web berbasis **Python Flask** dengan integrasi **Flowbite** untuk styling. Dokumentasi ini akan memandu Anda dalam menjalankan proyek ini dari awal hingga siap digunakan untuk pengembangan.
 
-Website company profile untuk CV. Bahtera Cahaya Express
+---
 
-## Requirement
+## 📦 Requirements
 
-- Python 3
+Pastikan Anda telah menginstal:
 
-## Instalasi
+- Python 3.8+
+- Node.js & npm
+- Git (opsional, untuk clone repositori)
 
-Untuk Windows, disarankan untuk menjalankan perintah di Command Prompt (CMD) daripada PowerShell.
+---
 
-1. Clone repositori ini:
+## ⚙️ Langkah-Langkah Instalasi
 
-   ```bash
-   git clone https://github.com/fatahillah2606/bce-cargo.git
-   ```
+Ikuti langkah-langkah berikut untuk menyiapkan dan menjalankan proyek.
 
-2. Buat dan aktifkan virtual environment:
+### 1. Clone Repository (Jika Belum)
 
-   ```bash
-   python -m venv venv
-   ```
+```bash
+git clone https://github.com/fatahillah2606/bce-cargo.git
+cd nama-proyek-anda
+```
 
-   Untuk Windows:
+### 2. Buat dan Aktifkan Virtual Environment
 
-       venv\Scripts\activate
+```bash
+python -m venv .venv
+source .venv/bin/activate  # untuk Linux/macOS
+.venv\Scripts\activate     # untuk Windows
+```
 
-   Untuk Linux/MacOS:
+### 3. Install Python Dependencies
 
-       source venv/bin/activate
+```bash
+pip install -r requirements.txt
+```
 
-   Install dependencies:
+Jika terjadi kesalahan dalam menginstall dependencies, jalankan perintah ini
 
-       pip install -r requirements.txt
+```bash
+pip install flask bcrypt "pymongo[srv]" flask-session dotenv requests
+```
 
-3. Cara menjalankan
+### 4. Install Node.js Dependencies
 
-   ```bash
-   python manage.py
-   ```
-Setelan program dijalankan, buka browser dan kunjungi: http://127.0.0.1:5000/
+```bash
+npm install
+```
 
-Untuk mengakses bot kunjungi: http://127.0.0.1:5000/chatbot
+### 5. Buat File ```.env``` dari Template
+
+Salin file ```.env.example``` menjadi ```.env```:
+
+```bash
+cp .env.example .env  # Linux/macOS
+copy .env.example .env  # Windows (CMD)
+```
+
+Lalu, sesuaikan nilai-nilai di dalam ```.env``` sesuai dengan konfigurasi lokal Anda.
+
+---
+
+## 🎨 Menjalankan Tailwind CSS
+
+Untuk memproses file Tailwind CSS secara otomatis:
+
+```bash
+npx @tailwindcss/cli -i ./static/src/input.css -o ./static/dist/output.css --watch
+```
+
+Perintah ini akan memantau perubahan dan membangun ulang file CSS ke dalam direktori ```static/dist```.
+
+---
+
+## 🚀 Menjalankan Aplikasi Flask
+
+Aktifkan virtual environment (jika belum) lalu jalankan server:
+
+```bash
+flask run --debug
+```
+
+Aplikasi akan tersedia di http://127.0.0.1:5000.
+
+> Made with ❤️ + ☕ Flask + 🌈 Tailwind CSS

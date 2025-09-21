@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="id" style="margin: 0; padding: 0">
+    <body style="margin: 0; padding: 0; background-color: #f5f6f8">
+        <table
+            role="presentation"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            width="100%"
+            style="background-color: #f5f6f8; margin: 0; padding: 24px 0"
+        >
+            <tr>
+                <td align="center" style="padding: 0 16px">
+                    <!-- Card -->
+                    <table
+                        role="presentation"
+                        cellpadding="0"
+                        cellspacing="0"
+                        border="0"
+                        width="100%"
+                        style="
+                            max-width: 700px;
+                            background: #ffffff;
+                            border-radius: 12px;
+                            overflow: hidden;
+                            border: 1px solid #e6e8eb;
+                        "
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                align="left"
+                                style="padding: 20px 24px; background: #0f172a"
+                            >
+                                <table role="presentation" width="100%">
+                                    <tr>
+                                        <td
+                                            style="
+                                                font-family: Arial, Helvetica,
+                                                    sans-serif;
+                                                font-size: 18px;
+                                                line-height: 24px;
+                                                color: #ffffff;
+                                                font-weight: bold;
+                                            "
+                                        >
+                                            Pesanan Anda Telah Diterima
+                                        </td>
+                                        <td
+                                            align="right"
+                                            style="
+                                                font-family: Arial, Helvetica,
+                                                    sans-serif;
+                                                font-size: 12px;
+                                                line-height: 18px;
+                                                color: #cbd5e1;
+                                            "
+                                        >
+                                            {{tanggal_pemesanan}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Body -->
+                        <tr>
+                            <td style="padding: 28px 24px 16px 24px">
+                                <h2
+                                    style="
+                                        margin: 0 0 8px 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 20px;
+                                        line-height: 28px;
+                                        color: #0f172a;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    Terima kasih {{nama_pengirim}}!
+                                </h2>
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 14px;
+                                        line-height: 22px;
+                                        color: #334155;
+                                    "
+                                >
+                                    Pesanan kargo Anda dengan kode pemesanan
+                                    <strong>{{kode_pemesanan}}</strong> telah
+                                    kami terima. Berikut kami lampirkan
+                                    <strong>proforma invoice</strong> sebagai
+                                    estimasi biaya.
+                                </p>
+                                <p
+                                    style="
+                                        color: #e67e22;
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 14px;
+                                        line-height: 22px;
+                                    "
+                                >
+                                    *Perhatian: Biaya yang tertera pada invoice
+                                    ini masih bersifat estimasi. Invoice final
+                                    akan dikirimkan kembali setelah pengecekan
+                                    selesai dan biaya telah dipastikan.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Invoice Info -->
+                        <tr>
+                            <td style="padding: 0 24px 16px 24px">
+                                <table
+                                    role="presentation"
+                                    width="100%"
+                                    cellpadding="6"
+                                    cellspacing="0"
+                                    border="0"
+                                    style="
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 13px;
+                                        line-height: 20px;
+                                        color: #0f172a;
+                                    "
+                                >
+                                    <tr>
+                                        <td
+                                            style="
+                                                font-weight: bold;
+                                                color: #0f172a;
+                                            "
+                                        >
+                                            Invoice #: {{invoice_number}}
+                                        </td>
+                                        <td align="right">
+                                            {{tanggal_invoice}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Pay To / Invoice To -->
+                        <tr>
+                            <td style="padding: 0 24px 16px 24px">
+                                <table
+                                    role="presentation"
+                                    width="100%"
+                                    cellpadding="6"
+                                    cellspacing="0"
+                                    border="0"
+                                    style="
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 13px;
+                                        line-height: 20px;
+                                        color: #0f172a;
+                                    "
+                                >
+                                    <tr valign="top">
+                                        <td width="50%">
+                                            <strong>Pay to:</strong><br />
+                                            BCE Cargo, Indonesia<br />
+                                            Ware House Area Regulated Agent
+                                            PT.<br />
+                                            Gatrans Soekarno Hatta Air Port<br />
+                                            NPWP: 63.410.875.7 - 402.000
+                                        </td>
+                                        <td width="50%">
+                                            <strong>Invoice to:</strong><br />
+                                            {{nama_pengirim}}<br />
+                                            {{alamat_pengirim}}<br />
+                                            {{no_hp_pengirim}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Items Table -->
+                        <tr>
+                            <td style="padding: 0 24px 16px 24px">
+                                <table
+                                    role="presentation"
+                                    width="100%"
+                                    cellpadding="6"
+                                    cellspacing="0"
+                                    border="0"
+                                    style="
+                                        border-collapse: collapse;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 13px;
+                                        line-height: 20px;
+                                        color: #0f172a;
+                                    "
+                                >
+                                    <tr
+                                        style="
+                                            background: #f1f5f9;
+                                            font-weight: bold;
+                                        "
+                                    >
+                                        <td>Nama Barang</td>
+                                        <td align="center">Jumlah</td>
+                                        <td align="center">Dimensi (cm)</td>
+                                        <td align="center">Kategori</td>
+                                        <td align="center">
+                                            Metode Pengiriman
+                                        </td>
+                                    </tr>
+                                    <!-- loop per item -->
+                                    {% for barang in data_barang %}
+                                    <tr>
+                                        <td>{{barang.nama_barang}}</td>
+                                        <td align="center">
+                                            {{barang.jumlah}}
+                                        </td>
+                                        <td align="center">
+                                            {{barang.dimensi_cm.panjang}} x
+                                            {{barang.dimensi_cm.lebar}} x
+                                            {{barang.dimensi_cm.tinggi}}
+                                        </td>
+                                        <td align="center">
+                                            {{barang.nama_kategori}}
+                                        </td>
+                                        <td align="center">
+                                            {{barang.metode_pengiriman}}
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    <!-- end loop -->
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- Order Summary -->
+                        <tr>
+                            <td style="padding: 0 24px 24px 24px">
+                                <table
+                                    role="presentation"
+                                    width="100%"
+                                    cellpadding="6"
+                                    cellspacing="0"
+                                    border="0"
+                                    style="
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 13px;
+                                        line-height: 20px;
+                                        color: #0f172a;
+                                    "
+                                >
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Subtotal
+                                        </td>
+                                        <td align="right">{{subtotal}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Biaya Surcharge
+                                        </td>
+                                        <td align="right">{{surcharge_dg}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Biaya Packing
+                                        </td>
+                                        <td align="right">{{biaya_packing}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bold">
+                                            Diskon
+                                        </td>
+                                        <td align="right">{{diskon}}</td>
+                                    </tr>
+                                    <tr style="border-top: 2px solid #e5e7eb">
+                                        <td
+                                            style="
+                                                font-weight: bold;
+                                                font-size: 14px;
+                                            "
+                                        >
+                                            Total
+                                        </td>
+                                        <td
+                                            align="right"
+                                            style="
+                                                font-weight: bold;
+                                                font-size: 14px;
+                                                color: #16a34a;
+                                            "
+                                        >
+                                            {{total}}
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- CTA -->
+                        <tr>
+                            <td
+                                align="center"
+                                style="padding: 8px 24px 24px 24px"
+                            >
+                                <p
+                                    style="
+                                        margin-top: 20px;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        text-align: left;
+                                        font-size: 14px;
+                                    "
+                                >
+                                    Terima kasih telah menggunakan layanan
+                                    <strong>{{APP_NAME}}</strong>.<br />
+                                    Kami akan segera melakukan pengecekan lebih
+                                    lanjut untuk memastikan biaya final.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                style="
+                                    background: #f8fafc;
+                                    padding: 16px 24px;
+                                    border-top: 1px solid #e6e8eb;
+                                "
+                            >
+                                <p
+                                    style="
+                                        margin: 0;
+                                        font-family: Arial, Helvetica,
+                                            sans-serif;
+                                        font-size: 11px;
+                                        line-height: 18px;
+                                        color: #94a3b8;
+                                    "
+                                >
+                                    Email ini dikirim otomatis oleh sistem
+                                    {{APP_NAME}}.<br />
+                                    Terima kasih telah menggunakan layanan kami.
+                                </p>
+                            </td>
+                        </tr>
+                    </table>
+                    <!-- /Card -->
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

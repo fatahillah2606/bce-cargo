@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Lupa Sandi</title>
+        <!-- Flowbite -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Material Icons -->
+        <link
+            href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-green-100 dark:bg-green-900 flex items-center justify-center min-h-screen px-4"
+    >
+        <!-- Forgot Password Section -->
+        <section
+            class="flex flex-col md:flex-row items-center w-full max-w-2xl rounded-3xl overflow-hidden bg-white dark:bg-gray-800 shadow-lg"
+        >
+            <!-- Carousel (hidden on mobile) -->
+            <div
+                id="default-carousel"
+                class="relative hidden md:block w-64 h-full overflow-hidden rounded-2xl shrink-0"
+                data-carousel="slide"
+            >
+                <div class="relative h-full overflow-hidden rounded-lg md:h-96">
+                    <img
+                        class="absolute top-2.5 left-2.5 w-8 z-50"
+                        src="{{ url_for('static',filename='images/logo_transparant.png') }}"
+                        alt="Logo BCE"
+                    />
+                    <div
+                        class="hidden duration-700 ease-in-out"
+                        data-carousel-item
+                    >
+                        <img
+                            src="{{ url_for('static',filename='images/udara.jpg') }}"
+                            class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        />
+                    </div>
+                    <div
+                        class="hidden duration-700 ease-in-out"
+                        data-carousel-item
+                    >
+                        <img
+                            src="{{ url_for('static',filename='images/laut.jpg') }}"
+                            class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        />
+                    </div>
+                    <div
+                        class="hidden duration-700 ease-in-out"
+                        data-carousel-item
+                    >
+                        <img
+                            src="{{ url_for('static',filename='images/darat.jpg') }}"
+                            class="absolute block w-full h-full object-cover top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forgot Password Form -->
+            <div class="w-full h-full p-6 md:p-8">
+                <h2 class="text-center text-xl md:text-2xl font-bold">
+                    Lupa Sandi
+                </h2>
+                <div class="w-20 h-px mx-auto mt-2.5 mb-5 bg-gray-300"></div>
+
+                <form class="max-w-full mx-auto" id="forgotpw">
+                    <div class="grid gap-4 mb-4 grid-cols-1">
+                        <!-- Email -->
+                        <div>
+                            <div class="relative">
+                                <span
+                                    class="material-icons absolute left-3 top-2.5 text-gray-400"
+                                    >email</span
+                                >
+                                <input
+                                    type="email"
+                                    placeholder="Masukkan email Anda"
+                                    name="email"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg pl-10 focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <!-- Error -->
+                        <p class="text-red-600 hidden text-sm" id="pesan-error">
+                            Email tidak valid.
+                        </p>
+
+                        <!-- Button -->
+                        <div class="flex flex-col justify-center">
+                            <button
+                                type="submit"
+                                class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 focus:ring-2 focus:ring-green-500 cursor-pointer"
+                            >
+                                Kirim Code Verifikasi
+                            </button>
+
+                            <!-- Tambahan -->
+                            <p
+                                class="text-sm text-gray-600 dark:text-gray-300 mt-2"
+                            >
+                                Sudah ingat password?
+                                <a
+                                    href="/customer/login"
+                                    class="text-green-700 font-medium hover:underline"
+                                >
+                                    Silahkan login
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script>
+            document
+                .getElementById("forgotpw")
+                .addEventListener("submit", function (e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(this);
+
+                    fetch("/customer/api/auth/forgotpw", {
+                        method: "POST",
+                        body: formData,
+                    })
+                        .then(async (res) => {
+                            const data = await res.json();
+                            if (!res.ok) throw new Error(data.message);
+                            return data;
+                        })
+                        .then((data) => {
+                            alert(data.message);
+                            window.location.href = "/customer/verifpw";
+                        })
+                        .catch((err) => {
+                            document.getElementById("pesan-error").innerText =
+                                err.message;
+                            document
+                                .getElementById("pesan-error")
+                                .classList.remove("hidden");
+                        });
+                });
+
+            db.users.runCommand({
+                collMod: "users",
+                validator: {
+                    $jsonSchema: {
+                        bsonType: "object",
+                        required: ["name", "email", "password", "role"],
+                        properties: {
+                            name: { bsonType: "string" },
+                            email: { bsonType: "string" },
+                            password: { bsonType: "string" },
+                            role: { bsonType: "string" },
+                            // Tambahkan ini biar valid
+                            reset_pw: {
+                                bsonType: "object",
+                                properties: {
+                                    kode: { bsonType: "string" },
+                                    expired_at: { bsonType: "date" },
+                                    is_verified: { bsonType: "bool" },
+                                },
+                            },
+                        },
+                        additionalProperties: false,
+                    },
+                },
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Final Invoice</title>
+    </head>
+    <body
+        style="
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f6fa;
+        "
+    >
+        <table
+            width="100%"
+            cellpadding="0"
+            cellspacing="0"
+            style="background-color: #f5f6fa; padding: 20px 0"
+        >
+            <tr>
+                <td align="center">
+                    <table
+                        width="600"
+                        cellpadding="0"
+                        cellspacing="0"
+                        style="
+                            background-color: #ffffff;
+                            border-radius: 8px;
+                            overflow: hidden;
+                        "
+                    >
+                        <!-- Header -->
+                        <tr>
+                            <td
+                                style="
+                                    background-color: #2d3436;
+                                    color: #ffffff;
+                                    padding: 20px;
+                                    text-align: center;
+                                "
+                            >
+                                <h2 style="margin: 0">
+                                    CV. Bahtera Cahaya Express
+                                </h2>
+                            </td>
+                        </tr>
+
+                        <!-- Content -->
+                        <tr>
+                            <td style="padding: 20px; color: #2d3436">
+                                <h3 style="margin-top: 0">Final Invoice</h3>
+                                <p>Halo <strong>{{nama_pelanggan}}</strong>,</p>
+                                <p>
+                                    Berikut kami kirimkan
+                                    <strong>Final Invoice</strong> untuk pesanan
+                                    Anda dengan kode
+                                    <strong>{{kode_pemesanan}}</strong>. Biaya
+                                    dalam invoice ini sudah final dan harus
+                                    segera dilunasi sesuai ketentuan.
+                                </p>
+
+                                <!-- Invoice Box -->
+                                <table
+                                    width="100%"
+                                    cellpadding="0"
+                                    cellspacing="0"
+                                    style="
+                                        border: 1px solid #dfe6e9;
+                                        border-radius: 6px;
+                                        margin-top: 20px;
+                                    "
+                                >
+                                    <tr>
+                                        <td style="padding: 15px">
+                                            <h4 style="margin: 0 0 10px 0">
+                                                Invoice #: {{invoice_number}}
+                                            </h4>
+                                            <p
+                                                style="
+                                                    margin: 0;
+                                                    font-size: 14px;
+                                                "
+                                            >
+                                                Tanggal: {{tanggal_invoice}}
+                                            </p>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td style="padding: 0 15px 15px 15px">
+                                            <!-- Pay to / Invoice to -->
+                                            <table
+                                                width="100%"
+                                                cellspacing="0"
+                                                cellpadding="0"
+                                            >
+                                                <tr>
+                                                    <td
+                                                        valign="top"
+                                                        width="50%"
+                                                        style="
+                                                            font-size: 14px;
+                                                            color: #2d3436;
+                                                        "
+                                                    >
+                                                        <strong>Pay to:</strong
+                                                        ><br />
+                                                        BCE Cargo, Indonesia<br />
+                                                        Ware House Area
+                                                        Regulated Agent PT.<br />
+                                                        Gatrans Soekarno Hatta
+                                                        Air Port<br />
+                                                        NPWP: 63.410.875.7 –
+                                                        402.000
+                                                    </td>
+                                                    <td
+                                                        valign="top"
+                                                        width="50%"
+                                                        style="
+                                                            font-size: 14px;
+                                                            color: #2d3436;
+                                                        "
+                                                    >
+                                                        <strong
+                                                            >Invoice to:</strong
+                                                        ><br />
+                                                        {{nama_pelanggan}}<br />
+                                                        {{alamat_pelanggan}}<br />
+                                                        {{no_hp_pelanggan}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Items Table -->
+                                    <tr>
+                                        <td style="padding: 0 15px 15px 15px">
+                                            <table
+                                                width="100%"
+                                                cellpadding="8"
+                                                cellspacing="0"
+                                                style="
+                                                    border-collapse: collapse;
+                                                    font-size: 14px;
+                                                "
+                                            >
+                                                <thead>
+                                                    <tr
+                                                        style="
+                                                            background-color: #dfe6e9;
+                                                        "
+                                                    >
+                                                        <th align="left">
+                                                            Nama Barang
+                                                        </th>
+                                                        <th align="center">
+                                                            Jumlah
+                                                        </th>
+                                                        <th align="center">
+                                                            Dimensi (cm)
+                                                        </th>
+                                                        <th align="center">
+                                                            Kategori
+                                                        </th>
+                                                        <th align="center">
+                                                            Metode
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            {{nama_barang_1}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{jml_1}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{dimensi_1}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{kategori_1}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{metode_1}}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            {{nama_barang_2}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{jml_2}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{dimensi_2}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{kategori_2}}
+                                                        </td>
+                                                        <td align="center">
+                                                            {{metode_2}}
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Summary -->
+                                    <tr>
+                                        <td style="padding: 15px">
+                                            <table
+                                                width="100%"
+                                                cellpadding="5"
+                                                cellspacing="0"
+                                                style="font-size: 14px"
+                                            >
+                                                <tr>
+                                                    <td>Subtotal</td>
+                                                    <td align="right">
+                                                        Rp {{subtotal}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Biaya Surcharge</td>
+                                                    <td align="right">
+                                                        Rp {{surcharge}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Biaya Packing</td>
+                                                    <td align="right">
+                                                        Rp {{packing}}
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Diskon</td>
+                                                    <td align="right">
+                                                        {{diskon}}%
+                                                    </td>
+                                                </tr>
+                                                <tr
+                                                    style="
+                                                        font-weight: bold;
+                                                        font-size: 16px;
+                                                        color: #27ae60;
+                                                    "
+                                                >
+                                                    <td>Total</td>
+                                                    <td align="right">
+                                                        Rp {{total}}
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <p style="margin-top: 20px">
+                                    Silakan lakukan pembayaran sesuai total yang
+                                    tertera.<br />
+                                    Pesanan Anda akan segera diproses setelah
+                                    pembayaran terkonfirmasi.
+                                </p>
+                            </td>
+                        </tr>
+
+                        <!-- Footer -->
+                        <tr>
+                            <td
+                                style="
+                                    background-color: #f1f2f6;
+                                    padding: 15px;
+                                    font-size: 12px;
+                                    color: #636e72;
+                                    text-align: center;
+                                "
+                            >
+                                Email ini dikirim otomatis oleh sistem
+                                {{APP_NAME}}.<br />
+                                © {{YEAR}} {{APP_NAME}}. All rights reserved.
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

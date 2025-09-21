@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Profile | BCE</title>
+        <link
+            href="{{url_for('static',filename='dist/output.css')}}"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/customer/style.css')}}"
+        />
+        <!-- Google icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            section {
+                min-height: auto;
+            }
+            @keyframes zoomPulse {
+                0%,
+                100% {
+                    transform: scale(0.95);
+                    opacity: 0.95;
+                }
+                50% {
+                    transform: scale(1.05);
+                    opacity: 1;
+                }
+            }
+            .animate-zoom-pulse {
+                animation: zoomPulse 2.5s ease-in-out infinite;
+            }
+            .logo-glow {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+                    drop-shadow(0 0 40px rgba(144, 238, 144, 0.6));
+                animation: glowPulse 1s ease-in-out infinite;
+            }
+            @keyframes glowPulse {
+                0%,
+                100% {
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))
+                        drop-shadow(0 0 16px rgba(255, 255, 255, 0.5))
+                        drop-shadow(0 0 32px rgba(144, 238, 144, 0.5));
+                }
+                50% {
+                    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9))
+                        drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
+                        drop-shadow(0 0 60px rgba(144, 238, 144, 0.7));
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-white font-sans">
+        {% include 'customer/components/navbar.html' %} {% include
+        'customer/components/floating-sidebar.html' %}
+
+        <!-- BIODATA DIRI -->
+        <section
+            class="max-w-5xl mx-auto py-12 px-6"
+            id="bagian-informasi-pribadi"
+        >
+            <div
+                class="max-w-2xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >badge</span
+                        >
+                        Biodata Diri
+                    </h2>
+                    <button
+                        id="btn-edit"
+                        type="button"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow transition cursor-pointer"
+                    >
+                        Edit
+                    </button>
+                </div>
+
+                <!-- Form -->
+                <form id="form-biodata" class="space-y-6">
+                    <!-- Nama Lengkap -->
+                    <div class="relative">
+                        <label
+                            for="nama"
+                            class="block text-sm font-medium text-gray-700"
+                            >Nama Lengkap</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="nama"
+                                name="nama"
+                                maxlength="100"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >person</span
+                            >
+                        </div>
+                        <p
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                        >
+                            Nama lengkap wajib diisi (maksimal 100 karakter).
+                        </p>
+                    </div>
+
+                    <!-- Nomor Ponsel -->
+                    <div class="relative">
+                        <label
+                            for="ponsel"
+                            class="block text-sm font-medium text-gray-700"
+                            >Nomor Ponsel</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="tel"
+                                id="ponsel"
+                                name="ponsel"
+                                minlength="10"
+                                maxlength="13"
+                                required
+                                pattern="[0-9]+"
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >phone</span
+                            >
+                        </div>
+                        <p
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                        >
+                            Nomor ponsel wajib angka 10–13 digit.
+                        </p>
+                    </div>
+
+                    <!-- Jenis Pelanggan + Nama Perusahaan -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="jenis"
+                                class="block text-sm font-medium text-gray-700"
+                                >Jenis Pelanggan</label
+                            >
+                            <div class="mt-1 relative">
+                                <select
+                                    id="jenis"
+                                    name="jenis"
+                                    required
+                                    disabled
+                                    class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500 pl-10 pr-3 py-2 text-sm focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition cursor-pointer"
+                                >
+                                    <option value="">Pilih jenis</option>
+                                    <option value="perorangan" selected>
+                                        Perorangan
+                                    </option>
+                                    <option value="perusahaan">
+                                        Perusahaan
+                                    </option>
+                                </select>
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >group</span
+                                >
+                            </div>
+                            <p
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                            >
+                                Jenis pelanggan wajib dipilih.
+                            </p>
+                        </div>
+
+                        <!-- Nama Perusahaan -->
+                        <div id="field-perusahaan" class="hidden relative">
+                            <label
+                                for="perusahaan"
+                                class="block text-sm font-medium text-gray-700"
+                                >Nama Perusahaan</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="perusahaan"
+                                    name="perusahaan"
+                                    maxlength="100"
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                    placeholder="Masukkan nama perusahaan"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >business</span
+                                >
+                            </div>
+                            <p
+                                class="mt-1 text-xs text-red-600 hidden"
+                                id="error-perusahaan"
+                            >
+                                Nama perusahaan wajib diisi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div
+                        id="action-buttons"
+                        class="hidden flex justify-end gap-3 pt-4"
+                    >
+                        <button
+                            type="button"
+                            id="btn-cancel"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        >
+                            Batal
+                        </button>
+                        <button
+                            type="submit"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- ALAMAT -->
+        <section class="max-w-5xl mx-auto py-12 px-6" id="bagian-buku-alamat">
+            <div
+                class="max-w-3xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >home_pin</span
+                        >
+                        Alamat
+                    </h2>
+                    <button
+                        id="btn-edit-alamat"
+                        type="button"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm text-white"
+                    >
+                        Edit
+                    </button>
+                </div>
+                <form id="form-alamat" class="space-y-6">
+                    <div class="relative">
+                        <label
+                            for="jalan"
+                            class="block text-sm font-medium text-gray-700"
+                            >Jalan</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="jalan"
+                                name="jalan"
+                                maxlength="100"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >location_on</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- kode Pos + wa -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="kodepos"
+                                class="block text-sm font-medium text-gray-700"
+                                >Kode Pos</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="kodepos"
+                                    name="kodepos"
+                                    minlength="5"
+                                    maxlength="5"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >markunread_mailbox</span
+                                >
+                            </div>
+                            <p
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                            >
+                                Kode pos wajib 5 digit angka.
+                            </p>
+                        </div>
+                        <div class="relative">
+                            <label
+                                for="no_rumah"
+                                class="block text-sm font-medium text-gray-700"
+                                >Nomor Rumah</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="no_rumah"
+                                    name="no_rumah"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >phone_iphone</span
+                                >
+                            </div>
+                            <p
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                            >
+                                Nomor WA wajib angka 10–13 digit.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- RT RW -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label
+                                for="rt"
+                                class="block text-sm font-medium text-gray-700"
+                                >RT</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="rt"
+                                    name="rt"
+                                    maxlength="4"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >tag</span
+                                >
+                            </div>
+                            <p
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                            >
+                                RT wajib 4 digit angka.
+                            </p>
+                        </div>
+                        <div class="relative">
+                            <label
+                                for="rw"
+                                class="block text-sm font-medium text-gray-700"
+                                >RW</label
+                            >
+                            <div class="mt-1 relative">
+                                <input
+                                    type="text"
+                                    id="rw"
+                                    name="rw"
+                                    maxlength="4"
+                                    required
+                                    readonly
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm bg-gray-100 text-gray-500"
+                                />
+
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                    >tag</span
+                                >
+                            </div>
+                            <p
+                                class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                            >
+                                RW wajib 4 digit angka.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Provinsi, Kabupaten, Kecamatan, Kelurahan -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <select
+                            id="provinsi"
+                            name="provinsi"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih provinsi</option>
+                        </select>
+                        <select
+                            id="kabupaten"
+                            name="kabupaten"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih kabupaten</option>
+                        </select>
+                        <select
+                            id="kecamatan"
+                            name="kecamatan"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih kecamatan</option>
+                        </select>
+                        <select
+                            id="kelurahan"
+                            name="kelurahan"
+                            disabled
+                            class="peer block w-full rounded-lg border border-gray-300 bg-gray-100 text-gray-500"
+                        >
+                            <option value="">Pilih kelurahan</option>
+                        </select>
+                    </div>
+                    <div
+                        id="alamat-actions"
+                        class="hidden flex justify-end gap-3 pt-4"
+                    >
+                        <button
+                            type="button"
+                            id="btn-cancel-alamat"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm"
+                        >
+                            Batal
+                        </button>
+                        <button
+                            type="submit"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm text-white"
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- INFORMASI AKUN -->
+        <section
+            class="max-w-5xl mx-auto py-12 px-6"
+            id="bagian-informasi-akun"
+        >
+            <div
+                class="max-w-2xl mx-auto bg-gradient-to-br from-green-50 to-white rounded-2xl shadow-lg p-8 border border-green-100"
+            >
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-8">
+                    <h2
+                        class="text-2xl font-extrabold text-green-800 flex items-center gap-2"
+                    >
+                        <span class="material-symbols-rounded text-green-600"
+                            >manage_accounts</span
+                        >
+                        Informasi Akun
+                    </h2>
+                    <button
+                        id="btn-edit-akun"
+                        type="button"
+                        class="rounded-full bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow transition cursor-pointer"
+                    >
+                        Edit
+                    </button>
+                </div>
+
+                <!-- Form -->
+                <form id="form-akun" class="space-y-6">
+                    <!-- Nama -->
+                    <div class="relative">
+                        <label
+                            for="nama_akun"
+                            class="block text-sm font-medium text-gray-700"
+                            >Nama</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="text"
+                                id="nama_akun"
+                                name="nama_akun"
+                                maxlength="50"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >person</span
+                            >
+                        </div>
+                        <p
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                        >
+                            Nama wajib diisi (maksimal 50 karakter).
+                        </p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="relative">
+                        <label
+                            for="email"
+                            class="block text-sm font-medium text-gray-700"
+                            >Email</label
+                        >
+                        <div class="mt-1 relative">
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                maxlength="100"
+                                required
+                                readonly
+                                class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-500 bg-gray-100 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                            />
+                            <span
+                                class="material-symbols-rounded absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                                >mail</span
+                            >
+                        </div>
+                        <p
+                            class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                        >
+                            Email wajib diisi (maksimal 100 karakter).
+                        </p>
+                    </div>
+
+                    <!-- Edit Password -->
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <label
+                                class="block text-sm font-medium text-gray-700"
+                                >Password</label
+                            >
+                            <button
+                                type="button"
+                                id="btn-edit-password"
+                                class="text-sm text-green-600 font-medium flex items-center gap-1 cursor-pointer"
+                            >
+                                <span class="material-symbols-rounded text-base"
+                                    >lock_reset</span
+                                >
+                                Ubah Password
+                            </button>
+                        </div>
+
+                        <!-- Kolom Password Baru (Hidden awalnya) -->
+                        <div id="password-fields" class="hidden space-y-4">
+                            <div class="relative">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password baru"
+                                    minlength="6"
+                                    maxlength="50"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >lock</span
+                                >
+                                <p
+                                    class="mt-1 text-xs text-red-600 invisible peer-invalid:visible"
+                                >
+                                    Password minimal 6 karakter.
+                                </p>
+                            </div>
+                            <div class="relative">
+                                <input
+                                    type="password"
+                                    id="konfirmasi-password"
+                                    name="konfirmasi-password"
+                                    placeholder="Konfirmasi password baru"
+                                    minlength="6"
+                                    maxlength="50"
+                                    class="peer block w-full rounded-lg border border-gray-300 pl-10 pr-3 py-2 text-sm text-gray-700 focus:border-green-500 focus:ring-green-500 invalid:border-red-500 transition"
+                                />
+                                <span
+                                    class="material-symbols-rounded absolute left-3 top-2.5 text-gray-400"
+                                    >verified_user</span
+                                >
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tombol Aksi -->
+                    <div
+                        id="action-buttons-akun"
+                        class="hidden flex justify-end gap-3 pt-4"
+                    >
+                        <button
+                            type="button"
+                            id="btn-cancel-akun"
+                            class="rounded-lg border border-gray-300 bg-white px-5 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 cursor-pointer"
+                        >
+                            Batal
+                        </button>
+                        <button
+                            type="submit"
+                            class="rounded-lg bg-green-600 px-5 py-2 text-sm font-medium text-white hover:bg-green-700 shadow cursor-pointer"
+                        >
+                            Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Overlay Transition -->
+        <div
+            id="page-transition"
+            class="fixed inset-0 z-[9999] flex items-center justify-center bg-green-600 transform translate-x-full transition-transform duration-700 ease-in-out"
+        >
+            <img
+                src="/static/images/logo_transparant.png"
+                alt="BCE Logo"
+                class="relative w-24 h-24 animate-zoom-pulse logo-glow"
+                id="bce-logo"
+            />
+        </div>
+
+        {% include 'customer/components/footer.html' %}
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script src="{{url_for('static',filename='js/customer/fetch-wilayah.js')}}"></script>
+
+        <script>
+            // =============================
+            // Muat Data Awal
+            // =============================
+            function muatDataPelanggan() {
+                fetch("/customer/api/data/pelanggan")
+                    .then((res) => res.json())
+                    .then((data) => {
+                        const biodata = data.data;
+                        if (!biodata) return;
+                        form.nama.value = biodata.nama_lengkap;
+                        form.ponsel.value = biodata.no_telepon;
+                        form.jenis.value = biodata.jenis_pelanggan;
+                        form.perusahaan.value = biodata.nama_perusahaan;
+                        formAlamat.jalan.value = biodata.alamat.jalan;
+                        formAlamat.kodepos.value = biodata.alamat.kode_pos;
+                        formAlamat.no_rumah.value = biodata.alamat.no_rumah;
+                        formAlamat.rt.value = biodata.alamat.rt;
+                        formAlamat.rw.value = biodata.alamat.rw;
+                        initWilayah({
+                            selectProvinsi: formAlamat.provinsi,
+                            selectKabupaten: formAlamat.kabupaten,
+                            selectKecamatan: formAlamat.kecamatan,
+                            selectKelurahan: formAlamat.kelurahan,
+                            dataWilayah: biodata.alamat,
+                        });
+                    });
+            }
+            function muatAkunPelanggan() {
+                fetch("/customer/api/data/account")
+                    .then((res) => res.json())
+                    .then((data) => {
+                        const akun = data.data;
+                        if (!akun) return;
+                        formAkun.nama_akun.value = akun.name;
+                        formAkun.email.value = akun.email;
+                    });
+            }
+            muatDataPelanggan();
+            muatAkunPelanggan();
+
+            // =============================
+            // Biodata
+            // =============================
+            const form = document.getElementById("form-biodata");
+            const btnEdit = document.getElementById("btn-edit");
+            const btnCancel = document.getElementById("btn-cancel");
+            const actionButtons = document.getElementById("action-buttons");
+            const inputs = form.querySelectorAll("input, select");
+            function toggleEditMode(on) {
+                inputs.forEach((el) => {
+                    if (el.tagName === "SELECT") el.disabled = !on;
+                    else el.readOnly = !on;
+                    el.classList.toggle("bg-gray-100", !on);
+                    el.classList.toggle("text-gray-500", !on);
+                    el.classList.toggle("text-gray-900", on);
+                });
+                btnEdit.classList.toggle("hidden", on);
+                actionButtons.classList.toggle("hidden", !on);
+            }
+            btnEdit.addEventListener("click", () => toggleEditMode(true));
+            btnCancel.addEventListener("click", () => toggleEditMode(false));
+            form.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                formData.append("form_type", "biodata");
+                fetch("/customer/api/profile", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        alert(data.message);
+                        if (data.status === "success") toggleEditMode(false);
+                    });
+            });
+            // Optional: tampilkan field perusahaan kalau jenis == perusahaan
+            const jenisSelect = document.getElementById("jenis");
+            const perusahaanField = document.getElementById("field-perusahaan");
+
+            jenisSelect.addEventListener("change", () => {
+                if (jenisSelect.value === "perusahaan") {
+                    perusahaanField.classList.remove("hidden");
+                    document
+                        .getElementById("perusahaan")
+                        .setAttribute("required", "true");
+                } else {
+                    perusahaanField.classList.add("hidden");
+                    document
+                        .getElementById("perusahaan")
+                        .removeAttribute("required");
+                }
+            });
+
+            // =============================
+            // Alamat
+            // =============================
+            const formAlamat = document.getElementById("form-alamat");
+            const btnEditAlamat = document.getElementById("btn-edit-alamat");
+            const btnCancelAlamat =
+                document.getElementById("btn-cancel-alamat");
+            const actionAlamat = document.getElementById("alamat-actions");
+            const inputsAlamat = formAlamat.querySelectorAll("input, select");
+            function toggleAlamatEdit(on) {
+                inputsAlamat.forEach((el) => {
+                    if (el.tagName === "SELECT") el.disabled = !on;
+                    else el.readOnly = !on;
+                    el.classList.toggle("bg-gray-100", !on);
+                    el.classList.toggle("text-gray-500", !on);
+                    el.classList.toggle("text-gray-900", on);
+                });
+                btnEditAlamat.classList.toggle("hidden", on);
+                actionAlamat.classList.toggle("hidden", !on);
+            }
+            btnEditAlamat.addEventListener("click", () =>
+                toggleAlamatEdit(true)
+            );
+            btnCancelAlamat.addEventListener("click", () =>
+                toggleAlamatEdit(false)
+            );
+            formAlamat.addEventListener("submit", (e) => {
+                e.preventDefault();
+                const formData = new FormData(formAlamat);
+                formData.append("form_type", "alamat");
+                fetch("/customer/api/profile", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        alert(data.message);
+                        if (data.status === "success") toggleAlamatEdit(false);
+                    });
+            });
+
+            // =============================
+            // Informasi Akun
+            // =============================
+            const formAkun = document.getElementById("form-akun");
+            const btnEditAkun = document.getElementById("btn-edit-akun");
+            const btnCancelAkun = document.getElementById("btn-cancel-akun");
+            const actionButtonsAkun = document.getElementById(
+                "action-buttons-akun"
+            );
+            const btnEditPassword =
+                document.getElementById("btn-edit-password");
+            const passwordFields = document.getElementById("password-fields");
+            const passBaru = document.getElementById("password");
+            const passKonfirmasi = document.getElementById(
+                "konfirmasi-password"
+            );
+            btnEditAkun.addEventListener("click", () => {
+                formAkun.querySelectorAll("input").forEach((el) => {
+                    el.removeAttribute("readonly");
+                    el.classList.remove("bg-gray-100", "text-gray-500");
+                    el.classList.add("text-gray-700");
+                });
+                actionButtonsAkun.classList.remove("hidden");
+                btnEditAkun.classList.add("hidden");
+            });
+            btnCancelAkun.addEventListener("click", () => {
+                formAkun.querySelectorAll("input").forEach((el) => {
+                    el.setAttribute("readonly", true);
+                    el.classList.add("bg-gray-100", "text-gray-500");
+                });
+                actionButtonsAkun.classList.add("hidden");
+                btnEditAkun.classList.remove("hidden");
+                passwordFields.classList.add("hidden");
+                passBaru.value = "";
+                passKonfirmasi.value = "";
+            });
+            btnEditPassword.addEventListener("click", () => {
+                passwordFields.classList.toggle("hidden");
+                if (passwordFields.classList.contains("hidden")) {
+                    passBaru.value = "";
+                    passKonfirmasi.value = "";
+                }
+            });
+            formAkun.addEventListener("submit", (e) => {
+                e.preventDefault();
+                if (
+                    !passwordFields.classList.contains("hidden") &&
+                    passBaru.value !== passKonfirmasi.value
+                ) {
+                    alert("Konfirmasi password tidak cocok!");
+                    return;
+                }
+                const formData = new FormData(formAkun);
+                formData.append("form_type", "akun");
+                fetch("/customer/api/profile", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((res) => res.json())
+                    .then((data) => {
+                        alert(data.message);
+                        if (data.status === "success") {
+                            actionButtonsAkun.classList.add("hidden");
+                            btnEditAkun.classList.remove("hidden");
+                            passwordFields.classList.add("hidden");
+                        }
+                    });
+            });
+        </script>
+    </body>
+</html>

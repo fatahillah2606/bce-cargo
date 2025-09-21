@@ -1,0 +1,108 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='dist/output.css')}}"
+        />
+    </head>
+    <body class="flex items-center justify-center h-screen">
+        <form action="" method="post" id="regist">
+            <table>
+                <tr>
+                    <td><label for="name">Name</label></td>
+                    <td>
+                        <input type="text" name="name" id="name" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email</label></td>
+                    <td>
+                        <input type="text" name="email" id="email" required />
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password</label></td>
+                    <td>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            required
+                        />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="role">Role</label>
+                    </td>
+                    <td>
+                        <select name="role" id="role">
+                            <option value="">-- Select --</option>
+                            <option value="admin">Admin</option>
+                            <option value="customer">Customer</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button
+                            class="bg-green-500 px-5 py-2.5 rounded text-white"
+                            type="submit"
+                            id="submit"
+                            onclick="regist(event)"
+                        >
+                            Submit
+                        </button>
+                        <button
+                            class="bg-green-500 px-5 py-2.5 rounded text-white"
+                            type="reset"
+                            id="reset"
+                        >
+                            Reset
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script>
+            function regist(event) {
+                event.preventDefault();
+
+                let registFormElm = document.getElementById("regist");
+                const registForm = new FormData(registFormElm);
+                registForm.append("sendUser", true);
+
+                let filledForm = true;
+
+                registForm.forEach((value) => {
+                    if (value === "") {
+                        filledForm = false;
+                    }
+                });
+
+                if (filledForm) {
+                    const xhr = new XMLHttpRequest();
+
+                    xhr.open("POST", "/admin/api/auth", true);
+
+                    xhr.onload = () => {
+                        if (xhr.status === 200) {
+                            const respon = JSON.parse(xhr.responseText);
+                            console.log(respon);
+                        } else {
+                            console.error("");
+                        }
+                    };
+
+                    xhr.send(registForm);
+                } else {
+                    alert("Please fill required form");
+                }
+            }
+        </script>
+    </body>
+</html>

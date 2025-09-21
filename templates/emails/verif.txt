@@ -1,0 +1,15 @@
+Halo {{USER_NAME}},
+
+Berikut adalah kode verifikasi Anda untuk akun {{APP_NAME}}:
+
+{{CODE}}
+
+Kode ini hanya berlaku selama {{EXP_MINUTES}} menit.
+Jangan bagikan kode ini kepada siapa pun demi keamanan akun Anda.
+
+Jika Anda tidak meminta kode ini, abaikan saja email ini.
+Untuk bantuan, hubungi {{SUPPORT_EMAIL}}.
+
+Terima kasih,
+Tim {{APP_NAME}}
+© {{YEAR}} {{APP_NAME}}

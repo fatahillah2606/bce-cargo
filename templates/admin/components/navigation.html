@@ -1,0 +1,99 @@
+<!-- sidebar -->
+<nav class="bg-zinc-100 dark:bg-zinc-900 shadow z-10">
+    <!-- Logo -->
+    <div
+        class="sticky top-0 w-full h-16 flex items-center justify-between shrink-0 px-5 bg-white dark:bg-zinc-800"
+    >
+        <div class="flex items-center gap-1">
+            <img
+                src="{{url_for('static', filename='images/logo_transparant.png')}}"
+                alt="Logo BCE"
+                class="w-12 h-12 invert dark:invert-0"
+            />
+            <h1 class="font-bold text-2xl dark:text-white">Cargo</h1>
+        </div>
+        <span
+            class="material-symbols-rounded dark:text-white"
+            id="side-menu-btn-close"
+            onclick="closeNavigation()"
+        >
+            close
+        </span>
+    </div>
+    <!-- Menu -->
+    {% from "admin/components/_macros.html" import sidebar_item %}
+    <div class="side-menu bg-white dark:bg-zinc-800">
+        <!-- Dashboard -->
+        {{ sidebar_item('Dashboard', 'dashboard', url_for('admin.dashboard'),
+        active_page, 'dashboard') }}
+
+        <!-- Pesanan -->
+        {{ sidebar_item('Kelola Pesanan', 'local_shipping',
+        url_for('admin.pesanan_masuk'), active_page, 'pesanan_masuk') }}
+
+        <!-- Invoice -->
+        {{ sidebar_item('Invoice', 'receipt_long', url_for('admin.invoice'),
+        active_page, 'invoice') }}
+
+        <!-- Laporan -->
+        {{ sidebar_item('Laporan', 'bar_chart', url_for('admin.laporan'),
+        active_page, 'laporan') }}
+
+        <!-- Manajemen Pengguna -->
+        {{ sidebar_item('Manajemen Pengguna', 'supervisor_account',
+        url_for('admin.manajemen_pengguna'), active_page, 'manajemen_pengguna')
+        }}
+
+        <!-- Kategori Barang Kargo -->
+        {{ sidebar_item('Kategori Barang Kargo', 'category',
+        url_for('admin.kategori'), active_page, 'kategori') }}
+
+        <!-- Tarif Pengiriman -->
+        {{ sidebar_item('Tarif pengiriman', 'payments', url_for('admin.tarif'),
+        active_page, 'tarif') }}
+
+        <!-- Keluhan -->
+        {{ sidebar_item('Keluhan', 'feedback', url_for('admin.keluhan'),
+        active_page, 'keluhan') }}
+    </div>
+    <!-- User profile -->
+    <!-- <div
+        class=" user-profile bg-white dark:bg-zinc-800"
+        data-popover-target="popover-profile"
+        data-popover-trigger="click"
+    >
+        <div class="flex justify-center items-center gap-2.5">
+            <img
+                src="{{url_for('static', filename='images/logo.png')}}"
+                alt="Logo BCE"
+                class="w-10 h-10 rounded-full"
+            />
+            <div class="flex flex-col">
+                <span class="font-bold text-xl dark:text-white"
+                    >{{ nama_pengguna }}
+                </span>
+                <span class="text-zinc-500 dark:text-zinc-400">
+                    {{ role_pengguna }}
+                </span>
+            </div>
+        </div>
+        <span class="material-symbols-rounded text-zinc-500 dark:text-zinc-400"
+            >more_horiz</span
+        >
+    </div>
+    <div
+        data-popover
+        id="popover-profile"
+        role="tooltip"
+        class="absolute z-10 invisible inline-block w-60 text-sm text-zinc-500 dark:text-zinc-400 transition-opacity duration-300 bg-white border border-zinc-200 rounded-lg shadow-xs opacity-0 dark:border-zinc-600 dark:bg-zinc-800 py-2.5 px-1.5"
+    >
+        <a
+            href="/admin/logout"
+            class="px-3 py-2 flex items-center gap-2 hover:bg-red-500 hover:text-white rounded-lg"
+        >
+            <span class="material-symbols-rounded"> logout </span>
+            <p>Logout</p>
+        </a>
+        <div data-popper-arrow></div>
+    </div> -->
+</nav>

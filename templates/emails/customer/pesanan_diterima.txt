@@ -1,0 +1,51 @@
+[PESANAN DITERIMA - PROFORMA INVOICE]
+
+Halo {{nama_pengirim}},
+
+Pesanan Anda dengan kode pemesanan: {{kode_pemesanan}} telah DITERIMA.
+Berikut kami lampirkan PROFORMA INVOICE sebagai estimasi biaya.
+
+Perhatian:
+Biaya yang tertera pada invoice ini masih bersifat estimasi.
+Invoice final akan dikirimkan kembali setelah pengecekan selesai
+dan biaya telah dipastikan.
+
+------------------------------------------------------------
+Invoice #: {{invoice_number}}
+Tanggal  : {{tanggal_invoice}}
+------------------------------------------------------------
+
+Pay to:
+BCE Cargo, Indonesia
+Ware House Area Regulated Agent PT.
+Gatrans Soekarno Hatta Air Port
+NPWP: 63.410.875.7 – 402.000
+
+Invoice to:
+{{nama_pengirim}}
+{{alamat_pengirim}}
+{{no_hp_pengirim}}
+
+------------------------------------------------------------
+Nama Barang             Jumlah   Dimensi (cm)           Kategori      Metode Pengiriman
+----------------------------------------------------------------------------------------
+{% for barang in data_barang %}
+{{barang.nama_barang}}       {{barang.jumlah}}   {{barang.dimensi_cm.panjang}} x {{barang.dimensi_cm.lebar}} x {{barang.dimensi_cm.tinggi}}       {{barang.nama_kategori}}   {{barang.metode_pengiriman}}
+{% endfor %}
+----------------------------------------------------------------------------------------
+
+Order Summary (Estimasi):
+Subtotal        : {{subtotal}}
+Biaya Surcharge : {{surcharge_dg}}
+Biaya Packing   : {{biaya_packing}}
+Diskon          : {{diskon}}
+------------------------------------------------------------
+TOTAL (Estimasi): Rp {{total}}
+------------------------------------------------------------
+
+Terima kasih telah menggunakan layanan {{APP_NAME}}.
+Kami akan segera melakukan pengecekan lebih lanjut
+untuk memastikan biaya final.
+
+Salam hangat,  
+Tim {{APP_NAME}}
