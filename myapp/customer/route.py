@@ -906,4 +906,113 @@ def get_barang_pesanan(kode_pemesanan):
     except Exception as e:
         return respon_api("error", 500, "Gagal mengambil barang pesanan", str(e), {}), 500
 
-        
+
+# Lupa Password - Kirim kode OTP ke email
+@customer_route.route("/api/auth/forgotpw", methods=["POST"])
+def api_forgotpw():
+    try:
+        email = str(request.form["email"])
+        akun = userData.find_one({"email": email, "role": "customer"})
+        if not akun:
+            return respon_api("error", 404, "Email tidak terdaftar", [], {}), 404
+
+        # Generate OTP
+        kode = generate_verification_code()
+        hashedKode = bcrypt.hashpw(kode.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        expired_at = datetime.now(timezone.utc) + timedelta(minutes=5)
+
+        # Simpan ke DB
+        userData.update_one(
+            {"_id": akun["_id"]},
+            {"$set": {"kode_verif": {"kode": hashedKode, "expired_at": expired_at, "is_verified": False}}}
+        )
+
+        # Kirim email
+        context = {
+            "USER_NAME": akun["name"],
+            "APP_NAME": "CV. Bahtera Cahaya Express",
+            "CODE": kode,
+            "EXP_MINUTES": 5,
+        }
+        html_body = render_template("emails/verif.html", **context)
+        text_body = render_template("emails/verif.txt", **context)
+
+        send_email_smtp(
+            host=current_app.config['MAIL_SERVER'],
+            port=current_app.config['MAIL_PORT'],
+            sender=current_app.config['MAIL_SENDER'],
+            to=email,
+            subject=f"Kode Reset Password Anda: {kode}",
+            html_body=html_body,
+            text_body=text_body
+        )
+
+        # Simpan email ke session
+        session["reset_email"] = email
+        return respon_api("success", 200, "Kode verifikasi berhasil dikirim ke email", [], {})
+    except Exception as e:
+        return respon_api("error", 500, str(e), [], {}), 500
+
+
+# Verifikasi OTP untuk reset password
+@customer_route.route("/api/auth/verifpw", methods=["POST"])
+def api_verifpw():
+    try:
+        email = session.get("reset_email")
+        if not email:
+            return respon_api("error", 400, "Session tidak ditemukan", [], {}), 400
+
+        kode = str(request.form["kode"])
+        akun = userData.find_one({"email": email})
+        if not akun or "kode_verif" not in akun:
+            return respon_api("error", 404, "Kode tidak ditemukan", [], {}), 404
+
+        kode_verif = akun["kode_verif"]
+
+        valid = bcrypt.checkpw(kode.encode("utf-8"), kode_verif["kode"].encode("utf-8"))
+        if not valid:
+            return respon_api("error", 401, "Kode OTP salah", [], {}), 401
+
+        # Tandai OTP valid
+        userData.update_one(
+            {"_id": akun["_id"]},
+            {"$set": {"kode_verif.is_verified": True}}
+        )
+
+        return respon_api("success", 200, "OTP berhasil diverifikasi", [], {})
+    except Exception as e:
+        return respon_api("error", 500, str(e), [], {}), 500
+
+
+# Set password baru
+@customer_route.route("/api/auth/newpw", methods=["POST"])
+def api_newpw():
+    try:
+        email = session.get("reset_email")
+        if not email:
+            return respon_api("error", 400, "Session tidak ditemukan", [], {}), 400
+
+        new_password = request.form["new_password"]
+        confirm_password = request.form["confirm_password"]
+
+        if new_password != confirm_password:
+            return respon_api("error", 400, "Password tidak sama", [], {}), 400
+
+        akun = userData.find_one({"email": email})
+        if not akun or "kode_verif" not in akun or not akun["kode_verif"].get("is_verified", False):
+            return respon_api("error", 400, "OTP belum diverifikasi", [], {}), 400
+
+        hashedPass = bcrypt.hashpw(new_password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+
+        # Update password
+        userData.update_one(
+            {"_id": akun["_id"]},
+            {"$set": {"password": hashedPass}, "$unset": {"kode_verif": ""}}
+        )
+
+        # Hapus session reset
+        session.pop("reset_email", None)
+
+        return respon_api("success", 200, "Password berhasil diperbarui", [], {})
+    except Exception as e:
+        return respon_api("error", 500, str(e), [], {}), 500

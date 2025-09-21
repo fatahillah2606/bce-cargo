@@ -158,6 +158,32 @@
                                 .classList.remove("hidden");
                         });
                 });
+
+            db.users.runCommand({
+                collMod: "users",
+                validator: {
+                    $jsonSchema: {
+                        bsonType: "object",
+                        required: ["name", "email", "password", "role"],
+                        properties: {
+                            name: { bsonType: "string" },
+                            email: { bsonType: "string" },
+                            password: { bsonType: "string" },
+                            role: { bsonType: "string" },
+                            // Tambahkan ini biar valid
+                            reset_pw: {
+                                bsonType: "object",
+                                properties: {
+                                    kode: { bsonType: "string" },
+                                    expired_at: { bsonType: "date" },
+                                    is_verified: { bsonType: "bool" },
+                                },
+                            },
+                        },
+                        additionalProperties: false,
+                    },
+                },
+            });
         </script>
     </body>
 </html>
