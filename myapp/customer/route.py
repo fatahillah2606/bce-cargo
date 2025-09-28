@@ -317,6 +317,12 @@ def riwayatSpesifik(kode_pesanan):
     else:
         return(redirect(url_for("customer.pendaftaran")))
 
+# KONFIRMASI PESANAN
+@customer_route.route("/konfirmpemesanan", methods=["GET", "POST"])
+@khusus_customer
+def konfirmpemesanan():
+    return render_template("customer/pages/konfirmpemesanan.html")
+
 # Invoice
 @customer_route.route("/invoice/<kode_invoice>", methods=["GET", "POST"])
 @khusus_customer

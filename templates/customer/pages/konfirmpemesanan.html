@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Konfirmasi Pesanan | BCE</title>
+        <link
+            href="{{url_for('static',filename='dist/output.css')}}"
+            rel="stylesheet"
+        />
+        <!-- Local CSS -->
+        <link
+            rel="stylesheet"
+            href="{{url_for('static',filename='css/customer/style.css')}}"
+        />
+        <!-- Google icon -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <style>
+            section {
+                min-height: auto;
+            }
+            /* Zoom in & out sedang */
+            @keyframes zoomPulse {
+                0%,
+                100% {
+                    transform: scale(0.95);
+                    opacity: 0.95;
+                }
+                50% {
+                    transform: scale(1.05);
+                    opacity: 1;
+                }
+            }
+            .animate-zoom-pulse {
+                animation: zoomPulse 2.5s ease-in-out infinite;
+            }
+
+            /* Glow neon menyatu logo */
+            .logo-glow {
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+                    drop-shadow(0 0 20px rgba(255, 255, 255, 0.6))
+                    drop-shadow(0 0 40px rgba(144, 238, 144, 0.6));
+                animation: glowPulse 1s ease-in-out infinite;
+            }
+
+            @keyframes glowPulse {
+                0%,
+                100% {
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.7))
+                        drop-shadow(0 0 16px rgba(255, 255, 255, 0.5))
+                        drop-shadow(0 0 32px rgba(144, 238, 144, 0.5));
+                }
+                50% {
+                    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.9))
+                        drop-shadow(0 0 30px rgba(255, 255, 255, 0.8))
+                        drop-shadow(0 0 60px rgba(144, 238, 144, 0.7));
+                }
+            }
+        </style>
+    </head>
+    <body class="bg-zinc-100 font-sans">
+        <!-- Navbar -->
+        {% include 'customer/components/navbar.html' %}
+
+        <!-- floating -->
+        {% include 'customer/components/floating-sidebar.html' %}
+
+        <!-- Histori Pesanan -->
+        <div class="p-10">
+            <div class="p-6 dark:bg-zinc-900">
+                <!-- Header -->
+                <div
+                    class="flex items-center flex-wrap justify-between mb-6 gap-6"
+                >
+                    <div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <h2 class="text-lg font-semibold dark:text-white">
+                                Order
+                            </h2>
+                            <span
+                                id="status-pesanan"
+                                class="text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm"
+                            ></span>
+                        </div>
+                        <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                            Tanggal dibuat:
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-6 lg:gap-6">
+                    <!-- Order Details -->
+                    <div
+                        class="col-span-2 bg-white dark:bg-zinc-800 rounded-lg shadow p-6"
+                    >
+                        <h3 class="text-lg font-semibold dark:text-white mb-4">
+                            Order details
+                        </h3>
+                        <div class="overflow-x-auto">
+                            <table
+                                class="w-full text-sm text-left text-zinc-600 dark:text-zinc-400"
+                            >
+                                <thead
+                                    class="text-xs uppercase bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-400"
+                                >
+                                    <tr>
+                                        <th class="px-4 py-3">Nama Barang</th>
+                                        <th class="px-4 py-3">Jumlah</th>
+                                        <th class="px-4 py-3">Dimensi (cm)</th>
+                                        <th class="px-4 py-3">Kategori</th>
+                                        <th class="px-4 py-3">
+                                            Metode pengiriman
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    id="list-barang"
+                                    class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
+                                >
+                                    {% for barang in range(10) %}
+                                    <tr>
+                                        <td class="px-4 py-3"></td>
+                                        <td class="px-4 py-3"></td>
+                                        <td class="px-4 py-3"></td>
+                                        <td class="px-4 py-3"></td>
+                                        <td class="px-4 py-3"></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Order Summary -->
+                        <div class="mt-6">
+                            <h4
+                                class="text-md font-semibold dark:text-white mb-2"
+                            >
+                                Order summary
+                            </h4>
+                            <div
+                                class="bg-zinc-100 dark:bg-zinc-700 rounded-lg p-4 space-y-2"
+                            >
+                                <div class="flex justify-between">
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-300"
+                                        >Subtotal</span
+                                    >
+                                    <span class="dark:text-white font-semibold"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between">
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-300"
+                                        >Biaya Surcharge</span
+                                    >
+                                    <span class="dark:text-white font-semibold"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between">
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-300"
+                                        >Biaya Packing</span
+                                    >
+                                    <span class="dark:text-white font-semibold"
+                                        >0</span
+                                    >
+                                </div>
+                                <div class="flex justify-between">
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-300"
+                                        >Diskon</span
+                                    >
+                                    <span class="dark:text-white font-semibold"
+                                        >0%</span
+                                    >
+                                </div>
+                                <hr
+                                    class="border-zinc-300 dark:border-zinc-600 my-2"
+                                />
+                                <div
+                                    class="flex justify-between text-lg font-bold"
+                                >
+                                    <span class="dark:text-white">Total</span>
+                                    <span
+                                        class="text-green-600 dark:text-green-400"
+                                    ></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TRANSFER BANK -->
+                        <div class="mt-6">
+                            <h4
+                                class="text-md font-semibold dark:text-white mb-2"
+                            >
+                                Transfer Bank
+                            </h4>
+                            <div
+                                class="bg-zinc-100 dark:bg-zinc-700 rounded-lg p-4 space-y-3"
+                            >
+                                <!-- Bank BCA -->
+                                <div class="flex items-center space-x-3">
+                                    <img
+                                        src="{{ url_for('static',filename='images/BCA.png') }}"
+                                        class="w-16"
+                                        alt="BCA"
+                                    />
+                                    <p
+                                        class="text-sm text-zinc-700 dark:text-zinc-300 font-bold"
+                                    >
+                                        1087-6434-25
+                                    </p>
+                                </div>
+
+                                <!-- Bank Mandiri -->
+                                <div class="flex items-center space-x-3">
+                                    <img
+                                        src="{{ url_for('static',filename='images/mandiri.png') }}"
+                                        class="w-16"
+                                        alt="Mandiri"
+                                    />
+                                    <p
+                                        class="text-sm text-zinc-700 dark:text-zinc-300 font-bold"
+                                    >
+                                        1550-0051-1510-3
+                                    </p>
+                                </div>
+
+                                <!-- Nama Pemilik & Total Biaya -->
+                                <div
+                                    class="flex justify-between mt-3 border-t border-zinc-300 dark:border-zinc-600 pt-2"
+                                >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400"
+                                    >
+                                        A/N ATEP SOPIAN PERMANA
+                                    </span>
+                                    <span
+                                        class="dark:text-white font-semibold"
+                                        id="total-biaya"
+                                    ></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer & Receiver Details -->
+                    <div class="space-y-6">
+                        <!-- Pengirim -->
+                        <div
+                            class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6"
+                        >
+                            <h3
+                                class="text-lg font-semibold dark:text-white mb-4"
+                            >
+                                Detail Pengirim
+                            </h3>
+                            <ul
+                                class="space-y-2 text-zinc-700 dark:text-zinc-300 text-sm divide-y divide-zinc-200 dark:divide-zinc-700"
+                            >
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Nama:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Nama Perusahaan:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Alamat:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Nomor HP:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Penerima -->
+                        <div
+                            class="bg-white dark:bg-zinc-800 rounded-lg shadow p-6"
+                        >
+                            <h3
+                                class="text-lg font-semibold dark:text-white mb-4"
+                            >
+                                Detail Penerima
+                            </h3>
+                            <ul
+                                class="space-y-2 text-zinc-700 dark:text-zinc-300 text-sm divide-y divide-zinc-200 dark:divide-zinc-700"
+                            >
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Nama:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Alamat:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+                                <li class="flex justify-between gap-2.5 py-2.5">
+                                    <span class="font-medium dark:text-white"
+                                        >Nomor HP:</span
+                                    >
+                                    <span
+                                        class="text-zinc-600 dark:text-zinc-400 text-right"
+                                    >
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer -->
+        {% include 'customer/components/footer.html' %}
+        <!-- Flowbite JS -->
+        <script src="/node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script></script>
+    </body>
+</html>
