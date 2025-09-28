@@ -104,7 +104,7 @@ const generateResponse = (incomingChatLi) => {
         })
         .catch((error) => {
             messageElement.textContent =
-                "Oops! Something went wrong. Please try again.";
+                "Mohon maaf terjadi kesalahan pada server.";
         })
         .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 };
@@ -122,7 +122,10 @@ const handleChat = () => {
 
     setTimeout(() => {
         // Display "Thinking..." message while waiting for the response
-        const incomingChatLi = createChatLi("Thinking...", "incoming");
+        const incomingChatLi = createChatLi(
+            "Tunggu sebentar yaa...",
+            "incoming"
+        );
         chatbox.appendChild(incomingChatLi);
         chatbox.scrollTo(0, chatbox.scrollHeight);
         generateResponse(incomingChatLi);
