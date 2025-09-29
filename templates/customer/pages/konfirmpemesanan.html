@@ -86,7 +86,7 @@
                     <div>
                         <div class="flex flex-wrap items-center gap-2">
                             <h2 class="text-lg font-semibold dark:text-white">
-                                Order
+                                Order {{data_pesanan.kode_pemesanan}}
                             </h2>
                             <span
                                 id="status-pesanan"
@@ -94,7 +94,7 @@
                             ></span>
                         </div>
                         <p class="text-sm text-zinc-600 dark:text-zinc-400">
-                            Tanggal dibuat:
+                            Tanggal pesanan: {{data_pesanan.tanggal_pemesanan}}
                         </p>
                     </div>
                 </div>
@@ -128,13 +128,25 @@
                                     id="list-barang"
                                     class="bg-white dark:bg-zinc-800 divide-y divide-zinc-200 dark:divide-zinc-700"
                                 >
-                                    {% for barang in range(10) %}
+                                    {% for barang in data_barang %}
                                     <tr>
-                                        <td class="px-4 py-3"></td>
-                                        <td class="px-4 py-3"></td>
-                                        <td class="px-4 py-3"></td>
-                                        <td class="px-4 py-3"></td>
-                                        <td class="px-4 py-3"></td>
+                                        <td class="px-4 py-3">
+                                            {{barang.nama_barang}}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            {{barang.jumlah}}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            {{barang.dimensi_cm.panjang}} x
+                                            {{barang.dimensi_cm.lebar}} x
+                                            {{barang.dimensi_cm.tinggi}}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            {{barang.nama_kategori}}
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            {{barang.metode_pengiriman}}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>
@@ -157,7 +169,7 @@
                                         >Subtotal</span
                                     >
                                     <span class="dark:text-white font-semibold"
-                                        >0</span
+                                        >Rp {{ biaya.subtotal }}</span
                                     >
                                 </div>
                                 <div class="flex justify-between">
@@ -166,7 +178,7 @@
                                         >Biaya Surcharge</span
                                     >
                                     <span class="dark:text-white font-semibold"
-                                        >0</span
+                                        >Rp {{ biaya.surcharge }}</span
                                     >
                                 </div>
                                 <div class="flex justify-between">
@@ -175,7 +187,7 @@
                                         >Biaya Packing</span
                                     >
                                     <span class="dark:text-white font-semibold"
-                                        >0</span
+                                        >Rp {{ biaya.packing }}</span
                                     >
                                 </div>
                                 <div class="flex justify-between">
@@ -184,7 +196,7 @@
                                         >Diskon</span
                                     >
                                     <span class="dark:text-white font-semibold"
-                                        >0%</span
+                                        >{{ biaya.diskon }}%</span
                                     >
                                 </div>
                                 <hr
@@ -196,7 +208,10 @@
                                     <span class="dark:text-white">Total</span>
                                     <span
                                         class="text-green-600 dark:text-green-400"
-                                    ></span>
+                                    >
+                                        Rp {{ biaya.subtotal + biaya.surcharge +
+                                        biaya.packing }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -278,6 +293,7 @@
                                     <span
                                         class="text-zinc-600 dark:text-zinc-400 text-right"
                                     >
+                                        {{data_pesanan.nama_pengirim}}
                                     </span>
                                 </li>
 
@@ -298,6 +314,7 @@
                                     <span
                                         class="text-zinc-600 dark:text-zinc-400 text-right"
                                     >
+                                        {{data_pesanan.alamat_pengirim}}
                                     </span>
                                 </li>
                                 <li class="flex justify-between gap-2.5 py-2.5">
@@ -307,6 +324,7 @@
                                     <span
                                         class="text-zinc-600 dark:text-zinc-400 text-right"
                                     >
+                                        {{data_pesanan.no_hp_pengirim}}
                                     </span>
                                 </li>
                             </ul>
@@ -331,6 +349,7 @@
                                     <span
                                         class="text-zinc-600 dark:text-zinc-400 text-right"
                                     >
+                                        {{data_pesanan.nama_penerima}}
                                     </span>
                                 </li>
                                 <li class="flex justify-between gap-2.5 py-2.5">
@@ -340,6 +359,7 @@
                                     <span
                                         class="text-zinc-600 dark:text-zinc-400 text-right"
                                     >
+                                        {{data_pesanan.alamat_penerima}}
                                     </span>
                                 </li>
                                 <li class="flex justify-between gap-2.5 py-2.5">
@@ -349,6 +369,7 @@
                                     <span
                                         class="text-zinc-600 dark:text-zinc-400 text-right"
                                     >
+                                        {{data_pesanan.no_hp_penerima}}
                                     </span>
                                 </li>
                             </ul>
