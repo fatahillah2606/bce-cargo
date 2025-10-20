@@ -3,50 +3,71 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta
-            name="keywords"
-            content="jasa pengiriman kargo, ekspedisi kargo, jasa logistik, cargo darat, cargo laut, cargo udara, jasa ekspedisi terpercaya, pengiriman barang besar, cargo murah Indonesia"
-        />
-        <meta
-            name="description"
-            content="BCE Cargo - Jasa pengiriman kargo darat, laut, dan udara dengan tarif terjangkau dan pengiriman cepat ke seluruh Indonesia. Cek ongkir sekarang!"
-        />
-
-        <meta name="author" content="Atep Sopian Permana" />
         <title>Bahtera Cahaya Express</title>
+        <!-- Chatbot CSS -->
+        <link rel="stylesheet" href="static/css/chatbot.css" />
+        <!-- Favicon -->
         <link rel="icon" type="image/x-icon" href="static/images/favicon.ico" />
-        <!-- Styles -->
+        <!-- Local CSS -->
         <link rel="stylesheet" href="static/css/style.css" />
-        <!-- CDN's -->
+        <!-- Google icon -->
         <link
-            href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css"
             rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         />
+        <!-- SwiperJS CSS -->
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
         />
+        <!-- Font Awesome -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+            integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        />
+        <!-- CSS Animation (Client) -->
+        <style>
+            @keyframes marquee {
+                0% {
+                    transform: translateX(0%);
+                }
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+            .animate-marquee {
+                display: flex;
+                width: max-content;
+                animation: marquee 25s linear infinite;
+            }
+        </style>
+
+        <!-- Tailwind -->
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     </head>
     <body class="bg-white dark:bg-gray-900">
         <!-- Navbar -->
         <nav
-            class="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 sticky top-0 z-100"
+            class="bg-green-500 border-green-200 dark:bg-green-900 dark:border-green-700 sticky w-full top-0 z-100"
         >
             <div
                 class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
             >
                 <a
-                    href="#"
+                    href="/#"
                     class="flex items-center space-x-3 rtl:space-x-reverse"
                 >
                     <img
-                        src="static/images/logo.jpg"
+                        src="static/images/logo_transparant.png"
                         class="h-8"
                         alt="BCE Logo"
                     />
                     <span
-                        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-                        >BCE Cargo</span
+                        class="self-center text-2xl font-semibold whitespace-nowrap text-white hidden sm:block"
+                        >Bahtera Cahaya Express</span
                     >
                 </a>
                 <button
@@ -58,7 +79,7 @@
                 >
                     <span class="sr-only">Open main menu</span>
                     <svg
-                        class="w-5 h-5"
+                        class="w-5 h-5 text-white"
                         aria-hidden="true"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -78,34 +99,34 @@
                     id="navbar-dropdown"
                 >
                     <ul
-                        class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
+                        class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:bg-transparent md:border-none md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-transparent dark:border-gray-700 md:dark:border-none"
                     >
                         <li>
                             <a
-                                href="#"
-                                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                href="/#"
+                                class="page-link block py-2 px-3 text-gray-900 md:text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                                 aria-current="page"
                                 >Home</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#about"
-                                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                href="/#about"
+                                class="page-link block py-2 px-3 text-gray-900 md:text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                                 >About</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#services"
-                                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                href="/#services"
+                                class="page-link block py-2 px-3 text-gray-900 md:text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                                 >Services</a
                             >
                         </li>
                         <li>
                             <a
-                                href="#contact"
-                                class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                                href="/#contact"
+                                class="page-link block py-2 px-3 text-gray-900 md:text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-green-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                                 >Contact</a
                             >
                         </li>
@@ -114,7 +135,7 @@
                             <button
                                 id="dropdownNavbarLink"
                                 data-dropdown-toggle="dropdownNavbar"
-                                class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-green-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
+                                class="flex items-center justify-between w-full py-2 px-3 text-gray-900 md:text-white rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-green-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent cursor-pointer"
                             >
                                 More
                                 <svg
@@ -144,29 +165,29 @@
                                 >
                                     <li>
                                         <a
-                                            href="#legality"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            href="/#legality"
+                                            class="page-link block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >Legality</a
                                         >
                                     </li>
                                     <li>
                                         <a
-                                            href="#clients"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            href="/#clients"
+                                            class="page-link block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >Clients</a
                                         >
                                     </li>
                                     <li>
                                         <a
-                                            href="#gallery"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            href="/#gallery"
+                                            class="page-link block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >Gallery</a
                                         >
                                     </li>
                                     <li>
                                         <a
-                                            href="#location"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                                            href="/#location"
+                                            class="page-link block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                                             >Location</a
                                         >
                                     </li>
@@ -174,7 +195,7 @@
                                 <div class="py-1">
                                     <a
                                         href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                                        class="page-link block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                                         >Sign in</a
                                     >
                                 </div>
@@ -185,654 +206,915 @@
             </div>
         </nav>
 
-        <!-- Header -->
-        <swiper-container
-            class="mySwiper bg-white dark:bg-gray-900 z-10"
-            pagination="true"
-            pagination-clickable="true"
-            pagination-dynamic-bullets="true"
-            space-between="30"
-            loop="true"
+        <!-- Floating Sidebar -->
+        <div
+            class="floating-sidebar bg-green-500 dark:bg-green-900 p-2 flex flex-col space-y-2 rounded-r-lg shadow-lg !hidden"
         >
-            <!-- Slide 1 -->
-            <swiper-slide>
-                <section
-                    class="bg-center bg-no-repeat bg-gray-700 bg-blend-multiply slide-bg"
+            <a
+                href="/customer/profile"
+                class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+            >
+                <span class="material-symbols-rounded text-white">person</span>
+                <span
+                    class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
                 >
-                    <div
-                        class="px-4 mx-auto max-w-screen-xl h-full text-center py-24 lg:py-56"
-                    >
-                        <h1
-                            class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl"
-                        >
-                            Bahtera Cahaya Express
-                        </h1>
-                        <p
-                            class="mb-8 text-lg font-normal text-gray-300 lg:text-xl sm:px-16 lg:px-48"
-                        >
-                            We can delivery all your cargo shipments on time.
-                            Logistic, Courie, Cargo, and Transportations
-                        </p>
-                        <div
-                            class="flex flex-col space-y-4 sm:flex-row sm:justify-center sm:space-y-0"
-                        >
-                            <a
-                                href="#"
-                                class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900"
-                            >
-                                Get started
-                                <svg
-                                    class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 14 10"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                                    />
-                                </svg>
-                            </a>
-                            <a
-                                href="#about"
-                                class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
-                            >
-                                Learn more
-                            </a>
-                        </div>
-                    </div>
-                </section>
-            </swiper-slide>
-            <!-- Slide 2 -->
-            <swiper-slide>
-                <section class="bg-gray-50 dark:bg-gray-900">
-                    <div
-                        class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16"
-                    >
-                        <div class="flex flex-col justify-center">
-                            <h1
-                                class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white"
-                            >
-                                We invest in the world’s potential
-                            </h1>
-                            <p
-                                class="mb-6 text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400"
-                            >
-                                Here at Flowbite we focus on markets where
-                                technology, innovation, and capital can unlock
-                                long-term value and drive economic growth.
-                            </p>
-                            <a
-                                href="#about"
-                                class="text-green-600 dark:text-green-500 hover:underline font-medium text-lg inline-flex items-center"
-                                >Read more about us
-                                <svg
-                                    class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 14 10"
-                                >
-                                    <path
-                                        stroke="currentColor"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        stroke-width="2"
-                                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                                    />
-                                </svg>
-                            </a>
-                        </div>
-                        <div>
-                            <div
-                                class="w-full lg:max-w-xl p-6 space-y-8 sm:p-8 bg-white rounded-lg shadow-xl dark:bg-gray-800"
-                            >
-                                <h2
-                                    class="text-2xl font-bold text-gray-900 dark:text-white"
-                                >
-                                    Daftar ke BCE Cargo
-                                </h2>
-                                <form class="mt-8 space-y-6" action="#">
-                                    <div>
-                                        <label
-                                            for="email"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                            >Email</label
-                                        >
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                                            placeholder="nama@email.com"
-                                            required
-                                        />
-                                    </div>
-                                    <div>
-                                        <label
-                                            for="password"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                            >Password</label
-                                        >
-                                        <input
-                                            type="password"
-                                            name="password"
-                                            id="password"
-                                            placeholder="••••••••"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-green-500 dark:focus:border-green-500"
-                                            required
-                                        />
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input
-                                                id="remember"
-                                                aria-describedby="remember"
-                                                name="remember"
-                                                type="checkbox"
-                                                class="w-4 h-4 border-gray-300 rounded-sm bg-gray-50 focus:ring-3 focus:ring-green-300 dark:focus:ring-green-600 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600"
-                                                required
-                                            />
-                                        </div>
-                                        <div class="ms-3 text-sm">
-                                            <label
-                                                for="remember"
-                                                class="font-medium text-gray-500 dark:text-gray-400"
-                                                >Ingat perangkat ini</label
-                                            >
-                                        </div>
-                                        <a
-                                            href="#"
-                                            class="ms-auto text-sm font-medium text-green-600 hover:underline dark:text-green-500"
-                                            >Lupa sandi?</a
-                                        >
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        class="w-full px-5 py-3 text-base font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:ring-green-300 sm:w-auto dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                                    >
-                                        Masuk
-                                    </button>
-                                    <div
-                                        class="text-sm font-medium text-gray-900 dark:text-white"
-                                    >
-                                        Belum mendaftar?
-                                        <a
-                                            class="text-green-600 hover:underline dark:text-green-500"
-                                            >Buat akun</a
-                                        >
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </swiper-slide>
-        </swiper-container>
+                    Profile
+                </span>
+            </a>
 
-        <!-- About US -->
-        <section class="bg-white dark:bg-gray-900 main-section" id="about">
-            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16">
+            <a
+                href="/customer/ongkir"
+                class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+            >
+                <span class="material-symbols-rounded text-white"
+                    >payments</span
+                >
+                <span
+                    class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+                >
+                    Cek Ongkir
+                </span>
+            </a>
+
+            <!-- wajib login -->
+            <div
+                id="wajib-login"
+                class="{% if 'user_id' not in session or session.get('role') != 'customer' %}hidden{% endif %} flex flex-col space-y-2"
+            >
+                <a
+                    href="/customer/pesanan"
+                    class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+                >
+                    <span class="material-symbols-rounded text-white"
+                        >add_shopping_cart</span
+                    >
+                    <span
+                        class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+                    >
+                        Pesanan
+                    </span>
+                </a>
+
+                <a
+                    href="/customer/profile#bagian-buku-alamat"
+                    class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+                >
+                    <span class="material-symbols-rounded text-white"
+                        >location_on</span
+                    >
+                    <span
+                        class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+                    >
+                        Alamat
+                    </span>
+                </a>
+
+                <a
+                    href="/customer/riwayat"
+                    class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+                >
+                    <span class="material-symbols-rounded text-white"
+                        >receipt_long</span
+                    >
+                    <span
+                        class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+                    >
+                        Riwayat
+                    </span>
+                </a>
+
+                <a
+                    href="/customer/kategoribarang"
+                    class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+                >
+                    <span class="material-symbols-rounded text-white"
+                        >category</span
+                    >
+                    <span
+                        class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+                    >
+                        Kategori
+                    </span>
+                </a>
+
+                <a
+                    href="/customer/logout"
+                    class="page-link group relative flex items-center justify-center p-3 rounded-lg hover:bg-green-600 transition"
+                >
+                    <span class="material-symbols-rounded text-white"
+                        >logout</span
+                    >
+                    <span
+                        class="absolute left-full ml-2 px-2 py-1 text-sm text-white bg-gray-800 rounded opacity-0 group-hover:opacity-100 transition"
+                    >
+                        Logout
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Header -->
+
+        <section class="bg-gray-700 bg-blend-multiply slide-bg" id="header">
+            <div
+                class="px-4 mx-auto max-w-screen-xl h-full text-center md:text-left py-24 lg:py-56"
+            >
+                <h1
+                    class="mb-4 font-extrabold tracking-tight leading-none text-white text-5xl max-w-full md:max-w-1/2"
+                >
+                    We can delivery all your cargo shipments on time
+                </h1>
+                <p
+                    class="mb-8 text-lg font-normal text-left text-white lg:text-xl"
+                >
+                    Logistic, Courie, Cargo, and Transportations
+                </p>
                 <div
-                    class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12 mb-8"
+                    class="flex flex-col space-y-4 sm:flex-row justify-start sm:space-y-0"
                 >
                     <a
-                        href="#"
-                        class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 mb-2"
+                        href="/customer/register"
+                        class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900"
                     >
+                        <span class="material-symbols-rounded mr-2">
+                            account_circle
+                        </span>
+                        Registrasi
                         <svg
-                            class="w-4 h-4 me-1.5"
+                            class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
-                            width="24"
-                            height="24"
-                            fill="currentColor"
-                            viewBox="0 0 24 24"
+                            fill="none"
+                            viewBox="0 0 14 10"
                         >
                             <path
-                                fill-rule="evenodd"
-                                d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4H6Zm7.25-2.095c.478-.86.75-1.85.75-2.905a5.973 5.973 0 0 0-.75-2.906 4 4 0 1 1 0 5.811ZM15.466 20c.34-.588.535-1.271.535-2v-1a5.978 5.978 0 0 0-1.528-4H18a4 4 0 0 1 4 4v1a2 2 0 0 1-2 2h-4.535Z"
-                                clip-rule="evenodd"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M1 5h12m0 0L9 1m4 4L9 9"
                             />
                         </svg>
-
-                        About Us
                     </a>
-                    <h1
-                        class="text-gray-900 dark:text-white text-3xl md:text-5xl font-extrabold mb-2"
+                    <a
+                        href="#about"
+                        class="inline-flex justify-center bg-green-800 opacity-50 hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
                     >
-                        Tentang kami
+                        Learn more
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Redesigned -->
+        <section
+            class="relative bg-gradient-to-b from-green-50 via-white to-green-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-20"
+            id="about"
+        >
+            <div class="max-w-6xl mx-auto px-6 lg:px-8">
+                <!-- Title -->
+                <div class="text-center mb-16">
+                    <span
+                        class="inline-flex items-center px-3 py-1 text-xs font-semibold bg-green-100 text-green-700 rounded-full dark:bg-green-700 dark:text-green-200"
+                    >
+                        🌍 Tentang Kami
+                    </span>
+                    <h1
+                        class="mt-4 text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                    >
+                        CV. Bahtera Cahaya Express
                     </h1>
                     <p
-                        class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6"
+                        class="mt-4 max-w-3xl mx-auto text-lg text-gray-600 dark:text-gray-400 leading-relaxed"
                     >
-                        CV. Bahtera Cahaya Express sebagai agen SMU ( surat
-                        muatan udara ) di beberapa airline di antaranya Lion air
-                        grup, Garuda Indonesia, Rimbun air, Sriwijaya air, Asia
-                        Tri-mg, Citilink. Perusahaan Jasa Pengiriman Barang
-                        (cargo), yakni layanan pengiriman barang yang
-                        terintegrasi dengan menggunakan kombinasi moda angkutan
-                        baik darat, laut maupun udara secara door to door, door
-                        to port, port to port dan port to door dimana pelayanan
-                        dapat kami layani dari penjemputan hingga kiriman sampai
-                        ke tujuan.
-                    </p>
-                    <p
-                        class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-6"
-                    >
-                        Hal ini untuk membantu kelancaran usaha para pelaku
-                        bisnis baik perusahaan maupun perseorangan secara efekti
-                        dan efisien, sesetiyanan yang disediakan CV. Bahtera
-                        Cahaya Express dikemas secara utuh dalam satu konsep
-                        pusat layanan sehingga tidak hanya memberikan kemudahan
-                        tetapi juga mampu memberikan pelayanan yang didukung
-                        dengan segenap mitra kerja dan sumber daya manusia yang
-                        terlatih dan teruji menempatkan CV. Bahtera Cahaya
-                        Express sebagai perusahaan penyedia layanan jasa
-                        transportasi yang lengkap, profesional dan terpercaya.
+                        Perusahaan jasa pengiriman barang (cargo) yang
+                        mengutamakan
+                        <span class="font-semibold text-green-600"
+                            >kecepatan, keamanan, dan profesionalisme</span
+                        >
+                        dengan moda transportasi darat, laut, maupun udara.
+                        Layanan kami fleksibel mulai dari door-to-door,
+                        door-to-port, port-to-door hingga port-to-port. Selain
+                        itu BCE Cargo merupakan agen SMU ( surat muatan udara )
+                        di beberapa airline di antaranya: Lion air grup, Garuda
+                        Indonesia, Rimbun Air, Sriwijaya Air, Air Asia, Tri MG
+                        Asia Airlines, dan Citilink.
                     </p>
                 </div>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div
-                        class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
-                    >
-                        <a
-                            href="#"
-                            class="bg-green-100 text-green-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-green-400 mb-2"
+
+                <!-- Timeline Style -->
+                <div
+                    class="relative border-l border-green-300 dark:border-green-700 ml-6 space-y-12"
+                >
+                    <!-- About Company -->
+                    <div class="relative pl-10">
+                        <span
+                            class="absolute left-0 top-1 w-8 h-8 bg-green-500 text-white flex items-center justify-center rounded-full shadow-lg"
+                            >🏢</span
                         >
-                            <svg
-                                class="w-4 h-4 me-1.5"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
+                        >
+                            Siapa Kami?
+                        </h3>
+                        <p class="mt-2 text-gray-600 dark:text-gray-400">
+                            Kami hadir untuk mendukung kelancaran bisnis baik
+                            perusahaan maupun individu. Dengan dukungan SDM
+                            terlatih & mitra kerja strategis, BCE menjadi
+                            <span class="font-medium text-green-600"
+                                >penyedia layanan cargo terpercaya</span
                             >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            Vision
-                        </a>
-                        <h2
-                            class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2"
-                        >
-                            Visi Kami
-                        </h2>
-                        <p
-                            class="text-lg font-normal text-gray-500 dark:text-gray-400 mb-4"
-                        >
-                            Menjadi perusahaan jasa pengiriman cargo yang
-                            profesional & terpercaya dalam melayani klien maupun
-                            mitra bisnis.
+                            di seluruh Indonesia.
                         </p>
                     </div>
-                    <div
-                        class="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
-                    >
-                        <a
-                            href="#"
-                            class="bg-purple-100 text-purple-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-purple-400 mb-2"
-                        >
-                            <svg
-                                class="w-4 h-4 me-1.5"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                fill="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M20.337 3.664c.213.212.354.486.404.782.294 1.711.657 5.195-.906 6.76-1.77 1.768-8.485 5.517-10.611 6.683a.987.987 0 0 1-1.176-.173l-.882-.88-.877-.884a.988.988 0 0 1-.173-1.177c1.165-2.126 4.913-8.841 6.682-10.611 1.562-1.563 5.046-1.198 6.757-.904.296.05.57.191.782.404ZM5.407 7.576l4-.341-2.69 4.48-2.857-.334a.996.996 0 0 1-.565-1.694l2.112-2.111Zm11.357 7.02-.34 4-2.111 2.113a.996.996 0 0 1-1.69-.565l-.422-2.807 4.563-2.74Zm.84-6.21a1.99 1.99 0 1 1-3.98 0 1.99 1.99 0 0 1 3.98 0Z"
-                                    clip-rule="evenodd"
-                                />
-                            </svg>
-                            Mission
-                        </a>
-                        <h2
-                            class="text-gray-900 dark:text-white text-3xl font-extrabold mb-2"
-                        >
-                            Misi Kami
-                        </h2>
 
-                        <ol
-                            class="ps-5 mt-2 space-y-1 list-decimal list-outside text-lg font-normal text-gray-500 dark:text-gray-400 mb-4"
+                    <!-- Vision Card -->
+                    <div class="relative pl-10">
+                        <span
+                            class="absolute left-0 top-1 w-8 h-8 bg-blue-500 text-white flex items-center justify-center rounded-full shadow-lg"
+                            >👁️</span
                         >
-                            <li>Melaksanakan system kerja yang profesional</li>
-                            <li>
-                                Selalu memonitor pengiriman barang / cargo ke
-                                seluruh wilayah Indonesia kapanpun dan
-                                dimanapun.
-                            </li>
-                            <li>
-                                Membangun, menjaga dan meningkatkan kepercayaan
-                                klien dengan pelayanan terbaik dan profesional.
-                            </li>
-                            <li>
-                                Terus melakukan evaluasi dan inovasi dalam
-                                rangka meningkatkan kapasitas dan kualitas
-                                internal.
-                            </li>
-                            <li>
-                                Memberikan keuntungan maksimal bagi perusahaan
-                                dan seluruh Stake holder
-                            </li>
-                        </ol>
+                        <div
+                            class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-2xl hover:-translate-y-1 transition duration-500"
+                        >
+                            <h3
+                                class="text-2xl font-extrabold text-gray-800 dark:text-white mb-3"
+                            >
+                                Visi Kami
+                            </h3>
+                            <p
+                                class="text-gray-600 dark:text-gray-400 leading-relaxed"
+                            >
+                                Menjadi perusahaan jasa pengiriman cargo yang
+                                <span class="font-semibold text-green-600"
+                                    >profesional & terpercaya</span
+                                >
+                                dalam melayani klien maupun mitra bisnis.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Mission Card -->
+                    <div class="relative pl-10">
+                        <span
+                            class="absolute left-0 top-1 w-8 h-8 bg-purple-500 text-white flex items-center justify-center rounded-full shadow-lg"
+                            >🚀</span
+                        >
+                        <div
+                            class="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 hover:shadow-2xl hover:-translate-y-1 transition duration-500"
+                        >
+                            <h3
+                                class="text-2xl font-extrabold text-gray-800 dark:text-white mb-3"
+                            >
+                                Misi Kami
+                            </h3>
+                            <ul
+                                class="list-disc list-inside space-y-2 text-gray-600 dark:text-gray-400"
+                            >
+                                <li>
+                                    Melaksanakan sistem kerja profesional &
+                                    efektif.
+                                </li>
+                                <li>
+                                    Monitoring pengiriman ke seluruh wilayah
+                                    Indonesia.
+                                </li>
+                                <li>Membangun & menjaga kepercayaan klien.</li>
+                                <li>Terus evaluasi & inovasi layanan.</li>
+                                <li>
+                                    Memberikan keuntungan optimal bagi
+                                    stakeholder.
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Services -->
-        <section id="services" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
+        <!-- Services Redesigned -->
+        <section
+            id="services"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <div class="text-center mb-16">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Layanan
+                </h1>
+                <p
+                    class="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Kami menyediakan layanan pengiriman cepat, aman, dan
+                    terpercaya melalui jalur udara, darat, dan laut untuk
+                    mendukung kebutuhan logistik Anda.
+                </p>
+            </div>
+
+            <!-- Cards -->
+            <div
+                class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto px-6"
             >
-                Services
-            </h1>
-            <div class="flex gap-5 justify-center flex-wrap">
+                <!-- Card Udara -->
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500 group"
                 >
-                    <a href="#">
-                        <img
-                            class="rounded-t-lg"
-                            src="static/images/udara.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Layanan Udara
-                            </h5>
-                        </a>
-                        <p
-                            class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    <img
+                        src="static/images/udara.jpg"
+                        alt="Layanan Udara"
+                        class="w-full h-72 object-cover group-hover:scale-105 transition duration-700"
+                    />
+                    <div
+                        class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-6"
+                    >
+                        <span
+                            class="material-symbols-rounded text-white text-6xl mb-4 animate-bounce"
                         >
-                            Layanan pengiriman udara kami menawarkan kecepatan
-                            dan keamanan maksimal untuk memastikan barang Anda
-                            tiba tepat waktu. Cocok untuk pengiriman yang
-                            mendesak dan bernilai tinggi, kami bekerja sama
-                            dengan maskapai terkemuka untuk menjangkau berbagai
-                            tujuan dengan cepat dan efisien.
+                            flight_takeoff
+                        </span>
+                        <h3 class="text-2xl font-bold text-white">
+                            Layanan Udara
+                        </h3>
+                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
+                            Kecepatan dan keamanan maksimal untuk barang
+                            mendesak dan bernilai tinggi. Didukung maskapai
+                            terpercaya.
                         </p>
+                        <a
+                            href="#"
+                            class="mt-5 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                        >
+                            Selengkapnya
+                        </a>
                     </div>
                 </div>
 
+                <!-- Card Darat -->
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500 group"
                 >
-                    <a href="#">
-                        <img
-                            class="rounded-t-lg"
-                            src="static/images/darat.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Layanan Darat
-                            </h5>
-                        </a>
-                        <p
-                            class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    <img
+                        src="static/images/darat.jpg"
+                        alt="Layanan Darat"
+                        class="w-full h-72 object-cover group-hover:scale-105 transition duration-700"
+                    />
+                    <div
+                        class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-6"
+                    >
+                        <span
+                            class="material-symbols-rounded text-white text-6xl mb-4 animate-bounce"
                         >
-                            Kami menyediakan layanan pengiriman darat yang andal
-                            dan cepat, memastikan setiap barang tiba dengan
-                            selamat dan tepat waktu. Dengan armada yang terawat
-                            dan rute yang strategis, kami melayani berbagai
-                            kebutuhan logistik antar kota dan provinsi.
+                            local_shipping
+                        </span>
+                        <h3 class="text-2xl font-bold text-white">
+                            Layanan Darat
+                        </h3>
+                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
+                            Layanan pengiriman darat cepat & aman dengan armada
+                            handal dan rute strategis antar kota dan provinsi.
                         </p>
+                        <a
+                            href="#"
+                            class="mt-5 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                        >
+                            Selengkapnya
+                        </a>
                     </div>
                 </div>
 
+                <!-- Card Laut -->
                 <div
-                    class="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700"
+                    class="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition transform hover:-translate-y-2 hover:scale-[1.02] duration-500 group"
                 >
-                    <a href="#">
-                        <img
-                            class="rounded-t-lg"
-                            src="static/images/laut.jpg"
-                            alt=""
-                        />
-                    </a>
-                    <div class="p-5">
-                        <a href="#">
-                            <h5
-                                class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
-                            >
-                                Layanan Laut
-                            </h5>
-                        </a>
-                        <p
-                            class="mb-3 font-normal text-gray-700 dark:text-gray-400"
+                    <img
+                        src="static/images/laut.jpg"
+                        alt="Layanan Laut"
+                        class="w-full h-72 object-cover group-hover:scale-105 transition duration-700"
+                    />
+                    <div
+                        class="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-center px-6"
+                    >
+                        <span
+                            class="material-symbols-rounded text-white text-6xl mb-4 animate-bounce"
                         >
-                            Nikmati layanan pengiriman laut kami yang aman dan
-                            efisien untuk distribusi dalam jumlah besar. Dengan
-                            jaringan pelabuhan yang luas, kami menjamin
-                            pengiriman kargo hingga ke pelosok, menjadikan
-                            bisnis Anda lebih kompetitif di pasar global.
+                            directions_boat
+                        </span>
+                        <h3 class="text-2xl font-bold text-white">
+                            Layanan Laut
+                        </h3>
+                        <p class="mt-3 text-sm text-gray-200 leading-relaxed">
+                            Aman & efisien untuk pengiriman besar dengan
+                            jaringan pelabuhan luas. Kompetitif hingga ke
+                            pelosok nusantara.
                         </p>
+                        <a
+                            href="#"
+                            class="mt-5 inline-block px-5 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
+                        >
+                            Selengkapnya
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact -->
-        <section id="contact" class="main-section"></section>
+        <!-- Contact Section -->
+        <section
+            id="contact"
+            class="relative py-20 bg-gradient-to-br from-green-100 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900"
+        >
+            <div class="max-w-7xl mx-auto px-6">
+                <!-- Title -->
+                <div class="text-center mb-14">
+                    <h2
+                        class="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white"
+                    >
+                        Hubungi Kami
+                    </h2>
+                    <p
+                        class="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                    >
+                        Ada pertanyaan atau butuh informasi lebih lanjut? Tim
+                        kami siap membantu Anda.
+                    </p>
+                </div>
+
+                <!-- Contact Content -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <!-- Contact Form -->
+                    <div
+                        class="backdrop-blur-md bg-white/80 dark:bg-gray-800/80 shadow-xl rounded-2xl p-8 border border-gray-200 dark:border-gray-700"
+                    >
+                        <form class="space-y-6">
+                            <!-- Name -->
+                            <div>
+                                <label
+                                    for="name"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                    >Full Name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="name"
+                                    maxlength="100"
+                                    required
+                                    class="mt-2 w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
+                                />
+                            </div>
+
+                            <!-- Message -->
+                            <div>
+                                <label
+                                    for="message"
+                                    class="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                    >Message</label
+                                >
+                                <textarea
+                                    id="message"
+                                    rows="5"
+                                    required
+                                    class="mt-2 w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-green-500 focus:outline-none dark:bg-gray-700 dark:text-white"
+                                ></textarea>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="flex space-x-4">
+                                <!-- WhatsApp -->
+                                <a
+                                    href="https://wa.me/6281291244237"
+                                    target="_blank"
+                                    class="flex items-center justify-center px-5 py-3 bg-green-500 text-white rounded-lg shadow-lg hover:bg-green-600 transition space-x-2"
+                                >
+                                    <i
+                                        class="fa-brands fa-whatsapp text-xl"
+                                    ></i>
+                                    <span>Chat</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-6">
+                        <!-- Info Cards -->
+                        <div
+                            class="p-6 rounded-xl shadow bg-white dark:bg-gray-800 hover:shadow-lg transition"
+                        >
+                            <span
+                                class="material-symbols-rounded text-green-600 text-3xl"
+                                >mail</span
+                            >
+                            <h4
+                                class="font-semibold text-lg text-gray-800 dark:text-white mt-2"
+                            >
+                                Email
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                atepbcecargo@gmail.com
+                            </p>
+                        </div>
+
+                        <div
+                            class="p-6 rounded-xl shadow bg-white dark:bg-gray-800 hover:shadow-lg transition"
+                        >
+                            <span
+                                class="material-symbols-rounded text-green-600 text-3xl"
+                                >call</span
+                            >
+                            <h4
+                                class="font-semibold text-lg text-gray-800 dark:text-white mt-2"
+                            >
+                                Phone
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                0812-3456-7890
+                            </p>
+                        </div>
+
+                        <div
+                            class="p-6 rounded-xl shadow bg-white dark:bg-gray-800 hover:shadow-lg transition"
+                        >
+                            <span
+                                class="material-symbols-rounded text-green-600 text-3xl"
+                                >support_agent</span
+                            >
+                            <h4
+                                class="font-semibold text-lg text-gray-800 dark:text-white mt-2"
+                            >
+                                Support
+                            </h4>
+                            <p class="text-gray-600 dark:text-gray-400">
+                                Layanan bantuan 24/7 untuk pertanyaan dan
+                                keluhan pelanggan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Legality -->
-        <section id="legality" class="main-section px-4">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Legality
-            </h1>
-            <div class="block m-auto" style="max-width: 672px; margin: auto">
-                <div
-                    id="accordion-color"
-                    data-accordion="collapse"
-                    data-active-classes="bg-green-100 dark:bg-gray-800 text-green-600 dark:text-white"
+        <section
+            id="legality"
+            class="py-20 bg-gradient-to-b from-white to-green-50 dark:from-gray-900 dark:to-gray-800 px-6"
+        >
+            <div class="text-center mb-12">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
                 >
-                    <h2 id="accordion-color-heading-1">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-1"
-                            aria-expanded="true"
-                            aria-controls="accordion-color-body-1"
+                    Legalitas
+                </h1>
+                <p
+                    class="mt-4 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Perjalanan legalitas kami yang menjamin operasional CV
+                    Bahtera Cahaya Express berjalan sah dan terpercaya.
+                </p>
+            </div>
+
+            <!-- Grid Cards -->
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+            >
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >gavel</span
                         >
-                            <span>Keputusan KEMENHUMHAM R.I </span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-1"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-1"
-                    >
-                        <div
-                            class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                No. AHU - 0014736 - AH.01.14. Tahun 2022
-                            </p>
-                        </div>
+                            Keputusan KEMENHUMHAM R.I
+                        </h3>
                     </div>
-                    <h2 id="accordion-color-heading-2">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-2"
-                            aria-expanded="false"
-                            aria-controls="accordion-color-body-2"
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        No. AHU - 0014736 - AH.01.14. Tahun 2022
+                    </p>
+                </div>
+
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >description</span
                         >
-                            <span>Akta Pendirian</span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-2"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-2"
-                    >
-                        <div
-                            class="p-5 border border-b-0 border-gray-200 dark:border-gray-700"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                No.18, Tanggal 14 Februari 2022 Notaris
-                                Silviyanti, S.H., M.Kn
-                            </p>
-                        </div>
+                            Akta Pendirian
+                        </h3>
                     </div>
-                    <h2 id="accordion-color-heading-3">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-3"
-                            aria-expanded="false"
-                            aria-controls="accordion-color-body-3"
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        No.18, Tanggal 14 Februari 2022 <br />
+                        Notaris Silviyanti, S.H., M.Kn
+                    </p>
+                </div>
+
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >payments</span
                         >
-                            <span>Nomor Pokok Wajib Pajak (NPWP)</span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-3"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-3"
-                    >
-                        <div
-                            class="p-5 border border-t-0 border-gray-200 dark:border-gray-700"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                No. 63.410.875.7 - 402.000
-                            </p>
-                        </div>
+                            Nomor Pokok Wajib Pajak (NPWP)
+                        </h3>
                     </div>
-                    <h2 id="accordion-color-heading-4">
-                        <button
-                            type="button"
-                            class="flex items-center justify-between w-full p-5 font-medium rtl:text-right text-gray-500 border border-gray-200 focus:ring-4 focus:ring-green-200 dark:focus:ring-green-800 dark:border-gray-700 dark:text-gray-400 hover:bg-green-100 dark:hover:bg-gray-800 gap-3"
-                            data-accordion-target="#accordion-color-body-4"
-                            aria-expanded="false"
-                            aria-controls="accordion-color-body-4"
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        No. 63.410.875.7 - 402.000
+                    </p>
+                </div>
+
+                <!-- Card -->
+                <div
+                    class="bg-white dark:bg-gray-800 shadow-md rounded-xl p-6 hover:shadow-xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="flex items-center space-x-4">
+                        <span
+                            class="material-symbols-rounded text-green-600 text-4xl"
+                            >business</span
                         >
-                            <span>SIUP</span>
-                            <svg
-                                data-accordion-icon
-                                class="w-3 h-3 rotate-180 shrink-0"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 10 6"
-                            >
-                                <path
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M9 5 5 1 1 5"
-                                />
-                            </svg>
-                        </button>
-                    </h2>
-                    <div
-                        id="accordion-color-body-4"
-                        class="hidden"
-                        aria-labelledby="accordion-color-heading-4"
-                    >
-                        <div
-                            class="p-5 border border-t-0 border-gray-200 dark:border-gray-700"
+                        <h3
+                            class="text-xl font-bold text-gray-800 dark:text-white"
                         >
-                            <p class="mb-2 text-gray-500 dark:text-gray-400">
-                                NIB. 2102220068549
-                            </p>
-                        </div>
+                            SIUP
+                        </h3>
                     </div>
+                    <p class="mt-3 text-gray-600 dark:text-gray-400">
+                        NIB. 2102220068549
+                    </p>
                 </div>
             </div>
         </section>
 
         <!-- Clients -->
-        <section id="clients" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Clients
-            </h1>
-            <swiper-container class="mySwiper" init="false" id="client-list">
-                <!--  -->
-            </swiper-container>
+        <section
+            id="clients"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <!-- Title -->
+            <div class="text-center mb-14">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Klien
+                </h1>
+                <p
+                    class="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Kami bangga telah dipercaya oleh perusahaan ternama dalam
+                    distribusi kargo.
+                </p>
+            </div>
+
+            <!-- Marquee Clients -->
+            <div class="relative overflow-hidden py-6">
+                <div class="flex animate-marquee space-x-16">
+                    <!-- Client Logo -->
+                    <img
+                        src="static/images/client_bce/ganex.jpg"
+                        alt="Ganex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/gledex.jpg"
+                        alt="Gledex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/access.svg"
+                        alt="Access"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/akr.webp"
+                        alt="AKR"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/binakarir.jpg"
+                        alt="Binakarir"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/indomarco.jpg"
+                        alt="Indomarco"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/iskent.png"
+                        alt="Iskent"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/kenko.jpg"
+                        alt="Kenko"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/kerry.png"
+                        alt="Kerry"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/onecare.jpg"
+                        alt="Onecare"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <!-- Looping 2-->
+                    <img
+                        src="static/images/client_bce/ganex.jpg"
+                        alt="Ganex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/gledex.jpg"
+                        alt="Gledex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/access.svg"
+                        alt="Access"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/akr.webp"
+                        alt="AKR"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/binakarir.jpg"
+                        alt="Binakarir"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/indomarco.jpg"
+                        alt="Indomarco"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/iskent.png"
+                        alt="Iskent"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/kenko.jpg"
+                        alt="Kenko"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/kerry.png"
+                        alt="Kerry"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/onecare.jpg"
+                        alt="Onecare"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <!-- Looping 3 -->
+                    <img
+                        src="static/images/client_bce/ganex.jpg"
+                        alt="Ganex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/gledex.jpg"
+                        alt="Gledex"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/access.svg"
+                        alt="Access"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/akr.webp"
+                        alt="AKR"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/binakarir.jpg"
+                        alt="Binakarir"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/indomarco.jpg"
+                        alt="Indomarco"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/iskent.png"
+                        alt="Iskent"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/kenko.jpg"
+                        alt="Kenko"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/kerry.png"
+                        alt="Kerry"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                    <img
+                        src="static/images/client_bce/onecare.jpg"
+                        alt="Onecare"
+                        class="h-20 object-contain transition duration-300"
+                    />
+                </div>
+            </div>
+
+            <!-- Keunggulan -->
+            <div class="max-w-5xl mx-auto text-center mt-20">
+                <h2
+                    class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white mb-10"
+                >
+                    Keuntungan memilih jasa kami:
+                </h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Card 1 -->
+                    <div
+                        class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-2"
+                    >
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-500 text-3xl">🚚</span>
+                            <div class="text-left">
+                                <h3
+                                    class="font-semibold text-gray-800 dark:text-white"
+                                >
+                                    4 Layanan Pengiriman BCE
+                                </h3>
+                                <p
+                                    class="text-gray-600 dark:text-gray-400 text-sm mt-1"
+                                >
+                                    Nikmati kemudahan dengan pilihan layanan
+                                    lengkap: Door to Door, Door to Port, Port to
+                                    Door, dan Port to Port. Semua dirancang
+                                    fleksibel sesuai kebutuhan Anda, dengan
+                                    pengiriman cepat, aman, dan penanganan
+                                    profesional.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div
+                        class="p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-2"
+                    >
+                        <div class="flex items-start space-x-3">
+                            <span class="text-green-500 text-3xl">📦</span>
+                            <div class="text-left">
+                                <h3
+                                    class="font-semibold text-gray-800 dark:text-white"
+                                >
+                                    Layanan Terintegrasi
+                                </h3>
+                                <p
+                                    class="text-gray-600 dark:text-gray-400 text-sm mt-1"
+                                >
+                                    Konsolidasi/dekonsolidasi, pergudangan,
+                                    pengepakan, hingga crating barang bernilai
+                                    tinggi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Gallery -->
-        <section id="gallery" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Gallery
-            </h1>
+        <section
+            id="gallery"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <div class="text-center mb-14">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Dokumentasi
+                </h1>
+                <p
+                    class="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Koleksi momen terbaik & dokumentasi aktivitas BCE Cargo.
+                </p>
+            </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 px-8">
                 <div class="grid gap-4">
@@ -931,107 +1213,318 @@
         </section>
 
         <!-- Location -->
-        <section id="location" class="main-section">
-            <h1
-                class="text-3xl md:text-5xl font-extrabold dark:text-white text-center mb-10"
-            >
-                Location
-            </h1>
+        <section
+            id="location"
+            class="py-20 bg-gradient-to-b from-green-50 to-white dark:from-gray-900 dark:to-gray-800"
+        >
+            <div class="text-center mb-14">
+                <h1
+                    class="text-4xl md:text-5xl font-extrabold text-gray-800 dark:text-white"
+                >
+                    Lokasi
+                </h1>
+                <p
+                    class="mt-3 text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                >
+                    Kunjungi kantor pusat & field office kami untuk pelayanan
+                    langsung dan konsultasi.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10 max-w-6xl mx-auto px-6">
+                <!-- Head Office -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="relative">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d247.94474834672914!2d106.5667849010239!3d-6.115086330255197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1727926797082!5m2!1sen!2sid"
+                            class="w-full h-72"
+                            style="border: 0"
+                            allowfullscreen=""
+                            loading="lazy"
+                        >
+                        </iframe>
+                        <span
+                            class="absolute top-4 right-4 bg-green-600 text-white text-xs px-3 py-1 rounded-full shadow"
+                            >Head Office</span
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h2
+                            class="text-xl font-bold text-gray-800 dark:text-white mb-2"
+                        >
+                            Head Office
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Perum Permata Sepatan Blok B9 No.23, Kec. Sepatan,
+                            Kab. Tangerang, Banten.
+                        </p>
+                        <a
+                            href="https://maps.google.com/?q=Perum+Permata+Sepatan+B9+No.23"
+                            target="_blank"
+                            class="inline-flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                        >
+                            <span class="material-symbols-rounded">map</span>
+                            <span>Lihat di Maps</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Field Office -->
+                <div
+                    class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-2 duration-500"
+                >
+                    <div class="relative">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d247.93993616881028!2d106.66512066223552!3d-6.125457060059776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a03007b29faa5%3A0xbdbb6901074f6a7f!2sCV.%20BAHTERA%20CAHAYA%20EXPRESS%20(Field%20Office)!5e0!3m2!1sid!2sid!4v1746444162134!5m2!1sid!2sid"
+                            class="w-full h-72"
+                            style="border: 0"
+                            allowfullscreen=""
+                            loading="lazy"
+                        >
+                        </iframe>
+                        <span
+                            class="absolute top-4 right-4 bg-blue-600 text-white text-xs px-3 py-1 rounded-full shadow"
+                            >Field Office</span
+                        >
+                    </div>
+                    <div class="p-6">
+                        <h2
+                            class="text-xl font-bold text-gray-800 dark:text-white mb-2"
+                        >
+                            Field Office
+                        </h2>
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            Ware House Area Regulated Agent PT. Gatrans Soekarno
+                            Hatta Air Port.
+                        </p>
+                        <a
+                            href="https://maps.google.com/?q=CV+Bahtera+Cahaya+Express+Field+Office"
+                            target="_blank"
+                            class="inline-flex items-center space-x-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+                        >
+                            <span class="material-symbols-rounded">map</span>
+                            <span>Lihat di Maps</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- Chatbot -->
+        <button class="chatbot-toggler">
+            <span class="material-symbols-rounded">mode_comment</span>
+            <span class="material-symbols-rounded">close</span>
+        </button>
+        <div class="chatbot">
+            <header>
+                <h2>Chatbot</h2>
+                <span class="close-btn material-symbols-rounded">close</span>
+            </header>
+            <ul class="chatbox">
+                <li class="chat incoming">
+                    <img src="static/images/logo.png" alt="Logo" />
+                    <div class="bubble">
+                        <p id="initial-chat"></p>
+                        <div class="chat-options">
+                            <button onclick="fillTemplate('keluhan')">
+                                Keluhan
+                            </button>
+                            <button onclick="fillTemplate('cek_pemesanan')">
+                                Cek Pemesanan
+                            </button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="chat-input">
+                <textarea
+                    placeholder="Silakan tulis sesuatu..."
+                    spellcheck="false"
+                    required
+                ></textarea>
+                <span id="send-btn" class="material-symbols-rounded">send</span>
+            </div>
+        </div>
         <!-- Footer -->
-        <footer class="bg-white rounded-lg shadow-sm dark:bg-gray-900 m-4">
-            <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
-                <div class="sm:flex sm:items-center sm:justify-between">
-                    <a
-                        href="https://flowbite.com/"
-                        class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
-                    >
-                        <img
-                            src="static/images/logo.jpg"
-                            class="h-8"
-                            alt="Logo BCE"
-                        />
-                        <span
-                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-                            >BCE Cargo</span
-                        >
-                    </a>
-                    <ul
-                        class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400"
-                    >
-                        <li>
-                            <a
-                                href="#about"
-                                class="hover:underline me-4 md:me-6"
-                                >About</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#services"
-                                class="hover:underline me-4 md:me-6"
-                                >Services</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="#legality"
-                                class="hover:underline me-4 md:me-6"
-                                >Legality</a
-                            >
-                        </li>
-                        <li>
-                            <a href="#contact" class="hover:underline"
-                                >Contact</a
-                            >
-                        </li>
-                    </ul>
+        <footer class="bg-gradient-to-r from-green-700 to-green-900 text-white">
+            <div class="max-w-7xl mx-auto px-6 py-8">
+                <!-- Brand -->
+                <div class="flex flex-col items-center text-center">
+                    <img
+                        src="static/images/logo_transparant.png"
+                        class="h-12 mb-3"
+                        alt="Logo BCE"
+                    />
+                    <h2 class="text-xl font-bold">Bahtera Cahaya Express</h2>
+                    <p class="mt-2 text-gray-200 text-sm max-w-md">
+                        Mau kirim barang kecil atau besar? Kami urus semua
+                        sampai tujuan!
+                    </p>
                 </div>
-                <hr
-                    class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"
-                />
-                <span
-                    class="block text-sm text-gray-500 sm:text-center dark:text-gray-400"
-                    >© 2023
-                    <a href="https://flowbite.com/" class="hover:underline"
-                        >Flowbite™</a
-                    >. All Rights Reserved.</span
+
+                <!-- Links & Contact -->
+                <div
+                    class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8 text-center md:text-left md:max-w-3xl mx-auto"
                 >
+                    <!-- Quick Links -->
+                    <div>
+                        <h3
+                            class="text-lg font-semibold mb-3 text-center md:text-left"
+                        >
+                            Navigation
+                        </h3>
+                        <ul class="space-y-2 text-center md:text-left">
+                            <li>
+                                <a
+                                    href="/#about"
+                                    class="page-link hover:text-yellow-300 transition"
+                                    >About</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="/#services"
+                                    class="page-link hover:text-yellow-300 transition"
+                                    >Services</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="/#legality"
+                                    class="page-link hover:text-yellow-300 transition"
+                                    >Legality</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="/#contact"
+                                    class="page-link hover:text-yellow-300 transition"
+                                    >Contact</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact (Head & Field Office) -->
+                    <div>
+                        <h3
+                            class="text-lg font-semibold mb-3 text-center md:text-left"
+                        >
+                            Hubungi Kami
+                        </h3>
+                        <p class="text-gray-200 text-sm mb-2">
+                            <span class="font-semibold">Head Office:</span
+                            ><br />
+                            Perum Permata Sepatan Blok B9 No.23,<br />
+                            Kec. Sepatan, Kab. Tangerang, Banten
+                        </p>
+                        <p class="text-gray-200 text-sm">
+                            <span class="font-semibold">Field Office:</span
+                            ><br />
+                            Warehouse Area Regulated Agent PT. Gatrans,<br />
+                            Soekarno Hatta Airport
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="flex justify-center space-x-4 mt-8">
+                    <a
+                        href="#"
+                        class="w-9 h-9 flex items-center justify-center bg-white/10 rounded-full hover:bg-yellow-300 transition transform hover:scale-110"
+                    >
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a
+                        href="#"
+                        class="w-9 h-9 flex items-center justify-center bg-white/10 rounded-full hover:bg-yellow-300 transition transform hover:scale-110"
+                    >
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a
+                        href="#"
+                        class="w-9 h-9 flex items-center justify-center bg-white/10 rounded-full hover:bg-yellow-300 transition transform hover:scale-110"
+                    >
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+
+                <!-- Bottom -->
+                <div
+                    class="border-t border-white/20 mt-6 pt-4 text-center text-sm text-gray-200"
+                >
+                    © 2025 <span class="font-semibold">BCE™</span>. All Rights
+                    Reserved.
+                </div>
             </div>
         </footer>
-
-        <script src="static/js/script.js"></script>
-        <!-- CDN's -->
+        <!-- Chatbot JS -->
+        <script src="static/js/chatbot.js"></script>
+        <!-- Flowbite JS -->
         <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+        <!-- SwiperJS Script -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script>
-            const swiperEl = document.querySelector(
-                "swiper-container#client-list"
-            );
-            Object.assign(swiperEl, {
-                slidesPerView: 1,
-                spaceBetween: 10,
+            // Initial text
+            let initialChat = document.getElementById("initial-chat");
+            initialChat.innerHTML = `Halo, selamat datang di website BCE Cargo!👋. Jika butuh bantuan bisa langsung tanyakan di sini ya!`;
+
+            // CLIENT
+            var swiper = new Swiper(".mySwiper", {
+                slidesPerView: 5,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
                 pagination: {
+                    el: ".swiper-pagination",
                     clickable: true,
-                    dynamicBullets: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
                 },
                 breakpoints: {
-                    640: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    768: {
-                        slidesPerView: 4,
-                        spaceBetween: 40,
-                    },
-                    1024: {
-                        slidesPerView: 5,
-                        spaceBetween: 50,
-                    },
+                    320: { slidesPerView: 2 },
+                    640: { slidesPerView: 3 },
+                    1024: { slidesPerView: 5 },
                 },
             });
-            swiperEl.initialize();
+
+            // CONTACT US
+            const contactForm = document.getElementById("contact-form");
+
+            contactForm.addEventListener("submit", function (e) {
+                let isValid = true;
+
+                // Name validation
+                const name = document.getElementById("name");
+                const errorName = document.getElementById("error-name");
+                if (name.value.trim() === "" || name.value.length > 100) {
+                    errorName.classList.remove("hidden");
+                    isValid = false;
+                } else {
+                    errorName.classList.add("hidden");
+                }
+
+                // Message validation
+                const message = document.getElementById("message");
+                const errorMessage = document.getElementById("error-message");
+                if (message.value.trim() === "") {
+                    errorMessage.classList.remove("hidden");
+                    isValid = false;
+                } else {
+                    errorMessage.classList.add("hidden");
+                }
+
+                if (!isValid) {
+                    e.preventDefault(); // cegah submit kalau invalid
+                }
+            });
         </script>
     </body>
 </html>

@@ -1,34 +1,59 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
-body,
-html {
+html,
+body {
     scroll-behavior: smooth;
 }
-
-nav {
-    z-index: 100;
-}
-
-.slide-bg {
-    background-image: url("../images/gallery_bce/foto_1.jpg");
-    background-size: cover;
-}
-
-.main-section {
+section {
     min-height: 100vh;
-    padding-top: 82px;
+    margin-bottom: 30px;
+    padding-top: 64px;
+}
+#header {
+    background: url("/static/images/backgroundnew.jpg");
+    background-size: cover;
+    background-position: bottom;
+}
+.client-list {
+    margin: auto;
+    max-width: 800px;
+}
+/* Floating Sidebar */
+.floating-sidebar {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    border-radius: 8px 0 0 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5px;
 }
 
-.client-img {
-    width: 100%;
-    height: 128px;
-    object-fit: contain;
-    object-position: center;
-    background-color: #fff;
+.floating-sidebar a,
+#wajib-login a {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 60px;
+    margin: 4px 0;
+    font-size: 18px;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 50%;
 }
 
-/* @media screen and (max-width: 1023px) {
-    .slide-bg {
-        background: none !important;
-    }
-} */
+.floating-sidebar a:hover .material-symbols-rounded,
+#wajib-login a:hover .material-symbols-rounded {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+/* Maps symbol */
+#maps-symbol {
+    font-size: 50px;
+}
+
+.heading-ongkir {
+    background: url("/static/images/delivery.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 512px;
+}

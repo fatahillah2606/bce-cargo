@@ -1,0 +1,195 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 50px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transition: padding 0.3s ease;
+}
+
+.navbar.scroll {
+    padding: 20px;
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 54px;
+    padding: 0px 20px;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+}
+
+.navbar .logo img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.navbar .logo span {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--text-color);
+}
+
+/* Menu */
+.navbar .menu {
+    /* overflow: hidden; */
+    height: auto;
+    position: relative;
+}
+.navbar .menu ul {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+}
+
+.navbar .menu ul li {
+    list-style-type: none;
+    position: relative;
+    width: 100%;
+}
+.navbar .menu ul li:not(:last-child):not(.dropdown-item):before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(50%, -50%);
+    width: 1px;
+    height: 50%;
+    background-color: var(--text-color);
+}
+.navbar .menu ul li a,
+.navbar .menu ul li.dropdown {
+    padding: 15px 30px;
+    display: block;
+    color: var(--text-color);
+    cursor: pointer;
+}
+.navbar .menu ul li.dropdown {
+    display: flex;
+    align-items: center;
+}
+
+/* Dropdown menu */
+.navbar .menu ul.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 10px);
+    display: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    flex-direction: column;
+}
+.navbar .menu ul.dropdown-menu li a {
+    text-align: center !important;
+}
+.navbar .menu ul li:hover,
+.navbar .menu ul li.dropdown:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.navbar .menu ul li:first-child:not(.dropdown-item) {
+    border-radius: 50px 0 0 50px;
+}
+.navbar .menu ul li:last-child:not(.dropdown-item) {
+    border-radius: 0 50px 50px 0;
+}
+.navbar .menu ul.dropdown-menu.show {
+    display: flex;
+}
+
+/* Menu button */
+.navbar .menu-btn {
+    width: 54px;
+    height: 54px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50px;
+    backdrop-filter: blur(5px);
+    color: var(--text-color);
+    font-size: 30px;
+    text-align: center;
+    line-height: 54px;
+    display: none;
+}
+
+/* Mobile menu */
+.navbar .mobile-menu {
+    display: none;
+}
+
+/* Responsive */
+@media screen and (max-width: 950px) {
+    .navbar .menu ul {
+        display: none;
+    }
+    .navbar .menu-btn {
+        display: block;
+        cursor: pointer;
+    }
+    .navbar .mobile-menu {
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        background-color: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(5px);
+        padding: 10px 20px;
+        transform: translateX(100%);
+        transition: transform 0.4s ease;
+    }
+    .navbar .mobile-menu.show {
+        transform: translateX(0);
+    }
+    .navbar .mobile-menu .menu-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .navbar .mobile-menu .close-menu-btn {
+        font-size: 30px;
+        cursor: pointer;
+    }
+    .navbar .mobile-menu .logo {
+        justify-content: left;
+        background: none;
+        backdrop-filter: unset;
+        padding: 0;
+        border-radius: 0;
+    }
+    .navbar .mobile-menu .logo span {
+        color: var(--background-color);
+    }
+    .navbar .mobile-menu .menu-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 30px;
+    }
+    .navbar .mobile-menu .menu-content li {
+        list-style-type: none;
+        display: block;
+        padding: 10px 20px;
+        /* background-color: red; */
+    }
+    .navbar .mobile-menu .menu-content li a {
+        display: block;
+        text-align: right;
+        color: var(--background-color);
+        font-size: 25px;
+        font-weight: 300;
+    }
+}
