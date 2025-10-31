@@ -1,126 +1,121 @@
-[{
-  "_id": {
-    "$oid": "67468fb76be2503cfb37b043"
-  },
-  "command": "Halo",
-  "response": "Hi! Ada yang dapat saya bantu? ^^"
-},
-{
-  "_id": {
-    "$oid": "67468ff46be2503cfb37b044"
-  },
-  "command": "Hi",
-  "response": "Halo! Bagaimana kabarnya? Ada yang dapat saya bantu?"
-},
-{
-  "_id": {
-    "$oid": "6746900a6be2503cfb37b045"
-  },
-  "command": "Pagi",
-  "response": "Selamat pagi! Bagaimana cuaca hari ini? Ada yang bisa saya bantu?"
-},
-{
-  "_id": {
-    "$oid": "674690306be2503cfb37b046"
-  },
-  "command": "Siang",
-  "response": "Selamat siang! Sudah makan belum? Ada yang dapat saya bantu? ^^"
-},
-{
-  "_id": {
-    "$oid": "674690426be2503cfb37b047"
-  },
-  "command": "Sore",
-  "response": "Selamat sore! Ada yang bisa saya bantu?"
-},
-{
-  "_id": {
-    "$oid": "674690536be2503cfb37b048"
-  },
-  "command": "Malam",
-  "response": "Selamat malam! Belum tidur nih? Ada yang bisa dibantu?"
-},
-{
-  "_id": {
-    "$oid": "674690656be2503cfb37b049"
-  },
-  "command": "Alamat",
-  "response": "Untuk alamat kantor kita ada 2, yaitu kantor pusat dan kantor lapangan. Kakak mau cari kantor apa ya? ^^"
-},
-{
-  "_id": {
-    "$oid": "6746907c6be2503cfb37b04a"
-  },
-  "command": ["Head Office", "Kantor Pusat"],
-  "response": "Kantor pusat kami berlokasi di Perum Permata Sepatan Blok B9 No. 23, Kec. Sepatan, Kab. Tangerang, Banten"
-},
-{
-  "_id": {
-    "$oid": "674690a96be2503cfb37b04b"
-  },
-  "command": ["Field Office", "Kantor Lapangan"],
-  "response": "Kantor lapangan kami berlokasi di WARE HOUSE AREA REGULATED AGENT PT GATRANS SOEKARNO HATTA AIR PORT"
-},
-{
-  "_id": {
-    "$oid": "674690c86be2503cfb37b04c"
-  },
-  "command": "Contact",
-  "response": {
-    "Phone/WhatsApp": [
-      "0812-9124-4237",
-      "0878-0006-6977"
-    ],
-    "Email": "atep1.btl@gmail.com"
-  }
-},
-{
-  "_id": {
-    "$oid": "674690f16be2503cfb37b04d"
-  },
-  "command": "Tentang Kami",
-  "response": "CV. Bahtera Cahaya Express sebagai agen SMU (surat muatan udara) di beberapa airline di antaranya Lion air grup Garuda Indonesia rimbun air Sriwijaya air asia Tri-mg, Citilink. Perusahaan Jasa Pengiriman Barang (cargo), yakni layanan pengiriman barang yang terintegrasi dengan menggunakan kombinasi moda angkutan baik darat, laut maupun udara secara door to door, door to port, port to port dan port to door dimana pelayanan dapat kami layani dari penjemputan hingga kiriman sampai ke tujuan. Hal ini untuk membantu kelancaran usaha para pelaku bisnis baik perusahaan maupun perseorangan secara efektif dan efisien. Jasa yang disediakan CV. Bahtera Cahaya Express dikemas secara utuh dalam satu konsep pusat layanan sehingga tidak hanya memberikan kemudahan tetapi juga mampu memberikan pelayanan yang didukung dengan segenap mitra kerja dan sumber daya manusia yang terlatih dan teruji menempatkan CV. Bahtera Cahaya Express sebagai perusahaan penyedia layanan jasa transportasi yang lengkap, profesional dan terpercaya."
-},
-{
-  "_id": {
-    "$oid": "674691116be2503cfb37b04e"
-  },
-  "command": "VISI",
-  "response": "Menjadi perusahaan jasa pengiriman cargo yang profesional & terpercaya dalam melayani klien maupun mitra bisnis."
-},
-{
-  "_id": {
-    "$oid": "674691246be2503cfb37b04f"
-  },
-  "command": "MISI",
-  "response": [
-    "Melaksanakan system kerja yang profesional.",
-    "Selalu memonitor pengiriman barang / cargo ke seluruh wilayah Indonesia kapanpun dan dimanapun.",
-    "Membangun, menjaga dan meningkatkan kepercayaan klien dengan pelayanan terbaik dan profesional.",
-    "Terus melakukan evaluasi dan inovasi dalam rangka meningkatkan kapasitas dan kualitas internal.",
-    "Memberikan keuntungan maksimal bagi perusahaan dan seluruh Stake holder."
-  ]
-},
-{
-  "_id": {
-    "$oid": "6746916d6be2503cfb37b050"
-  },
-  "command": "LEGALITAS",
-  "response": {
-    "Deed of Establishment": "No. 18, Tanggal 14 Februari 2022 || Notaris Silviyanti, S.H., M.Kn",
-    "KEMENHUMHAM Decision": "No. AHU - 0014736 - AH.01.14 Tahun 2022",
-    "Tax Identification Number (NPWP)": "No. 63.410.875.7 - 402.000",
-    "Business Permit (SIUP)": "NIB. 2102220068549"
-  }
-},
-{
-  "_id": {
-    "$oid": "674691766be2503cfb37b051"
-  },
-  "command": "LAYANAN",
-  "response": [
-    "Cargo darat",
-    "Cargo laut",
-    "Cargo udara"
-  ]
-}]
+[
+    {
+        "_id": {
+            "$oid": "67468fb76be2503cfb37b043"
+        },
+        "command": "Halo",
+        "response": "Hi! Ada yang dapat saya bantu? ^^"
+    },
+    {
+        "_id": {
+            "$oid": "67468ff46be2503cfb37b044"
+        },
+        "command": "Hi",
+        "response": "Halo! Bagaimana kabarnya? Ada yang dapat saya bantu?"
+    },
+    {
+        "_id": {
+            "$oid": "6746900a6be2503cfb37b045"
+        },
+        "command": "Pagi",
+        "response": "Selamat pagi! Bagaimana cuaca hari ini? Ada yang bisa saya bantu?"
+    },
+    {
+        "_id": {
+            "$oid": "674690306be2503cfb37b046"
+        },
+        "command": "Siang",
+        "response": "Selamat siang! Sudah makan belum? Ada yang dapat saya bantu? ^^"
+    },
+    {
+        "_id": {
+            "$oid": "674690426be2503cfb37b047"
+        },
+        "command": "Sore",
+        "response": "Selamat sore! Ada yang bisa saya bantu?"
+    },
+    {
+        "_id": {
+            "$oid": "674690536be2503cfb37b048"
+        },
+        "command": "Malam",
+        "response": "Selamat malam! Belum tidur nih? Ada yang bisa dibantu?"
+    },
+    {
+        "_id": {
+            "$oid": "674690656be2503cfb37b049"
+        },
+        "command": "Alamat",
+        "response": "Untuk alamat kantor kita ada 2, yaitu kantor pusat dan kantor lapangan. Kakak mau cari kantor apa ya? ^^"
+    },
+    {
+        "_id": {
+            "$oid": "6746907c6be2503cfb37b04a"
+        },
+        "command": ["Head Office", "Kantor Pusat"],
+        "response": "Kantor pusat kami berlokasi di Perum Permata Sepatan Blok B9 No. 23, Kec. Sepatan, Kab. Tangerang, Banten"
+    },
+    {
+        "_id": {
+            "$oid": "674690a96be2503cfb37b04b"
+        },
+        "command": ["Field Office", "Kantor Lapangan"],
+        "response": "Kantor lapangan kami berlokasi di WARE HOUSE AREA REGULATED AGENT PT GATRANS SOEKARNO HATTA AIR PORT"
+    },
+    {
+        "_id": {
+            "$oid": "674690c86be2503cfb37b04c"
+        },
+        "command": ["Contact", "Kontak"],
+        "response": {
+            "Phone/WhatsApp": ["0812-9124-4237", "0878-0006-6977"],
+            "Email": "atep1.btl@gmail.com"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "674690f16be2503cfb37b04d"
+        },
+        "command": "Tentang Kami",
+        "response": "CV. Bahtera Cahaya Express sebagai agen SMU (surat muatan udara) di beberapa airline di antaranya Lion air grup Garuda Indonesia rimbun air Sriwijaya air asia Tri-mg, Citilink. Perusahaan Jasa Pengiriman Barang (cargo), yakni layanan pengiriman barang yang terintegrasi dengan menggunakan kombinasi moda angkutan baik darat, laut maupun udara secara door to door, door to port, port to port dan port to door dimana pelayanan dapat kami layani dari penjemputan hingga kiriman sampai ke tujuan. Hal ini untuk membantu kelancaran usaha para pelaku bisnis baik perusahaan maupun perseorangan secara efektif dan efisien. Jasa yang disediakan CV. Bahtera Cahaya Express dikemas secara utuh dalam satu konsep pusat layanan sehingga tidak hanya memberikan kemudahan tetapi juga mampu memberikan pelayanan yang didukung dengan segenap mitra kerja dan sumber daya manusia yang terlatih dan teruji menempatkan CV. Bahtera Cahaya Express sebagai perusahaan penyedia layanan jasa transportasi yang lengkap, profesional dan terpercaya."
+    },
+    {
+        "_id": {
+            "$oid": "674691116be2503cfb37b04e"
+        },
+        "command": "VISI",
+        "response": "Menjadi perusahaan jasa pengiriman cargo yang profesional & terpercaya dalam melayani klien maupun mitra bisnis."
+    },
+    {
+        "_id": {
+            "$oid": "674691246be2503cfb37b04f"
+        },
+        "command": "MISI",
+        "response": [
+            "Melaksanakan system kerja yang profesional.",
+            "Selalu memonitor pengiriman barang / cargo ke seluruh wilayah Indonesia kapanpun dan dimanapun.",
+            "Membangun, menjaga dan meningkatkan kepercayaan klien dengan pelayanan terbaik dan profesional.",
+            "Terus melakukan evaluasi dan inovasi dalam rangka meningkatkan kapasitas dan kualitas internal.",
+            "Memberikan keuntungan maksimal bagi perusahaan dan seluruh Stake holder."
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "6746916d6be2503cfb37b050"
+        },
+        "command": "LEGALITAS",
+        "response": {
+            "Deed of Establishment": "No. 18, Tanggal 14 Februari 2022 || Notaris Silviyanti, S.H., M.Kn",
+            "KEMENHUMHAM Decision": "No. AHU - 0014736 - AH.01.14 Tahun 2022",
+            "Tax Identification Number (NPWP)": "No. 63.410.875.7 - 402.000",
+            "Business Permit (SIUP)": "NIB. 2102220068549"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "674691766be2503cfb37b051"
+        },
+        "command": "LAYANAN",
+        "response": ["Cargo darat", "Cargo laut", "Cargo udara"]
+    }
+]

@@ -215,13 +215,6 @@
                                         >
                                     </li>
                                 </ul>
-                                <div class="py-1">
-                                    <a
-                                        href="#"
-                                        class="page-link block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                        >Sign in</a
-                                    >
-                                </div>
                             </div>
                         </li>
                     </ul>
@@ -356,13 +349,10 @@
                     class="flex flex-col space-y-4 sm:flex-row justify-start sm:space-y-0"
                 >
                     <a
-                        href="/customer/register"
+                        href="#about"
                         class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-green-300 dark:focus:ring-green-900"
                     >
-                        <span class="material-symbols-rounded mr-2">
-                            account_circle
-                        </span>
-                        Registrasi
+                        Learn more
                         <svg
                             class="w-3.5 h-3.5 ms-2 rtl:rotate-180"
                             aria-hidden="true"
@@ -378,12 +368,6 @@
                                 d="M1 5h12m0 0L9 1m4 4L9 9"
                             />
                         </svg>
-                    </a>
-                    <a
-                        href="#about"
-                        class="inline-flex justify-center bg-green-800 opacity-50 hover:text-gray-900 items-center py-3 px-5 sm:ms-4 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400"
-                    >
-                        Learn more
                     </a>
                 </div>
             </div>
@@ -669,7 +653,7 @@
                     <div
                         class="backdrop-blur-md bg-white/80 dark:bg-gray-800/80 shadow-xl rounded-2xl p-8 border border-gray-200 dark:border-gray-700"
                     >
-                        <form class="space-y-6">
+                        <form class="space-y-6" id="contact-form">
                             <!-- Name -->
                             <div>
                                 <label
@@ -1351,11 +1335,11 @@
                     <div class="bubble">
                         <p id="initial-chat"></p>
                         <div class="chat-options">
-                            <button onclick="fillTemplate('keluhan')">
-                                Keluhan
+                            <button onclick="fillTemplate('alamat')">
+                                Alamat
                             </button>
-                            <button onclick="fillTemplate('cek_pemesanan')">
-                                Cek Pemesanan
+                            <button onclick="fillTemplate('kontak')">
+                                Kontak
                             </button>
                         </div>
                     </div>
@@ -1483,6 +1467,21 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Overlay Transition -->
+        <div
+            id="page-transition"
+            class="fixed inset-0 z-[9999] flex items-center justify-center bg-green-600 transform translate-x-0 transition-transform duration-700 ease-in-out"
+        >
+            <div class="relative flex items-center justify-center">
+                <img
+                    src="/static/images/logo_transparant.png"
+                    alt="BCE Logo"
+                    class="relative w-24 h-24 animate-zoom-pulse logo-glow"
+                    id="bce-logo"
+                />
+            </div>
+        </div>
         <!-- Chatbot JS -->
         <script src="static/js/chatbot.js"></script>
         <!-- Flowbite JS -->
@@ -1516,6 +1515,15 @@
                     640: { slidesPerView: 3 },
                     1024: { slidesPerView: 5 },
                 },
+            });
+
+            // Transisi
+            const transitionEl = document.getElementById("page-transition");
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    transitionEl.classList.add("translate-x-full");
+                    transitionEl.classList.remove("translate-x-0");
+                }, 500);
             });
 
             // CONTACT US

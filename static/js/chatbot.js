@@ -50,10 +50,10 @@ function fillTemplate(type) {
     const textarea = document.querySelector(".chat-input textarea");
     const sendBtn = document.getElementById("send-btn");
 
-    if (type === "keluhan") {
-        textarea.value = "Saya ingin membuat keluhan caranya bagaimana ya?";
-    } else if (type === "cek_pemesanan") {
-        textarea.value = "Saya ingin mengecek status pemesanan";
+    if (type === "alamat") {
+        textarea.value = "Saya mau tahu alamat perusahaannya.";
+    } else if (type === "kontak") {
+        textarea.value = "Saya mau tahu kontak perusahannya.";
     }
 
     // Simulate click on send
