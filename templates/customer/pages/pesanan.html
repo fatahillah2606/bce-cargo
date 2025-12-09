@@ -561,9 +561,10 @@
                                             >
                                             <input
                                                 type="number"
-                                                id="berat-barang"
+                                                id="berat-barang-0"
                                                 name="berat-barang[]"
                                                 min="0.1"
+                                                max="25"
                                                 step="0.1"
                                                 required
                                                 placeholder="Berat (Kg)"
@@ -1242,92 +1243,121 @@
                 );
                 btn.classList.add("pointer-events-none"); // blokir klik
 
-                formPemesanan = document.getElementById("form-pemesanan");
-                const dataPemesanan = new FormData(formPemesanan);
-                let formBarang = document.querySelectorAll(".form-barang");
-                let dataBarang = [];
+                valid = true;
+                const beratBarang = document.querySelectorAll(
+                    '[id^="berat-barang-"]'
+                );
+                console.log(beratBarang);
 
-                formBarang.forEach((element, i) => {
-                    const nama_barang = element.querySelector(
-                        "[name='nama-barang[]']"
-                    ).value;
-                    const jumlah_barang = element.querySelector(
-                        "[name='jumlah-barang[]']"
-                    ).value;
-                    const berat_barang = element.querySelector(
-                        "[name='berat-barang[]']"
-                    ).value;
-                    const panjang =
-                        element.querySelector("[name='panjang[]']").value;
-                    const lebar =
-                        element.querySelector("[name='lebar[]']").value;
-                    const tinggi =
-                        element.querySelector("[name='tinggi[]']").value;
-                    const kategori_barang = element.querySelector(
-                        "[name='kategori-barang[]']"
-                    ).value;
-
-                    // Asuransi
-                    const asuransi = element.querySelector(
-                        `input[name='asuransi_${i}']:checked`
-                    );
-                    const butuh_asuransi = asuransi ? asuransi.value : "";
-
-                    const metode_pengiriman = element.querySelector(
-                        "[name='metode-pengiriman[]']"
-                    ).value;
-                    const catatan_barang = element.querySelector(
-                        "[name='catatan-barang[]']"
-                    ).value;
-
-                    // Push ke dataBarang[]
-                    dataBarang.push({
-                        nama_barang,
-                        jumlah_barang,
-                        berat_barang,
-                        panjang,
-                        lebar,
-                        tinggi,
-                        kategori_barang,
-                        butuh_asuransi,
-                        metode_pengiriman,
-                        catatan_barang,
-                    });
-                });
-
-                dataPemesanan.append("data_barang", JSON.stringify(dataBarang));
-
-                // for (const [name, value] of dataPemesanan) {
-                //     console.log(`${name}: ${value}`);
-                // }
-
-                // Kirim
-                fetch("/customer/api/pemesanan", {
-                    method: "POST",
-                    body: dataPemesanan,
-                })
-                    .then(async (respon) => {
-                        const data = await respon.json();
-                        if (!respon.ok) {
-                            throw new Error(data.message);
-                        }
-                        return data;
-                    })
-                    .then((data) => {
-                        alert(data.message);
+                beratBarang.forEach((beratKg) => {
+                    if (beratKg.value < 25) {
+                        valid = false;
+                        alert("berat barang minimal 25kg");
 
                         // Hilangkan overlay spinner
                         btn.querySelector(".loading-overlay").classList.add(
                             "hidden"
                         );
                         btn.classList.remove("pointer-events-none"); // blokir klik
+                    }
+                });
 
-                        // Pindahkan user ke halaman riwayat pesanan
-                        location.href = "/customer/riwayat";
-                    })
-                    .catch((error) => {
-                        console.error(error);
+                if (valid) {
+                    formPemesanan = document.getElementById("form-pemesanan");
+                    const dataPemesanan = new FormData(formPemesanan);
+                    let formBarang = document.querySelectorAll(".form-barang");
+                    let dataBarang = [];
+
+                    formBarang.forEach((element, i) => {
+                        const nama_barang = element.querySelector(
+                            "[name='nama-barang[]']"
+                        ).value;
+                        const jumlah_barang = element.querySelector(
+                            "[name='jumlah-barang[]']"
+                        ).value;
+                        const berat_barang = element.querySelector(
+                            "[name='berat-barang[]']"
+                        ).value;
+                        const panjang =
+                            element.querySelector("[name='panjang[]']").value;
+                        const lebar =
+                            element.querySelector("[name='lebar[]']").value;
+                        const tinggi =
+                            element.querySelector("[name='tinggi[]']").value;
+                        const kategori_barang = element.querySelector(
+                            "[name='kategori-barang[]']"
+                        ).value;
+
+                        // Asuransi
+                        const asuransi = element.querySelector(
+                            `input[name='asuransi_${i}']:checked`
+                        );
+                        const butuh_asuransi = asuransi ? asuransi.value : "";
+
+                        const metode_pengiriman = element.querySelector(
+                            "[name='metode-pengiriman[]']"
+                        ).value;
+                        const catatan_barang = element.querySelector(
+                            "[name='catatan-barang[]']"
+                        ).value;
+
+                        // Push ke dataBarang[]
+                        dataBarang.push({
+                            nama_barang,
+                            jumlah_barang,
+                            berat_barang,
+                            panjang,
+                            lebar,
+                            tinggi,
+                            kategori_barang,
+                            butuh_asuransi,
+                            metode_pengiriman,
+                            catatan_barang,
+                        });
                     });
+
+                    dataPemesanan.append(
+                        "data_barang",
+                        JSON.stringify(dataBarang)
+                    );
+
+                    // for (const [name, value] of dataPemesanan) {
+                    //     console.log(`${name}: ${value}`);
+                    // }
+
+                    // Kirim
+                    fetch("/customer/api/pemesanan", {
+                        method: "POST",
+                        body: dataPemesanan,
+                    })
+                        .then(async (respon) => {
+                            const data = await respon.json();
+                            if (!respon.ok) {
+                                throw new Error(data.message);
+                            }
+                            return data;
+                        })
+                        .then((data) => {
+                            alert(data.message);
+
+                            // Hilangkan overlay spinner
+                            btn.querySelector(".loading-overlay").classList.add(
+                                "hidden"
+                            );
+                            btn.classList.remove("pointer-events-none"); // blokir klik
+
+                            // Pindahkan user ke halaman riwayat pesanan
+                            location.href = "/customer/konfirmpemesanan";
+                        })
+                        .catch((error) => {
+                            // Hilangkan overlay spinner
+                            btn.querySelector(".loading-overlay").classList.add(
+                                "hidden"
+                            );
+                            btn.classList.remove("pointer-events-none"); // blokir klik
+                            console.error(error);
+                        });
+                }
             }
         </script>
     </body>

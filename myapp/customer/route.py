@@ -4,7 +4,7 @@ from connection import db_bce
 from pymongo import ReturnDocument
 from functools import wraps
 from datetime import datetime, timedelta, timezone
-import bcrypt, math, requests, json, pytz
+import bcrypt, math, requests, json, pytz, random
 from myapp.customer.generate_code import generate_verification_code
 from bson.objectid import ObjectId
 from myapp.email_utils import send_email_smtp
@@ -317,6 +317,66 @@ def riwayatSpesifik(kode_pesanan):
     else:
         return(redirect(url_for("customer.pendaftaran")))
 
+# KONFIRMASI PESANAN
+@customer_route.route("/konfirmpemesanan", methods=["GET", "POST"])
+@khusus_customer
+def konfirmpemesanan():
+    kategoriBarang = collection["kategori_barang_kargo"]
+
+    if "data_barang" in session and "data_pesanan" in session:
+        dataBarang = session.get("data_barang")
+        dataPemesanan = session.get("data_pesanan")
+        
+        print(session.get("data_barang"))
+        
+        for i in range(len(dataBarang)):
+            kategori = kategoriBarang.find_one({"_id": ObjectId(dataBarang[i]["kategori_id"])})
+            dataBarang[i]["nama_kategori"] = kategori["nama_kategori"]
+
+        biaya = {
+            "subtotal": (random.randint(25000, 100000) * len(dataBarang)),
+            "surcharge": random.randint(25000, 100000),
+            "packing": random.randint(25000, 100000),
+            "diskon": 0
+        }
+
+        # # Kirim email
+        # context = {
+        #     "tanggal_pemesanan": utc_to_indonesia(dataPemesanan["tanggal_pemesanan"], "tanggal"),
+        #     "nama_pengirim": dataPelanggan["nama_lengkap"],
+        #     "kode_pemesanan": dataPemesanan["kode_pemesanan"],
+        #     "invoice_number": dataInvoice["kode_invoice"],
+        #     "tanggal_invoice": utc_to_indonesia(dataInvoice["tanggal_invoice"], "tanggal"),
+        #     "nama_pengirim": dataPemesanan["nama_pengirim"],
+        #     "alamat_pengirim": dataPemesanan["alamat_pengirim"],
+        #     "no_hp_pengirim": dataPemesanan["no_hp_pengirim"],
+        #     "data_barang": listDataBarang,
+        #     "subtotal": format_rupiah(dataInvoice["rincian_pembayaran"]["subtotal"]),
+        #     "surcharge_dg": format_rupiah(dataInvoice["rincian_pembayaran"]["surcharge_dg"]),
+        #     "biaya_packing": format_rupiah(dataInvoice["rincian_pembayaran"]["biaya_packing"]),
+        #     "diskon": f"{dataInvoice["rincian_pembayaran"]["diskon"]}%",
+        #     "total": format_rupiah(dataInvoice["rincian_pembayaran"]["total"]),
+        #     "APP_NAME": "CV. Bahtera Cahaya Express"
+        # }
+
+        # # Render template Jinja (HTML & plain-text)
+        # html_body = render_template("emails/customer/pesanan_diterima.html", **context)
+        # text_body = render_template("emails/customer/pesanan_diterima.txt", **context)
+
+        # send_email_smtp(
+        #     host = current_app.config["MAIL_SERVER"],
+        #     port = current_app.config["MAIL_PORT"],
+        #     sender = current_app.config["MAIL_SENDER"],
+        #     to = akunPelanggan["email"],
+        #     subject = f"Pesanan diterima",
+        #     html_body = html_body,
+        #     text_body = text_body
+        # )
+
+        return render_template("customer/pages/konfirmpemesanan.html", data_barang = dataBarang, data_pesanan = dataPemesanan, biaya = biaya)
+    else: 
+        return(redirect(url_for("customer.pesanan")))
+
 # Invoice
 @customer_route.route("/invoice/<kode_invoice>", methods=["GET", "POST"])
 @khusus_customer
@@ -516,11 +576,14 @@ def pemesanan():
                 }
 
                 # Kirim data barang ke DB
-                collection["data_barang"].insert_one(DataBarang)
+                # collection["data_barang"].insert_one(DataBarang)
 
-                listBarang.append(idBarang)
+                listBarang.append(convert_objectid_to_str(DataBarang))
                 beratKargo = beratKargo + float(barang["berat_barang"])
                 modaBarang = str(barang["metode_pengiriman"])
+
+            # Simpan data barang ke sesi
+            session["data_barang"] = listBarang
 
             kodePesanan = generate_kode_pemesanan(modaBarang)
             # Data pesanan
@@ -539,47 +602,47 @@ def pemesanan():
                 "status": "Pending",
                 "tanggal_pemesanan": datetime.now(timezone.utc),
                 "pelanggan_id": dataPemesan["_id"],
-                "barang_ids": listBarang
+                "barang_ids": [barang_ids["_id"] for barang_ids in listBarang]
             }
-
-            buatPesanan = collection["pemesanan_kargo"].insert_one(DataPesanan)
+            # buatPesanan = collection["pemesanan_kargo"].insert_one(DataPesanan)
+            session["data_pesanan"] = convert_objectid_to_str(DataPesanan)
 
             # Kirim email ke setiap admin
-            if buatPesanan:
-                ambilEmailAdmin = collection["users"].find({"role": "admin"}, {"email": 1})
-                listEmailAdmin = [listEmail["email"] for listEmail in ambilEmailAdmin]
+            # if buatPesanan:
+            #     ambilEmailAdmin = collection["users"].find({"role": "admin"}, {"email": 1})
+            #     listEmailAdmin = [listEmail["email"] for listEmail in ambilEmailAdmin]
 
-                # Bagian kirm email
-                # Data untuk template
-                context = {
-                    "kode_pemesanan": kodePesanan,
-                    "nama_pengirim": namaPengirim,
-                    "no_hp_pengirim": noPengirim,
-                    "alamat_pengirim": alamatLengkapPengirim,
-                    "nama_penerima": namaPenerima,
-                    "no_hp_penerima": noPenerima,
-                    "alamat_penerima": alamatLengkapPenerima,
-                    "jenis_kargo": modaBarang,
-                    "berat_kargo": beratKargo,
-                    "tanggal_pemesanan": convert_utc_to_indonesia(datetime.now(timezone.utc)),
-                    "ADMIN_DASHBOARD_URL": f"http://localhost:5000/admin/pesanan_masuk",
-                    "APP_NAME": "CV. Bahtera Cahaya Express"
-                }
+            #     # Bagian kirm email
+            #     # Data untuk template
+            #     context = {
+            #         "kode_pemesanan": kodePesanan,
+            #         "nama_pengirim": namaPengirim,
+            #         "no_hp_pengirim": noPengirim,
+            #         "alamat_pengirim": alamatLengkapPengirim,
+            #         "nama_penerima": namaPenerima,
+            #         "no_hp_penerima": noPenerima,
+            #         "alamat_penerima": alamatLengkapPenerima,
+            #         "jenis_kargo": modaBarang,
+            #         "berat_kargo": beratKargo,
+            #         "tanggal_pemesanan": convert_utc_to_indonesia(datetime.now(timezone.utc)),
+            #         "ADMIN_DASHBOARD_URL": f"http://localhost:5000/admin/pesanan_masuk",
+            #         "APP_NAME": "CV. Bahtera Cahaya Express"
+            #     }
 
-                html_body = render_template("emails/admin/pesan_baru.html", **context)
-                text_body = render_template("emails/admin/pesan_baru.txt", **context)
+            #     html_body = render_template("emails/admin/pesan_baru.html", **context)
+            #     text_body = render_template("emails/admin/pesan_baru.txt", **context)
 
-                # Hanya 1 kali kirim dengan BCC
-                send_email_smtp(
-                    host=current_app.config["MAIL_SERVER"],
-                    port=current_app.config["MAIL_PORT"],
-                    sender=current_app.config["MAIL_SENDER"],
-                    to="no-reply@bce-cargo.local",  # placeholder
-                    subject=f"Pesanan Baru #{kodePesanan}",
-                    html_body=html_body,
-                    text_body=text_body,
-                    bcc=listEmailAdmin
-                )
+            #     # Hanya 1 kali kirim dengan BCC
+            #     send_email_smtp(
+            #         host=current_app.config["MAIL_SERVER"],
+            #         port=current_app.config["MAIL_PORT"],
+            #         sender=current_app.config["MAIL_SENDER"],
+            #         to="no-reply@bce-cargo.local",  # placeholder
+            #         subject=f"Pesanan Baru #{kodePesanan}",
+            #         html_body=html_body,
+            #         text_body=text_body,
+            #         bcc=listEmailAdmin
+            #     )
 
             return respon_api("success", 200, str("Data terkirim"), [], {})
         else:
@@ -587,7 +650,6 @@ def pemesanan():
         
     except Exception as error:
         return respon_api("error", 500, str(error), [], {}), 500
-
 
 # Autentikasi
 @customer_route.route("/api/auth", methods=["GET", "POST"])
