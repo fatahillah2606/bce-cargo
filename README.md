@@ -1,28 +1,26 @@
-# 🚀 Bahtera Cahaya Express
+# Bahtera Cahaya Express
 
-Proyek ini adalah aplikasi web berbasis **Python Flask** dengan integrasi **Flowbite** untuk styling. Dokumentasi ini akan memandu Anda dalam menjalankan proyek ini dari awal hingga siap digunakan untuk pengembangan.
+Proyek ini adalah aplikasi web berbasis **Python Flask** dengan integrasi **Flowbite** untuk styling.
 
 ---
 
-## 📦 Requirements
+## Requirements
 
 Pastikan Anda telah menginstal:
 
 - Python 3.8+
 - Node.js & npm
-- Git (opsional, untuk clone repositori)
+- Git (untuk clone repositori)
 
 ---
 
-## ⚙️ Langkah-Langkah Instalasi
+## Langkah-Langkah Instalasi
 
-Ikuti langkah-langkah berikut untuk menyiapkan dan menjalankan proyek.
-
-### 1. Clone Repository (Jika Belum)
+### 1. Clone Repository
 
 ```bash
 git clone https://github.com/fatahillah2606/bce-cargo.git
-cd nama-proyek-anda
+cd bce-cargo
 ```
 
 ### 2. Buat dan Aktifkan Virtual Environment
@@ -64,7 +62,7 @@ Lalu, sesuaikan nilai-nilai di dalam ```.env``` sesuai dengan konfigurasi lokal 
 
 ---
 
-## 🎨 Menjalankan Tailwind CSS
+## Menjalankan Tailwind CSS
 
 Untuk memproses file Tailwind CSS secara otomatis:
 
@@ -76,9 +74,9 @@ Perintah ini akan memantau perubahan dan membangun ulang file CSS ke dalam direk
 
 ---
 
-## 🚀 Menjalankan Aplikasi Flask
+## Menjalankan Aplikasi Flask
 
-Aktifkan virtual environment (jika belum) lalu jalankan server:
+Aktifkan virtual environment lalu jalankan server:
 
 ```bash
 flask run --debug
@@ -86,4 +84,4 @@ flask run --debug
 
 Aplikasi akan tersedia di http://127.0.0.1:5000.
 
-> Made with ❤️ + ☕ Flask + 🌈 Tailwind CSS
+> Made with ❤️ by BCE Team
