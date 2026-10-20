@@ -14,9 +14,9 @@ itsdangerous==2.2.0
 Jinja2==3.1.6
 MarkupSafe==3.0.3
 msgspec==0.20.0
-pymongo==4.16.0
+pymongo==4.19.0
 python-dotenv==1.2.2
 pytz==2025.2
 requests==2.33.1
-urllib3==2.7.0
+urllib3==2.8.0
 Werkzeug==3.1.9
